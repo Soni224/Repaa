@@ -1,26 +1,632 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <script src="https://telegram.org"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <style>
-        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; }
-        button { background: #0088cc; color: white; border: none; padding: 15px; margin: 10px; border-radius: 10px; width: 80%; }
+        /* ═══════════════════════════════════════════
+           Design Tokens
+           ═══════════════════════════════════════════ */
+        :root {
+            --bg: #07070e;
+            --fg: #eaeaf2;
+            --muted: #6e6e85;
+            --accent: #00e5ff;
+            --accent-2: #ff1a6d;
+            --card: rgba(255, 255, 255, 0.035);
+            --card-border: rgba(255, 255, 255, 0.065);
+            --glass-blur: 22px;
+        }
+
+        /* ═══════════════════════════════════════════
+           Reset & Base
+           ═══════════════════════════════════════════ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Subtle dot-grid overlay for depth */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ═══════════════════════════════════════════
+           Animated Background Orbs
+           ═══════════════════════════════════════════ */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 360px; height: 360px;
+            background: var(--accent);
+            top: -120px; left: -100px;
+            animation: drift1 14s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 320px; height: 320px;
+            background: var(--accent-2);
+            bottom: -100px; right: -80px;
+            animation: drift2 17s ease-in-out infinite;
+        }
+        .orb-3 {
+            width: 260px; height: 260px;
+            background: #8b5cf6;
+            top: 45%; left: 55%;
+            animation: drift3 20s ease-in-out infinite;
+        }
+
+        @keyframes drift1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33%      { transform: translate(70px, 90px) scale(1.12); }
+            66%      { transform: translate(-35px, 50px) scale(0.92); }
+        }
+        @keyframes drift2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33%      { transform: translate(-55px, -70px) scale(1.15); }
+            66%      { transform: translate(45px, -35px) scale(0.93); }
+        }
+        @keyframes drift3 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50%      { transform: translate(-35%, -65%) scale(1.18); }
+        }
+
+        /* ═══════════════════════════════════════════
+           Glass Card
+           ═══════════════════════════════════════════ */
+        .glass-card {
+            background: var(--card);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 20px 18px;
+            cursor: pointer;
+            transition:
+                transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.38s ease,
+                box-shadow 0.38s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top-edge highlight line */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.1) 50%, transparent 95%);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.025);
+            border-color: var(--card-hover-border, rgba(0, 229, 255, 0.28));
+            box-shadow:
+                0 10px 40px rgba(0, 229, 255, 0.07),
+                0 0 0 1px rgba(0, 229, 255, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .glass-card:active {
+            transform: translateY(0) scale(0.97);
+            transition-duration: 0.1s;
+        }
+
+        .glass-card:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Non-interactive card variant */
+        .glass-card--static {
+            cursor: default;
+        }
+        .glass-card--static:hover {
+            transform: none;
+        }
+
+        /* ═══════════════════════════════════════════
+           Card Icon
+           ═══════════════════════════════════════════ */
+        .card-icon {
+            width: 46px; height: 46px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            transition: transform 0.38s ease, box-shadow 0.38s ease;
+        }
+        .card-icon svg {
+            width: 22px; height: 22px;
+        }
+        .glass-card:hover .card-icon {
+            transform: scale(1.12);
+            box-shadow: 0 0 22px var(--icon-glow, rgba(0,229,255,0.25));
+        }
+
+        /* ═══════════════════════════════════════════
+           Entry Animations
+           ═══════════════════════════════════════════ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(22px);
+            animation: fadeUp 0.55s ease forwards;
+        }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-down {
+            opacity: 0;
+            transform: translateY(-18px);
+            animation: fadeDown 0.6s ease forwards;
+        }
+        @keyframes fadeDown {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══════════════════════════════════════════
+           Ping Button
+           ═══════════════════════════════════════════ */
+        .ping-btn {
+            background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(139,92,246,0.12));
+            border: 1px solid rgba(0,229,255,0.18);
+            color: var(--accent);
+            padding: 13px 24px;
+            border-radius: 13px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .ping-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,229,255,0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .ping-btn:hover {
+            border-color: rgba(0,229,255,0.35);
+            box-shadow: 0 0 24px rgba(0,229,255,0.12);
+        }
+        .ping-btn:hover::after { opacity: 1; }
+        .ping-btn:active { transform: scale(0.97); }
+        .ping-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .ping-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* ═══════════════════════════════════════════
+           Toast
+           ═══════════════════════════════════════════ */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(16px);
+            background: rgba(0, 229, 255, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            color: var(--accent);
+            padding: 10px 22px;
+            border-radius: 11px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 200;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ═══════════════════════════════════════════
+           Dev Notice (outside Telegram)
+           ═══════════════════════════════════════════ */
+        .dev-notice {
+            background: rgba(255, 26, 109, 0.08);
+            border: 1px solid rgba(255, 26, 109, 0.22);
+            color: var(--accent-2);
+            padding: 11px 16px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* ═══════════════════════════════════════════
+           Header Accent Line
+           ═══════════════════════════════════════════ */
+        .accent-line {
+            height: 2px;
+            width: 48px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            margin-top: 10px;
+        }
+
+        /* ═══════════════════════════════════════════
+           Scrollbar
+           ═══════════════════════════════════════════ */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
+
+        /* ═══════════════════════════════════════════
+           Reduced Motion
+           ═══════════════════════════════════════════ */
+        @media (prefers-reduced-motion: reduce) {
+            .orb { animation: none !important; }
+            .glass-card, .card-icon, .ping-btn { transition: none !important; }
+            .fade-up, .fade-down { animation: none !important; opacity: 1; transform: none; }
+        }
     </style>
 </head>
 <body>
-    <h1>Меню (150+ кнопок)</h1>
-    <button onclick="sendData('Настройка 1')">Настройка 1</button>
-    <button onclick="sendData('Баланс')">Проверить баланс</button>
+
+    <!-- Atmospheric background orbs -->
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+    <div class="orb orb-3" aria-hidden="true"></div>
+
+    <!-- Main content -->
+    <main class="relative z-10 min-h-screen min-h-[100dvh] px-4 pt-6 pb-28 max-w-md mx-auto">
+
+        <!-- Header -->
+        <header class="fade-down mb-2">
+            <h1 class="text-[26px] font-extrabold tracking-tight leading-tight" style="color: var(--fg);">
+                Dashboard
+            </h1>
+            <div class="accent-line"></div>
+        </header>
+        <p id="greeting" class="fade-down text-[13px] mt-3 mb-7" style="color: var(--muted); animation-delay: 0.08s;">
+            Loading...
+        </p>
+
+        <!-- Shown only when running outside Telegram -->
+        <div id="devNotice" class="dev-notice mb-5 hidden fade-up" style="animation-delay: 0.1s;">
+            Preview mode — running outside Telegram. Card clicks are logged to console instead of sending data.
+        </div>
+
+        <!-- Cards grid -->
+        <section aria-label="Dashboard categories">
+            <div id="cardsGrid" class="grid grid-cols-2 gap-3" role="list"></div>
+        </section>
+
+        <!-- Background ping section -->
+        <section class="mt-7 fade-up" style="animation-delay: 0.7s;" aria-label="Background interaction demo">
+            <div class="glass-card glass-card--static">
+                <p class="text-[10px] font-semibold tracking-widest mb-2" style="color: var(--muted); opacity: 0.7;">
+                    BACKGROUND EVENT
+                </p>
+                <p class="text-[12px] mb-4 leading-relaxed" style="color: rgba(255,255,255,0.32);">
+                    Sends a message to the bot <em>without</em> closing this view — unlike card taps which use sendData.
+                </p>
+                <button id="pingBtn" class="ping-btn" aria-label="Send a background ping to the bot">
+                    Send Background Ping
+                </button>
+                <p id="pingStatus" class="text-[11px] mt-3 text-center font-medium" style="color: var(--muted); min-height: 16px;"></p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
 
     <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand(); // Разворачиваем на весь экран
+        // ═══════════════════════════════════════════════════════
+        // Telegram WebApp API reference
+        // ═══════════════════════════════════════════════════════
+        const tg = window.Telegram && window.Telegram.WebApp;
+        const isTelegram = !!tg;
 
-        function sendData(text) {
-            // Вариант 1: Отправить данные и закрыть (sendData)
-            tg.sendData(text); 
+        // chat_id passed via URL by the bot when opening the Mini App
+        const urlParams = new URLSearchParams(window.location.search);
+        const chatId = urlParams.get('chat_id');
+
+        // ═══════════════════════════════════════════════════════
+        // Card Definitions — 8 categories
+        // ═══════════════════════════════════════════════════════
+        const cards = [
+            {
+                id: 'profile',
+                title: 'Profile',
+                desc: 'Manage identity',
+                color: '#00e5ff',
+                bg: 'rgba(0,229,255,0.1)',
+                // Person icon
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+            },
+            {
+                id: 'settings',
+                title: 'Settings',
+                desc: 'Customize app',
+                color: '#a78bfa',
+                bg: 'rgba(167,139,250,0.1)',
+                // Sliders icon
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>'
+            },
+            {
+                id: 'wallet',
+                title: 'Wallet',
+                desc: 'Balance & funds',
+                color: '#34d399',
+                bg: 'rgba(52,211,153,0.1)',
+                // Credit card icon
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/><circle cx="18" cy="15" r="1" fill="currentColor"/></svg>'
+            },
+            {
+                id: 'analytics',
+                title: 'Analytics',
+                desc: 'Track activity',
+                color: '#fbbf24',
+                bg: 'rgba(251,191,36,0.1)',
+                // Bar chart icon
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="6" width="4" height="15" rx="1"/><rect x="17" y="2" width="4" height="19" rx="1"/></svg>'
+            },
+            {
+                id: 'notifications',
+                title: 'Alerts',
+                desc: 'Stay updated',
+                color: '#f97316',
+                bg: 'rgba(249,115,22,0.1)',
+                // Bell icon
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>'
+            },
+            {
+                id: 'security',
+                title: 'Security',
+                desc: 'Privacy & guard',
+                color: '#ff1a6d',
+                bg: 'rgba(255,26,109,0.1)',
+                // Shield icon
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>'
+            },
+            {
+                id: 'referrals',
+                title: 'Referrals',
+                desc: 'Invite friends',
+                color: '#38bdf8',
+                bg: 'rgba(56,189,248,0.1)',
+                // Users icon
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+            },
+            {
+                id: 'premium',
+                title: 'Premium',
+                desc: 'Unlock power',
+                color: '#facc15',
+                bg: 'rgba(250,204,21,0.1)',
+                // Star icon
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
+            }
+        ];
+
+        // ═══════════════════════════════════════════════════════
+        // Initialization
+        // ═══════════════════════════════════════════════════════
+        function init() {
+            if (isTelegram) {
+                // Signal that the Mini App is ready
+                tg.ready();
+                tg.expand();
+
+                // Match the app background to our dark theme
+                tg.setHeaderColor('#07070e');
+                tg.setBackgroundColor('#07070e');
+
+                // Configure Telegram's native MainButton as a Close button
+                tg.MainButton.text = 'Close';
+                tg.MainButton.color = '#ff1a6d';
+                tg.MainButton.textColor = '#ffffff';
+                tg.MainButton.show();
+                tg.MainButton.onClick(function () {
+                    tg.close();
+                });
+
+                // Personalize greeting from Telegram user data
+                var user = tg.initDataUnsafe && tg.initDataUnsafe.user;
+                if (user) {
+                    var name = user.first_name || 'User';
+                    document.getElementById('greeting').textContent =
+                        'Welcome back, ' + name + '. Tap any card to send data.';
+                } else {
+                    document.getElementById('greeting').textContent =
+                        'Welcome back. Tap any card to send data.';
+                }
+            } else {
+                // Running in a regular browser — show dev notice
+                document.getElementById('devNotice').classList.remove('hidden');
+                document.getElementById('greeting').textContent =
+                    'Welcome, Developer. Card clicks log to console.';
+            }
+
+            renderCards();
+            setupPingButton();
         }
+
+        // ═══════════════════════════════════════════════════════
+        // Render Card Grid
+        // ═══════════════════════════════════════════════════════
+        function renderCards() {
+            var grid = document.getElementById('cardsGrid');
+
+            cards.forEach(function (card, index) {
+                var el = document.createElement('div');
+                el.className = 'glass-card fade-up';
+                el.style.animationDelay = (0.12 + index * 0.06) + 's';
+                // Per-card hover glow color
+                el.style.setProperty('--card-hover-border', card.color + '45');
+                el.style.setProperty('--icon-glow', card.color + '35');
+                el.setAttribute('role', 'listitem');
+                el.setAttribute('tabindex', '0');
+                el.setAttribute('aria-label', card.title + ': ' + card.desc);
+
+                el.innerHTML =
+                    '<div class="card-icon" style="background:' + card.bg + ';color:' + card.color + ';">' +
+                        card.icon +
+                    '</div>' +
+                    '<h3 class="text-[13px] font-semibold leading-tight" style="color:var(--fg);">' + card.title + '</h3>' +
+                    '<p class="text-[11px] mt-1 leading-snug" style="color:var(--muted);">' + card.desc + '</p>';
+
+                // Click → send JSON via tg.sendData() → webview closes
+                el.addEventListener('click', function () { handleCardClick(card); });
+
+                // Keyboard support
+                el.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCardClick(card);
+                    }
+                });
+
+                grid.appendChild(el);
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // Card Click — Primary Data Channel (closes webview)
+        // ═══════════════════════════════════════════════════════
+        function handleCardClick(card) {
+            var payload = JSON.stringify({
+                category: card.id,
+                action: 'open',
+                timestamp: new Date().toISOString()
+            });
+
+            if (isTelegram && tg.sendData) {
+                // tg.sendData() sends the string to the bot's
+                // web_app_data handler and IMMEDIATELY closes the webview
+                tg.sendData(payload);
+            } else {
+                // Development fallback — log instead of sending
+                console.log('[Mini App] Would sendData:', payload);
+                showToast('Sent: ' + card.title);
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // Background Ping — Secondary Channel (keeps webview open)
+        // ═══════════════════════════════════════════════════════
+        function setupPingButton() {
+            var btn = document.getElementById('pingBtn');
+            var status = document.getElementById('pingStatus');
+
+            btn.addEventListener('click', async function () {
+                if (!chatId) {
+                    showToast('No chat_id — open this via the bot');
+                    status.textContent = 'No chat_id available';
+                    status.style.color = 'var(--accent-2)';
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.textContent = 'Sending...';
+                status.textContent = '';
+
+                try {
+                    var resp = await fetch('/api/event', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: parseInt(chatId, 10),
+                            event: 'ping',
+                            data: {
+                                source: 'mini_app_background',
+                                timestamp: new Date().toISOString()
+                            }
+                        })
+                    });
+
+                    var result = await resp.json();
+
+                    if (result.ok) {
+                        status.textContent = 'Message delivered to chat';
+                        status.style.color = '#34d399';
+                        showToast('Background ping sent');
+                    } else {
+                        status.textContent = result.error || 'Failed to send';
+                        status.style.color = 'var(--accent-2)';
+                    }
+                } catch (err) {
+                    status.textContent = 'Network error';
+                    status.style.color = 'var(--accent-2)';
+                    console.error('[Ping error]', err);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Send Background Ping';
+                }
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // Toast Helper
+        // ═══════════════════════════════════════════════════════
+        var toastTimer = null;
+        function showToast(msg) {
+            var el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('visible');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () {
+                el.classList.remove('visible');
+            }, 2400);
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // Boot
+        // ═══════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
