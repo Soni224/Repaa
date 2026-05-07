@@ -1,224 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App Dashboard</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Telegram Web App Script -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
-    <style>
-        /* Dark Glassmorphism Base & Telegram Variable Fallbacks */
-        :root {
-            --tg-bg: var(--tg-theme-bg-color, #1a1a2e);
-            --tg-text: var(--tg-theme-text-color, #eaeaea);
-            --tg-hint: var(--tg-theme-hint-color, #a0a0a0);
-            --tg-button: var(--tg-theme-button-color, #5b5fc7);
-            --tg-button-text: var(--tg-theme-button-text-color, #ffffff);
-        }
-
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: var(--tg-text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        /* Animations */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-card {
-            animation: fadeSlideUp 0.6s ease-out forwards;
-            opacity: 0;
-        }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
-        .delay-6 { animation-delay: 0.6s; }
-
-        /* Custom Button Styles */
-        .btn-primary {
-            background-color: var(--tg-button);
-            color: var(--tg-button-text);
-            border: none;
-            border-radius: 12px;
-            padding: 8px 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .btn-primary:active { opacity: 0.7; }
-
-        .btn-ghost {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--tg-text);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 8px 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-ghost:active { background: rgba(255, 255, 255, 0.2); }
-    </style>
-</head>
-<body>
-
-    <div class="max-w-4xl mx-auto p-4 pb-10">
-        <!-- Header -->
-        <header class="text-center mb-8 animate-card">
-            <h1 class="text-3xl font-bold mb-2" style="color: var(--tg-text);">Control Panel</h1>
-            <p style="color: var(--tg-hint);" class="text-sm">Manage your Telegram Mini App workflows</p>
-        </header>
-
-        <!-- Dashboard Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            
-            <!-- Card 1 -->
-            <div class="glass-card p-6 flex flex-col justify-between animate-card delay-1">
-                <div>
-                    <div class="text-3xl mb-4">🔧</div>
-                    <h3 class="text-lg font-semibold mb-1">Services</h3>
-                    <p style="color: var(--tg-hint);" class="text-xs mb-4">Check system status and uptime.</p>
-                </div>
-                <div class="flex gap-2">
-                    <button class="btn-ghost flex-1 text-xs" onclick="sendBackgroundAction('service')">Notify Me</button>
-                    <button class="btn-primary flex-1 text-xs" onclick="sendInstantAction('service')">Quick Run</button>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="glass-card p-6 flex flex-col justify-between animate-card delay-2">
-                <div>
-                    <div class="text-3xl mb-4">✅</div>
-                    <h3 class="text-lg font-semibold mb-1">Tasks</h3>
-                    <p style="color: var(--tg-hint);" class="text-xs mb-4">Automate background processes.</p>
-                </div>
-                <div class="flex gap-2">
-                    <button class="btn-ghost flex-1 text-xs" onclick="sendBackgroundAction('task')">Notify Me</button>
-                    <button class="btn-primary flex-1 text-xs" onclick="sendInstantAction('task')">Quick Run</button>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="glass-card p-6 flex flex-col justify-between animate-card delay-3">
-                <div>
-                    <div class="text-3xl mb-4">🎁</div>
-                    <h3 class="text-lg font-semibold mb-1">Rewards</h3>
-                    <p style="color: var(--tg-hint);" class="text-xs mb-4">Claim daily bonuses and perks.</p>
-                </div>
-                <div class="flex gap-2">
-                    <button class="btn-ghost flex-1 text-xs" onclick="sendBackgroundAction('reward')">Notify Me</button>
-                    <button class="btn-primary flex-1 text-xs" onclick="sendInstantAction('reward')">Quick Run</button>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="glass-card p-6 flex flex-col justify-between animate-card delay-4">
-                <div>
-                    <div class="text-3xl mb-4">💰</div>
-                    <h3 class="text-lg font-semibold mb-1">Wallet</h3>
-                    <p style="color: var(--tg-hint);" class="text-xs mb-4">View balance and transaction history.</p>
-                </div>
-                <div class="flex gap-2">
-                    <button class="btn-ghost flex-1 text-xs" onclick="sendBackgroundAction('wallet')">Notify Me</button>
-                    <button class="btn-primary flex-1 text-xs" onclick="sendInstantAction('wallet')">Quick Run</button>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="glass-card p-6 flex flex-col justify-between animate-card delay-5">
-                <div>
-                    <div class="text-3xl mb-4">⚙️</div>
-                    <h3 class="text-lg font-semibold mb-1">Settings</h3>
-                    <p style="color: var(--tg-hint);" class="text-xs mb-4">Configure app preferences.</p>
-                </div>
-                <div class="flex gap-2">
-                    <button class="btn-ghost flex-1 text-xs" onclick="sendBackgroundAction('settings')">Notify Me</button>
-                    <button class="btn-primary flex-1 text-xs" onclick="sendInstantAction('settings')">Quick Run</button>
-                </div>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="glass-card p-6 flex flex-col justify-between animate-card delay-6">
-                <div>
-                    <div class="text-3xl mb-4">👤</div>
-                    <h3 class="text-lg font-semibold mb-1">Profile</h3>
-                    <p style="color: var(--tg-hint);" class="text-xs mb-4">Sync account data seamlessly.</p>
-                </div>
-                <div class="flex gap-2">
-                    <button class="btn-ghost flex-1 text-xs" onclick="sendBackgroundAction('profile')">Notify Me</button>
-                    <button class="btn-primary flex-1 text-xs" onclick="sendInstantAction('profile')">Quick Run</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
     <script>
         // Initialize Telegram Web App
         const tg = window.Telegram.WebApp;
         tg.ready();
-        tg.expand(); // Expand app to full height
+        tg.expand();
 
         const user = tg.initDataUnsafe.user;
 
         // ==========================================================
-        // 📍 WHERE TO PUT YOUR CODESPACES URL (STEP 1)
-        // Replace this variable with your PUBLIC Codespaces URL
+        // 📍 ВСТАВЬТЕ СЮДА ВАШУ ССЫЛКУ ИЗ CODESPACES
+        // Метод .replace() автоматически удаляет слеш на конце, 
+        // если вы случайно его скопируете. Это спасет от ошибки //api/action
         // ==========================================================
-        const CODESPACES_BACKEND_URL = "https://improved-halibut-q7pg7xp5j7xg29xqq-8000.app.github.dev/";
+        const CODESPACES_BACKEND_URL = "https://improved-halibut-q7pg7xp5j7xg29xqq-8000.app.github.dev/".replace(/\/+$/, '');
         // ==========================================================
 
         /**
-         * METHOD 1: tg.sendData()
-         * Sends a string to the bot, then IMMEDIATELY CLOSES the Mini App.
-         * You must handle this data in your Aiogram message handler.
+         * МЕТОД 1: tg.sendData()
+         * Отправляет данные боту и МГНОВЕННО ЗАКРЫВАЕТ Mini App.
          */
         function sendInstantAction(actionType) {
-            if (!user) return alert("User data not available.");
+            if (!user) return tg.showPopup({ title: "Ошибка", message: "Данные пользователя недоступны." });
             
             const payload = JSON.stringify({
                 user_id: user.id,
                 action_type: actionType
             });
 
-            tg.sendData(payload); // This closes the app!
+            tg.sendData(payload);
         }
 
         /**
-         * METHOD 2: Async Fetch
-         * Sends data to your backend API.
-         * Keeps the Mini App OPEN and shows a success popup.
+         * МЕТОД 2: Async Fetch (Background)
+         * Отправляет запрос в бэкенд. Приложение остается открытым.
          */
         async function sendBackgroundAction(actionType) {
-            if (!user) return alert("User data not available.");
+            if (!user) return tg.showPopup({ title: "Ошибка", message: "Данные пользователя недоступны." });
 
+            // Теперь URL собирается идеально: https://...app.github.dev/api/action
             try {
                 const response = await fetch(`${CODESPACES_BACKEND_URL}/api/action`, {
                     method: "POST",
@@ -233,21 +51,19 @@
 
                 if (response.ok) {
                     tg.showPopup({
-                        title: "Success ✨",
-                        message: "Check your Telegram chat for the message!",
+                        title: "Успешно ✨",
+                        message: "Проверьте чат Telegram — сообщение отправлено!",
                         buttons: [{ type: "ok" }]
                     });
                 } else {
-                    throw new Error(result.message);
+                    throw new Error(result.message || "Server error");
                 }
             } catch (error) {
                 tg.showPopup({
-                    title: "Error ❌",
-                    message: "Could not reach backend. Is the Codespace running and URL public?",
+                    title: "Ошибка сети ❌",
+                    message: "Не удалось связаться с бэкендом. Проверьте, запущен ли Codespace и открыт ли порт.",
                     buttons: [{ type: "ok" }]
                 });
             }
         }
     </script>
-</body>
-</html>
