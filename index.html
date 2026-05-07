@@ -1,373 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
-  <!-- Telegram Web App SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <title>Dashboard — Telegram Mini App</title>
-
-  <style>
-    /* ── Dark Glassmorphism base ── */
-    body {
-      background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 50%, #16213e 100%);
-      min-height: 100dvh;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    /* Subtle animated background orbs */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.25;
-      pointer-events: none;
-      z-index: 0;
-      animation: float 12s ease-in-out infinite alternate;
-    }
-    .orb-1 { width: 320px; height: 320px; background: #6366f1; top: -80px; left: -60px; }
-    .orb-2 { width: 260px; height: 260px; background: #8b5cf6; bottom: -40px; right: -40px; animation-delay: -4s; }
-    .orb-3 { width: 200px; height: 200px; background: #3b82f6; top: 50%; left: 60%; animation-delay: -8s; }
-
-    @keyframes float {
-      0%   { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, -30px) scale(1.08); }
-    }
-
-    /* Glass card */
-    .glass {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    /* Action button glow on hover */
-    .action-btn {
-      transition: all 0.25s ease;
-    }
-    .action-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.25);
-    }
-    .action-btn:active {
-      transform: scale(0.97);
-    }
-
-    /* Spinner */
-    .spinner {
-      border: 3px solid rgba(255, 255, 255, 0.15);
-      border-top-color: #a5b4fc;
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      animation: spin 0.7s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Toast notification */
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      opacity: 0;
-      transition: all 0.35s ease;
-      z-index: 100;
-    }
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    /* Telegram theme helpers — respect user's dark/light preference */
-    .tg-theme-bg { background-color: var(--tg-theme-bg-color, #1a1a2e); }
-    .tg-theme-text { color: var(--tg-theme-text-color, #ffffff); }
-    .tg-theme-hint { color: var(--tg-theme-hint-color, #aaaaaa); }
-    .tg-theme-button { background-color: var(--tg-theme-button-color, #6366f1); }
-    .tg-theme-button-text { color: var(--tg-theme-button-text-color, #ffffff); }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org"></script>
+    <script src="https://tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    </style>
 </head>
+<body class="p-6 flex flex-col items-center justify-center min-h-screen">
 
-<body class="flex items-center justify-center p-4">
-
-  <!-- Ambient orbs -->
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-
-  <!-- ══════════════════════════════════════════
-       MAIN CARD
-       ══════════════════════════════════════════ -->
-  <main class="relative z-10 w-full max-w-sm">
-
-    <!-- Header -->
-    <div class="glass rounded-2xl p-6 mb-4 text-center">
-      <div class="flex items-center justify-center gap-3 mb-2">
-        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
-          <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+    <div class="glass p-8 rounded-3xl w-full max-w-sm text-center">
+        <h1 class="text-2xl font-bold mb-6">Mini App Panel</h1>
+        
+        <div class="grid grid-cols-1 gap-4">
+            <button onclick="sendAction('Настройка 1')" class="glass py-4 rounded-xl active:scale-95 transition-all">⚙️ Настройка 1</button>
+            <button onclick="sendAction('Баланс')" class="glass py-4 rounded-xl active:scale-95 transition-all">💰 Баланс</button>
+            <button onclick="sendAction('Помощь')" class="glass py-4 rounded-xl active:scale-95 transition-all">❓ Помощь</button>
         </div>
-        <div class="text-left">
-          <h1 class="text-xl font-bold text-white tracking-tight">Dashboard</h1>
-          <p class="text-xs text-white/50" id="user-greeting">Welcome back</p>
-        </div>
-      </div>
-      <!-- Decorative line -->
-      <div class="mt-4 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
     </div>
 
-    <!-- Action Buttons Grid -->
-    <div class="grid grid-cols-2 gap-3" id="action-grid">
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
 
-      <!-- Button 1 — Balance -->
-      <button
-        class="action-btn glass rounded-2xl p-5 flex flex-col items-center gap-3 text-white cursor-pointer"
-        onclick="sendAction('balance', this)"
-        data-action="balance"
-      >
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400/20 to-emerald-600/20 border border-emerald-500/20 flex items-center justify-center">
-          <i data-lucide="wallet" class="w-6 h-6 text-emerald-400"></i>
-        </div>
-        <span class="text-sm font-semibold">Balance</span>
-        <span class="text-[11px] text-white/40 leading-tight">Check your tokens</span>
-      </button>
+        // ТВОЯ ССЫЛКА ИЗ CODESPACES (без слэша в конце!)
+        const BACKEND_URL = "https://improved-halibut-q7pg7xp5j7xg29xqq-8000.app.github.dev";
 
-      <!-- Button 2 — Daily Bonus -->
-      <button
-        class="action-btn glass rounded-2xl p-5 flex flex-col items-center gap-3 text-white cursor-pointer"
-        onclick="sendAction('bonus', this)"
-        data-action="bonus"
-      >
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400/20 to-amber-600/20 border border-amber-500/20 flex items-center justify-center">
-          <i data-lucide="gift" class="w-6 h-6 text-amber-400"></i>
-        </div>
-        <span class="text-sm font-semibold">Daily Bonus</span>
-        <span class="text-[11px] text-white/40 leading-tight">Claim +50 tokens</span>
-      </button>
+        async function sendAction(name) {
+            const userId = tg.initDataUnsafe?.user?.id;
 
-      <!-- Button 3 — Referral -->
-      <button
-        class="action-btn glass rounded-2xl p-5 flex flex-col items-center gap-3 text-white cursor-pointer"
-        onclick="sendAction('referral', this)"
-        data-action="referral"
-      >
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-400/20 to-blue-600/20 border border-blue-500/20 flex items-center justify-center">
-          <i data-lucide="users" class="w-6 h-6 text-blue-400"></i>
-        </div>
-        <span class="text-sm font-semibold">Referral</span>
-        <span class="text-[11px] text-white/40 leading-tight">Invite friends</span>
-      </button>
+            if (!userId) {
+                alert("Ошибка: Запустите через Telegram!");
+                return;
+            }
 
-      <!-- Button 4 — Support -->
-      <button
-        class="action-btn glass rounded-2xl p-5 flex flex-col items-center gap-3 text-white cursor-pointer"
-        onclick="sendAction('support', this)"
-        data-action="support"
-      >
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-400/20 to-rose-600/20 border border-rose-500/20 flex items-center justify-center">
-          <i data-lucide="headphones" class="w-6 h-6 text-rose-400"></i>
-        </div>
-        <span class="text-sm font-semibold">Support</span>
-        <span class="text-[11px] text-white/40 leading-tight">Contact our team</span>
-      </button>
-
-    </div>
-
-    <!-- Status bar -->
-    <div class="mt-4 glass rounded-xl px-4 py-3 flex items-center justify-between">
-      <p class="text-xs text-white/40">Bot status</p>
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" id="status-dot"></span>
-        <span class="text-xs text-emerald-400 font-medium" id="status-text">Connected</span>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <p class="text-center text-[11px] text-white/20 mt-4">
-      Powered by Telegram Mini Apps
-    </p>
-  </main>
-
-  <!-- Toast -->
-  <div id="toast" class="toast glass rounded-xl px-5 py-3 text-sm text-white font-medium shadow-2xl">
-    <span id="toast-message"></span>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       JAVASCRIPT
-       ══════════════════════════════════════════ -->
-  <script>
-    // ───────────────────────────────────────────
-    //  ⬇️ INSERT YOUR PUBLIC CODESPACES URL HERE
-    //     IMPORTANT: no trailing slash!
-    // ───────────────────────────────────────────
-    const BACKEND_URL = "https://improved-halibut-q7pg7xp5j7xg29xqq-8000.app.github.dev/";
-
-    // ───────────────────────────────────────────
-    //  URL builder — prevents the "//endpoint" bug
-    //
-    //  By stripping any trailing slash from
-    //  BACKEND_URL and joining with a path that
-    //  starts with "/", we guarantee no double
-    //  slashes in the final URL.
-    // ───────────────────────────────────────────
-    function buildUrl(path) {
-      const base = BACKEND_URL.replace(/\/+$/, ""); // strip trailing slashes
-      const p = path.startsWith("/") ? path : `/${path}`;
-      return `${base}${p}`;
-    }
-
-    // ───────────────────────────────────────────
-    //  Telegram WebApp initialisation
-    // ───────────────────────────────────────────
-    const tg = window.Telegram?.WebApp;
-
-    if (tg) {
-      tg.ready();
-      tg.expand();
-      // Apply Telegram theme colours (optional, keeps native feel)
-      tg.setHeaderColor("#1a1a2e");
-      tg.setBackgroundColor("#1a1a2e");
-    }
-
-    // ───────────────────────────────────────────
-    //  Safe access to initDataUnsafe
-    //
-    //  In testing environments (or if opened outside
-    //  Telegram) initDataUnsafe may be undefined.
-    //  We fall back gracefully to prevent crashes.
-    // ───────────────────────────────────────────
-    const userId = tg?.initDataUnsafe?.user?.id || 0;
-    const userName = tg?.initDataUnsafe?.user?.first_name || "User";
-
-    // Update greeting
-    document.getElementById("user-greeting").textContent = `Welcome, ${userName}`;
-
-    // Log for debugging (remove in production)
-    if (userId === 0) {
-      console.warn(
-        "[MiniApp] No Telegram user detected — running in debug mode. " +
-        "userId defaults to 0."
-      );
-    }
-
-    // ───────────────────────────────────────────
-    //  Haptic feedback helper
-    // ───────────────────────────────────────────
-    function haptic(style = "medium") {
-      try {
-        tg?.HapticFeedback?.impactOccurred?.(style);
-      } catch (_) {
-        // Silently ignore on platforms without haptics
-      }
-    }
-
-    // ───────────────────────────────────────────
-    //  Toast helper
-    // ───────────────────────────────────────────
-    let toastTimer = null;
-    function showToast(message, duration = 3000) {
-      const toast = document.getElementById("toast");
-      const toastMsg = document.getElementById("toast-message");
-      toastMsg.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), duration);
-    }
-
-    // ───────────────────────────────────────────
-    //  Set button loading state
-    // ───────────────────────────────────────────
-    function setLoading(button, loading) {
-      const icon = button.querySelector("[data-lucide]");
-      const label = button.querySelector(".text-sm.font-semibold");
-
-      if (loading) {
-        button.disabled = true;
-        button.style.opacity = "0.6";
-        // Replace icon with spinner
-        icon.outerHTML = `<div class="spinner"></div>`;
-      } else {
-        button.disabled = false;
-        button.style.opacity = "1";
-        // Re-render Lucide icons (spinner replaced, need icon back)
-        const spinner = button.querySelector(".spinner");
-        if (spinner) {
-          // We'll just re-init lucide icons for the whole page
-          lucide.createIcons();
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/action`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: userId, action: name })
+                });
+                
+                const result = await response.json();
+                if(result.ok) {
+                    tg.HapticFeedback.notificationOccurred('success');
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Сервер недоступен!");
+            }
         }
-      }
-    }
-
-    // ───────────────────────────────────────────
-    //  CORE: send action to backend
-    // ───────────────────────────────────────────
-    async function sendAction(actionType, buttonEl) {
-      haptic("medium");
-
-      setLoading(buttonEl, true);
-
-      const url = buildUrl("/api/action");
-      const payload = { user_id: userId, action_type: actionType };
-
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.ok) {
-          showToast(`Done — check your Telegram inbox!`);
-        } else {
-          showToast(`Error: ${data.error || "Unknown error"}`);
-          haptic("error");
-        }
-      } catch (err) {
-        console.error("[MiniApp] fetch error:", err);
-        showToast("Network error — is the backend running?");
-        haptic("error");
-      } finally {
-        // Short delay so user sees the spinner
-        setTimeout(() => setLoading(buttonEl, false), 500);
-      }
-    }
-
-    // ───────────────────────────────────────────
-    //  Health check on load
-    // ───────────────────────────────────────────
-    (async function checkHealth() {
-      try {
-        const res = await fetch(buildUrl("/api/health"));
-        const data = await res.json();
-        if (data.status === "ok") {
-          document.getElementById("status-dot").classList.replace("bg-amber-400", "bg-emerald-400");
-          document.getElementById("status-text").textContent = "Connected";
-          document.getElementById("status-text").classList.replace("text-amber-400", "text-emerald-400");
-        }
-      } catch (_) {
-        document.getElementById("status-dot").classList.replace("bg-emerald-400", "bg-amber-400");
-        document.getElementById("status-text").textContent = "Offline";
-        document.getElementById("status-text").classList.replace("text-emerald-400", "text-amber-400");
-      }
-    })();
-
-    // Initialise Lucide icons
-    lucide.createIcons();
-  </script>
-
+    </script>
 </body>
 </html>
