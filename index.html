@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://telegram.org"></script>
+    <style>
+        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; }
+        button { background: #0088cc; color: white; border: none; padding: 15px; margin: 10px; border-radius: 10px; width: 80%; }
+    </style>
+</head>
+<body>
+    <h1>Меню (150+ кнопок)</h1>
+    <button onclick="sendData('Настройка 1')">Настройка 1</button>
+    <button onclick="sendData('Баланс')">Проверить баланс</button>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Разворачиваем на весь экран
+
+        function sendData(text) {
+            // Вариант 1: Отправить данные и закрыть (sendData)
+            tg.sendData(text); 
+        }
+    </script>
+</body>
+</html>
