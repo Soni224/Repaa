@@ -1,58 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://telegram.org"></script>
-    <script src="https://tailwindcss.com"></script>
-    <style>
-        body { background: #0f172a; color: white; }
-        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    .card { max-width: 420px; margin: 0 auto; background: white; padding: 20px; border-radius: 16px; }
+    input, button { width: 100%; padding: 12px; margin-top: 10px; box-sizing: border-box; }
+    button { background: #2ea6ff; color: white; border: 0; border-radius: 10px; cursor: pointer; }
+    button:active { background: #1a8ccd; }
+  </style>
 </head>
-<body class="p-6 flex flex-col items-center justify-center min-h-screen">
+<body>
+  <div class="card">
+    <h2>Профиль</h2>
+    <div id="userInfo"></div>
 
-    <div class="glass p-8 rounded-3xl w-full max-w-sm text-center">
-        <h1 class="text-2xl font-bold mb-6">Mini App Panel</h1>
-        
-        <div class="grid grid-cols-1 gap-4">
-            <button onclick="sendAction('Настройка 1')" class="glass py-4 rounded-xl active:scale-95 transition-all">⚙️ Настройка 1</button>
-            <button onclick="sendAction('Баланс')" class="glass py-4 rounded-xl active:scale-95 transition-all">💰 Баланс</button>
-            <button onclick="sendAction('Помощь')" class="glass py-4 rounded-xl active:scale-95 transition-all">❓ Помощь</button>
-        </div>
-    </div>
+    <input id="name" type="text" placeholder="Имя">
+    <input id="email" type="email" placeholder="Email">
+    <button id="saveBtn">Сохранить</button>
+  </div>
 
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand();
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand(); // Развернуть приложение на всё окно
 
-        // ТВОЯ ССЫЛКА ИЗ CODESPACES (без слэша в конце!)
-        const BACKEND_URL = "https://improved-halibut-q7pg7xp5j7xg29xqq-8000.app.github.dev";
+    const user = tg.initDataUnsafe?.user;
+    const userInfo = document.getElementById("userInfo");
 
-        async function sendAction(name) {
-            const userId = tg.initDataUnsafe?.user?.id;
+    if (user) {
+      userInfo.innerHTML = `
+        <p><b>${user.first_name}</b> (@${user.username || "no_username"})</p>
+      `;
+    } else {
+      userInfo.innerHTML = "<p>Пользователь не найден</p>";
+    }
 
-            if (!userId) {
-                alert("Ошибка: Запустите через Telegram!");
-                return;
-            }
-
-            try {
-                const response = await fetch(`${BACKEND_URL}/api/action`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ user_id: userId, action: name })
-                });
-                
-                const result = await response.json();
-                if(result.ok) {
-                    tg.HapticFeedback.notificationOccurred('success');
-                }
-            } catch (e) {
-                console.error(e);
-                alert("Сервер недоступен!");
-            }
-        }
-    </script>
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      const payload = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value
+      };
+      
+      // Метод sendData работает только если Mini App открыт через Keyboard Button
+      tg.sendData(JSON.stringify(payload));
+      tg.close();
+    });
+  </script>
 </body>
 </html>
