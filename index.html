@@ -1271,9 +1271,8 @@ function hideLoading() {
 // BACKEND API INTEGRATION
 // ===========================================================================
 
-// Backend API URL — оставляем пустым для GitHub Pages (используем sendData)
-// Если бэкенд доступен по HTTPS, укажите: 'https://your-bot-domain.com'
-const API_BASE = '';
+// Backend API URL — GitHub Codespaces порт-форвардинг (Flask на 8080)
+const API_BASE = 'https://supreme-yodel-5gxpg9x77wwx276ww-8080.app.github.dev';
 
 // ═══════════════════════════════════════════════════════════════
 // URL Hash Navigation — бот передаёт хеш для навигации к нужному экрану
@@ -1359,8 +1358,8 @@ async function loadUserData() {
 }
 
 function applyUserData(u) {
-  const fullName = (u.first_name || '') + ' ' + (u.last_name || '');
-  const initials = (u.first_name || '')[0] + (u.last_name || '')[0];
+  const fullName = u.full_name || ((u.first_name || '') + ' ' + (u.last_name || '')).trim();
+  const initials = (u.first_name || '')[0] + ((u.last_name || '')[0] || (u.first_name || '')[1] || '');
   document.getElementById('profileAvatar').textContent = initials.toUpperCase();
   document.getElementById('profileName').textContent = fullName.trim();
   document.getElementById('profilePlan').textContent = u.plan || 'Free';
