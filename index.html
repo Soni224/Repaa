@@ -307,13 +307,20 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 /* Spacing */
 .mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}
 
-/* TG Theme overrides */
-.tg-theme body,.tg-theme .shell{background:var(--tg-theme-bg-color,var(--bg))}
-.tg-theme .hdr{background:var(--tg-theme-bg-color,var(--bg-card))}
-.tg-theme .bnav{background:var(--tg-theme-secondary-bg-color,var(--bg-card))}
-.tg-theme .card{background:var(--tg-theme-secondary-bg-color,var(--bg-card))}
-.tg-theme .text-tg{color:var(--tg-theme-text-color,var(--text))}
-.tg-theme .btn-p{background:var(--tg-theme-button-color,var(--primary));color:var(--tg-theme-button-text-color,#fff)}
+/* Theme follows Telegram colorScheme via .dark class on <html> — no separate TG override needed */
+
+/* Settings list (Telegram-style) */
+.settings-list{margin-bottom:16px}
+.settings-item{display:flex;align-items:center;gap:14px;width:100%;padding:13px 0;border-bottom:1px solid var(--border);text-align:left;background:none;border-left:none;border-right:none;border-top:none}
+.settings-item:last-child{border-bottom:none}
+.settings-item:active{opacity:.7}
+.settings-avatar{width:54px;height:54px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0}
+.settings-item-ico{width:28px;height:28px;border-radius:8px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0}
+.settings-item-body{flex:1;min-width:0}
+.settings-item-text{font-size:15px;font-weight:500;color:var(--text);display:block;line-height:1.3}
+.settings-item-sub{font-size:13px;color:var(--text-3);display:block;margin-top:2px}
+.settings-ch{color:var(--text-3);flex-shrink:0;opacity:.5}
+.settings-item-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);color:#fff;flex-shrink:0}
 
 /* Loading overlay */
 .loading-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.15);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s}
@@ -490,7 +497,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div class="qact-ico"><svg class="ico" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
       <div class="qact-l">Пакетная</div>
     </button>
-    <button class="qact-btn" style="margin:0" onclick="navigateTo('settings');setTimeout(()=>{var t=document.querySelector('#settingsTabs [data-tab=automation]');if(t)t.click()},150)">
+    <button class="qact-btn" style="margin:0" onclick="navigateTo('settings');setTimeout(()=>{openSettingsSection('Automation')},150)">
       <div class="qact-ico"><svg class="ico" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
       <div class="qact-l">Автопилот</div>
     </button>
@@ -514,7 +521,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div><div class="scard-v" id="homeReviewCount">12 новых<span class="scard-live">12</span></div><div class="scard-l">Отзывов</div></div>
       <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
-    <div class="card scard scard-clickable" style="padding:12px" onclick="navigateTo('settings');setTimeout(()=>{var t=document.querySelector('#settingsTabs [data-tab=automation]');if(t)t.click()},150)">
+    <div class="card scard scard-clickable" style="padding:12px" onclick="navigateTo('settings');setTimeout(()=>{openSettingsSection('Automation')},150)">
       <div class="scard-ico"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
       <div><div class="scard-v"><span class="dot dot-on"></span>Вкл<span class="scard-live">!</span></div><div class="scard-l">Автопилот</div></div>
       <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -566,13 +573,68 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <!-- ========== SETTINGS ========== -->
 <div class="screen" id="screenSettings">
 <div class="content">
-  <div class="tabs" id="settingsTabs">
-    <button class="tab active" data-tab="general">Основные</button>
-    <button class="tab" data-tab="generation">Генерация</button>
-    <button class="tab" data-tab="automation">Автоматизация</button>
-    <button class="tab" data-tab="safety">Безопасность</button>
-    <button class="tab" data-tab="help">Помощь</button>
+  <!-- Settings List (Telegram-style) -->
+  <div id="settingsListView">
+    <div class="settings-item" onclick="openSettingsSection('Profile')" style="padding-top:4px">
+      <div class="settings-avatar">АП</div>
+      <div class="settings-item-body">
+        <span class="settings-item-text" id="settingsListItemName">Алексей Петров</span>
+        <span class="settings-item-sub" id="settingsListItemSub">PRO · LVL 7 · 1 520 токенов</span>
+      </div>
+    </div>
+
+    <div style="height:8px"></div>
+
+    <div class="settings-list">
+      <div class="settings-item" onclick="openSettingsSection('Profile')">
+        <div class="settings-item-ico">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <span class="settings-item-text">Мой аккаунт</span>
+        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-item" onclick="openSettingsSection('Generation')">
+        <div class="settings-item-ico">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        </div>
+        <span class="settings-item-text">Генерация ответов</span>
+        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-item" onclick="openSettingsSection('Automation')">
+        <div class="settings-item-ico" style="background:var(--success-light);color:var(--success)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+        </div>
+        <span class="settings-item-text">Автопилот</span>
+        <span class="settings-item-badge" style="background:var(--success)" id="settingsAutopilotBadge">Вкл</span>
+        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-item" onclick="openSettingsSection('Safety')">
+        <div class="settings-item-ico" style="background:var(--warning-light);color:var(--warning)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="settings-item-text">Безопасность</span>
+        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="settings-item" onclick="openSettingsSection('Help')">
+        <div class="settings-item-ico" style="background:var(--bg-input);color:var(--text-2)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
+        </div>
+        <span class="settings-item-text">Помощь</span>
+        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;text-align:center">
+      <div style="font-size:11px;color:var(--text-3)">Репа v1.0</div>
+    </div>
   </div>
+
+  <!-- Settings Detail View (hidden by default) -->
+  <div id="settingsDetailView" style="display:none">
+    <button class="back-btn mb-16" onclick="showSettingsList()">
+      <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Назад
+    </button>
 
     <!-- TAB: General -->
   <div class="stab active" id="tabGeneral">
@@ -853,6 +915,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
   </div>
 
+  </div><!-- /settingsDetailView -->
 </div>
 </div>
 
@@ -1421,7 +1484,7 @@ const screenMap = {
 const headerTitles = {
   home: ['Репа', 'Центр управления'],
   reviews: ['Отзывы', '12 новых'],
-  settings: ['Настройки', 'Основные · Генерация · Автоматизация'],
+  settings: ['Настройки', ''],
   store: ['Магазин', 'Тарифы и токены'],
   analytics: ['Аналитика', 'Статистика продаж']
 };
@@ -1434,12 +1497,21 @@ function navigateTo(m) {
   document.querySelectorAll('.screen').forEach(x => x.classList.remove('active'));
   document.getElementById(screenMap[m]).classList.add('active');
   document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[m]));
-  const [t, st] = headerTitles[m] || ['ReviewBot', ''];
+  const [t, st] = headerTitles[m] || ['Репа', ''];
   document.getElementById('headerTitle').textContent = t;
   document.getElementById('headerSubtitle').textContent = st;
   currentScreen = m;
   window.scrollTo(0, 0);
   updateBackButton();
+  // Reset settings to list view when navigating to settings screen
+  if (m === 'settings') {
+    const lv = document.getElementById('settingsListView');
+    const dv = document.getElementById('settingsDetailView');
+    if (lv && dv) {
+      lv.style.display = '';
+      dv.style.display = 'none';
+    }
+  }
 }
 
 function openSub(id) {
@@ -1459,6 +1531,14 @@ function closeSub(id) {
 }
 
 function navigateBack() {
+  // If in settings detail view, go back to settings list
+  if (currentScreen === 'settings') {
+    const dv = document.getElementById('settingsDetailView');
+    if (dv && dv.style.display !== 'none') {
+      showSettingsList();
+      return;
+    }
+  }
   if (activeSub) {
     document.getElementById(activeSub).classList.remove('active');
     activeSub = null;
@@ -1577,17 +1657,8 @@ function initChart() {
 // ===========================================================================
 
 function initTabs() {
-  document.querySelectorAll('#settingsTabs .tab').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('#settingsTabs .tab').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      document.querySelectorAll('.stab').forEach(t => t.style.display = 'none');
-      const id = 'tab' + b.dataset.tab.charAt(0).toUpperCase() + b.dataset.tab.slice(1);
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'block';
-      haptic('light');
-    });
-  });
+  // Settings tabs removed — replaced with TG-style list + detail view
+  // Only help sub-tabs remain
   document.querySelectorAll('#helpTabs .tab').forEach(b => {
     b.addEventListener('click', () => {
       document.querySelectorAll('#helpTabs .tab').forEach(x => x.classList.remove('active'));
@@ -1599,6 +1670,49 @@ function initTabs() {
       haptic('light');
     });
   });
+}
+
+// ===========================================================================
+// SETTINGS NAVIGATION (Telegram-style list → detail view)
+// ===========================================================================
+
+function openSettingsSection(section) {
+  haptic('light');
+  document.getElementById('settingsListView').style.display = 'none';
+  const dv = document.getElementById('settingsDetailView');
+  dv.style.display = 'block';
+  // Show the corresponding tab content, hide others
+  document.querySelectorAll('.stab').forEach(t => t.style.display = 'none');
+  const tabMap = {
+    Profile: 'tabGeneral',
+    Generation: 'tabGeneration',
+    Automation: 'tabAutomation',
+    Safety: 'tabSafety',
+    Help: 'tabHelp'
+  };
+  const tabId = tabMap[section];
+  if (tabId) {
+    const el = document.getElementById(tabId);
+    if (el) el.style.display = 'block';
+  }
+  window.scrollTo(0, 0);
+  // Update header subtitle
+  const subtitles = {
+    Profile: 'Профиль',
+    Generation: 'Генерация ответов',
+    Automation: 'Автопилот',
+    Safety: 'Безопасность',
+    Help: 'Помощь'
+  };
+  document.getElementById('headerSubtitle').textContent = subtitles[section] || '';
+}
+
+function showSettingsList() {
+  haptic('light');
+  document.getElementById('settingsDetailView').style.display = 'none';
+  document.getElementById('settingsListView').style.display = 'block';
+  document.getElementById('headerSubtitle').textContent = '';
+  window.scrollTo(0, 0);
 }
 
 // ===========================================================================
@@ -1738,7 +1852,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tg.ready();
     tg.expand();
     if (tg.colorScheme === 'dark') document.documentElement.classList.add('dark');
-    document.body.classList.add('tg-theme');
+    /* Theme is handled via .dark class on <html> — no extra TG class needed */
     tg.MainButton.setParams({ color: '#0D7C66', textColor: '#FFFFFF', text: 'Сохранить' });
     tg.MainButton.hide();
     tg.MainButton.onClick(() => { saveSettings(); });
