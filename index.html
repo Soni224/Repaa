@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>ReviewBot — Telegram Mini App</title>
+<title>Репа — Telegram Mini App</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,32 +25,35 @@
   --danger-light: #FEF1F1;
   --warning: #D4860A;
   --warning-light: #FFF8EB;
-  --radius: 12px;
-  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-sm: 12px;
   --radius-full: 999px;
   --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
   --nav-h: 56px;
   --safe-b: env(safe-area-inset-bottom, 0px);
 }
 .dark {
-  --primary: #2ECCAB;
-  --primary-hover: #3DDDBB;
-  --primary-light: #132B24;
-  --bg: #111114;
-  --bg-card: #1C1C21;
-  --bg-input: #26262C;
-  --text: #EAEAEE;
-  --text-2: #8888A0;
-  --text-3: #55556A;
-  --border: #2A2A34;
+  --primary: #34CFAA;
+  --primary-hover: #44DFBA;
+  --primary-light: #162A24;
+  --bg: #0F0F12;
+  --bg-card: #1A1A22;
+  --bg-input: #24242E;
+  --text: #F0F0F5;
+  --text-2: #9898B0;
+  --text-3: #5C5C72;
+  --border: #2C2C3A;
   --success: #34D168;
-  --success-light: #132B1A;
+  --success-light: #12261A;
   --danger: #FF6B6E;
-  --danger-light: #2B1515;
+  --danger-light: #2A1616;
   --warning: #FFBA33;
-  --warning-light: #2A2214;
-  --shadow: 0 1px 3px rgba(0,0,0,0.2);
+  --warning-light: #2A2010;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --card-hover: #22222E;
 }
+.dark .hdr,.dark .bnav{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(26,26,34,0.85)}
+.dark .card:hover{background:var(--card-hover)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:16px;-webkit-text-size-adjust:100%}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden;min-height:100dvh}
@@ -93,7 +96,7 @@ input,textarea,select{font-family:inherit}
 .ico-xl{width:40px;height:40px;flex-shrink:0}
 
 /* Card */
-.card{background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.card{background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);box-shadow:var(--shadow);transition:all .15s ease}
 
 /* Profile */
 .prof{padding:16px}
@@ -110,7 +113,7 @@ input,textarea,select{font-family:inherit}
 .bal-l{font-size:12px;color:var(--text-2);margin-left:4px}
 .xp-wrap{margin-top:10px}
 .xp-info{display:flex;justify-content:space-between;font-size:11px;color:var(--text-3);margin-bottom:4px}
-.xp-track{height:3px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden}
+.xp-track{height:4px!important;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden}
 .xp-fill{height:100%;background:var(--primary);border-radius:var(--radius-full);width:82%}
 
 /* Status grid */
@@ -122,7 +125,7 @@ input,textarea,select{font-family:inherit}
 .scard-v{font-size:13px;font-weight:600;color:var(--text)}
 .scard-l{font-size:11px;color:var(--text-3)}
 .dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:3px;vertical-align:middle}
-.dot-on{background:var(--success);animation:pulse 2s infinite}
+.dot-on{background:var(--success)}
 .dot-off{background:var(--text-3)}
 
 /* Section */
@@ -138,7 +141,7 @@ input,textarea,select{font-family:inherit}
 .qact-l{font-size:11px;font-weight:600;color:var(--text-2);text-align:center;line-height:1.3}
 
 /* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:9px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;transition:transform .1s;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:9px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;transition:all .15s ease;white-space:nowrap}
 .btn:active{transform:scale(.97)}
 .btn-p{background:var(--primary);color:#fff}
 .btn-s{background:var(--bg-input);color:var(--text)}
@@ -155,22 +158,22 @@ input,textarea,select{font-family:inherit}
 .tgl-t{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px}
 .tgl-t svg{width:16px;height:16px;color:var(--text-3);flex-shrink:0}
 .tgl-d{font-size:11px;color:var(--text-3);margin-top:1px}
-.tgl{position:relative;width:44px;height:26px;flex-shrink:0}
+.tgl{position:relative;width:48px;height:28px;flex-shrink:0}
 .tgl input{opacity:0;width:0;height:0;position:absolute}
 .tgl-s{position:absolute;inset:0;background:var(--border);border-radius:var(--radius-full);cursor:pointer;transition:background .2s}
-.tgl-s::before{content:'';position:absolute;left:2px;top:2px;width:22px;height:22px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.tgl-s::before{content:'';position:absolute;left:2px;top:2px;width:24px;height:24px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.12)}
 .tgl input:checked+.tgl-s{background:var(--primary)}
-.tgl input:checked+.tgl-s::before{transform:translateX(18px)}
+.tgl input:checked+.tgl-s::before{transform:translateX(20px)}
 
 /* Tabs */
 .tabs{display:flex;gap:2px;padding:3px;background:var(--bg-input);border-radius:var(--radius-sm);margin-bottom:14px}
-.tab{flex:1;padding:7px 2px;font-size:11px;font-weight:600;color:var(--text-2);border-radius:6px;text-align:center;transition:all .15s}
+.tab{flex:1;padding:7px 2px;font-size:11px;font-weight:600;color:var(--text-2);border-radius:var(--radius-sm);text-align:center;transition:all .2s ease}
 .tab.active{background:var(--bg-card);color:var(--text);box-shadow:var(--shadow)}
 
 /* Review cards */
 .rv-card{margin-bottom:10px}
 .rv-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.rv-plat{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px}
+.rv-plat{font-size:10px;font-weight:700;padding:2px 6px;border-radius:6px;text-transform:uppercase;letter-spacing:.3px}
 .rv-plat.wb{background:#9B2DFF;color:#fff}
 .rv-plat.ozon{background:#005BFF;color:#fff}
 .rv-stars{display:flex;gap:1px}
@@ -187,7 +190,7 @@ input,textarea,select{font-family:inherit}
 .resp-label{font-size:10px;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .resp-text{font-size:13px;color:var(--text);line-height:1.55}
 .resp-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.chip{padding:5px 10px;font-size:11px;font-weight:500;border-radius:var(--radius-full);border:1px solid var(--border);color:var(--text-2);display:flex;align-items:center;gap:4px;transition:all .15s}
+.chip{padding:5px 10px;font-size:11px;font-weight:500;border-radius:var(--radius-full);border:1px solid var(--border);color:var(--text-2);display:flex;align-items:center;gap:4px;transition:all .2s ease}
 .chip:active{background:var(--primary-light);border-color:var(--primary);color:var(--primary)}
 
 /* Live feed */
@@ -207,7 +210,7 @@ input,textarea,select{font-family:inherit}
 /* Chart */
 .chart{width:100%;height:160px;background:var(--bg-card);border-radius:var(--radius);display:flex;align-items:flex-end;justify-content:space-around;padding:14px 10px;margin-bottom:14px;border:1px solid var(--border)}
 .chart-bar-g{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
-.chart-bar{width:20px;border-radius:3px 3px 0 0;background:var(--primary);transition:height .5s ease}
+.chart-bar{width:20px;border-radius:6px 6px 0 0;background:var(--primary);transition:height .5s ease}
 .chart-bar.sec{background:var(--text-3);opacity:.3;width:10px}
 .chart-lbl{font-size:9px;color:var(--text-3);font-weight:500}
 
@@ -259,18 +262,18 @@ input,textarea,select{font-family:inherit}
 .emg:active{background:var(--danger);color:#fff}
 
 /* Inputs */
-.inp{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;color:var(--text);background:var(--bg-card);transition:border-color .15s}
+.inp{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;color:var(--text);background:var(--bg-card);transition:all .15s ease}
 .inp:focus{outline:none;border-color:var(--primary)}
 textarea.inp{min-height:80px;resize:vertical;line-height:1.5}
 textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 
 /* Progress */
-.prog{height:4px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden}
-.prog-fill{height:100%;background:var(--primary);border-radius:var(--radius-full);transition:width .5s ease}
+.prog{height:4px!important;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--success));border-radius:var(--radius-full);transition:width .5s ease}
 
 /* Generator */
 .gen-stars{display:flex;gap:4px;margin-bottom:10px;justify-content:center}
-.gen-star{cursor:pointer;transition:transform .1s}
+.gen-star{cursor:pointer;transition:transform .2s ease}
 .gen-star svg{width:28px;height:28px}
 .gen-star.off svg{color:var(--border);fill:none}
 .gen-star.on svg{color:#FFB800;fill:#FFB800}
@@ -303,6 +306,123 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 
 /* Spacing */
 .mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}
+
+/* TG Theme overrides */
+.tg-theme body,.tg-theme .shell{background:var(--tg-theme-bg-color,var(--bg))}
+.tg-theme .hdr{background:var(--tg-theme-bg-color,var(--bg-card))}
+.tg-theme .bnav{background:var(--tg-theme-secondary-bg-color,var(--bg-card))}
+.tg-theme .card{background:var(--tg-theme-secondary-bg-color,var(--bg-card))}
+.tg-theme .text-tg{color:var(--tg-theme-text-color,var(--text))}
+.tg-theme .btn-p{background:var(--tg-theme-button-color,var(--primary));color:var(--tg-theme-button-text-color,#fff)}
+
+/* Loading overlay */
+.loading-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.15);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s}
+.loading-overlay.active{opacity:1;pointer-events:auto}
+.loading-overlay .spinner-lg{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite}
+.loading-text{margin-top:10px;font-size:12px;color:var(--text-2);font-weight:500}
+
+/* Skeleton */
+.skeleton{background:linear-gradient(90deg,var(--bg-input) 25%,var(--border) 50%,var(--bg-input) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--radius-sm)}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Screen transitions */
+.screen{animation:screenIn .22s ease}
+@keyframes screenIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sub{animation:subIn .2s ease}
+@keyframes subIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+/* Button disabled state */
+.btn:disabled{opacity:.5;pointer-events:none}
+
+/* MainButton padding fix */
+body{padding-bottom:var(--tg-mainbutton-height,0px)}
+body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
+
+/* Back button space */
+body.has-back-btn .hdr-in{padding-left:40px}
+
+/* === PRODUCTION ADDITIONS === */
+
+/* Main CTA button */
+.main-cta{position:relative;font-size:16px;padding:18px 20px;font-weight:700;border-radius:20px;min-height:120px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 20px 40px rgba(13,124,102,.3)}
+.main-cta:active{transform:scale(.97)}
+.live-badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;background:#10b981;color:#fff;font-size:11px;font-weight:700;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(16,185,129,.4)}
+
+/* Breathing spacing */
+.content>.card:not(:last-child){margin-bottom:24px!important}
+.screen .sec-h{margin-bottom:28px!important}
+.screen .card{margin-bottom:24px!important}
+
+/* Premium hover/press */
+.card,.scard,.qact-btn{transition:all .15s cubic-bezier(.4,0,.2,1)}
+.card:hover,.scard:hover,.qact-btn:hover{transform:translateY(-2px)}
+.card:active,.scard:active,.qact-btn:active{transform:scale(.97)!important}
+
+/* Micro-animations */
+@keyframes slideUpFade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.screen.active .card:nth-child(1){animation:slideUpFade .4s ease forwards;animation-delay:0s}
+.screen.active .card:nth-child(2){animation:slideUpFade .4s ease forwards;animation-delay:.1s}
+.screen.active .card:nth-child(3){animation:slideUpFade .4s ease forwards;animation-delay:.2s}
+
+/* Empty state */
+.empty-state{text-align:center;padding:40px 20px}
+.empty-state-icon{font-size:40px;margin-bottom:12px;opacity:.3;line-height:1}
+
+/* Mobile iPhone SE (320px) */
+@media(max-width:360px){
+  .qact{grid-template-columns:1fr 1fr!important}
+  .sgrid{grid-template-columns:1fr!important}
+  .bnav-i{min-width:40px!important}
+  .bnav-i svg{width:18px!important;height:18px!important}
+  .bnav-i span{font-size:9px!important}
+  .prof-row{gap:8px!important}
+  .hdr{padding:8px 12px!important}
+  .content{padding:0 12px!important}
+  .tariff{padding:12px!important}
+  .main-cta{font-size:14px!important;padding:14px 16px!important}
+  .stat-grid{grid-template-columns:1fr!important}
+}
+
+/* Clickable status card */
+.scard-clickable{cursor:pointer;position:relative}
+.scard-clickable .scard-chevron{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-3);opacity:.5;transition:opacity .15s}
+.scard-clickable:active .scard-chevron{opacity:1}
+.scard-clickable:active{transform:scale(.98)!important}
+
+/* Bottom nav active indicator */
+.bnav-i.active::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:24px;height:2.5px;background:var(--primary);border-radius:0 0 3px 3px}
+
+/* Section accent */
+.sec-t{position:relative;padding-left:16px}
+.sec-t::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:16px;background:var(--primary);border-radius:2px}
+
+/* Compact profile */
+.prof-av{width:40px;height:40px;font-size:14px}
+
+/* Card padding refined */
+.card{padding:18px}
+
+/* Live feed left accent */
+.lf-item{border-left:2px solid var(--border);padding-left:10px}
+.lf-item:first-child{border-left-color:var(--primary)}
+.lf-dot{display:none}
+
+/* Nav items 5-up */
+.bnav-i svg{width:24px;height:24px;margin-bottom:2px}
+.bnav-i{min-width:52px}
+
+/* Toast blur */
+.toast{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(26,26,34,0.92)}
+:not(.dark) .toast{background:rgba(26,26,46,0.88)}
+
+/* Quick actions refined */
+.qact-btn{border-radius:var(--radius)}
+
+/* Live badge on status cards */
+.scard-live{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#10b981;color:#fff;font-size:8px;font-weight:700;border-radius:50%;margin-left:4px;line-height:1;vertical-align:middle;box-shadow:0 1px 4px rgba(16,185,129,.3)}
+
+/* Safe area padding */
+body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 </style>
 </head>
 <body>
@@ -312,7 +432,7 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 <header class="hdr" id="topHeader">
   <div class="hdr-in">
     <div>
-      <div class="hdr-t" id="headerTitle">ReviewBot</div>
+      <div class="hdr-t" id="headerTitle">Репа</div>
       <div class="hdr-s" id="headerSubtitle">Центр управления</div>
     </div>
     <button class="btn-g" onclick="toggleTheme()" style="padding:6px">
@@ -353,58 +473,69 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
     </div>
   </div>
 
-  <div class="sgrid">
-    <div class="card scard" style="padding:12px">
-      <div class="scard-ico"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-      <div><div class="scard-v">12 новых</div><div class="scard-l">Отзывов</div></div>
-    </div>
-    <div class="card scard" style="padding:12px">
-      <div class="scard-ico"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
-      <div><div class="scard-v"><span class="dot dot-on"></span>Вкл</div><div class="scard-l">Автопилот</div></div>
-    </div>
-    <div class="card scard" style="padding:12px">
-      <div class="scard-ico" style="background:#F3EAFF;color:#9B2DFF"><span style="font-size:10px;font-weight:800">WB</span></div>
-      <div><div class="scard-v"><span class="dot dot-on"></span>WB</div><div class="scard-l">Подключён</div></div>
-    </div>
-    <div class="card scard" style="padding:12px">
-      <div class="scard-ico err" style="background:#EBF0FF;color:#005BFF"><span style="font-size:10px;font-weight:800">OZ</span></div>
-      <div><div class="scard-v"><span class="dot dot-off"></span>Ozon</div><div class="scard-l">Не подключён</div></div>
-    </div>
-  </div>
+  <!-- MAIN CTA + Quick Actions Grid -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
+  <button class="btn btn-p main-cta" onclick="openSub('subReviewNew')" style="grid-column:1/-1">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+    Ответить на <span id="liveReviewCount">12</span> новых отзывов
+    <span class="live-badge" id="ctaBadge">12</span>
+  </button>
 
-  <div class="sec-h"><div class="sec-t">Быстрые действия</div></div>
-  <div class="qact">
-    <button class="qact-btn" onclick="openSub('subReviewNew')">
+
+    <button class="qact-btn" style="margin:0" onclick="openSub('subReviewNew')">
       <div class="qact-ico"><svg class="ico" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-      <div class="qact-l">Ответить на отзыв</div>
+      <div class="qact-l">Ответить</div>
     </button>
-    <button class="qact-btn" onclick="navigateTo('reviews')">
+    <button class="qact-btn" style="margin:0" onclick="navigateTo('reviews')">
       <div class="qact-ico"><svg class="ico" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-      <div class="qact-l">Пакетная обработка</div>
+      <div class="qact-l">Пакетная</div>
     </button>
-    <button class="qact-btn" onclick="navigateTo('autopilot')">
+    <button class="qact-btn" style="margin:0" onclick="navigateTo('settings');setTimeout(()=>{var t=document.querySelector('#settingsTabs [data-tab=automation]');if(t)t.click()},150)">
       <div class="qact-ico"><svg class="ico" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
       <div class="qact-l">Автопилот</div>
     </button>
-    <button class="qact-btn" onclick="openSub('subPlatforms')">
+    <button class="qact-btn" style="margin:0" onclick="openSub('subPlatforms')">
       <div class="qact-ico"><svg class="ico" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       <div class="qact-l">Площадки</div>
     </button>
-    <button class="qact-btn" onclick="navigateTo('store')">
+    <button class="qact-btn" style="margin:0" onclick="navigateTo('store')">
       <div class="qact-ico"><svg class="ico" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
       <div class="qact-l">Тарифы</div>
     </button>
-    <button class="qact-btn" onclick="navigateTo('analytics')">
+    <button class="qact-btn" style="margin:0" onclick="navigateTo('analytics')">
       <div class="qact-ico"><svg class="ico" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
       <div class="qact-l">Аналитика</div>
     </button>
+  </div>
+
+    <div class="sgrid">
+    <div class="card scard scard-clickable" style="padding:12px" onclick="navigateTo('reviews')">
+      <div class="scard-ico"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 01-3.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+      <div><div class="scard-v" id="homeReviewCount">12 новых<span class="scard-live">12</span></div><div class="scard-l">Отзывов</div></div>
+      <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div class="card scard scard-clickable" style="padding:12px" onclick="navigateTo('settings');setTimeout(()=>{var t=document.querySelector('#settingsTabs [data-tab=automation]');if(t)t.click()},150)">
+      <div class="scard-ico"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
+      <div><div class="scard-v"><span class="dot dot-on"></span>Вкл<span class="scard-live">!</span></div><div class="scard-l">Автопилот</div></div>
+      <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div class="card scard scard-clickable" style="padding:12px" onclick="openSub('subPlatforms')">
+      <div class="scard-ico" style="background:#F3EAFF;color:#9B2DFF"><span style="font-size:10px;font-weight:800">WB</span></div>
+      <div><div class="scard-v"><span class="dot dot-on"></span>WB<span class="scard-live">OK</span></div><div class="scard-l">Подключён</div></div>
+      <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div class="card scard scard-clickable" style="padding:12px" onclick="openSub('subPlatforms')">
+      <div class="scard-ico err" style="background:#EBF0FF;color:#005BFF"><span style="font-size:10px;font-weight:800">OZ</span></div>
+      <div><div class="scard-v"><span class="dot dot-off"></span>Ozon<span class="scard-live" style="background:var(--text-3);animation:none;box-shadow:none">--</span></div><div class="scard-l">Не подключён</div></div>
+      <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
   </div>
 
   <div class="sec-h">
     <div class="sec-t">Live-лента</div>
     <div class="sec-link"><span class="dot dot-on"></span> Эфир</div>
   </div>
-  <div class="card" id="liveFeed"></div>
+  <div class="card" id="liveFeed"><div class="empty-state" id="emptyLiveFeed" style="display:none"><div class="empty-state-icon" style="font-size:28px">📡</div><div style="font-size:13px;font-weight:600;color:var(--text-2)">Лента пуста</div><div style="font-size:11px;color:var(--text-3);margin-top:3px">Новые события появятся автоматически</div></div></div>
 
 </div>
 </div>
@@ -423,54 +554,12 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
     <button class="tab" data-filter="sent">Отправл.</button>
   </div>
   <div id="reviewsList"></div>
-</div>
-</div>
-
-<!-- ========== AUTOPILOT ========== -->
-<div class="screen" id="screenAutopilot">
-<div class="content">
-  <div class="card" style="text-align:center;padding:20px;margin-bottom:14px">
-    <div style="margin-bottom:6px">
-      <svg width="44" height="44" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
-    </div>
-    <div style="font-size:16px;font-weight:700;color:var(--text)" id="autopilotTitle">Автопилот работает</div>
-    <div style="font-size:12px;color:var(--text-3);margin-top:2px" id="autopilotSubtitle">87 / 500 ответов сегодня</div>
-    <div class="prog mt-12"><div class="prog-fill" style="width:17%"></div></div>
-    <div style="font-size:10px;color:var(--text-3);margin-top:6px">Работает с 06 мая 2026</div>
-    <label class="tgl" style="margin-top:14px;display:inline-block">
-      <input type="checkbox" checked id="autopilotToggle" onchange="toggleAutopilot(this)">
-      <span class="tgl-s"></span>
-    </label>
+  <div class="empty-state" id="emptyReviews" style="display:none">
+    <div class="empty-state-icon">&#128172;</div>
+    <div style="font-size:14px;font-weight:600;color:var(--text-2)">Отзывов пока нет</div>
+    <div style="font-size:12px;color:var(--text-3);margin-top:4px">Новые отзывы появятся здесь автоматически</div>
+    <button class="btn btn-p btn-sm mt-16" onclick="openSub('subReviewNew')">Начать работу</button>
   </div>
-
-  <div class="sec-h"><div class="sec-t">Настройки автоматизации</div></div>
-  <div class="card">
-    <div class="tgl-row">
-      <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Ночной режим</div><div class="tgl-d">Не отвечает с 22:00 до 08:00</div></div>
-      <label class="tgl"><input type="checkbox" checked onchange="updateSetting('night_mode',this.checked)"><span class="tgl-s"></span></label>
-    </div>
-    <div class="tgl-row">
-      <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>Мониторинг вопросов WB</div><div class="tgl-d">Отвечает на вопросы покупателей</div></div>
-      <label class="tgl"><input type="checkbox" checked onchange="updateSetting('monitoring',this.checked)"><span class="tgl-s"></span></label>
-    </div>
-    <div class="tgl-row">
-      <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Follow-up дожим</div><div class="tgl-d">Повторная попытка через 24ч</div></div>
-      <label class="tgl"><input type="checkbox" onchange="updateSetting('follow_up',this.checked)"><span class="tgl-s"></span></label>
-    </div>
-    <div class="tgl-row">
-      <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Умные рекомендации</div><div class="tgl-d">Подбирает товары в ответах</div></div>
-      <label class="tgl"><input type="checkbox" checked onchange="updateSetting('recommendations',this.checked)"><span class="tgl-s"></span></label>
-    </div>
-    <div class="tgl-row">
-      <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Реакция на негатив</div><div class="tgl-d">Приоритетный ответ на 1-2 звёзды</div></div>
-      <label class="tgl"><input type="checkbox" checked onchange="updateSetting('negative_reaction',this.checked)"><span class="tgl-s"></span></label>
-    </div>
-  </div>
-
-  <button class="emg" onclick="emergencyStop()">
-    <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
-    Тревожная кнопка — остановить всё
-  </button>
 </div>
 </div>
 
@@ -478,14 +567,60 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 <div class="screen" id="screenSettings">
 <div class="content">
   <div class="tabs" id="settingsTabs">
-    <button class="tab active" data-tab="generation">Генерация</button>
+    <button class="tab active" data-tab="general">Основные</button>
+    <button class="tab" data-tab="generation">Генерация</button>
     <button class="tab" data-tab="automation">Автоматизация</button>
     <button class="tab" data-tab="safety">Безопасность</button>
     <button class="tab" data-tab="help">Помощь</button>
   </div>
 
-  <!-- TAB: Generation -->
-  <div class="stab active" id="tabGeneration">
+    <!-- TAB: General -->
+  <div class="stab active" id="tabGeneral">
+    <div class="sec-h"><div class="sec-t">Профиль</div></div>
+    <div class="card mb-16">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div class="prof-av" style="width:48px;height:48px;font-size:16px">АП</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)" id="settingsProfileName">Алексей Петров</div>
+          <div style="display:flex;gap:4px;margin-top:3px">
+            <span class="tag tag-primary" id="settingsProfilePlan">PRO</span>
+            <span class="tag tag-accent">LVL 7</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border)">
+        <div><div style="font-size:12px;color:var(--text-3)">Баланс</div><div style="font-size:16px;font-weight:700;color:var(--primary)">1 520 токенов</div></div>
+        <div style="text-align:right"><div style="font-size:12px;color:var(--text-3)">Всего ответов</div><div style="font-size:16px;font-weight:700;color:var(--text)">3 847</div></div>
+      </div>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">Brand Voice</div></div>
+    <div class="card mb-16">
+      <div class="mb-8">
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Название бренда</label>
+        <input type="text" class="inp" value="StyleShop" id="brandName" onchange="updateSetting('brand_name',this.value)">
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Правила общения</label>
+        <textarea class="inp" id="brandVoice" rows="3" onchange="updateSetting('brand_voice',this.value)">Мы — бренд, который ценит каждого клиента. Отвечаем вежливо, по существу, всегда предлагаем решение проблемы.</textarea>
+      </div>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">Площадки</div></div>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:8px;background:#9B2DFF;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:800">WB</div><span style="font-size:13px;font-weight:600">Wildberries</span></div>
+        <span style="font-size:11px;font-weight:600;color:var(--success)"><span class="dot dot-on"></span> Подключён</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
+        <div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:8px;background:#005BFF;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:800">OZ</div><span style="font-size:13px;font-weight:600">Ozon</span></div>
+        <button class="btn btn-p btn-sm" onclick="openSub('subPlatforms')">Подключить</button>
+      </div>
+    </div>
+  </div>
+
+<!-- TAB: Generation -->
+  <div class="stab" id="tabGeneration" style="display:none">
     <div class="sec-h"><div class="sec-t">Стиль ответов</div></div>
     <div class="card mb-16">
       <div style="display:flex;flex-direction:column;gap:6px" id="styleCards">
@@ -508,25 +643,12 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
       </div>
     </div>
 
-    <div class="sec-h"><div class="sec-t">Brand Voice</div></div>
-    <div class="card mb-16">
-      <div class="mb-8">
-        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Название бренда</label>
-        <input type="text" class="inp" value="StyleShop" id="brandName" onchange="updateSetting('brand_name',this.value)">
-      </div>
-      <div>
-        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Правила общения</label>
-        <textarea class="inp" id="brandVoice" rows="3" onchange="updateSetting('brand_voice',this.value)">Мы — бренд, который ценит каждого клиента. Отвечаем вежливо, по существу, всегда предлагаем решение проблемы.</textarea>
-      </div>
-    </div>
 
-    <div class="sec-h">
       <div class="sec-t">Шаблоны</div>
       <button class="btn btn-g btn-sm" onclick="showToast('Создание шаблона...')">
         <svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Создать
       </button>
-    </div>
     <div class="card">
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"/></svg>Позитивный отзыв</div><div class="tgl-d">Использован 245 раз</div></div>
@@ -543,8 +665,23 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
     </div>
   </div>
 
+  
+
   <!-- TAB: Automation -->
   <div class="stab" id="tabAutomation" style="display:none">
+  <div class="card" style="text-align:center;padding:20px;margin-bottom:14px">
+    <div style="margin-bottom:6px">
+      <svg width="44" height="44" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+    </div>
+    <div style="font-size:16px;font-weight:700;color:var(--text)" id="autopilotTitle">Автопилот работает</div>
+    <div style="font-size:12px;color:var(--text-3);margin-top:2px" id="autopilotSubtitle">87 / 500 ответов сегодня</div>
+    <div class="prog mt-12"><div class="prog-fill" style="width:17%"></div></div>
+    <div style="font-size:10px;color:var(--text-3);margin-top:6px">Работает с 06 мая 2026</div>
+    <label class="tgl" style="margin-top:14px;display:inline-block">
+      <input type="checkbox" checked id="autopilotToggle" onchange="toggleAutopilot(this)">
+      <span class="tgl-s"></span>
+    </label>
+  </div>
     <div class="card mb-16">
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Автоответ на новые отзывы</div><div class="tgl-d">Ответ в течение 1 минуты</div></div>
@@ -576,6 +713,14 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
       <div class="mb-8"><label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Макс. ответов / день</label><input type="number" class="inp" value="500" id="dailyLimit"></div>
       <div><label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Задержка перед ответом (сек.)</label><input type="number" class="inp" value="30" id="responseDelay"></div>
     </div>
+
+  <button class="emg" onclick="emergencyStop()">
+    <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+    Тревожная кнопка — остановить всё
+  </button>
+  <button class="btn btn-s btn-full" id="undoStopBtn" onclick="undoEmergencyStop()" style="display:none;margin-top:8px">
+    ↩ Отменить остановку
+  </button>
   </div>
 
   <!-- TAB: Safety -->
@@ -957,10 +1102,7 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
       <span>Отзывы</span>
       <span class="bnav-badge">12</span>
     </button>
-    <button class="bnav-i" data-screen="screenAutopilot" onclick="navigateTo('autopilot')">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
-      <span>Автопилот</span>
-    </button>
+
     <button class="bnav-i" data-screen="screenStore" onclick="navigateTo('store')">
       <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       <span>Магазин</span>
@@ -976,11 +1118,23 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
   </div>
 </nav>
 
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div style="text-align:center">
+    <div class="spinner-lg"></div>
+    <div class="loading-text" id="loadingText">Загрузка...</div>
+  </div>
+</div>
+
 </div><!-- /shell -->
 
 <script>
-// === MOCK DATA ===
-const MOCK_USER = {id:'usr_001',telegram_id:123456789,first_name:'Алексей',last_name:'Петров',username:'alex_seller',level:7,xp:2450,xp_to_next:3000,balance:1520,plan:'PRO',wb_connected:true,ozon_connected:false,new_reviews:12,total_responses:3847};
+// ===========================================================================
+// Репа — Telegram Mini App (Production-Ready)
+// ===========================================================================
+
+// === MOCK DATA (fallback when no backend) ===
+const MOCK_USER = {id:'usr_001',telegram_id:123456789,first_name:'Алексей',last_name:'Петров',username:'alex_seller',level:7,xp:2450,xp_to_next:3000,balance:1520,plan:'PRO',wb_connected:true,ozon_connected:false,new_reviews:12,total_responses:3847,autopilot_enabled:true,settings:{night_mode:true,monitoring:true,follow_up:false,recommendations:true,negative_reaction:true,auto_response:true,brand_safety:true,brand_name:'StyleShop',brand_voice:'Мы — бренд, который ценит каждого клиента. Отвечаем вежливо, по существу, всегда предлагаем решение проблемы.',response_style:'professional'}};
 const MOCK_REVIEWS = [
   {id:'r1',platform:'wb',product:'Кроссовки AirMax',author:'Мария К.',rating:5,text:'Отличные кроссовки! Размер подошёл идеально, качество на высоте.',date:'08.05.2026',status:'pending',favorite:false},
   {id:'r2',platform:'wb',product:'Футболка Premium',author:'Дмитрий В.',rating:3,text:'Футболка неплохая, но размерная сетка не совпадает. Заказал XL, а пришёл как L.',date:'08.05.2026',status:'generated',response:'Здравствуйте, Дмитрий! Приносим извинения за несоответствие размерной сетки. Рады, что качество ткани вас порадовало!',favorite:false},
@@ -997,122 +1151,647 @@ const MOCK_LIVE_FEED = [
   {platform:'Ozon',text:'Пакетная обработка: 8 отзывов обработано',time:'3 мин'},
 ];
 
-let currentScreen='home';
-let currentFilter='all';
+// === APP STATE ===
+let currentScreen = 'home';
+let currentFilter = 'all';
+let currentUser = null;
+let pendingChanges = [];
+let autopilotCounters = { done: 87, total: 500 };
+let navHistory = [];
+let activeSub = null;
+let isSaving = false;
+let useMockData = true;
 
-// === TELEGRAM INIT ===
-document.addEventListener('DOMContentLoaded',()=>{
-  if(window.Telegram&&Telegram.WebApp){
-    Telegram.WebApp.ready();
-    Telegram.WebApp.expand();
-    const u=Telegram.WebApp.initDataUnsafe?.user;
-    if(u)console.log('TG user:',u);
-    if(Telegram.WebApp.colorScheme==='dark')document.documentElement.classList.add('dark');
-    Telegram.WebApp.MainButton.setParams({color:'#0D7C66',textColor:'#FFFFFF'});
+// === TELEGRAM WEB APP ===
+const tg = window.Telegram && Telegram.WebApp ? Telegram.WebApp : null;
+
+// ===========================================================================
+// HAPTIC FEEDBACK
+// ===========================================================================
+function haptic(type) {
+  if (!tg) return;
+  try {
+    if (type === 'light') tg.HapticFeedback.impactOccurred('light');
+    else if (type === 'medium') tg.HapticFeedback.impactOccurred('medium');
+    else if (type === 'heavy') tg.HapticFeedback.impactOccurred('heavy');
+    else if (type === 'success') tg.HapticFeedback.notificationOccurred('success');
+    else if (type === 'error') tg.HapticFeedback.notificationOccurred('error');
+    else if (type === 'warning') tg.HapticFeedback.notificationOccurred('warning');
+  } catch(e) {}
+}
+
+// ===========================================================================
+// TOAST
+// ===========================================================================
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('visible'), 2500);
+}
+
+// ===========================================================================
+// LOADING OVERLAY
+// ===========================================================================
+function showLoading(text) {
+  const ov = document.getElementById('loadingOverlay');
+  if (text) document.getElementById('loadingText').textContent = text;
+  ov.classList.add('active');
+}
+function hideLoading() {
+  document.getElementById('loadingOverlay').classList.remove('active');
+}
+
+// ===========================================================================
+// BACKEND API INTEGRATION
+// ===========================================================================
+
+// TODO: replace with real backend URL
+// const API_BASE = 'https://api.reviewbot.ru/v1';
+const API_BASE = '';
+
+function getAuthHeaders() {
+  const headers = { 'Content-Type': 'application/json' };
+  if (tg && tg.initData) {
+    headers['X-Telegram-Init-Data'] = tg.initData;
   }
-  initReviewsList();initLiveFeed();initChart();initTabs();initStarRating();
-});
-
-// === NAVIGATION ===
-const screenMap={home:'screenHome',reviews:'screenReviews',autopilot:'screenAutopilot',settings:'screenSettings',store:'screenStore',analytics:'screenAnalytics'};
-const headerTitles={home:['ReviewBot','Центр управления'],reviews:['Отзывы','12 новых'],autopilot:['Автопилот','Управление автоматизацией'],settings:['Настройки','Генерация · Автоматизация · Безопасность'],store:['Магазин','Тарифы и токены'],analytics:['Аналитика','Статистика продаж']};
-
-function navigateTo(m){
-  const s=screenMap[m];if(!s)return;
-  document.querySelectorAll('.sub.active').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
-  document.getElementById(s).classList.add('active');
-  document.querySelectorAll('.bnav-i').forEach(i=>i.classList.toggle('active',i.dataset.screen===s));
-  const[t,st]=headerTitles[m]||['ReviewBot',''];
-  document.getElementById('headerTitle').textContent=t;
-  document.getElementById('headerSubtitle').textContent=st;
-  currentScreen=m;window.scrollTo(0,0);
+  return headers;
 }
-function openSub(id){document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-function closeSub(id){document.getElementById(id).classList.remove('active')}
 
-// === REVIEWS ===
-function initReviewsList(){renderReviews('all');document.querySelectorAll('#reviewTabs .tab').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('#reviewTabs .tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderReviews(b.dataset.filter)})})}
-function renderReviews(f){
-  const l=document.getElementById('reviewsList');
-  const d=f==='all'?MOCK_REVIEWS:MOCK_REVIEWS.filter(r=>r.status===f);
-  if(!d.length){l.innerHTML='<div style="text-align:center;padding:32px 16px"><div style="margin-bottom:8px"><svg width="36" height="36" fill="none" stroke="var(--text-3)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px">Нет отзывов</div><div style="font-size:12px;color:var(--text-3)">В этой категории пока пусто</div></div>';return}
-  l.innerHTML=d.map(r=>{
-    const stars=Array.from({length:5},(_,i)=>`<svg class="${i<r.rating?'star-on':'star-off'}" viewBox="0 0 24 24" fill="${i<r.rating?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('');
-    const sb={pending:'<span style="font-size:10px;font-weight:600;color:var(--warning);background:var(--warning-light);padding:2px 6px;border-radius:4px">Новый</span>',generated:'<span style="font-size:10px;font-weight:600;color:var(--primary);background:var(--primary-light);padding:2px 6px;border-radius:4px">Готов</span>',sent:'<span style="font-size:10px;font-weight:600;color:var(--success);background:var(--success-light);padding:2px 6px;border-radius:4px">Отправл.</span>'}[r.status];
-    return `<div class="card rv-card" onclick="openReviewEditor('${r.id}')"><div class="rv-hdr"><span class="rv-plat ${r.platform}">${r.platform.toUpperCase()}</span><div class="rv-stars">${stars}</div>${sb}<span class="rv-author">${r.author}</span></div><div class="rv-product">${r.product}</div><div class="rv-text">${r.text}</div><div style="display:flex;justify-content:space-between;align-items:center"><span class="rv-date">${r.date}</span><span style="font-size:11px;color:var(--primary);font-weight:600">Открыть ›</span></div></div>`}).join('');
+/**
+ * loadUserData()
+ * GET /api/user
+ * Populates: user.balance, user.plan, user.level, user.wb_connected,
+ *   user.ozon_connected, user.autopilot_enabled, user.settings.*
+ */
+async function loadUserData() {
+  if (!API_BASE) {
+    useMockData = true;
+    currentUser = { ...MOCK_USER };
+    applyUserData(currentUser);
+    return;
+  }
+  try {
+    showLoading('Загрузка данных...');
+    const res = await fetch(API_BASE + '/api/user', { headers: getAuthHeaders() });
+    if (!res.ok) throw new Error('API ' + res.status);
+    currentUser = await res.json();
+    useMockData = false;
+    applyUserData(currentUser);
+  } catch(e) {
+    useMockData = true;
+    currentUser = { ...MOCK_USER };
+    applyUserData(currentUser);
+  } finally {
+    hideLoading();
+  }
 }
-function openReviewEditor(id){
-  const r=MOCK_REVIEWS.find(x=>x.id===id);if(!r)return;
-  const stars=Array.from({length:5},(_,i)=>`<svg class="${i<r.rating?'star-on':'star-off'}" style="width:16px;height:16px" viewBox="0 0 24 24" fill="${i<r.rating?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('');
-  const c=document.getElementById('reviewEditorContent');
-  c.innerHTML=`<div class="sec-h"><div class="sec-t">Редактор ответа</div></div><div class="card mb-12"><div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span class="rv-plat ${r.platform}">${r.platform.toUpperCase()}</span><div class="rv-stars">${stars}</div><span style="font-size:12px;font-weight:600;margin-left:auto">${r.author}</span></div><div class="rv-product">${r.product}</div><div class="rv-text">${r.text}</div><div style="font-size:10px;color:var(--text-3)">${r.date}</div></div>${r.status==='generated'||r.status==='sent'?`<div class="resp-box mb-12"><div class="resp-label">Текущий ответ</div><div class="resp-text">${r.response||''}</div></div>`:`<button class="btn btn-p btn-full btn-lg mb-12" onclick="showToast('Генерация...')"><svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Сгенерировать ответ</button>`}
-  <div class="resp-toolbar mb-12">
-    <button class="chip" onclick="showToast('Генерация...')"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"/></svg>Мягче</button>
-    <button class="chip" onclick="showToast('Сокращение...')"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Короче</button>
-    <button class="chip" onclick="showToast('Генерация...')"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Официальнее</button>
-    <button class="chip" onclick="showToast('Новая генерация...')"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Другой</button>
-  </div>
-  <div class="mb-12"><label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Свой вариант</label><textarea class="inp" rows="3" placeholder="Редактируйте ответ...">${r.response||''}</textarea></div>
-  <div style="display:flex;gap:6px;flex-wrap:wrap">
-    <button class="btn btn-p btn-sm" onclick="showToast('Отправлено!')"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Отправить</button>
-    <button class="btn btn-s btn-sm" onclick="showToast('Скопировано!')"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Копировать</button>
-    <button class="btn btn-o btn-sm" onclick="showToast('В избранное!')"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>${r.favorite?'Убрать':'В избранное'}</button>
-  </div>`;
+
+function applyUserData(u) {
+  const fullName = (u.first_name || '') + ' ' + (u.last_name || '');
+  const initials = (u.first_name || '')[0] + (u.last_name || '')[0];
+  document.getElementById('profileAvatar').textContent = initials.toUpperCase();
+  document.getElementById('profileName').textContent = fullName.trim();
+  document.getElementById('profilePlan').textContent = u.plan || 'Free';
+  document.getElementById('profileLevel').textContent = 'LVL ' + (u.level || 1);
+  const bal = (u.balance || 0).toLocaleString('ru-RU');
+  document.getElementById('userBalance').textContent = bal;
+  const pct = u.xp && u.xp_to_next ? Math.round((u.xp / u.xp_to_next) * 100) : 0;
+  document.querySelector('.xp-fill').style.width = pct + '%';
+  const apToggle = document.getElementById('autopilotToggle');
+  if (apToggle) apToggle.checked = !!u.autopilot_enabled;
+  document.getElementById('autopilotTitle').textContent = u.autopilot_enabled ? 'Автопилот работает' : 'Автопилот выключен';
+  updatePlatformDot('WB', u.wb_connected);
+  updatePlatformDot('Ozon', u.ozon_connected);
+  if (u.settings) {
+    applyToggleSetting('night_mode', u.settings.night_mode);
+    applyToggleSetting('monitoring', u.settings.monitoring);
+    applyToggleSetting('follow_up', u.settings.follow_up);
+    applyToggleSetting('recommendations', u.settings.recommendations);
+    applyToggleSetting('negative_reaction', u.settings.negative_reaction);
+    applyToggleSetting('auto_response', u.settings.auto_response);
+    applyToggleSetting('brand_safety', u.settings.brand_safety);
+  }
+}
+
+function updatePlatformDot(name, connected) {
+  document.querySelectorAll('.scard-v').forEach(d => {
+    if (d.textContent.includes(name)) {
+      const dotEl = d.querySelector('.dot');
+      if (dotEl) {
+        dotEl.classList.toggle('dot-on', connected);
+        dotEl.classList.toggle('dot-off', !connected);
+      }
+    }
+  });
+}
+
+function applyToggleSetting(key, value) {
+  document.querySelectorAll('.tgl input[type="checkbox"]').forEach(inp => {
+    const oc = inp.getAttribute('onchange');
+    if (oc && oc.includes("'" + key + "'")) {
+      inp.checked = !!value;
+    }
+  });
+}
+
+/**
+ * saveSettings()
+ * POST /api/settings
+ * Sends all accumulated pendingChanges at once
+ */
+async function saveSettings() {
+  if (isSaving || pendingChanges.length === 0) return;
+  isSaving = true;
+  if (tg && tg.MainButton) tg.MainButton.showProgress();
+  try {
+    const changesObj = {};
+    pendingChanges.forEach(c => { changesObj[c.key] = c.value; });
+    if (API_BASE) {
+      const res = await fetch(API_BASE + '/api/settings', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(changesObj)
+      });
+      if (!res.ok) throw new Error('Save failed');
+    } else {
+      // Send via Telegram sendData when available
+      if (tg && tg.sendData) {
+        try {
+          tg.sendData(JSON.stringify({ action: 'save_settings', changes: changesObj }));
+        } catch(e) { /* sendData not available in some contexts */ }
+      }
+    }
+    if (currentUser) {
+      Object.assign(currentUser.settings || {}, changesObj);
+      if ('autopilot_enabled' in changesObj) currentUser.autopilot_enabled = changesObj.autopilot_enabled;
+    }
+    pendingChanges = [];
+    updateMainButton();
+    haptic('success');
+    showToast('Настройки сохранены!');
+    if (tg && tg.MainButton) {
+      tg.MainButton.hideProgress();
+      setTimeout(() => {
+        tg.MainButton.hide();
+        document.body.classList.remove('has-main-btn');
+      }, 300);
+    }
+  } catch(e) {
+    haptic('error');
+    showToast('Ошибка сохранения');
+    if (tg && tg.MainButton) tg.MainButton.hideProgress();
+  } finally {
+    isSaving = false;
+  }
+}
+
+/**
+ * generateResponse_API()
+ * POST /api/generate
+ * Body: { review_text, platform, rating, style }
+ * Returns: { response: string }
+ */
+async function generateResponse_API(reviewText, platform, rating, style) {
+  if (API_BASE) {
+    try {
+      const res = await fetch(API_BASE + '/api/generate', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({
+          review_text: reviewText,
+          platform: platform,
+          rating: rating,
+          style: style || (currentUser?.settings?.response_style || 'professional')
+        })
+      });
+      if (!res.ok) throw new Error('Generate failed');
+      const data = await res.json();
+      return data.response;
+    } catch(e) {
+      /* API generate failed, using mock */
+    }
+  }
+  const responses = [
+    'Здравствуйте! Большое спасибо за ваш замечательный отзыв! Нам очень приятно, что вы остались довольны покупкой. Будем рады видеть вас снова!',
+    'Благодарим за обратную связь! Мы ценим ваше мнение и всегда стремимся к лучшему качеству.',
+    'Добрый день! Спасибо, что нашли время поделиться впечатлениями. Для нас важна обратная связь. Желаем отличного настроения!'
+  ];
+  return responses[Math.floor(Math.random() * responses.length)];
+}
+
+// ===========================================================================
+// PENDING CHANGES + MAINBUTTON
+// ===========================================================================
+
+function addPendingChange(key, value) {
+  const existing = pendingChanges.findIndex(c => c.key === key);
+  if (existing !== -1) pendingChanges.splice(existing, 1);
+  pendingChanges.push({ key, value });
+  updateMainButton();
+  haptic('light');
+}
+
+function updateMainButton() {
+  if (!tg || !tg.MainButton) return;
+  if (pendingChanges.length > 0) {
+    tg.MainButton.setParams({
+      text: 'Сохранить ' + pendingChanges.length + ' измен.',
+      color: '#0D7C66',
+      textColor: '#FFFFFF'
+    });
+    tg.MainButton.show();
+    document.body.classList.add('has-main-btn');
+  } else {
+    tg.MainButton.hide();
+    document.body.classList.remove('has-main-btn');
+  }
+}
+
+// ===========================================================================
+// NAVIGATION (enhanced with history + BackButton)
+// ===========================================================================
+
+const screenMap = {
+  home: 'screenHome', reviews: 'screenReviews',
+  settings: 'screenSettings', store: 'screenStore', analytics: 'screenAnalytics'
+};
+const headerTitles = {
+  home: ['Репа', 'Центр управления'],
+  reviews: ['Отзывы', '12 новых'],
+  settings: ['Настройки', 'Основные · Генерация · Автоматизация'],
+  store: ['Магазин', 'Тарифы и токены'],
+  analytics: ['Аналитика', 'Статистика продаж']
+};
+
+function navigateTo(m) {
+  if (!screenMap[m]) return;
+  haptic('light');
+  if (currentScreen !== m) navHistory.push({ type: 'screen', screen: currentScreen });
+  if (activeSub) { document.getElementById(activeSub).classList.remove('active'); activeSub = null; }
+  document.querySelectorAll('.screen').forEach(x => x.classList.remove('active'));
+  document.getElementById(screenMap[m]).classList.add('active');
+  document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[m]));
+  const [t, st] = headerTitles[m] || ['ReviewBot', ''];
+  document.getElementById('headerTitle').textContent = t;
+  document.getElementById('headerSubtitle').textContent = st;
+  currentScreen = m;
+  window.scrollTo(0, 0);
+  updateBackButton();
+}
+
+function openSub(id) {
+  haptic('light');
+  navHistory.push({ type: 'screen', screen: currentScreen });
+  activeSub = id;
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+  updateBackButton();
+}
+
+function closeSub(id) {
+  haptic('light');
+  if (id) document.getElementById(id).classList.remove('active');
+  activeSub = null;
+  updateBackButton();
+}
+
+function navigateBack() {
+  if (activeSub) {
+    document.getElementById(activeSub).classList.remove('active');
+    activeSub = null;
+    haptic('light');
+    updateBackButton();
+    return;
+  }
+  if (navHistory.length > 0) {
+    const prev = navHistory.pop();
+    if (prev.type === 'screen') {
+      document.querySelectorAll('.screen').forEach(x => x.classList.remove('active'));
+      document.getElementById(screenMap[prev.screen]).classList.add('active');
+      document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[prev.screen]));
+      const [t, st] = headerTitles[prev.screen] || ['Репа', ''];
+      document.getElementById('headerTitle').textContent = t;
+      document.getElementById('headerSubtitle').textContent = st;
+      currentScreen = prev.screen;
+      window.scrollTo(0, 0);
+    }
+  }
+  updateBackButton();
+  haptic('light');
+}
+
+function updateBackButton() {
+  if (!tg || !tg.BackButton) return;
+  const hasHistory = navHistory.length > 0 || activeSub;
+  if (hasHistory) { tg.BackButton.show(); document.body.classList.add('has-back-btn'); }
+  else { tg.BackButton.hide(); document.body.classList.remove('has-back-btn'); }
+}
+
+// ===========================================================================
+// REVIEWS
+// ===========================================================================
+
+function initReviewsList() {
+  renderReviews('all');
+  document.querySelectorAll('#reviewTabs .tab').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#reviewTabs .tab').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      renderReviews(b.dataset.filter);
+      haptic('light');
+    });
+  });
+}
+
+function renderReviews(f) {
+  const l = document.getElementById('reviewsList');
+  const d = f === 'all' ? MOCK_REVIEWS : MOCK_REVIEWS.filter(r => r.status === f);
+  if (!d.length) {
+    l.innerHTML = '<div style="text-align:center;padding:32px 16px"><div style="margin-bottom:8px"><svg width="36" height="36" fill="none" stroke="var(--text-3)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px">Нет отзывов</div><div style="font-size:12px;color:var(--text-3)">В этой категории пока пусто</div></div>';
+    return;
+  }
+  l.innerHTML = d.map(r => {
+    const stars = Array.from({length:5},(_,i)=>`<svg class="${i<r.rating?'star-on':'star-off'}" viewBox="0 0 24 24" fill="${i<r.rating?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('');
+    const sb = {pending:'<span style="font-size:10px;font-weight:600;color:var(--warning);background:var(--warning-light);padding:2px 6px;border-radius:4px">Новый</span>',generated:'<span style="font-size:10px;font-weight:600;color:var(--primary);background:var(--primary-light);padding:2px 6px;border-radius:4px">Готов</span>',sent:'<span style="font-size:10px;font-weight:600;color:var(--success);background:var(--success-light);padding:2px 6px;border-radius:4px">Отправл.</span>'}[r.status];
+    return `<div class="card rv-card" onclick="openReviewEditor('${r.id}')"><div class="rv-hdr"><span class="rv-plat ${r.platform}">${r.platform.toUpperCase()}</span><div class="rv-stars">${stars}</div>${sb}<span class="rv-author">${r.author}</span></div><div class="rv-product">${r.product}</div><div class="rv-text">${r.text}</div><div style="display:flex;justify-content:space-between;align-items:center"><span class="rv-date">${r.date}</span><span style="font-size:11px;color:var(--primary);font-weight:600">Открыть ›</span></div></div>`;
+  }).join('');
+}
+
+function openReviewEditor(id) {
+  const r = MOCK_REVIEWS.find(x => x.id === id);
+  if (!r) return;
+  haptic('light');
+  const stars = Array.from({length:5},(_,i)=>`<svg class="${i<r.rating?'star-on':'star-off'}" style="width:16px;height:16px" viewBox="0 0 24 24" fill="${i<r.rating?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('');
+  const c = document.getElementById('reviewEditorContent');
+  c.innerHTML = `<div class="sec-h"><div class="sec-t">Отзыв от ${r.author}</div></div><div class="card mb-12"><div class="rv-hdr"><span class="rv-plat ${r.platform}">${r.platform.toUpperCase()}</span><div class="rv-stars">${stars}</div><span class="rv-date">${r.date}</span></div><div class="rv-product">${r.product}</div><div class="rv-text">${r.text}</div></div>${r.response?`<div class="resp-box mb-12"><div class="resp-label">Предыдущий ответ</div><div class="resp-text">${r.response}</div></div>`:''}<button class="btn btn-p btn-full btn-lg" onclick="generateForReview('${r.id}')">Сгенерировать ответ</button>`;
   openSub('subReviewEditor');
 }
 
-// === LIVE FEED ===
-function initLiveFeed(){
-  const f=document.getElementById('liveFeed');
-  f.innerHTML=MOCK_LIVE_FEED.map(i=>`<div class="lf-item"><div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${i.platform}</div><div class="lf-text">${i.text}</div></div><div class="lf-time">${i.time}</div></div>`).join('');
-  setInterval(()=>{
+async function generateForReview(id) {
+  const r = MOCK_REVIEWS.find(x => x.id === id);
+  if (!r) return;
+  haptic('medium');
+  showToast('Генерация ответа...');
+  await generateResponse_API(r.text, r.platform, r.rating);
+  showToast('Ответ готов!');
+}
+
+// ===========================================================================
+// LIVE FEED
+// ===========================================================================
+
+function initLiveFeed() {
+  const f = document.getElementById('liveFeed');
+  MOCK_LIVE_FEED.forEach(i => {
+    const n = document.createElement('div');
+    n.className = 'lf-item';
+    n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${i.platform}</div><div class="lf-text">${i.text}</div></div><div class="lf-time">${i.time}</div>`;
+    f.appendChild(n);
+  });
+  setInterval(() => {
     const ps=['WB','Ozon'],ns=['Анна','Игорь','Светлана','Михаил','Оксана'],as=[`Ответ на отзыв от ${ns[Math.floor(Math.random()*ns.length)]} — отправлен`,`Негатив обработан: ${ns[Math.floor(Math.random()*ns.length)]}`,`Пакет: ${Math.floor(Math.random()*10+3)} отзывов обработано`,`Новый отзыв от ${ns[Math.floor(Math.random()*ns.length)]}`];
-    const n=document.createElement('div');n.className='lf-item';n.innerHTML=`<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${ps[Math.floor(Math.random()*2)]}</div><div class="lf-text">${as[Math.floor(Math.random()*as.length)]}</div></div><div class="lf-time">сейчас</div>`;
-    f.insertBefore(n,f.firstChild);while(f.children.length>8)f.removeChild(f.lastChild);
-  },8000);
+    const n = document.createElement('div');
+    n.className = 'lf-item';
+    n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${ps[Math.floor(Math.random()*2)]}</div><div class="lf-text">${as[Math.floor(Math.random()*as.length)]}</div></div><div class="lf-time">сейчас</div>`;
+    f.insertBefore(n, f.firstChild);
+    if (f.children.length > 8) f.removeChild(f.lastChild);
+  }, 8000);
 }
 
-// === CHART ===
-function initChart(){
-  const c=document.getElementById('analyticsChart'),days=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],rv=[45,52,38,67,59,71,48],mx=Math.max(...rv);
-  c.innerHTML=days.map((d,i)=>`<div class="chart-bar-g"><div class="chart-bar" style="height:${(rv[i]/mx)*120}px"></div><div class="chart-lbl">${d}</div></div>`).join('');
+// ===========================================================================
+// CHART
+// ===========================================================================
+
+function initChart() {
+  const c = document.getElementById('analyticsChart');
+  if (!c) return;
+  const days=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],rv=[45,52,38,67,59,71,48],mx=Math.max(...rv);
+  c.innerHTML = days.map((d,i) => `<div class="chart-bar-g"><div class="chart-bar" style="height:${rv[i]/mx*100}px"></div><div class="chart-lbl">${d}</div></div>`).join('');
 }
 
-// === TABS ===
-function initTabs(){
-  document.querySelectorAll('#settingsTabs .tab').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('#settingsTabs .tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.stab').forEach(t=>t.style.display='none');const id='tab'+b.dataset.tab.charAt(0).toUpperCase()+b.dataset.tab.slice(1);document.getElementById(id).style.display='block'})});
-  document.querySelectorAll('#helpTabs .tab').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('#helpTabs .tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.htab').forEach(t=>t.style.display='none');const id='help'+b.dataset.helptab.charAt(0).toUpperCase()+b.dataset.helptab.slice(1);document.getElementById(id).style.display='block'})});
+// ===========================================================================
+// TABS
+// ===========================================================================
+
+function initTabs() {
+  document.querySelectorAll('#settingsTabs .tab').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#settingsTabs .tab').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      document.querySelectorAll('.stab').forEach(t => t.style.display = 'none');
+      const id = 'tab' + b.dataset.tab.charAt(0).toUpperCase() + b.dataset.tab.slice(1);
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'block';
+      haptic('light');
+    });
+  });
+  document.querySelectorAll('#helpTabs .tab').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#helpTabs .tab').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      document.querySelectorAll('.htab').forEach(t => t.style.display = 'none');
+      const id = 'help' + b.dataset.helptab.charAt(0).toUpperCase() + b.dataset.helptab.slice(1);
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'block';
+      haptic('light');
+    });
+  });
 }
 
-// === STAR RATING ===
-function initStarRating(){
-  const stars=document.querySelectorAll('#reviewRatingStars .gen-star');let r=5;
-  stars.forEach(s=>{s.addEventListener('click',()=>{r=parseInt(s.dataset.star);stars.forEach((x,i)=>{x.classList.toggle('on',i<r);x.classList.toggle('off',i>=r)})})});
+// ===========================================================================
+// STAR RATING
+// ===========================================================================
+
+function initStarRating() {
+  const stars = document.querySelectorAll('#reviewRatingStars .gen-star');
+  let r = 5;
+  stars.forEach(s => {
+    s.addEventListener('click', () => {
+      r = parseInt(s.dataset.star);
+      stars.forEach(x => {
+        x.classList.toggle('on', parseInt(x.dataset.star) <= r);
+        x.classList.toggle('off', parseInt(x.dataset.star) > r);
+      });
+      haptic('light');
+    });
+  });
 }
 
-// === GENERATE ===
-function generateResponse(){
-  const btn=document.getElementById('generateBtn'),res=document.getElementById('generatedResponse');
-  btn.innerHTML='<span class="spinner" style="width:14px;height:14px;border-color:rgba(255,255,255,.3);border-top-color:#fff;margin-right:6px"></span>Генерация...';btn.disabled=true;
-  setTimeout(()=>{const rs=['Здравствуйте! Большое спасибо за ваш замечательный отзыв! Нам очень приятно, что вы остались довольны покупкой. Будем рады видеть вас снова!','Благодарим за обратную связь! Мы ценим ваше мнение и всегда стремимся к лучшему качеству.','Добрый день! Спасибо, что нашли время поделиться впечатлениями. Для нас важна обратная связь. Желаем отличного настроения!'];
-  document.getElementById('responseOutput').textContent=rs[Math.floor(Math.random()*rs.length)];res.classList.add('visible');
-  btn.innerHTML='<svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Сгенерировать ответ';btn.disabled=false},1500);
-}
-function regenerateResponse(s){showToast('Генерация нового варианта...');setTimeout(()=>{const v={softer:'Здравствуйте! Как мы рады вашему отзыву! Спасибо, что написали! Нам очень приятно, что вам всё понравилось.',shorter:'Спасибо за отзыв! Рады, что вы довольны покупкой.',formal:'Уважаемый клиент, благодарим за отзыв. Подтверждаем качество нашей продукции. С уважением, команда поддержки.'};document.getElementById('responseOutput').textContent=s&&v[s]?v[s]:'Здравствуйте! Благодарим за отзыв. Рады, что покупка принесла положительные впечатления.'},800)}
+// ===========================================================================
+// GENERATE RESPONSE (production with API + loading)
+// ===========================================================================
 
-// === TOGGLE ACTIONS ===
-function toggleAutopilot(el){
-  const on=el.checked;
-  document.getElementById('autopilotTitle').textContent=on?'Автопилот работает':'Автопилот остановлен';
-  document.getElementById('autopilotSubtitle').textContent=on?'87 / 500 ответов сегодня':'Нажмите для запуска';
-  showToast(on?'Автопилот включён':'Автопилот выключен');
+async function generateResponse() {
+  const btn = document.getElementById('generateBtn');
+  const res = document.getElementById('generatedResponse');
+  const reviewText = document.getElementById('reviewInput').value;
+  const platformSel = document.querySelector('#subReviewNew select');
+  const platform = platformSel ? platformSel.value : 'WB';
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Генерация...';
+  haptic('medium');
+  try {
+    const response = await generateResponse_API(reviewText, platform, 5);
+    document.getElementById('responseOutput').textContent = response;
+    res.classList.add('visible');
+    haptic('success');
+    showToast('Ответ сгенерирован!');
+  } catch(e) {
+    haptic('error');
+    showToast('Ошибка генерации');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg class="ico" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Сгенерировать ответ';
+  }
 }
-function updateSetting(k,v){console.log('Setting',k,'=',v);showToast(k+': '+(v?'Вкл':'Выкл'))}
-function emergencyStop(){showToast('Все автоответы остановлены!')}
-function toggleTheme(){document.documentElement.classList.toggle('dark');showToast('Тема изменена')}
-function copyRefCode(){navigator.clipboard?.writeText('ALEXSELL7');showToast('Код скопирован!')}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),2500)}
+
+async function regenerateResponse(style) {
+  haptic('light');
+  showToast('Генерация нового варианта...');
+  const v = {
+    softer: 'Здравствуйте! Как мы рады вашему отзыву! Спасибо, что написали! Нам очень приятно, что вам всё понравилось.',
+    shorter: 'Спасибо за отзыв! Рады, что вы довольны покупкой.',
+    formal: 'Уважаемый клиент, благодарим за отзыв. Подтверждаем качество нашей продукции. С уважением, команда поддержки.'
+  };
+  const reviewText = document.getElementById('reviewInput')?.value || '';
+  const response = style && v[style] ? v[style] : await generateResponse_API(reviewText, 'WB', 5);
+  document.getElementById('responseOutput').textContent = response;
+}
+
+// ===========================================================================
+// SETTINGS HANDLERS (all → pendingChanges → MainButton save)
+// ===========================================================================
+
+// Undo emergency stop
+function undoEmergencyStop() {
+  const apToggle = document.getElementById('autopilotToggle');
+  if (apToggle) apToggle.checked = true;
+  addPendingChange('autopilot_enabled', true);
+  document.getElementById('autopilotTitle').textContent = 'Автопилот работает';
+  document.getElementById('autopilotSubtitle').textContent = autopilotCounters.done + ' / ' + autopilotCounters.total + ' ответов сегодня';
+  document.getElementById('undoStopBtn').style.display = 'none';
+  haptic('success');
+  showToast('Автопилот возобновлён');
+}
+
+function toggleAutopilot(el) {
+  const on = el.checked;
+  document.getElementById('autopilotTitle').textContent = on ? 'Автопилот работает' : 'Автопилот выключен';
+  document.getElementById('autopilotSubtitle').textContent = on ? '87 / 500 ответов сегодня' : 'Остановлен';
+  addPendingChange('autopilot_enabled', on);
+  showToast(on ? 'Автопилот включён' : 'Автопилот выключен');
+}
+
+function updateSetting(key, value) {
+  addPendingChange(key, value);
+  const label = key.replace(/_/g, ' ');
+  showToast(label + ': ' + (value ? 'Вкл' : 'Выкл'));
+}
+
+function emergencyStop() {
+  const apToggle = document.getElementById('autopilotToggle');
+  if (apToggle) apToggle.checked = false;
+  addPendingChange('autopilot_enabled', false);
+  document.getElementById('autopilotTitle').textContent = 'Автопилот выключен';
+  document.getElementById('autopilotSubtitle').textContent = 'Остановлен';
+  const undoBtn = document.getElementById('undoStopBtn');
+  if (undoBtn) undoBtn.style.display = 'block';
+  haptic('heavy');
+  showToast('Все автоответы остановлены!');
+}
+
+// ===========================================================================
+// THEME
+// ===========================================================================
+
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  haptic('light');
+  showToast('Тема изменена');
+}
+
+// ===========================================================================
+// UTILITY
+// ===========================================================================
+
+function copyRefCode() {
+  navigator.clipboard?.writeText('ALEXSELL7');
+  haptic('success');
+  showToast('Код скопирован!');
+}
+
+function sendToBot(data) {
+  if (tg) { tg.sendData(JSON.stringify(data)); }
+  else { console.log('sendData (mock):', data); }
+}
+
+// ===========================================================================
+// INITIALIZATION
+// ===========================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  // --- Telegram WebApp Init ---
+  if (tg) {
+    tg.ready();
+    tg.expand();
+    if (tg.colorScheme === 'dark') document.documentElement.classList.add('dark');
+    document.body.classList.add('tg-theme');
+    tg.MainButton.setParams({ color: '#0D7C66', textColor: '#FFFFFF', text: 'Сохранить' });
+    tg.MainButton.hide();
+    tg.MainButton.onClick(() => { saveSettings(); });
+    if (tg.BackButton) { tg.BackButton.onClick(() => { navigateBack(); }); }
+    tg.onEvent('themeChanged', () => {
+      if (tg.colorScheme === 'dark') document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    });
+    const u = tg.initDataUnsafe?.user;
+    if (u) console.log('TG user:', u.id, u.first_name, u.username);
+  }
+
+  // --- Load user data from backend (or mock fallback) ---
+  loadUserData();
+
+  // --- Init UI components ---
+  initReviewsList();
+  initLiveFeed();
+  initChart();
+  initTabs();
+  initStarRating();
+
+  // --- Wire form inputs to pendingChanges ---
+  document.querySelectorAll('input.inp, textarea.inp').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const key = inp.id || inp.name;
+      if (key) addPendingChange(key, inp.value);
+    });
+  });
+
+  // Wire radio buttons (response style)
+  document.querySelectorAll('input[name="responseStyle"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      addPendingChange('response_style', radio.value);
+    });
+  });
+
+  // Wire orphan toggle switches (no explicit onchange)
+  document.querySelectorAll('.tgl input[type="checkbox"]:not([onchange])').forEach(tgl => {
+    tgl.addEventListener('change', () => {
+      const row = tgl.closest('.tgl-row');
+      if (row) {
+        const label = row.querySelector('.tgl-t');
+        if (label) {
+          const key = label.textContent.trim().toLowerCase().replace(/[^a-zа-яё0-9]/gi, '_');
+          addPendingChange(key, tgl.checked);
+        }
+      }
+    });
+  });
+
+  console.log('Репа Mini App initialized. Mock mode:', useMockData);
+});
 </script>
 </body>
 </html>
