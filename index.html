@@ -1243,11 +1243,12 @@ function hideLoading() {
 // ===========================================================================
 
 // Backend API URL — сервер с Mini App REST API
-const API_BASE = 'https://supreme-yodel-5gxpg9x77wwx276ww-9090.app.github.dev/';
+const API_BASE = 'https://supreme-yodel-5gxpg9x77wwx276ww-8080.app.github.dev';
 
 // ═══════════════════════════════════════════════════════════════
-// URL Hash Navigation — бот передаёт хеш для навигации к нужному экрану
-// Пример: https://soni224.github.io/Repaa/#settings/automation
+// URL Navigation — бот передаёт ?screen=xxx для навигации к нужному экрану
+// Telegram WebView СТИРАЕТ #hash из WebAppInfo URL, поэтому используем
+// query параметр: https://soni224.github.io/Repaa/?screen=analytics
 // ═══════════════════════════════════════════════════════════════
 const SCREEN_HASH_MAP = {
   'home': '',
@@ -1268,23 +1269,24 @@ const SCREEN_HASH_MAP = {
 };
 
 function navigateFromHash() {
-  // Priority 1: start_param from Telegram WebApp (deep link from bot buttons)
-  // Priority 2: URL hash fallback (direct link with #hash)
+  // Priority 1: ?screen=xxx query parameter (primary — survives Telegram WebView)
+  // Priority 2: Telegram start_param (deep links)
+  // Priority 3: URL hash fallback (direct browser links)
   let screen = null;
 
-  // 1) Read Telegram start_param (set via ?startapp=xxx in WebApp URL)
-  if (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
+  // 1) Read ?screen=xxx — this is the PRIMARY mechanism
+  // Telegram WebView preserves query params (it appends tgWebAppData etc.)
+  const sp = new URLSearchParams(window.location.search);
+  screen = sp.get('screen');
+  if (screen) console.log('[nav] using ?screen= param:', screen);
+
+  // 2) Read Telegram start_param (set via ?startapp=xxx in direct links)
+  if (!screen && tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
     screen = tg.initDataUnsafe.start_param;
-    console.log('[nav] using start_param:', screen);
-  }
-  // Also try the query-string fallback (Telegram injects it as tgWebAppStartParam)
-  if (!screen) {
-    const sp = new URLSearchParams(window.location.search);
-    screen = sp.get('startapp') || sp.get('tgWebAppStartParam');
-    if (screen) console.log('[nav] using query param:', screen);
+    if (screen) console.log('[nav] using start_param:', screen);
   }
 
-  // 2) Fallback to URL hash for direct links
+  // 3) Fallback to URL hash for direct browser links (not Telegram)
   if (!screen && window.location.hash) {
     screen = window.location.hash.replace('#', '');
     if (screen) console.log('[nav] using hash:', screen);
@@ -1327,8 +1329,20 @@ function getAuthHeaders() {
 async function loadUserData() {
   // Extract Telegram user data (always available, no network needed)
   const tgUser = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || null;
-  console.log('[user] tgUser:', tgUser ? { first_name: tgUser.first_name, last_name: tgUser.last_name } : 'null');
+  console.log('[user] tgUser:', tgUser ? { first_name: tgUser.first_name, last_name: tgUser.last_name, photo_url: tgUser.photo_url } : 'null');
   console.log('[user] API_BASE:', API_BASE);
+
+  // Apply Telegram user data IMMEDIATELY (before API call) so name/initials show instantly
+  if (tgUser) {
+    const quickUser = {
+      first_name: tgUser.first_name || '',
+      last_name: tgUser.last_name || '',
+      username: tgUser.username || '',
+      telegram_id: tgUser.id || 0,
+      photo_url: tgUser.photo_url || '',
+    };
+    applyUserData(quickUser);
+  }
 
   if (API_BASE) {
     try {
@@ -2194,7 +2208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (u) console.log('TG user:', u.id, u.first_name, u.username);
   }
 
-  // --- Navigate to the screen specified via startapp param or URL hash ---
+  // --- Navigate to the screen specified via ?screen= param ---
   // Try multiple times: Telegram WebView may change the URL after initial load
   const tryNavigate = () => {
     console.log('[nav] hash:', window.location.hash, 'search:', window.location.search,
