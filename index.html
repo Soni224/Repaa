@@ -1259,17 +1259,44 @@ const SCREEN_HASH_MAP = {
   'settings/help': 'settings|Help',
   'store': 'store',
   'analytics': 'analytics',
-  'platforms': 'platforms'
+  'platforms': 'platforms',
+  // Short aliases (used by Python WebApp buttons)
+  'generation': 'settings|Generation',
+  'automation': 'settings|Automation',
+  'safety': 'settings|Safety',
+  'help': 'settings|Help'
 };
 
 function navigateFromHash() {
-  if (!window.location.hash) return;
-  const hash = window.location.hash.replace('#', '');
-  const mapping = SCREEN_HASH_MAP[hash];
-  if (!mapping) return;
+  // Priority 1: start_param from Telegram WebApp (deep link from bot buttons)
+  // Priority 2: URL hash fallback (direct link with #hash)
+  let screen = null;
+
+  // 1) Read Telegram start_param (set via ?startapp=xxx in WebApp URL)
+  if (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
+    screen = tg.initDataUnsafe.start_param;
+    console.log('[nav] using start_param:', screen);
+  }
+  // Also try the query-string fallback (Telegram injects it as tgWebAppStartParam)
+  if (!screen) {
+    const sp = new URLSearchParams(window.location.search);
+    screen = sp.get('startapp') || sp.get('tgWebAppStartParam');
+    if (screen) console.log('[nav] using query param:', screen);
+  }
+
+  // 2) Fallback to URL hash for direct links
+  if (!screen && window.location.hash) {
+    screen = window.location.hash.replace('#', '');
+    if (screen) console.log('[nav] using hash:', screen);
+  }
+
+  if (!screen) return;
+  const mapping = SCREEN_HASH_MAP[screen];
+  if (!mapping) { console.warn('[nav] unknown screen:', screen); return; }
+  console.log('[nav] navigating to:', screen, '->', mapping);
   if (mapping.includes('|')) {
-    const [screen, section] = mapping.split('|');
-    navigateTo(screen);
+    const [scr, section] = mapping.split('|');
+    navigateTo(scr);
     setTimeout(() => openSettingsSection(section), 200);
   } else if (mapping === 'platforms') {
     navigateTo('home');
@@ -1298,6 +1325,11 @@ function getAuthHeaders() {
  * Фоллбэк: MOCK_USER (если нет ни API, ни Telegram)
  */
 async function loadUserData() {
+  // Extract Telegram user data (always available, no network needed)
+  const tgUser = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || null;
+  console.log('[user] tgUser:', tgUser ? { first_name: tgUser.first_name, last_name: tgUser.last_name } : 'null');
+  console.log('[user] API_BASE:', API_BASE);
+
   if (API_BASE) {
     try {
       showLoading('Загрузка данных...');
@@ -1305,25 +1337,40 @@ async function loadUserData() {
       if (!res.ok) throw new Error('API ' + res.status);
       currentUser = await res.json();
       useMockData = false;
+      // Merge Telegram user data over empty API fields
+      if (tgUser) {
+        if (!currentUser.first_name) currentUser.first_name = tgUser.first_name || '';
+        if (!currentUser.last_name) currentUser.last_name = tgUser.last_name || '';
+        if (!currentUser.username) currentUser.username = tgUser.username || '';
+        if (!currentUser.telegram_id) currentUser.telegram_id = tgUser.id || 0;
+        if (!currentUser.photo_url && tgUser.photo_url) currentUser.photo_url = tgUser.photo_url;
+      }
       applyUserData(currentUser);
     } catch(e) {
       console.warn('API fetch failed, falling back to mock:', e);
       useMockData = true;
       currentUser = { ...MOCK_USER };
+      if (tgUser) {
+        currentUser.first_name = tgUser.first_name || '';
+        currentUser.last_name = tgUser.last_name || '';
+        currentUser.username = tgUser.username || '';
+        currentUser.telegram_id = tgUser.id || 0;
+        if (tgUser.photo_url) currentUser.photo_url = tgUser.photo_url;
+      }
       applyUserData(currentUser);
     } finally {
       hideLoading();
     }
-  } else if (isTelegramEnvironment()) {
-    useMockData = true;
-    currentUser = { ...MOCK_USER };
-    applyUserData(currentUser);
-    if (tg) {
-      tg.sendData(JSON.stringify({ action: 'request_user_data' }));
-    }
   } else {
     useMockData = true;
     currentUser = { ...MOCK_USER };
+    if (tgUser) {
+      currentUser.first_name = tgUser.first_name || '';
+      currentUser.last_name = tgUser.last_name || '';
+      currentUser.username = tgUser.username || '';
+      currentUser.telegram_id = tgUser.id || 0;
+      if (tgUser.photo_url) currentUser.photo_url = tgUser.photo_url;
+    }
     applyUserData(currentUser);
   }
 }
@@ -1335,10 +1382,26 @@ function applyUserData(u) {
   const lastName = u.last_name || '';
   const initials = (firstName[0] || '?') + (lastName[0] || '');
   const safeName = displayName || 'Пользователь';
+  const photoUrl = u.photo_url || '';
+
+  // Helper: apply avatar (photo or initials) to any element
+  function setAvatar(el) {
+    if (!el) return;
+    if (photoUrl) {
+      el.style.backgroundImage = 'url(' + photoUrl + ')';
+      el.style.backgroundSize = 'cover';
+      el.style.backgroundPosition = 'center';
+      el.style.color = 'transparent';
+      el.textContent = '';
+    } else {
+      el.style.backgroundImage = '';
+      el.style.color = '';
+      el.textContent = initials.toUpperCase();
+    }
+  }
 
   // Home profile
-  const av = document.getElementById('profileAvatar');
-  if (av) av.textContent = initials.toUpperCase();
+  setAvatar(document.getElementById('profileAvatar'));
   const pn = document.getElementById('profileName');
   if (pn) pn.textContent = safeName;
 
@@ -1467,16 +1530,14 @@ function applyUserData(u) {
   }
 
   // === Settings list (top item) ===
-  const sa = document.getElementById('settingsAvatar');
-  if (sa) sa.textContent = initials.toUpperCase();
+  setAvatar(document.getElementById('settingsAvatar'));
   const sln = document.getElementById('settingsListItemName');
   if (sln) sln.textContent = safeName;
   const sls = document.getElementById('settingsListItemSub');
   if (sls) sls.textContent = plan + ' · LVL ' + level + ' · ' + balStr + ' токенов';
 
   // Settings profile tab
-  const spa = document.getElementById('settingsProfileAvatar');
-  if (spa) spa.textContent = initials.toUpperCase();
+  setAvatar(document.getElementById('settingsProfileAvatar'));
   const spn = document.getElementById('settingsProfileName');
   if (spn) spn.textContent = safeName;
 
@@ -1554,6 +1615,16 @@ async function saveSettings() {
         if (!res.ok) console.warn('Settings API error:', res.status);
       } catch (e) {
         console.warn('Settings API fetch failed:', e);
+      }
+      // «Почта»: уведомляем бота через /api/sync чтобы inline-кнопки обновились
+      try {
+        await fetch(API_BASE + '/api/sync', {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({ changes: changesObj })
+        });
+      } catch (e) {
+        console.warn('Sync API fetch failed:', e);
       }
     }
     if (currentUser) {
@@ -2123,11 +2194,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (u) console.log('TG user:', u.id, u.first_name, u.username);
   }
 
+  // --- Navigate to the screen specified via startapp param or URL hash ---
+  // Try multiple times: Telegram WebView may change the URL after initial load
+  const tryNavigate = () => {
+    console.log('[nav] hash:', window.location.hash, 'search:', window.location.search,
+      'start_param:', tg?.initDataUnsafe?.start_param, 'url:', window.location.href);
+    navigateFromHash();
+  };
+  tryNavigate();
+  setTimeout(tryNavigate, 300);
+  setTimeout(tryNavigate, 1000);
+
+  // Also listen for hash changes (e.g. if Telegram updates URL later)
+  window.addEventListener('hashchange', () => { console.log('[nav] hashchange:', window.location.hash); navigateFromHash(); });
+
   // --- Load user data from backend (or mock fallback) ---
   loadUserData();
-
-  // --- Navigate to the screen specified in URL hash (from bot's WebApp button) ---
-  setTimeout(() => navigateFromHash(), 300);
 
   // --- Init UI components ---
   initReviewsList();
