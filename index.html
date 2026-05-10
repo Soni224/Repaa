@@ -457,26 +457,26 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
   <div class="prof">
     <div class="prof-row">
-      <div class="prof-av" id="profileAvatar">АП</div>
+      <div class="prof-av" id="profileAvatar">?</div>
       <div class="prof-info">
-        <div class="prof-name" id="profileName">Алексей Петров</div>
+        <div class="prof-name" id="profileName">Загрузка...</div>
         <div class="prof-tags">
-          <span class="tag tag-primary" id="profilePlan">PRO</span>
-          <span class="tag tag-accent" id="profileLevel">LVL 7</span>
+          <span class="tag tag-primary" id="profilePlan">—</span>
+          <span class="tag tag-accent" id="profileLevel">LVL 1</span>
         </div>
       </div>
     </div>
     <div class="card" style="padding:12px">
       <div class="prof-bal">
-        <div style="display:flex;align-items:baseline"><span class="bal-v" id="userBalance">1 520</span><span class="bal-l">токенов</span></div>
+        <div style="display:flex;align-items:baseline"><span class="bal-v" id="userBalance">0</span><span class="bal-l">токенов</span></div>
         <button class="btn btn-p btn-sm" onclick="navigateTo('store')">
           <svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
       </div>
     </div>
     <div class="xp-wrap">
-      <div class="xp-info"><span>Опыт: <strong>2 450</strong></span><span>До LVL 8: <strong>550</strong></span></div>
-      <div class="xp-track"><div class="xp-fill"></div></div>
+      <div class="xp-info"><span>Опыт: <strong id="xpCurrent">0</strong></span><span>До <span id="xpNextLevel">LVL 2</span>: <strong id="xpRemaining">500</strong></span></div>
+      <div class="xp-track"><div class="xp-fill" id="xpFillBar" style="width:0%"></div></div>
     </div>
   </div>
 
@@ -484,8 +484,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
   <button class="btn btn-p main-cta" onclick="openSub('subReviewNew')" style="grid-column:1/-1">
     <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-    Ответить на <span id="liveReviewCount">12</span> новых отзывов
-    <span class="live-badge" id="ctaBadge">12</span>
+    Ответить на <span id="liveReviewCount">0</span> новых отзывов
+    <span class="live-badge" id="ctaBadge" style="display:none">0</span>
   </button>
 
 
@@ -518,22 +518,22 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="sgrid">
     <div class="card scard scard-clickable" style="padding:12px" onclick="navigateTo('reviews')">
       <div class="scard-ico"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 01-3.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-      <div><div class="scard-v" id="homeReviewCount">12 новых<span class="scard-live">12</span></div><div class="scard-l">Отзывов</div></div>
+      <div><div class="scard-v" id="homeReviewCount">0 новых</div><div class="scard-l">Отзывов</div></div>
       <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
     <div class="card scard scard-clickable" style="padding:12px" onclick="navigateTo('settings');setTimeout(()=>{openSettingsSection('Automation')},150)">
       <div class="scard-ico"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
-      <div><div class="scard-v"><span class="dot dot-on"></span>Вкл<span class="scard-live">!</span></div><div class="scard-l">Автопилот</div></div>
+      <div><div class="scard-v" id="homeAutopilotStatus"><span class="dot dot-off"></span>Выкл</div><div class="scard-l">Автопилот</div></div>
       <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
     <div class="card scard scard-clickable" style="padding:12px" onclick="openSub('subPlatforms')">
       <div class="scard-ico" style="background:#F3EAFF;color:#9B2DFF"><span style="font-size:10px;font-weight:800">WB</span></div>
-      <div><div class="scard-v"><span class="dot dot-on"></span>WB<span class="scard-live">OK</span></div><div class="scard-l">Подключён</div></div>
+      <div><div class="scard-v" id="homeWBStatus"><span class="dot dot-off"></span>WB</div><div class="scard-l">Не подключён</div></div>
       <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
     <div class="card scard scard-clickable" style="padding:12px" onclick="openSub('subPlatforms')">
       <div class="scard-ico err" style="background:#EBF0FF;color:#005BFF"><span style="font-size:10px;font-weight:800">OZ</span></div>
-      <div><div class="scard-v"><span class="dot dot-off"></span>Ozon<span class="scard-live" style="background:var(--text-3);animation:none;box-shadow:none">--</span></div><div class="scard-l">Не подключён</div></div>
+      <div><div class="scard-v" id="homeOzonStatus"><span class="dot dot-off"></span>Ozon</div><div class="scard-l">Не подключён</div></div>
       <svg class="scard-chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
   </div>
@@ -551,7 +551,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="screen" id="screenReviews">
 <div class="content">
   <div class="sec-h">
-    <div class="sec-t">Отзывы <span style="color:var(--text-3);font-weight:400">(12)</span></div>
+    <div class="sec-t">Отзывы <span id="reviewsHeaderCount" style="color:var(--text-3);font-weight:400"></span></div>
     <button class="btn btn-p btn-sm" onclick="openSub('subReviewNew')">+ Ответить</button>
   </div>
   <div class="tabs" id="reviewTabs">
@@ -576,10 +576,10 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <!-- Settings List (Telegram-style) -->
   <div id="settingsListView">
     <div class="settings-item" onclick="openSettingsSection('Profile')" style="padding-top:4px">
-      <div class="settings-avatar">АП</div>
+      <div class="settings-avatar" id="settingsAvatar">?</div>
       <div class="settings-item-body">
-        <span class="settings-item-text" id="settingsListItemName">Алексей Петров</span>
-        <span class="settings-item-sub" id="settingsListItemSub">PRO · LVL 7 · 1 520 токенов</span>
+        <span class="settings-item-text" id="settingsListItemName">Загрузка...</span>
+        <span class="settings-item-sub" id="settingsListItemSub">—</span>
       </div>
     </div>
 
@@ -605,7 +605,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
         </div>
         <span class="settings-item-text">Автопилот</span>
-        <span class="settings-item-badge" style="background:var(--success)" id="settingsAutopilotBadge">Вкл</span>
+        <span class="settings-item-badge" id="settingsAutopilotBadge" style="background:var(--text-3)">Выкл</span>
         <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
       <div class="settings-item" onclick="openSettingsSection('Safety')">
@@ -641,18 +641,18 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="sec-h"><div class="sec-t">Профиль</div></div>
     <div class="card mb-16">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <div class="prof-av" style="width:48px;height:48px;font-size:16px">АП</div>
+        <div class="prof-av" style="width:48px;height:48px;font-size:16px" id="settingsProfileAvatar">?</div>
         <div style="flex:1">
-          <div style="font-size:15px;font-weight:700;color:var(--text)" id="settingsProfileName">Алексей Петров</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text)" id="settingsProfileName">Загрузка...</div>
           <div style="display:flex;gap:4px;margin-top:3px">
-            <span class="tag tag-primary" id="settingsProfilePlan">PRO</span>
-            <span class="tag tag-accent">LVL 7</span>
+            <span class="tag tag-primary" id="settingsProfilePlan">Free</span>
+            <span class="tag tag-accent" id="settingsProfileLevel">LVL 1</span>
           </div>
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border)">
-        <div><div style="font-size:12px;color:var(--text-3)">Баланс</div><div style="font-size:16px;font-weight:700;color:var(--primary)">1 520 токенов</div></div>
-        <div style="text-align:right"><div style="font-size:12px;color:var(--text-3)">Всего ответов</div><div style="font-size:16px;font-weight:700;color:var(--text)">3 847</div></div>
+        <div><div style="font-size:12px;color:var(--text-3)">Баланс</div><div style="font-size:16px;font-weight:700;color:var(--primary)" id="settingsProfileBalance">0 токенов</div></div>
+        <div style="text-align:right"><div style="font-size:12px;color:var(--text-3)">Всего ответов</div><div style="font-size:16px;font-weight:700;color:var(--text)" id="settingsProfileResponses">0</div></div>
       </div>
     </div>
 
@@ -660,11 +660,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="card mb-16">
       <div class="mb-8">
         <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Название бренда</label>
-        <input type="text" class="inp" value="StyleShop" id="brandName" onchange="updateSetting('brand_name',this.value)">
+        <input type="text" class="inp" value="" id="brandName" placeholder="Название бренда" onchange="updateSetting('brand_name',this.value)">
       </div>
       <div>
         <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Правила общения</label>
-        <textarea class="inp" id="brandVoice" rows="3" onchange="updateSetting('brand_voice',this.value)">Мы — бренд, который ценит каждого клиента. Отвечаем вежливо, по существу, всегда предлагаем решение проблемы.</textarea>
+        <textarea class="inp" id="brandVoice" rows="3" placeholder="Опишите стиль общения вашего бренда..." onchange="updateSetting('brand_voice',this.value)"></textarea>
       </div>
     </div>
 
@@ -672,11 +672,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
         <div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:8px;background:#9B2DFF;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:800">WB</div><span style="font-size:13px;font-weight:600">Wildberries</span></div>
-        <span style="font-size:11px;font-weight:600;color:var(--success)"><span class="dot dot-on"></span> Подключён</span>
+        <span id="settingsWBStatus" style="font-size:11px;font-weight:600;color:var(--text-3)"><span class="dot dot-off"></span> Не подключён</span>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
         <div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:8px;background:#005BFF;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:800">OZ</div><span style="font-size:13px;font-weight:600">Ozon</span></div>
-        <button class="btn btn-p btn-sm" onclick="openSub('subPlatforms')">Подключить</button>
+        <span id="settingsOzonStatus" style="font-size:11px;font-weight:600;color:var(--text-3)">Не подключён</span>
       </div>
     </div>
   </div>
@@ -713,15 +713,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </button>
     <div class="card">
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"/></svg>Позитивный отзыв</div><div class="tgl-d">Использован 245 раз</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"/></svg>Позитивный отзыв</div><div class="tgl-d">Ещё не использован</div></div>
         <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke-width="3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>Жалоба на качество</div><div class="tgl-d">Использован 89 раз</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke-width="3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>Жалоба на качество</div><div class="tgl-d">Ещё не использован</div></div>
         <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Вопрос по размеру</div><div class="tgl-d">Использован 34 раза</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Вопрос по размеру</div><div class="tgl-d">Ещё не использован</div></div>
         <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
       </div>
     </div>
@@ -735,12 +735,12 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div style="margin-bottom:6px">
       <svg width="44" height="44" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
     </div>
-    <div style="font-size:16px;font-weight:700;color:var(--text)" id="autopilotTitle">Автопилот работает</div>
-    <div style="font-size:12px;color:var(--text-3);margin-top:2px" id="autopilotSubtitle">87 / 500 ответов сегодня</div>
-    <div class="prog mt-12"><div class="prog-fill" style="width:17%"></div></div>
-    <div style="font-size:10px;color:var(--text-3);margin-top:6px">Работает с 06 мая 2026</div>
+    <div style="font-size:16px;font-weight:700;color:var(--text)" id="autopilotTitle">Автопилот выключен</div>
+    <div style="font-size:12px;color:var(--text-3);margin-top:2px" id="autopilotSubtitle">Неактивен</div>
+    <div class="prog mt-12"><div class="prog-fill" id="autopilotProgress" style="width:0%"></div></div>
+    <div style="font-size:10px;color:var(--text-3);margin-top:6px" id="autopilotSince"></div>
     <label class="tgl" style="margin-top:14px;display:inline-block">
-      <input type="checkbox" checked id="autopilotToggle" onchange="toggleAutopilot(this)">
+      <input type="checkbox" id="autopilotToggle" onchange="toggleAutopilot(this)">
       <span class="tgl-s"></span>
     </label>
   </div>
@@ -924,9 +924,9 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="content">
   <div class="card" style="text-align:center;padding:20px;margin-bottom:14px">
     <div style="font-size:12px;color:var(--text-3);font-weight:600">Ваш баланс</div>
-    <div style="font-size:36px;font-weight:700;color:var(--primary);margin:2px 0">1 520</div>
+    <div style="font-size:36px;font-weight:700;color:var(--primary);margin:2px 0" id="storeBalance">0</div>
     <div style="font-size:12px;color:var(--text-2)">токенов</div>
-    <div style="font-size:10px;color:var(--text-3);margin-top:4px">~376 ответов при среднем расходе</div>
+    <div style="font-size:10px;color:var(--text-3);margin-top:4px" id="storeBalanceHint"></div>
   </div>
 
   <div class="sec-h">
@@ -990,11 +990,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <div class="sec-h"><div class="sec-t">Реферальная программа</div></div>
   <div class="card mb-16">
     <div style="font-size:12px;color:var(--text-2);margin-bottom:10px">Пригласите друга и получите <strong style="color:var(--primary)">150 токенов</strong> на счёт</div>
-    <div class="ref-box"><span class="ref-code">ALEXSELL7</span><button class="btn btn-g btn-sm" onclick="copyRefCode()"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div>
+    <div class="ref-box"><span class="ref-code" id="refCode">—</span><button class="btn btn-g btn-sm" onclick="copyRefCode()"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div>
     <button class="btn btn-p btn-full btn-sm mb-8" onclick="showToast('Ссылка скопирована!')">Поделиться ссылкой</button>
     <div class="stat-grid">
-      <div class="stat-card card" style="padding:10px"><div class="stat-v">14</div><div class="stat-l">Всего рефералов</div></div>
-      <div class="stat-card card" style="padding:10px"><div class="stat-v" style="color:var(--primary)">2 100</div><div class="stat-l">Заработано токенов</div></div>
+      <div class="stat-card card" style="padding:10px"><div class="stat-v" id="referralCount">0</div><div class="stat-l">Всего рефералов</div></div>
+      <div class="stat-card card" style="padding:10px"><div class="stat-v" style="color:var(--primary)" id="referralEarned">0</div><div class="stat-l">Заработано токенов</div></div>
     </div>
     <div class="mt-12">
       <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Ввести промокод</label>
@@ -1008,45 +1008,30 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="screen" id="screenAnalytics">
 <div class="content">
   <div class="stat-grid mb-16">
-    <div class="stat-card card"><div class="stat-v" style="color:var(--primary)">1 847</div><div class="stat-l">Всего отзывов</div></div>
-    <div class="stat-card card"><div class="stat-v" style="color:var(--success)">88.9%</div><div class="stat-l">Ответы</div></div>
-    <div class="stat-card card"><div class="stat-v">4.3</div><div class="stat-l">Ср. рейтинг</div></div>
-    <div class="stat-card card"><div class="stat-v">4 мин</div><div class="stat-l">Ср. время</div></div>
+    <div class="stat-card card"><div class="stat-v" style="color:var(--primary)" id="analyticsTotal">0</div><div class="stat-l">Всего ответов</div></div>
+    <div class="stat-card card"><div class="stat-v" style="color:var(--success)" id="analyticsWeekly">0</div><div class="stat-l">За неделю</div></div>
+    <div class="stat-card card"><div class="stat-v" id="analyticsMonthly">0</div><div class="stat-l">За месяц</div></div>
+    <div class="stat-card card"><div class="stat-v" id="analyticsAvgQuality">—</div><div class="stat-l">Ср. качество</div></div>
   </div>
 
   <div class="sec-h"><div class="sec-t">Ответы за неделю</div></div>
   <div class="chart" id="analyticsChart"></div>
 
   <div class="sec-h"><div class="sec-t">По площадкам</div></div>
-  <div class="card mb-16">
+  <div class="card mb-16" id="analyticsPlatforms">
     <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
       <div style="display:flex;align-items:center;gap:6px"><span class="rv-plat wb">WB</span><span style="font-size:12px;font-weight:600">Wildberries</span></div>
-      <div style="text-align:right"><div style="font-size:12px;font-weight:700">1 245 отзывов</div><div style="font-size:10px;color:var(--text-3)">88.5% ответов</div></div>
+      <div style="text-align:right"><div style="font-size:12px;font-weight:700" id="analyticsWBCount">0 ответов</div></div>
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
       <div style="display:flex;align-items:center;gap:6px"><span class="rv-plat ozon">OZON</span><span style="font-size:12px;font-weight:600">Ozon</span></div>
-      <div style="text-align:right"><div style="font-size:12px;font-weight:700">602 отзыва</div><div style="font-size:10px;color:var(--text-3)">89.7% ответов</div></div>
+      <div style="text-align:right"><div style="font-size:12px;font-weight:700" id="analyticsOzonCount">0 ответов</div></div>
     </div>
   </div>
 
   <div class="sec-h"><div class="sec-t">Топ товаров</div></div>
-  <div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div><div style="font-size:13px;font-weight:600">Кроссовки AirMax</div><div style="font-size:11px;color:var(--text-3)">342 отзыва · 4.5 · 92% ответов</div></div>
-      <div style="font-size:16px;font-weight:700;color:var(--primary)">#1</div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div><div style="font-size:13px;font-weight:600">Рюкзак TravelPro</div><div style="font-size:11px;color:var(--text-3)">218 отзывов · 4.2 · 89% ответов</div></div>
-      <div style="font-size:16px;font-weight:700;color:var(--text-3)">#2</div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div><div style="font-size:13px;font-weight:600">Наушники BT-500</div><div style="font-size:11px;color:var(--text-3)">156 отзывов · 4.1 · 85% ответов</div></div>
-      <div style="font-size:16px;font-weight:700;color:var(--text-3)">#3</div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
-      <div><div style="font-size:13px;font-weight:600">Футболка Premium</div><div style="font-size:11px;color:var(--text-3)">134 отзыва · 4.4 · 91% ответов</div></div>
-      <div style="font-size:16px;font-weight:700;color:var(--text-3)">#4</div>
-    </div>
+  <div class="card" id="analyticsTopProducts">
+    <div style="text-align:center;padding:20px 0;color:var(--text-3);font-size:12px">Данные появятся после обработки отзывов</div>
   </div>
 </div>
 </div>
@@ -1117,13 +1102,13 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <div class="card mb-12">
     <div class="plat-card" style="border-bottom:1px solid var(--border)">
       <div class="plat-logo wb">WB</div>
-      <div style="flex:1"><div class="plat-name">Wildberries</div><div class="plat-st" style="color:var(--success)">Подключён · API</div></div>
-      <button class="btn btn-g btn-sm" style="color:var(--danger)" onclick="showToast('Отключение WB...')">Отключить</button>
+      <div style="flex:1"><div class="plat-name">Wildberries</div><div class="plat-st" id="subPlatWB">Не подключён</div></div>
+      <button class="btn btn-p btn-sm" id="subPlatWBBtn" onclick="showToast('Подключение WB...')">Подключить</button>
     </div>
     <div class="plat-card" style="border-bottom:1px solid var(--border)">
       <div class="plat-logo ozon">OZ</div>
-      <div style="flex:1"><div class="plat-name">Ozon</div><div class="plat-st">Не подключён</div></div>
-      <button class="btn btn-p btn-sm" onclick="showToast('Подключение Ozon...')">Подключить</button>
+      <div style="flex:1"><div class="plat-name">Ozon</div><div class="plat-st" id="subPlatOzon">Не подключён</div></div>
+      <button class="btn btn-p btn-sm" id="subPlatOzonBtn" onclick="showToast('Подключение Ozon...')">Подключить</button>
     </div>
     <div class="plat-card" style="border-bottom:1px solid var(--border)">
       <div class="plat-logo ym">YM</div>
@@ -1197,29 +1182,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 // ===========================================================================
 
 // === MOCK DATA (fallback when no backend) ===
-const MOCK_USER = {id:'usr_001',telegram_id:123456789,first_name:'Алексей',last_name:'Петров',username:'alex_seller',level:7,xp:2450,xp_to_next:3000,balance:1520,plan:'PRO',wb_connected:true,ozon_connected:false,new_reviews:12,total_responses:3847,autopilot_enabled:true,settings:{night_mode:true,monitoring:true,follow_up:false,recommendations:true,negative_reaction:true,auto_response:true,brand_safety:true,brand_name:'StyleShop',brand_voice:'Мы — бренд, который ценит каждого клиента. Отвечаем вежливо, по существу, всегда предлагаем решение проблемы.',response_style:'professional'}};
-const MOCK_REVIEWS = [
-  {id:'r1',platform:'wb',product:'Кроссовки AirMax',author:'Мария К.',rating:5,text:'Отличные кроссовки! Размер подошёл идеально, качество на высоте.',date:'08.05.2026',status:'pending',favorite:false},
-  {id:'r2',platform:'wb',product:'Футболка Premium',author:'Дмитрий В.',rating:3,text:'Футболка неплохая, но размерная сетка не совпадает. Заказал XL, а пришёл как L.',date:'08.05.2026',status:'generated',response:'Здравствуйте, Дмитрий! Приносим извинения за несоответствие размерной сетки. Рады, что качество ткани вас порадовало!',favorite:false},
-  {id:'r3',platform:'ozon',product:'Наушники BT-500',author:'Ольга С.',rating:2,text:'Звук mediocre, батарея держит часов 3 от силы. За эти деньги ожидала больше.',date:'07.05.2026',status:'pending',favorite:true},
-  {id:'r4',platform:'wb',product:'Рюкзак TravelPro',author:'Андрей Л.',rating:4,text:'Хороший рюкзак, много карманов. Единственный минус — молния заедает.',date:'07.05.2026',status:'sent',response:'Андрей, спасибо за отзыв! По поводу молнии — напишите нам.',favorite:false},
-  {id:'r5',platform:'wb',product:'Кроссовки AirMax',author:'Елена П.',rating:1,text:'Пришли с браком — подошва отклеивается. Ждала неделю.',date:'07.05.2026',status:'pending',favorite:false},
-  {id:'r6',platform:'ozon',product:'Чехол SiliconeCase',author:'Иван М.',rating:5,text:'Классный чехол! Силикон мягкий, не желтеет. Вырезы точные.',date:'07.05.2026',status:'pending',favorite:false},
-];
-const MOCK_LIVE_FEED = [
-  {platform:'WB',text:'Ответ на отзыв от Анны М. — отправлен',time:'12 сек'},
-  {platform:'Ozon',text:'Сгенерирован ответ на вопрос от Игоря К.',time:'28 сек'},
-  {platform:'WB',text:'Негативный отзыв от Сергея — обработан',time:'1 мин'},
-  {platform:'WB',text:'Ответ на отзыв от Елены В. — отправлен',time:'2 мин'},
-  {platform:'Ozon',text:'Пакетная обработка: 8 отзывов обработано',time:'3 мин'},
-];
+const MOCK_USER = {id:'usr_001',telegram_id:0,first_name:'',last_name:'',username:'',level:1,xp:0,xp_to_next:500,balance:0,plan:'free',wb_connected:false,ozon_connected:false,new_reviews:0,total_responses:0,weekly_gens:0,monthly_gens:0,avg_quality:0,autopilot_enabled:false,referrals_count:0,settings:{night_mode:false,monitoring:false,follow_up:false,recommendations:false,negative_reaction:false,auto_response:false,brand_safety:false,brand_name:'',brand_voice:'',response_style:'professional',tone:'friendly'}};
+const MOCK_REVIEWS = [];
+const MOCK_LIVE_FEED = [];
 
 // === APP STATE ===
 let currentScreen = 'home';
 let currentFilter = 'all';
 let currentUser = null;
 let pendingChanges = [];
-let autopilotCounters = { done: 87, total: 500 };
 let navHistory = [];
 let activeSub = null;
 let isSaving = false;
@@ -1271,7 +1242,7 @@ function hideLoading() {
 // BACKEND API INTEGRATION
 // ===========================================================================
 
-// Backend API URL — GitHub Codespaces порт-форвардинг (Flask на 8080)
+// Backend API URL — сервер с Mini App REST API
 const API_BASE = 'https://supreme-yodel-5gxpg9x77wwx276ww-8080.app.github.dev';
 
 // ═══════════════════════════════════════════════════════════════
@@ -1358,22 +1329,165 @@ async function loadUserData() {
 }
 
 function applyUserData(u) {
-  const fullName = u.full_name || ((u.first_name || '') + ' ' + (u.last_name || '')).trim();
-  const initials = (u.first_name || '')[0] + ((u.last_name || '')[0] || (u.first_name || '')[1] || '');
-  document.getElementById('profileAvatar').textContent = initials.toUpperCase();
-  document.getElementById('profileName').textContent = fullName.trim();
-  document.getElementById('profilePlan').textContent = u.plan || 'Free';
-  document.getElementById('profileLevel').textContent = 'LVL ' + (u.level || 1);
-  const bal = (u.balance || 0).toLocaleString('ru-RU');
-  document.getElementById('userBalance').textContent = bal;
-  const pct = u.xp && u.xp_to_next ? Math.round((u.xp / u.xp_to_next) * 100) : 0;
-  document.querySelector('.xp-fill').style.width = pct + '%';
+  // === Name & Avatar ===
+  const displayName = u.full_name || ((u.first_name || '') + ' ' + (u.last_name || '')).trim();
+  const firstName = u.first_name || '';
+  const lastName = u.last_name || '';
+  const initials = (firstName[0] || '?') + (lastName[0] || '');
+  const safeName = displayName || 'Пользователь';
+
+  // Home profile
+  const av = document.getElementById('profileAvatar');
+  if (av) av.textContent = initials.toUpperCase();
+  const pn = document.getElementById('profileName');
+  if (pn) pn.textContent = safeName;
+
+  // Plan display
+  const plan = (u.plan || 'free').toUpperCase();
+  const pp = document.getElementById('profilePlan');
+  if (pp) pp.textContent = plan;
+  const spp = document.getElementById('settingsProfilePlan');
+  if (spp) spp.textContent = plan;
+
+  // Level
+  const level = u.level || 1;
+  const pl = document.getElementById('profileLevel');
+  if (pl) pl.textContent = 'LVL ' + level;
+  const spl = document.getElementById('settingsProfileLevel');
+  if (spl) spl.textContent = 'LVL ' + level;
+
+  // Balance
+  const bal = (u.balance || 0);
+  const balStr = bal.toLocaleString('ru-RU');
+  const ub = document.getElementById('userBalance');
+  if (ub) ub.textContent = balStr;
+  const spb = document.getElementById('settingsProfileBalance');
+  if (spb) spb.textContent = balStr + ' токенов';
+  const sb = document.getElementById('storeBalance');
+  if (sb) sb.textContent = balStr;
+  const sbh = document.getElementById('storeBalanceHint');
+  if (sbh) sbh.textContent = bal > 0 ? ('~' + bal + ' ответов') : 'Подключите площадку для начала работы';
+
+  // XP bar
+  const xp = u.xp || 0;
+  const xpToNext = u.xp_to_next || (level * 500);
+  const xpPct = xpToNext > 0 ? Math.min(Math.round((xp / xpToNext) * 100), 100) : 0;
+  const xpRemaining = Math.max(0, xpToNext - xp);
+  const xc = document.getElementById('xpCurrent');
+  if (xc) xc.textContent = xp.toLocaleString('ru-RU');
+  const xnl = document.getElementById('xpNextLevel');
+  if (xnl) xnl.textContent = 'LVL ' + (level + 1);
+  const xr = document.getElementById('xpRemaining');
+  if (xr) xr.textContent = xpRemaining.toLocaleString('ru-RU');
+  const xfb = document.getElementById('xpFillBar');
+  if (xfb) xfb.style.width = xpPct + '%';
+
+  // === New reviews count ===
+  const newReviews = u.new_reviews || 0;
+  const lrc = document.getElementById('liveReviewCount');
+  if (lrc) lrc.textContent = newReviews;
+  const cb = document.getElementById('ctaBadge');
+  if (cb) { cb.textContent = newReviews; cb.style.display = newReviews > 0 ? '' : 'none'; }
+  const hrc = document.getElementById('homeReviewCount');
+  if (hrc) hrc.textContent = newReviews + ' новых';
+  const rhc = document.getElementById('reviewsHeaderCount');
+  if (rhc) rhc.textContent = newReviews > 0 ? '(' + newReviews + ')' : '';
+
+  // Update header subtitle for reviews
+  headerTitles.reviews = ['Отзывы', newReviews > 0 ? newReviews + ' новых' : ''];
+
+  // Total responses
+  const totalResp = u.total_responses || 0;
+  const spr = document.getElementById('settingsProfileResponses');
+  if (spr) spr.textContent = totalResp.toLocaleString('ru-RU');
+
+  // === Autopilot ===
+  const apOn = !!u.autopilot_enabled;
   const apToggle = document.getElementById('autopilotToggle');
-  if (apToggle) apToggle.checked = !!u.autopilot_enabled;
-  document.getElementById('autopilotTitle').textContent = u.autopilot_enabled ? 'Автопилот работает' : 'Автопилот выключен';
-  updatePlatformDot('WB', u.wb_connected);
-  updatePlatformDot('Ozon', u.ozon_connected);
+  if (apToggle) apToggle.checked = apOn;
+  const apt = document.getElementById('autopilotTitle');
+  if (apt) apt.textContent = apOn ? 'Автопилот работает' : 'Автопилот выключен';
+  const aps = document.getElementById('autopilotSubtitle');
+  if (aps) aps.textContent = apOn ? 'Активен' : 'Неактивен';
+  const app = document.getElementById('autopilotProgress');
+  if (app) app.style.width = apOn ? '100%' : '0%';
+  const has = document.getElementById('settingsAutopilotBadge');
+  if (has) { has.textContent = apOn ? 'Вкл' : 'Выкл'; has.style.background = apOn ? 'var(--success)' : 'var(--text-3)'; }
+  const apIcon = document.getElementById('homeAutopilotStatus');
+  if (apIcon) apIcon.innerHTML = '<span class="dot ' + (apOn ? 'dot-on' : 'dot-off') + '"></span>' + (apOn ? 'Вкл' : 'Выкл');
+
+  // === Platforms ===
+  const wbOn = !!u.wb_connected;
+  const ozOn = !!u.ozon_connected;
+
+  // Home page platform cards
+  const wbHome = document.getElementById('homeWBStatus');
+  if (wbHome) wbHome.innerHTML = '<span class="dot ' + (wbOn ? 'dot-on' : 'dot-off') + '"></span>WB';
+  if (wbHome) wbHome.closest('.scard').querySelector('.scard-l').textContent = wbOn ? 'Подключён' : 'Не подключён';
+  const ozHome = document.getElementById('homeOzonStatus');
+  if (ozHome) ozHome.innerHTML = '<span class="dot ' + (ozOn ? 'dot-on' : 'dot-off') + '"></span>Ozon';
+  if (ozHome) ozHome.closest('.scard').querySelector('.scard-l').textContent = ozOn ? 'Подключён' : 'Не подключён';
+
+  // Settings profile platform status
+  const wbSet = document.getElementById('settingsWBStatus');
+  if (wbSet) wbSet.innerHTML = '<span class="dot ' + (wbOn ? 'dot-on' : 'dot-off') + '"></span> ' + (wbOn ? 'Подключён' : 'Не подключён');
+  if (wbSet) wbSet.style.color = wbOn ? 'var(--success)' : 'var(--text-3)';
+  const ozSet = document.getElementById('settingsOzonStatus');
+  if (ozSet) ozSet.textContent = ozOn ? 'Подключён' : 'Не подключён';
+  if (ozSet) ozSet.style.color = ozOn ? 'var(--success)' : 'var(--text-3)';
+
+  // Sub-platforms page
+  const spwb = document.getElementById('subPlatWB');
+  if (spwb) { spwb.textContent = wbOn ? 'Подключён · API' : 'Не подключён'; spwb.style.color = wbOn ? 'var(--success)' : ''; }
+  const spwbb = document.getElementById('subPlatWBBtn');
+  if (spwbb) {
+    if (wbOn) {
+      spwbb.textContent = 'Отключить';
+      spwbb.className = 'btn btn-g btn-sm';
+      spwbb.style.color = 'var(--danger)';
+    } else {
+      spwbb.textContent = 'Подключить';
+      spwbb.className = 'btn btn-p btn-sm';
+      spwbb.style.color = '';
+    }
+  }
+  const spole = document.getElementById('subPlatOzon');
+  if (spole) { spole.textContent = ozOn ? 'Подключён · API' : 'Не подключён'; spole.style.color = ozOn ? 'var(--success)' : ''; }
+  const spoleb = document.getElementById('subPlatOzonBtn');
+  if (spoleb) {
+    if (ozOn) {
+      spoleb.textContent = 'Отключить';
+      spoleb.className = 'btn btn-g btn-sm';
+      spoleb.style.color = 'var(--danger)';
+    } else {
+      spoleb.textContent = 'Подключить';
+      spoleb.className = 'btn btn-p btn-sm';
+      spoleb.style.color = '';
+    }
+  }
+
+  // === Settings list (top item) ===
+  const sa = document.getElementById('settingsAvatar');
+  if (sa) sa.textContent = initials.toUpperCase();
+  const sln = document.getElementById('settingsListItemName');
+  if (sln) sln.textContent = safeName;
+  const sls = document.getElementById('settingsListItemSub');
+  if (sls) sls.textContent = plan + ' · LVL ' + level + ' · ' + balStr + ' токенов';
+
+  // Settings profile tab
+  const spa = document.getElementById('settingsProfileAvatar');
+  if (spa) spa.textContent = initials.toUpperCase();
+  const spn = document.getElementById('settingsProfileName');
+  if (spn) spn.textContent = safeName;
+
+  // === Brand Voice ===
   if (u.settings) {
+    const bn = document.getElementById('brandName');
+    if (bn && u.settings.brand_name !== undefined) bn.value = u.settings.brand_name || '';
+    const bv = document.getElementById('brandVoice');
+    if (bv && u.settings.brand_voice !== undefined) bv.value = u.settings.brand_voice || '';
+
+    // Toggle settings
     applyToggleSetting('night_mode', u.settings.night_mode);
     applyToggleSetting('monitoring', u.settings.monitoring);
     applyToggleSetting('follow_up', u.settings.follow_up);
@@ -1382,18 +1496,26 @@ function applyUserData(u) {
     applyToggleSetting('auto_response', u.settings.auto_response);
     applyToggleSetting('brand_safety', u.settings.brand_safety);
   }
-}
 
-function updatePlatformDot(name, connected) {
-  document.querySelectorAll('.scard-v').forEach(d => {
-    if (d.textContent.includes(name)) {
-      const dotEl = d.querySelector('.dot');
-      if (dotEl) {
-        dotEl.classList.toggle('dot-on', connected);
-        dotEl.classList.toggle('dot-off', !connected);
-      }
-    }
-  });
+  // === Analytics ===
+  const at = document.getElementById('analyticsTotal');
+  if (at) at.textContent = (u.total_responses || 0).toLocaleString('ru-RU');
+  const aw = document.getElementById('analyticsWeekly');
+  if (aw) aw.textContent = (u.weekly_gens || 0).toLocaleString('ru-RU');
+  const am = document.getElementById('analyticsMonthly');
+  if (am) am.textContent = (u.monthly_gens || 0).toLocaleString('ru-RU');
+  const aq = document.getElementById('analyticsAvgQuality');
+  if (aq) aq.textContent = u.avg_quality ? (u.avg_quality + '%') : '—';
+
+  // === Referral ===
+  const rc = document.getElementById('referralCount');
+  if (rc) rc.textContent = u.referrals_count || 0;
+  const re = document.getElementById('referralEarned');
+  if (re) re.textContent = ((u.referrals_count || 0) * 150).toLocaleString('ru-RU');
+
+  // Store ref code if we have username
+  const rfc = document.getElementById('refCode');
+  if (rfc && u.username) rfc.textContent = (u.username || '').toUpperCase().slice(0, 10);
 }
 
 function applyToggleSetting(key, value) {
@@ -1530,7 +1652,7 @@ const screenMap = {
 };
 const headerTitles = {
   home: ['Репа', 'Центр управления'],
-  reviews: ['Отзывы', '12 новых'],
+  reviews: ['Отзывы', ''],
   settings: ['Настройки', ''],
   store: ['Магазин', 'Тарифы и токены'],
   analytics: ['Аналитика', 'Статистика продаж']
@@ -1621,8 +1743,10 @@ function updateBackButton() {
 // REVIEWS
 // ===========================================================================
 
-function initReviewsList() {
-  renderReviews('all');
+let fetchedReviews = [];
+
+async function initReviewsList() {
+  // Wire up tab clicks
   document.querySelectorAll('#reviewTabs .tab').forEach(b => {
     b.addEventListener('click', () => {
       document.querySelectorAll('#reviewTabs .tab').forEach(x => x.classList.remove('active'));
@@ -1631,11 +1755,35 @@ function initReviewsList() {
       haptic('light');
     });
   });
+  // Try to fetch reviews from API
+  if (API_BASE) {
+    try {
+      const res = await fetch(API_BASE + '/api/reviews?status=pending', { headers: getAuthHeaders() });
+      if (res.ok) {
+        const data = await res.json();
+        fetchedReviews = (data.reviews || []).map(r => ({
+          id: r.id,
+          platform: r.platform || 'wb',
+          product: r.product || '',
+          author: r.author || 'Клиент',
+          rating: r.rating || 5,
+          text: r.text || '',
+          date: r.date || '',
+          status: r.status || 'pending',
+          response: r.answer || ''
+        }));
+      }
+    } catch(e) {
+      console.warn('Failed to fetch reviews from API:', e);
+    }
+  }
+  renderReviews('all');
 }
 
 function renderReviews(f) {
   const l = document.getElementById('reviewsList');
-  const d = f === 'all' ? MOCK_REVIEWS : MOCK_REVIEWS.filter(r => r.status === f);
+  const source = fetchedReviews.length ? fetchedReviews : MOCK_REVIEWS;
+  const d = f === 'all' ? source : source.filter(r => r.status === f);
   if (!d.length) {
     l.innerHTML = '<div style="text-align:center;padding:32px 16px"><div style="margin-bottom:8px"><svg width="36" height="36" fill="none" stroke="var(--text-3)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px">Нет отзывов</div><div style="font-size:12px;color:var(--text-3)">В этой категории пока пусто</div></div>';
     return;
@@ -1648,7 +1796,8 @@ function renderReviews(f) {
 }
 
 function openReviewEditor(id) {
-  const r = MOCK_REVIEWS.find(x => x.id === id);
+  const source = fetchedReviews.length ? fetchedReviews : MOCK_REVIEWS;
+  const r = source.find(x => x.id === id);
   if (!r) return;
   haptic('light');
   const stars = Array.from({length:5},(_,i)=>`<svg class="${i<r.rating?'star-on':'star-off'}" style="width:16px;height:16px" viewBox="0 0 24 24" fill="${i<r.rating?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('');
@@ -1658,7 +1807,8 @@ function openReviewEditor(id) {
 }
 
 async function generateForReview(id) {
-  const r = MOCK_REVIEWS.find(x => x.id === id);
+  const source = fetchedReviews.length ? fetchedReviews : MOCK_REVIEWS;
+  const r = source.find(x => x.id === id);
   if (!r) return;
   haptic('medium');
   showToast('Генерация ответа...');
@@ -1672,6 +1822,12 @@ async function generateForReview(id) {
 
 function initLiveFeed() {
   const f = document.getElementById('liveFeed');
+  const emptyEl = document.getElementById('emptyLiveFeed');
+  if (!MOCK_LIVE_FEED.length && !currentUser?.wb_connected && !currentUser?.ozon_connected) {
+    if (emptyEl) emptyEl.style.display = '';
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = 'none';
   MOCK_LIVE_FEED.forEach(i => {
     const n = document.createElement('div');
     n.className = 'lf-item';
@@ -1692,10 +1848,35 @@ function initLiveFeed() {
 // CHART
 // ===========================================================================
 
-function initChart() {
+let chartData = null;
+
+async function initChart() {
   const c = document.getElementById('analyticsChart');
   if (!c) return;
-  const days=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],rv=[45,52,38,67,59,71,48],mx=Math.max(...rv);
+  const days=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  let rv = [0,0,0,0,0,0,0];
+  // Try to fetch real analytics from API
+  if (API_BASE) {
+    try {
+      const res = await fetch(API_BASE + '/api/analytics', { headers: getAuthHeaders() });
+      if (res.ok) {
+        const data = await res.json();
+        chartData = data;
+        // If API returns daily data, use it; otherwise use weekly spread
+        if (data.daily_gens && data.daily_gens.length) {
+          rv = data.daily_gens;
+        } else if (data.weekly_gens > 0) {
+          // Spread weekly total across days
+          const w = data.weekly_gens;
+          const spread = [0.15,0.18,0.12,0.2,0.15,0.1,0.1];
+          rv = spread.map(s => Math.round(w * s));
+        }
+      }
+    } catch(e) {
+      console.warn('Failed to fetch analytics:', e);
+    }
+  }
+  const mx = Math.max(...rv, 1);
   c.innerHTML = days.map((d,i) => `<div class="chart-bar-g"><div class="chart-bar" style="height:${rv[i]/mx*100}px"></div><div class="chart-lbl">${d}</div></div>`).join('');
 }
 
@@ -1832,7 +2013,12 @@ function undoEmergencyStop() {
   if (apToggle) apToggle.checked = true;
   addPendingChange('autopilot_enabled', true);
   document.getElementById('autopilotTitle').textContent = 'Автопилот работает';
-  document.getElementById('autopilotSubtitle').textContent = autopilotCounters.done + ' / ' + autopilotCounters.total + ' ответов сегодня';
+  document.getElementById('autopilotSubtitle').textContent = 'Активен';
+  document.getElementById('autopilotProgress').style.width = '100%';
+  const has = document.getElementById('settingsAutopilotBadge');
+  if (has) { has.textContent = 'Вкл'; has.style.background = 'var(--success)'; }
+  const apIcon = document.getElementById('homeAutopilotStatus');
+  if (apIcon) apIcon.innerHTML = '<span class="dot dot-on"></span>Вкл';
   document.getElementById('undoStopBtn').style.display = 'none';
   haptic('success');
   showToast('Автопилот возобновлён');
@@ -1841,11 +2027,14 @@ function undoEmergencyStop() {
 function toggleAutopilot(el) {
   const on = el.checked;
   document.getElementById('autopilotTitle').textContent = on ? 'Автопилот работает' : 'Автопилот выключен';
-  document.getElementById('autopilotSubtitle').textContent = on ? '87 / 500 ответов сегодня' : 'Остановлен';
+  document.getElementById('autopilotSubtitle').textContent = on ? 'Активен' : 'Неактивен';
+  document.getElementById('autopilotProgress').style.width = on ? '100%' : '0%';
   addPendingChange('autopilot_enabled', on);
   addPendingChange('auto_response', on);
   document.getElementById('settingsAutopilotBadge').textContent = on ? 'Вкл' : 'Выкл';
   document.getElementById('settingsAutopilotBadge').style.background = on ? 'var(--success)' : 'var(--text-3)';
+  const apIcon = document.getElementById('homeAutopilotStatus');
+  if (apIcon) apIcon.innerHTML = '<span class="dot ' + (on ? 'dot-on' : 'dot-off') + '"></span>' + (on ? 'Вкл' : 'Выкл');
   haptic(on ? 'success' : 'warning');
   showToast(on ? 'Автопилот включён' : 'Автопилот выключен');
 }
@@ -1861,9 +2050,12 @@ function emergencyStop() {
   if (apToggle) apToggle.checked = false;
   addPendingChange('autopilot_enabled', false);
   document.getElementById('autopilotTitle').textContent = 'Автопилот выключен';
-  document.getElementById('autopilotSubtitle').textContent = 'Остановлен';
+  document.getElementById('autopilotSubtitle').textContent = 'Неактивен';
+  document.getElementById('autopilotProgress').style.width = '0%';
   document.getElementById('settingsAutopilotBadge').textContent = 'Выкл';
   document.getElementById('settingsAutopilotBadge').style.background = 'var(--text-3)';
+  const apIcon = document.getElementById('homeAutopilotStatus');
+  if (apIcon) apIcon.innerHTML = '<span class="dot dot-off"></span>Выкл';
   const undoBtn = document.getElementById('undoStopBtn');
   if (undoBtn) undoBtn.style.display = 'block';
   haptic('heavy');
@@ -1893,9 +2085,14 @@ function toggleTheme() {
 // ===========================================================================
 
 function copyRefCode() {
-  navigator.clipboard?.writeText('ALEXSELL7');
-  haptic('success');
-  showToast('Код скопирован!');
+  const code = document.getElementById('refCode')?.textContent || '';
+  if (navigator.clipboard && code && code !== '—') {
+    navigator.clipboard.writeText(code);
+    haptic('success');
+    showToast('Код скопирован!');
+  } else {
+    showToast('Код пока недоступен');
+  }
 }
 
 function sendToBot(data) {
