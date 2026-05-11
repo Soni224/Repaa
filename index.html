@@ -1955,7 +1955,7 @@ function renderReviews(f) {
   l.innerHTML = d.map(r => {
     const stars = Array.from({length:5},(_,i)=>`<svg class="${i<r.rating?'star-on':'star-off'}" viewBox="0 0 24 24" fill="${i<r.rating?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('');
     const sb = {pending:'<span style="font-size:10px;font-weight:600;color:var(--warning);background:var(--warning-light);padding:2px 6px;border-radius:4px">Новый</span>',generated:'<span style="font-size:10px;font-weight:600;color:var(--primary);background:var(--primary-light);padding:2px 6px;border-radius:4px">Готов</span>',sent:'<span style="font-size:10px;font-weight:600;color:var(--success);background:var(--success-light);padding:2px 6px;border-radius:4px">Отправл.</span>'}[r.status];
-    return `<div class="card rv-card" onclick="openReviewEditor('${r.id}')"><div class="rv-hdr"><span class="rv-plat ${r.platform}">${r.platform.toUpperCase()}</span><div class="rv-stars">${stars}</div>${sb}<span class="rv-author">${r.author}</span></div><div class="rv-product">${r.product}</div><div class="rv-text">${r.text}</div><div style="display:flex;justify-content:space-between;align-items:center"><span class="rv-date">${r.date}</span><span style="font-size:11px;color:var(--primary);font-weight:600">Открыть ›</span></div></div>`;
+    return `<div class="card rv-card" onclick="openReviewEditor('${r.id}')"><div class="rv-hdr"><span class="rv-plat ${r.platform}">${escHtml(r.platform).toUpperCase()}</span><div class="rv-stars">${stars}</div>${sb}<span class="rv-author">${escHtml(r.author)}</span></div><div class="rv-product">${escHtml(r.product)}</div><div class="rv-text">${escHtml(r.text)}</div><div style="display:flex;justify-content:space-between;align-items:center"><span class="rv-date">${escHtml(r.date)}</span><span style="font-size:11px;color:var(--primary);font-weight:600">Открыть ›</span></div></div>`;
   }).join('');
 }
 
@@ -1966,7 +1966,7 @@ function openReviewEditor(id) {
   haptic('light');
   const stars = Array.from({length:5},(_,i)=>`<svg class="${i<r.rating?'star-on':'star-off'}" style="width:16px;height:16px" viewBox="0 0 24 24" fill="${i<r.rating?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`).join('');
   const c = document.getElementById('reviewEditorContent');
-  c.innerHTML = `<div class="sec-h"><div class="sec-t">Отзыв от ${r.author}</div></div><div class="card mb-12"><div class="rv-hdr"><span class="rv-plat ${r.platform}">${r.platform.toUpperCase()}</span><div class="rv-stars">${stars}</div><span class="rv-date">${r.date}</span></div><div class="rv-product">${r.product}</div><div class="rv-text">${r.text}</div></div>${r.response?`<div class="resp-box mb-12"><div class="resp-label">Предыдущий ответ</div><div class="resp-text">${r.response}</div></div>`:''}<button class="btn btn-p btn-full btn-lg" onclick="generateForReview('${r.id}')">Сгенерировать ответ</button>`;
+  c.innerHTML = `<div class="sec-h"><div class="sec-t">Отзыв от ${escHtml(r.author)}</div></div><div class="card mb-12"><div class="rv-hdr"><span class="rv-plat ${r.platform}">${escHtml(r.platform).toUpperCase()}</span><div class="rv-stars">${stars}</div><span class="rv-date">${escHtml(r.date)}</span></div><div class="rv-product">${escHtml(r.product)}</div><div class="rv-text">${escHtml(r.text)}</div></div>${r.response?`<div class="resp-box mb-12"><div class="resp-label">Предыдущий ответ</div><div class="resp-text">${escHtml(r.response)}</div></div>`:''}<button class="btn btn-p btn-full btn-lg" onclick="generateForReview('${r.id}')">Сгенерировать ответ</button>`;
   openSub('subReviewEditor');
 }
 
@@ -1984,28 +1984,55 @@ async function generateForReview(id) {
 // LIVE FEED
 // ===========================================================================
 
-function initLiveFeed() {
+async function initLiveFeed() {
   const f = document.getElementById('liveFeed');
   const emptyEl = document.getElementById('emptyLiveFeed');
-  if (!MOCK_LIVE_FEED.length && !currentUser?.wb_connected && !currentUser?.ozon_connected) {
-    if (emptyEl) emptyEl.style.display = '';
-    return;
+
+  if (API_BASE) {
+    try {
+      const res = await fetch(API_BASE + '/api/live-feed', { headers: getAuthHeaders() });
+      if (res.ok) {
+        const data = await res.json();
+        const items = data.items || [];
+        if (items.length) {
+          if (emptyEl) emptyEl.style.display = 'none';
+          items.slice(0, 10).forEach(i => {
+            const n = document.createElement('div');
+            n.className = 'lf-item';
+            n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${escHtml(i.platform)}</div><div class="lf-text">${escHtml(i.text)}</div></div><div class="lf-time">${escHtml(i.time)}</div>`;
+            f.appendChild(n);
+          });
+          // Poll for new items every 30 seconds
+          setInterval(async () => {
+            try {
+              const r2 = await fetch(API_BASE + '/api/live-feed', { headers: getAuthHeaders() });
+              if (r2.ok) {
+                const d2 = await r2.json();
+                const latest = (d2.items || [])[0];
+                if (latest) {
+                  const first = f.querySelector('.lf-item');
+                  const firstText = first ? first.querySelector('.lf-text')?.textContent : '';
+                  if (firstText !== latest.text) {
+                    const n = document.createElement('div');
+                    n.className = 'lf-item';
+                    n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${escHtml(latest.platform)}</div><div class="lf-text">${escHtml(latest.text)}</div></div><div class="lf-time">${escHtml(latest.time)}</div>`;
+                    f.insertBefore(n, f.firstChild);
+                    if (f.children.length > 10) f.removeChild(f.lastChild);
+                  }
+                }
+              }
+            } catch(e) { /* silent poll fail */ }
+          }, 30000);
+          return;
+        }
+      }
+    } catch(e) {
+      console.warn('Live feed fetch failed:', e);
+    }
   }
-  if (emptyEl) emptyEl.style.display = 'none';
-  MOCK_LIVE_FEED.forEach(i => {
-    const n = document.createElement('div');
-    n.className = 'lf-item';
-    n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${i.platform}</div><div class="lf-text">${i.text}</div></div><div class="lf-time">${i.time}</div>`;
-    f.appendChild(n);
-  });
-  setInterval(() => {
-    const ps=['WB','Ozon'],ns=['Анна','Игорь','Светлана','Михаил','Оксана'],as=[`Ответ на отзыв от ${ns[Math.floor(Math.random()*ns.length)]} — отправлен`,`Негатив обработан: ${ns[Math.floor(Math.random()*ns.length)]}`,`Пакет: ${Math.floor(Math.random()*10+3)} отзывов обработано`,`Новый отзыв от ${ns[Math.floor(Math.random()*ns.length)]}`];
-    const n = document.createElement('div');
-    n.className = 'lf-item';
-    n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${ps[Math.floor(Math.random()*2)]}</div><div class="lf-text">${as[Math.floor(Math.random()*as.length)]}</div></div><div class="lf-time">сейчас</div>`;
-    f.insertBefore(n, f.firstChild);
-    if (f.children.length > 8) f.removeChild(f.lastChild);
-  }, 8000);
+
+  // No API or no data — show empty state
+  if (emptyEl) emptyEl.style.display = '';
 }
 
 // ===========================================================================
@@ -2209,7 +2236,7 @@ async function loadChangelog(append) {
         html += '<div style="font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:6px">' + escHtml(e.title) + '</div>';
       }
       if (e.body) {
-        html += '<div style="font-size:13px;color:var(--text);line-height:1.55;white-space:pre-wrap">' + e.body + '</div>';
+        html += '<div style="font-size:13px;color:var(--text);line-height:1.55;white-space:pre-wrap">' + sanitizeHtml(e.body) + '</div>';
       }
       html += '</div>';
     });
@@ -2240,6 +2267,24 @@ function loadMoreChangelog() {
 function escHtml(s) {
   if (!s) return '';
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function sanitizeHtml(s) {
+  if (!s) return '';
+  // Allowlist: only <b>, </b>, <i>, </i>, <br>, </br>, <n>, </n> are safe
+  // Use placeholders to protect allowed tags from escaping
+  var placeholders = [];
+  function ph(t) { var k = '\x00' + placeholders.length + '\x00'; placeholders.push(t); return k; }
+  var result = s
+    .replace(/<(\/?)(b|i|n)\b>/gi, function(m) { return ph(m); })
+    .replace(/<br\s*\/?>/gi, function(m) { return ph('<br>'); })
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  for (var i = 0; i < placeholders.length; i++) {
+    result = result.replace('\x00' + i + '\x00', placeholders[i]);
+  }
+  return result;
 }
 
 function _pluralize(n, one, few, many) {
