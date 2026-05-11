@@ -615,6 +615,14 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <span class="settings-item-text">Безопасность</span>
         <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
+      <div class="settings-item" onclick="openSettingsSection('Changelog')">
+        <div class="settings-item-ico" style="background:var(--success-light);color:var(--success)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        </div>
+        <span class="settings-item-text">Обновления</span>
+        <span class="settings-item-badge" id="changelogBadge" style="background:var(--success);display:none">NEW</span>
+        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
       <div class="settings-item" onclick="openSettingsSection('Help')">
         <div class="settings-item-ico" style="background:var(--bg-input);color:var(--text-2)">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
@@ -625,7 +633,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
 
     <div style="margin-top:20px;text-align:center">
-      <div style="font-size:11px;color:var(--text-3)">Репа v1.0</div>
+      <div style="font-size:11px;color:var(--text-3)" id="appVersionText">Репа v1.0</div>
     </div>
   </div>
 
@@ -812,6 +820,22 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Анализ тональности</div><div class="tgl-d">Оценка настроения отзыва</div></div>
         <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
       </div>
+    </div>
+  </div>
+
+  <!-- TAB: Changelog -->
+  <div class="stab" id="tabChangelog" style="display:none">
+    <div class="sec-h"><div class="sec-t">Обновления</div></div>
+    <div id="changelogList"></div>
+    <div id="changelogEmpty" class="empty-state" style="display:none">
+      <div style="width:48px;height:48px;margin:0 auto 12px;border-radius:12px;background:var(--success-light);display:flex;align-items:center;justify-content:center;color:var(--success)">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+      </div>
+      <div style="font-size:14px;font-weight:600;color:var(--text-2)">Пока нет обновлений</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">Новые обновления появятся здесь</div>
+    </div>
+    <div id="changelogMore" style="display:none;text-align:center;padding:16px 0">
+      <button class="btn btn-s" onclick="loadMoreChangelog()" id="changelogMoreBtn">Показать ещё</button>
     </div>
   </div>
 
@@ -2001,12 +2025,17 @@ function openSettingsSection(section) {
     Generation: 'tabGeneration',
     Automation: 'tabAutomation',
     Safety: 'tabSafety',
+    Changelog: 'tabChangelog',
     Help: 'tabHelp'
   };
   const tabId = tabMap[section];
   if (tabId) {
     const el = document.getElementById(tabId);
     if (el) el.style.display = 'block';
+  }
+  // Load changelog data when opening Changelog section
+  if (section === 'Changelog') {
+    loadChangelog(false);
   }
   window.scrollTo(0, 0);
   // Update header subtitle
@@ -2015,6 +2044,7 @@ function openSettingsSection(section) {
     Generation: 'Генерация ответов',
     Automation: 'Автопилот',
     Safety: 'Безопасность',
+    Changelog: 'Обновления',
     Help: 'Помощь'
   };
   document.getElementById('headerSubtitle').textContent = subtitles[section] || '';
@@ -2026,6 +2056,103 @@ function showSettingsList() {
   document.getElementById('settingsListView').style.display = 'block';
   document.getElementById('headerSubtitle').textContent = '';
   window.scrollTo(0, 0);
+}
+
+// ===========================================================================
+// CHANGELOG / UPDATES
+// ===========================================================================
+
+let _changelogPage = 1;
+let _changelogHasMore = false;
+
+async function fetchVersion() {
+  try {
+    const res = await fetch(API_BASE + '/api/version', { headers: getAuthHeaders() });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data && data.version) {
+      document.getElementById('appVersionText').textContent = 'Репа ' + data.version;
+      const badge = document.getElementById('changelogBadge');
+      if (badge && data.version !== 'v1.0') {
+        badge.style.display = 'inline-flex';
+      }
+    }
+  } catch(e) {
+    console.log('Version fetch failed:', e);
+  }
+}
+
+async function loadChangelog(append) {
+  if (!append) _changelogPage = 1;
+  try {
+    const res = await fetch(API_BASE + '/api/changelog?page=' + _changelogPage, { headers: getAuthHeaders() });
+    if (!res.ok) return;
+    const data = await res.json();
+    const entries = data.entries || [];
+    _changelogHasMore = data.has_more || false;
+
+    const list = document.getElementById('changelogList');
+    const empty = document.getElementById('changelogEmpty');
+    const moreBtn = document.getElementById('changelogMore');
+
+    if (entries.length === 0 && !append) {
+      list.innerHTML = '';
+      empty.style.display = 'block';
+      moreBtn.style.display = 'none';
+      return;
+    }
+    empty.style.display = 'none';
+
+    let html = '';
+    entries.forEach((e, i) => {
+      const isNew = (i === 0 && !append);
+      const dateStr = e.created_at ? e.created_at.slice(0, 10).replace(/-/g, '.') : '';
+      const majorClass = e.is_major ? 'border-left:3px solid var(--primary);' : 'border-left:3px solid var(--border);';
+      const badgeHtml = isNew ? '<span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--success);color:#fff;margin-left:8px">NEW</span>' : '';
+
+      html += '<div class="card mb-12" style="padding:14px;' + majorClass + '">';
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:' + (e.title ? '4' : (e.body ? '8' : '0')) + 'px">';
+      html += '<div style="display:flex;align-items:center;gap:6px">';
+      html += '<span style="font-size:14px;font-weight:700;color:var(--text)">' + escHtml(e.version) + '</span>';
+      html += badgeHtml;
+      html += '</div>';
+      html += '<span style="font-size:11px;color:var(--text-3)">' + dateStr + '</span>';
+      html += '</div>';
+      if (e.title) {
+        html += '<div style="font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:6px">' + escHtml(e.title) + '</div>';
+      }
+      if (e.body) {
+        html += '<div style="font-size:13px;color:var(--text);line-height:1.55;white-space:pre-wrap">' + escHtml(e.body) + '</div>';
+      }
+      html += '</div>';
+    });
+
+    if (append) {
+      list.innerHTML += html;
+    } else {
+      list.innerHTML = html;
+    }
+
+    moreBtn.style.display = _changelogHasMore ? 'block' : 'none';
+  } catch(e) {
+    console.log('Changelog fetch failed:', e);
+  }
+}
+
+function loadMoreChangelog() {
+  _changelogPage++;
+  const btn = document.getElementById('changelogMoreBtn');
+  btn.disabled = true;
+  btn.textContent = 'Загрузка...';
+  loadChangelog(true).then(() => {
+    btn.disabled = false;
+    btn.textContent = 'Показать ещё';
+  });
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 // ===========================================================================
@@ -2224,6 +2351,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Load user data from backend (or mock fallback) ---
   loadUserData();
+
+  // --- Fetch latest version ---
+  fetchVersion();
 
   // --- Init UI components ---
   initReviewsList();
