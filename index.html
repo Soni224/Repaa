@@ -560,6 +560,9 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <button class="tab" data-filter="generated">Готовые</button>
     <button class="tab" data-filter="sent">Отправл.</button>
   </div>
+  <div style="margin-bottom:10px">
+    <input type="text" class="inp" id="reviewSearch" placeholder="Поиск по отзывам..." oninput="filterReviews()" style="padding:8px 12px;font-size:12px">
+  </div>
   <div id="reviewsList"></div>
   <div class="empty-state" id="emptyReviews" style="display:none">
     <div class="empty-state-icon">&#128172;</div>
@@ -1093,7 +1096,10 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="stat-card card"><div class="stat-v" id="analyticsAvgQuality">—</div><div class="stat-l">Ср. качество</div></div>
   </div>
 
-  <div class="sec-h"><div class="sec-t">Ответы за неделю</div></div>
+  <div class="sec-h">
+    <div class="sec-t">Ответы за неделю</div>
+    <button class="btn btn-s btn-sm" onclick="exportAnalyticsCSV()"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:3px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Экспорт</button>
+  </div>
   <div class="chart" id="analyticsChart"></div>
 
   <div class="sec-h"><div class="sec-t">По площадкам</div></div>
@@ -1944,10 +1950,26 @@ async function initReviewsList() {
   renderReviews('all');
 }
 
+let currentReviewFilter = 'all';
+
+function filterReviews() {
+  renderReviews(currentReviewFilter);
+}
+
 function renderReviews(f) {
+  currentReviewFilter = f;
   const l = document.getElementById('reviewsList');
   const source = fetchedReviews.length ? fetchedReviews : MOCK_REVIEWS;
-  const d = f === 'all' ? source : source.filter(r => r.status === f);
+  let d = f === 'all' ? source : source.filter(r => r.status === f);
+  // Apply search filter
+  const q = (document.getElementById('reviewSearch')?.value || '').toLowerCase().trim();
+  if (q) {
+    d = d.filter(r =>
+      (r.text || '').toLowerCase().includes(q) ||
+      (r.product || '').toLowerCase().includes(q) ||
+      (r.author || '').toLowerCase().includes(q)
+    );
+  }
   if (!d.length) {
     l.innerHTML = '<div style="text-align:center;padding:32px 16px"><div style="margin-bottom:8px"><svg width="36" height="36" fill="none" stroke="var(--text-3)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px">Нет отзывов</div><div style="font-size:12px;color:var(--text-3)">В этой категории пока пусто</div></div>';
     return;
@@ -2069,6 +2091,62 @@ async function initChart() {
   }
   const mx = Math.max(...rv, 1);
   c.innerHTML = days.map((d,i) => `<div class="chart-bar-g"><div class="chart-bar" style="height:${rv[i]/mx*100}px"></div><div class="chart-lbl">${d}</div></div>`).join('');
+
+  // Update platform breakdown from analytics
+  if (chartData) {
+    const pb = chartData.platform_breakdown || {};
+    const wbEl = document.getElementById('analyticsWBCount');
+    if (wbEl) wbEl.textContent = (pb.wb || 0) + ' ответов';
+    const ozEl = document.getElementById('analyticsOzonCount');
+    if (ozEl) ozEl.textContent = (pb.ozon || 0) + ' ответов';
+
+    // Update top products
+    const tp = chartData.top_products || [];
+    const tpEl = document.getElementById('analyticsTopProducts');
+    if (tpEl) {
+      if (tp.length > 0) {
+        tpEl.innerHTML = tp.map((p, i) => `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;${i < tp.length - 1 ? 'border-bottom:1px solid var(--border)' : ''}"><span style="font-size:11px;font-weight:700;color:var(--text-3);width:18px">${i+1}.</span><span style="font-size:13px;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(p)}</span></div>`).join('');
+      } else {
+        tpEl.innerHTML = '<div style="text-align:center;padding:20px 0;color:var(--text-3);font-size:12px">Данные появятся после обработки отзывов</div>';
+      }
+    }
+  }
+}
+
+// ===========================================================================
+// EXPORT ANALYTICS CSV
+// ===========================================================================
+
+function exportAnalyticsCSV() {
+  if (!chartData) { showToast('Нет данных для экспорта'); return; }
+  const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  const dg = chartData.daily_gens || [];
+  let csv = '\uFEFF'; // BOM for Excel UTF-8
+  csv += 'Метрика,Значение\n';
+  csv += 'Всего ответов,' + (chartData.total_gens || 0) + '\n';
+  csv += 'За неделю,' + (chartData.weekly_gens || 0) + '\n';
+  csv += 'За месяц,' + (chartData.monthly_gens || 0) + '\n';
+  csv += 'Сегодня,' + (chartData.today_gens || 0) + '\n';
+  csv += 'Ср. качество,' + (chartData.avg_quality || 0) + '%\n';
+  csv += '\nДень,Ответов\n';
+  days.forEach((d, i) => { csv += d + ',' + (dg[i] || 0) + '\n'; });
+  const pb = chartData.platform_breakdown || {};
+  csv += '\nПлощадка,Ответов\n';
+  csv += 'Wildberries,' + (pb.wb || 0) + '\n';
+  csv += 'Ozon,' + (pb.ozon || 0) + '\n';
+  const tp = chartData.top_products || [];
+  if (tp.length) {
+    csv += '\nТоп товары\n';
+    csv += 'Артикул\n';
+    tp.forEach(p => { csv += p + '\n'; });
+  }
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'repa_analytics_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click(); URL.revokeObjectURL(url);
+  haptic('medium');
+  showToast('Аналитика экспортирована');
 }
 
 // ===========================================================================
