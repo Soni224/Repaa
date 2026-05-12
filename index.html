@@ -1029,43 +1029,44 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <div class="tariff card pop">
     <div class="tariff-badge">ПОПУЛЯРНЫЙ</div>
     <div class="tariff-name">PRO</div>
-    <div class="tariff-price"><span class="tariff-pv">599 &#8381;</span><span class="tariff-pp">/ мес</span></div>
-    <ul class="tariff-feat"><li>500 ответов / день</li><li>2 площадки (WB + Ozon)</li><li>Автопилот 24/7</li><li>Brand Voice</li><li>Аналитика PRO</li><li>Приоритетная поддержка</li></ul>
-    <button class="btn btn-p btn-full btn-lg" onclick="showToast('Переход к оплате...')">Продлить PRO</button>
+    <div class="tariff-price"><span class="tariff-pv">2 990 &#8381;</span><span class="tariff-pp">/ мес</span></div>
+    <ul class="tariff-feat"><li>Безлимит ответов</li><li>10 площадок</li><li>Автопилот 24/7</li><li>Brand Voice</li><li>Еженедельные отчёты</li><li>API доступ</li></ul>
+    <button class="btn btn-p btn-full btn-lg" onclick="openBotForPayment()">Купить PRO</button>
   </div>
 
   <div class="tariff card">
     <div class="tariff-name">BUSINESS</div>
-    <div class="tariff-price"><span class="tariff-pv">1 499 &#8381;</span><span class="tariff-pp">/ мес</span></div>
-    <ul class="tariff-feat"><li>Безлимит ответов</li><li>Все площадки</li><li>Расширенная аналитика</li><li>API доступ</li><li>Персональный менеджер</li></ul>
-    <button class="btn btn-s btn-full" onclick="showToast('Переход к оплате...')">Перейти на BUSINESS</button>
+    <div class="tariff-price"><span class="tariff-pv">7 490 &#8381;</span><span class="tariff-pp">/ мес</span></div>
+    <ul class="tariff-feat"><li>Безлимит ответов</li><li>Все площадки</li><li>Расширенная аналитика</li><li>API доступ</li><li>Brand Safety</li><li>Приоритетная поддержка</li></ul>
+    <button class="btn btn-s btn-full" onclick="openBotForPayment()">Перейти на BUSINESS</button>
   </div>
 
-  <div class="sec-h mt-16"><div class="sec-t">Дополнительные токены</div></div>
+  <div class="sec-h mt-16"><div class="sec-t">Дополнительные токены</div>
+    <div style="font-size:11px;color:var(--text-3);font-weight:400">1 токен = 0.5 &#8381; (1 ответ на отзыв)</div></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
     <div class="card" style="text-align:center;padding:14px">
       <div style="font-size:18px;font-weight:700;color:var(--text)">100</div>
       <div style="font-size:10px;color:var(--text-3)">токенов</div>
-      <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">690 &#8381;</div>
-      <button class="btn btn-o btn-sm btn-full" onclick="showToast('Оплата...')">Купить</button>
+      <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">50 &#8381;</div>
+      <button class="btn btn-o btn-sm btn-full" onclick="openBotForTokens(100)">Купить</button>
     </div>
     <div class="card" style="text-align:center;padding:14px">
       <div style="font-size:18px;font-weight:700;color:var(--text)">500</div>
       <div style="font-size:10px;color:var(--text-3)">токенов</div>
-      <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">2 990 &#8381;</div>
-      <button class="btn btn-o btn-sm btn-full" onclick="showToast('Оплата...')">Купить</button>
+      <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">250 &#8381;</div>
+      <button class="btn btn-o btn-sm btn-full" onclick="openBotForTokens(500)">Купить</button>
     </div>
     <div class="card" style="text-align:center;padding:14px">
       <div style="font-size:18px;font-weight:700;color:var(--text)">5 000</div>
       <div style="font-size:10px;color:var(--text-3)">токенов</div>
-      <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">15 990 &#8381;</div>
-      <button class="btn btn-o btn-sm btn-full" onclick="showToast('Оплата...')">Купить</button>
+      <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">2 500 &#8381;</div>
+      <button class="btn btn-o btn-sm btn-full" onclick="openBotForTokens(5000)">Купить</button>
     </div>
     <div class="card" style="text-align:center;padding:14px">
       <div style="font-size:18px;font-weight:700;color:var(--text)">10 000</div>
       <div style="font-size:10px;color:var(--text-3)">токенов</div>
-      <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">26 990 &#8381;</div>
-      <button class="btn btn-o btn-sm btn-full" onclick="showToast('Оплата...')">Купить</button>
+      <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">5 000 &#8381;</div>
+      <button class="btn btn-o btn-sm btn-full" onclick="openBotForTokens(10000)">Купить</button>
     </div>
   </div>
 
@@ -1309,6 +1310,34 @@ function showToast(msg) {
   t.classList.add('visible');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('visible'), 2500);
+}
+
+// ===========================================================================
+// BOT PAYMENT REDIRECT — ВСЕ ОПЛАТЫ ПРОИСХОДЯТ ТОЛЬКО В БОТЕ
+// ===========================================================================
+const BOT_USERNAME = 'Repa_Otvet_Bot';
+
+function openBotForPayment() {
+  // Открывает бота на экране пополнения (подписки за звёзды)
+  try {
+    Telegram.WebApp.openTelegramLink(
+      'https://t.me/' + BOT_USERNAME + '?start=pay'
+    );
+  } catch(e) {
+    // Fallback: открыть бота обычной ссылкой
+    window.open('https://t.me/' + BOT_USERNAME + '?start=pay', '_blank');
+  }
+}
+
+function openBotForTokens(count) {
+  // Открывает бота с параметром для покупки конкретного количества токенов
+  try {
+    Telegram.WebApp.openTelegramLink(
+      'https://t.me/' + BOT_USERNAME + '?start=tokens_' + count
+    );
+  } catch(e) {
+    window.open('https://t.me/' + BOT_USERNAME + '?start=tokens_' + count, '_blank');
+  }
 }
 
 // ===========================================================================
