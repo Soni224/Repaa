@@ -70,9 +70,10 @@ input,textarea,select{font-family:inherit}
 /* Shell */
 .shell{max-width:430px;margin:0 auto;min-height:100dvh;position:relative;background:var(--bg)}
 
-/* Horizontal slider for main screens */
-.slider{display:flex;width:100%;height:100dvh;overflow-x:hidden;touch-action:pan-y}
-.slider-page{flex:0 0 100%;width:100%;height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+/* Horizontal slider for main screens — uses CSS transform for fast swipes */
+.slider{width:100%;height:100dvh;overflow:hidden;position:relative}
+.slider-inner{display:flex;width:300%;height:100dvh;transition:transform .28s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+.slider-page{flex:0 0 calc(100%/3);width:calc(100%/3);height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .slider-page .content{padding:14px 16px 0;padding-bottom:calc(var(--nav-h) + var(--safe-b) + 18px)}
 
 /* Override .screen for slider pages */
@@ -650,6 +651,78 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 /* Back button in settings */
 #settingsDetailView .back-btn{animation:backBtnIn .25s ease both}
 @keyframes backBtnIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+
+/* === MODULE ANIMATIONS (Home, Reviews, Analytics) === */
+
+/* Stats cards — scale + fade entrance */
+.anim-stat{opacity:0;animation:animStatIn .4s cubic-bezier(.25,.46,.45,.94) both}
+.anim-stat:nth-child(1){animation-delay:.06s}
+.anim-stat:nth-child(2){animation-delay:.12s}
+.anim-stat:nth-child(3){animation-delay:.18s}
+.anim-stat:nth-child(4){animation-delay:.24s}
+@keyframes animStatIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:none}}
+
+/* Section headers — slide from left */
+.anim-sec{opacity:0;animation:animSecIn .35s ease both}
+.anim-sec:nth-of-type(1){animation-delay:.1s}
+.anim-sec:nth-of-type(2){animation-delay:.22s}
+.anim-sec:nth-of-type(3){animation-delay:.34s}
+.anim-sec:nth-of-type(4){animation-delay:.46s}
+@keyframes animSecIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+
+/* Cards — slide up fade */
+.anim-card{opacity:0;animation:animCardIn .38s cubic-bezier(.25,.46,.45,.94) both}
+.anim-card:nth-of-type(1){animation-delay:.14s}
+.anim-card:nth-of-type(2){animation-delay:.26s}
+.anim-card:nth-of-type(3){animation-delay:.38s}
+.anim-card:nth-of-type(4){animation-delay:.50s}
+.anim-card:nth-of-type(5){animation-delay:.62s}
+@keyframes animCardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* Progress bars — width grow */
+.anim-bar{animation:animBarGrow .6s cubic-bezier(.25,.46,.45,.94) both;animation-delay:.3s}
+@keyframes animBarGrow{from{width:0!important}}
+
+/* Home header — subtle scale */
+.anim-home-header{animation:animHeaderIn .35s ease both}
+@keyframes animHeaderIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* Review cards — staggered slide up */
+.anim-rv{opacity:0;animation:animRvIn .35s ease both}
+.anim-rv:nth-child(1){animation-delay:.06s}
+.anim-rv:nth-child(2){animation-delay:.12s}
+.anim-rv:nth-child(3){animation-delay:.18s}
+.anim-rv:nth-child(4){animation-delay:.24s}
+.anim-rv:nth-child(5){animation-delay:.30s}
+@keyframes animRvIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Home action pills — slide in from right */
+.anim-pill{opacity:0;animation:animPillIn .38s ease both}
+.anim-pill:nth-child(1){animation-delay:.1s}
+.anim-pill:nth-child(2){animation-delay:.2s}
+.anim-pill:nth-child(3){animation-delay:.3s}
+.anim-pill:nth-child(4){animation-delay:.4s}
+@keyframes animPillIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+
+/* Brand voice widget — scale entrance */
+.anim-brand{opacity:0;animation:animBrandIn .4s ease both;animation-delay:.35s}
+@keyframes animBrandIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}}
+
+/* Onboarding card — slide up */
+.anim-onboard{opacity:0;animation:animOnboardIn .4s ease both;animation-delay:.15s}
+@keyframes animOnboardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* Review header — fade in */
+.anim-rv-header{animation:animRvHeader .3s ease both}
+@keyframes animRvHeader{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* Review tabs — subtle scale */
+.anim-tabs{animation:animTabs .3s ease both;animation-delay:.08s}
+@keyframes animTabs{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+
+/* Review summary bar — slide from right */
+.anim-summary{opacity:0;animation:animSummary .4s ease both;animation-delay:.15s}
+@keyframes animSummary{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -662,6 +735,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
 <!-- ========== HORIZONTAL SLIDER (Home ↔ Reviews ↔ Analytics) ========== -->
 <div class="slider" id="mainSlider">
+<div class="slider-inner">
 
 <!-- ===== PAGE 1: HOME ===== -->
 <div class="slider-page">
@@ -669,7 +743,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="content">
 
   <!-- Top Header Row: Avatar+Brand | Balance Widget + Theme -->
-  <div class="home-header">
+  <div class="home-header anim-home-header">
     <div class="home-header-left">
       <div class="home-avatar" id="homeAvatar" onclick="openSettings()">?</div>
       <div>
@@ -698,7 +772,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- Onboarding Checklist -->
-  <div class="onboarding-card" id="onboardingCard">
+  <div class="onboarding-card anim-onboard" id="onboardingCard">
     <div class="onboarding-header">
       <div class="onboarding-title">Остался 1 шаг до запуска</div>
       <div class="onboarding-badge" id="onboardingBadge">1 из 4</div>
@@ -741,7 +815,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- Subscription / Tariff Bar -->
-  <div class="sub-bar" id="subBar">
+  <div class="sub-bar anim-card" id="subBar">
     <div class="sub-bar-top">
       <div class="sub-bar-tariff" id="subBarTariff">Бесплатный тариф</div>
       <div class="sub-bar-date" id="subBarDate"></div>
@@ -756,14 +830,14 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- Autopilot Status -->
-  <div class="autopilot-status" id="autopilotStatusBar" onclick="openSettings('Autopilot')" style="cursor:pointer">
+  <div class="autopilot-status anim-card" id="autopilotStatusBar" onclick="openSettings('Autopilot')" style="cursor:pointer">
     <div class="autopilot-dot off" id="autopilotDot"></div>
     <div class="autopilot-text" id="autopilotStatusText"><strong>Автопилот:</strong> Выключен</div>
   </div>
 
   <!-- Quick Actions (horizontal pills) -->
   <div class="home-actions">
-    <div class="home-action-pill locked" id="actionReply" onclick="navigateTo('reviews')">
+    <div class="home-action-pill locked anim-pill" id="actionReply" onclick="navigateTo('reviews')">
       <div class="home-action-pill-ico" style="background:var(--primary-soft);color:var(--primary)">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
       </div>
@@ -774,7 +848,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       <div class="home-action-pill-lock" id="actionReplyLock">Подключите API</div>
     </div>
-    <div class="home-action-pill locked" id="actionAutopilot" onclick="openSettings('Autopilot')">
+    <div class="home-action-pill locked anim-pill" id="actionAutopilot" onclick="openSettings('Autopilot')">
       <div class="home-action-pill-ico" style="background:var(--success-light);color:var(--success)">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
       </div>
@@ -785,7 +859,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       <div class="home-action-pill-lock" id="actionAutopilotLock">Подключите API</div>
     </div>
-    <div class="home-action-pill" onclick="openSettings('BrandVoice')">
+    <div class="home-action-pill anim-pill" onclick="openSettings('BrandVoice')">
       <div class="home-action-pill-ico" style="background:var(--warning-light);color:var(--warning)">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       </div>
@@ -798,7 +872,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- Brand Voice Widget -->
-  <div class="brand-voice-widget" onclick="openSettings('BrandVoice')" id="brandVoiceWidget">
+  <div class="brand-voice-widget anim-brand" onclick="openSettings('BrandVoice')" id="brandVoiceWidget">
     <div class="brand-voice-top">
       <div class="brand-voice-ico">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
@@ -812,7 +886,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- Empty State CTA (shown when no reviews) -->
-  <div class="empty-cta" id="emptyCta">
+  <div class="empty-cta anim-card" id="emptyCta">
     <div class="empty-cta-icon">
       <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
     </div>
@@ -831,11 +905,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <span class="live-badge" id="ctaBadge" style="display:none">0</span>
   </button>
 
-  <div class="sec-h">
+  <div class="sec-h anim-sec">
     <div class="sec-t">Live-лента</div>
     <div class="sec-link"><span class="dot dot-on"></span> Эфир</div>
   </div>
-  <div class="card" id="liveFeed"><div class="empty-state" id="emptyLiveFeed" style="display:none"><div class="empty-state-icon" style="font-size:28px">📡</div><div style="font-size:13px;font-weight:600;color:var(--text-2)">Лента пуста</div><div style="font-size:11px;color:var(--text-3);margin-top:3px">Новые события появятся автоматически</div></div></div>
+  <div class="card anim-card" id="liveFeed"><div class="empty-state" id="emptyLiveFeed" style="display:none"><div class="empty-state-icon" style="font-size:28px">📡</div><div style="font-size:13px;font-weight:600;color:var(--text-2)">Лента пуста</div><div style="font-size:11px;color:var(--text-3);margin-top:3px">Новые события появятся автоматически</div></div></div>
 
   <!-- Hidden data elements (used by applyUserData JS) -->
   <div style="display:none">
@@ -864,27 +938,171 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="slider-page">
 <div class="screen" id="screenReviews">
 <div class="content">
-  <div class="sec-h">
-    <div class="sec-t">Отзывы <span id="reviewsHeaderCount" style="color:var(--text-3);font-weight:400"></span></div>
-    <button class="btn btn-p btn-sm" onclick="openSub('subReviewNew')">+ Ответить</button>
+  <!-- Reviews header with styled card -->
+  <div class="home-header anim-rv-header" style="margin-bottom:16px">
+    <div class="home-header-left">
+      <div style="font-size:20px;font-weight:700;color:var(--text)">Отзывы</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:500">Управление ответами</div>
+    </div>
+    <div class="home-header-right">
+      <button class="btn btn-p btn-sm" onclick="openSub('subReviewNew')">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Ответить
+      </button>
+    </div>
   </div>
-  <div class="tabs" id="reviewTabs">
+
+  <!-- Summary stats row -->
+  <div class="stat-grid anim-stat" style="margin-bottom:14px">
+    <div class="stat-card card" style="padding:10px">
+      <div style="display:flex;align-items:center;gap:6px">
+        <div style="width:28px;height:28px;border-radius:8px;background:var(--danger-light);display:flex;align-items:center;justify-content:center">
+          <svg width="14" height="14" fill="none" stroke="var(--danger)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--danger)" id="reviewsPendingCount">0</div>
+          <div style="font-size:10px;color:var(--text-3)">Новых</div>
+        </div>
+      </div>
+    </div>
+    <div class="stat-card card" style="padding:10px">
+      <div style="display:flex;align-items:center;gap:6px">
+        <div style="width:28px;height:28px;border-radius:8px;background:var(--success-light);display:flex;align-items:center;justify-content:center">
+          <svg width="14" height="14" fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--success)" id="reviewsSentCount">0</div>
+          <div style="font-size:10px;color:var(--text-3)">Отправлено</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="tabs anim-tabs" id="reviewTabs">
     <button class="tab active" data-filter="all">Все</button>
     <button class="tab" data-filter="pending">Новые</button>
     <button class="tab" data-filter="generated">Готовые</button>
     <button class="tab" data-filter="sent">Отправл.</button>
   </div>
+
+  <!-- Reviews list container -->
   <div id="reviewsList"></div>
+
+  <!-- Empty state with improved design -->
   <div class="empty-state" id="emptyReviews" style="display:none">
-    <div class="empty-state-icon">&#128172;</div>
-    <div style="font-size:14px;font-weight:600;color:var(--text-2)">Отзывов пока нет</div>
-    <div style="font-size:12px;color:var(--text-3);margin-top:4px">Новые отзывы появятся здесь автоматически</div>
+    <div style="width:64px;height:64px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+      <svg width="28" height="28" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+    </div>
+    <div style="font-size:15px;font-weight:700;color:var(--text)">Отзывов пока нет</div>
+    <div style="font-size:12px;color:var(--text-3);margin-top:6px;line-height:1.5">Подключите магазин, чтобы начать получать<br>уведомления о новых отзывах</div>
     <button class="btn btn-p btn-sm mt-16" onclick="openSub('subReviewNew')">Начать работу</button>
   </div>
 </div>
 </div>
 </div><!-- /slider-page Reviews -->
 
+<!-- ===== PAGE 3: ANALYTICS ===== -->
+<div class="slider-page">
+<div class="screen" id="screenAnalytics">
+<div class="content">
+  <!-- Analytics header -->
+  <div class="home-header" style="margin-bottom:16px">
+    <div class="home-header-left">
+      <div style="font-size:20px;font-weight:700;color:var(--text)">Аналитика</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:500">Обзор активности</div>
+    </div>
+    <div class="home-header-right">
+      <button class="btn btn-s btn-sm" onclick="showToast('Выберите период')" style="font-size:11px">7 дней ▾</button>
+    </div>
+  </div>
+
+  <!-- Quick stats row -->
+  <div class="stat-grid mb-16">
+    <div class="stat-card card anim-stat"><div class="stat-v" style="color:var(--primary)" id="analyticsTotal">127</div><div class="stat-l">Всего ответов</div></div>
+    <div class="stat-card card anim-stat"><div class="stat-v" style="color:var(--success)" id="analyticsWeekly">34</div><div class="stat-l">За неделю</div></div>
+    <div class="stat-card card anim-stat"><div class="stat-v" id="analyticsMonthly">89</div><div class="stat-l">За месяц</div></div>
+    <div class="stat-card card anim-stat"><div class="stat-v" id="analyticsAvgQuality">4.6</div><div class="stat-l">Ср. качество</div></div>
+  </div>
+
+  <div class="sec-h anim-sec"><div class="sec-t">Ответы за неделю</div></div>
+  <div class="card anim-card" style="padding:14px 10px;margin-bottom:14px">
+    <div class="chart" id="analyticsChart"></div>
+  </div>
+
+  <div class="sec-h anim-sec"><div class="sec-t">По площадкам</div></div>
+  <div class="card anim-card mb-16" id="analyticsPlatforms">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:8px"><span class="rv-plat wb">WB</span><span style="font-size:12px;font-weight:600">Wildberries</span></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:72%;height:100%;background:#9B2DFF;border-radius:3px"></div></div>
+        <div style="font-size:12px;font-weight:700" id="analyticsWBCount">72</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:8px"><span class="rv-plat ozon">OZON</span><span style="font-size:12px;font-weight:600">Ozon</span></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:45%;height:100%;background:#005BFF;border-radius:3px"></div></div>
+        <div style="font-size:12px;font-weight:700" id="analyticsOzonCount">45</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
+      <div style="display:flex;align-items:center;gap:8px"><span class="rv-plat" style="background:#FFCC00;color:#1A1A2E">ЯМ</span><span style="font-size:12px;font-weight:600">Яндекс Маркет</span></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:10%;height:100%;background:#FFCC00;border-radius:3px"></div></div>
+        <div style="font-size:12px;font-weight:700" id="analyticsYMCount">10</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-h anim-sec"><div class="sec-t">Тон ответов</div></div>
+  <div class="card anim-card mb-16">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+      <span style="font-size:12px;font-weight:600">Дружелюбный</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:58%;height:100%;background:var(--success);border-radius:3px"></div></div>
+        <span style="font-size:12px;font-weight:700;color:var(--success)">58%</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+      <span style="font-size:12px;font-weight:600">Нейтральный</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:28%;height:100%;background:var(--primary);border-radius:3px"></div></div>
+        <span style="font-size:12px;font-weight:700;color:var(--primary)">28%</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0">
+      <span style="font-size:12px;font-weight:600">Официальный</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:14%;height:100%;background:var(--warning);border-radius:3px"></div></div>
+        <span style="font-size:12px;font-weight:700;color:var(--warning)">14%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-h anim-sec"><div class="sec-t">Топ товаров</div></div>
+  <div class="card anim-card" id="analyticsTopProducts">
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="width:24px;height:24px;border-radius:6px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--primary)">1</div>
+      <div style="flex:1"><div style="font-size:12px;font-weight:600">Кроссовки Air Max</div><div style="font-size:10px;color:var(--text-3)">24 отзыва</div></div>
+      <div style="font-size:11px;font-weight:600;color:var(--success)">+12</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="width:24px;height:24px;border-radius:6px;background:var(--bg-input);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2)">2</div>
+      <div style="flex:1"><div style="font-size:12px;font-weight:600">Футболка Classic</div><div style="font-size:10px;color:var(--text-3)">18 отзывов</div></div>
+      <div style="font-size:11px;font-weight:600;color:var(--success)">+8</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+      <div style="width:24px;height:24px;border-radius:6px;background:var(--bg-input);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2)">3</div>
+      <div style="flex:1"><div style="font-size:12px;font-weight:600">Рюкзак Urban</div><div style="font-size:10px;color:var(--text-3)">11 отзывов</div></div>
+      <div style="font-size:11px;font-weight:600;color:var(--success)">+5</div>
+    </div>
+  </div>
+</div>
+</div>
+</div><!-- /slider-page Analytics -->
+
+</div><!-- /slider-inner -->
 </div><!-- /mainSlider -->
 
 <!-- ========== SETTINGS (overlay) ========== -->
@@ -1421,94 +1639,6 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 </div>
 </div>
 
-<!-- ===== PAGE 3: ANALYTICS ===== -->
-<div class="slider-page">
-<div class="screen" id="screenAnalytics">
-<div class="content">
-  <div class="stat-grid mb-16">
-    <div class="stat-card card"><div class="stat-v" style="color:var(--primary)" id="analyticsTotal">127</div><div class="stat-l">Всего ответов</div></div>
-    <div class="stat-card card"><div class="stat-v" style="color:var(--success)" id="analyticsWeekly">34</div><div class="stat-l">За неделю</div></div>
-    <div class="stat-card card"><div class="stat-v" id="analyticsMonthly">89</div><div class="stat-l">За месяц</div></div>
-    <div class="stat-card card"><div class="stat-v" id="analyticsAvgQuality">4.6</div><div class="stat-l">Ср. качество</div></div>
-  </div>
-
-  <div class="sec-h"><div class="sec-t">Ответы за неделю</div></div>
-  <div class="chart" id="analyticsChart"></div>
-
-  <div class="sec-h"><div class="sec-t">По площадкам</div></div>
-  <div class="card mb-16" id="analyticsPlatforms">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:6px"><span class="rv-plat wb">WB</span><span style="font-size:12px;font-weight:600">Wildberries</span></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div style="width:72%;height:100%;background:#9B2DFF;border-radius:3px"></div></div>
-        <div style="font-size:12px;font-weight:700" id="analyticsWBCount">72</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:6px"><span class="rv-plat ozon">OZON</span><span style="font-size:12px;font-weight:600">Ozon</span></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div style="width:45%;height:100%;background:#005BFF;border-radius:3px"></div></div>
-        <div style="font-size:12px;font-weight:700" id="analyticsOzonCount">45</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
-      <div style="display:flex;align-items:center;gap:6px"><span class="rv-plat" style="background:#FFCC00;color:#1A1A2E">ЯМ</span><span style="font-size:12px;font-weight:600">Яндекс Маркет</span></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div style="width:10%;height:100%;background:#FFCC00;border-radius:3px"></div></div>
-        <div style="font-size:12px;font-weight:700" id="analyticsYMCount">10</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-h"><div class="sec-t">Тон ответов</div></div>
-  <div class="card mb-16">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
-      <span style="font-size:12px;font-weight:600">Дружелюбный</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div style="width:58%;height:100%;background:var(--success);border-radius:3px"></div></div>
-        <span style="font-size:12px;font-weight:700;color:var(--success)">58%</span>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
-      <span style="font-size:12px;font-weight:600">Нейтральный</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div style="width:28%;height:100%;background:var(--primary);border-radius:3px"></div></div>
-        <span style="font-size:12px;font-weight:700;color:var(--primary)">28%</span>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0">
-      <span style="font-size:12px;font-weight:600">Официальный</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div style="width:14%;height:100%;background:var(--warning);border-radius:3px"></div></div>
-        <span style="font-size:12px;font-weight:700;color:var(--warning)">14%</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-h"><div class="sec-t">Топ товаров</div></div>
-  <div class="card" id="analyticsTopProducts">
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
-      <div style="width:24px;height:24px;border-radius:6px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--primary)">1</div>
-      <div style="flex:1"><div style="font-size:12px;font-weight:600">Кроссовки Air Max</div><div style="font-size:10px;color:var(--text-3)">24 отзыва</div></div>
-      <div style="font-size:11px;font-weight:600;color:var(--success)">+12</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
-      <div style="width:24px;height:24px;border-radius:6px;background:var(--bg-input);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2)">2</div>
-      <div style="flex:1"><div style="font-size:12px;font-weight:600">Футболка Classic</div><div style="font-size:10px;color:var(--text-3)">18 отзывов</div></div>
-      <div style="font-size:11px;font-weight:600;color:var(--success)">+8</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
-      <div style="width:24px;height:24px;border-radius:6px;background:var(--bg-input);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2)">3</div>
-      <div style="flex:1"><div style="font-size:12px;font-weight:600">Рюкзак Urban</div><div style="font-size:10px;color:var(--text-3)">11 отзывов</div></div>
-      <div style="font-size:11px;font-weight:600;color:var(--success)">+5</div>
-    </div>
-  </div>
-</div>
-</div>
-</div><!-- /slider-page Analytics -->
-
-</div><!-- /mainSlider -->
-
 <!-- ========== SUB: New Review ========== -->
 <div class="sub" id="subReviewNew">
 <div class="sub-c">
@@ -1794,7 +1924,7 @@ function haptic(type) {
 
   // Recalculate on resize/rotation
   window.addEventListener('resize', () => {
-    slider.scrollTo({ left: activeSliderIndex * slider.offsetWidth, behavior: 'instant' });
+    sliderGoTo(activeSliderIndex, false);
   });
 })();
 
@@ -2454,10 +2584,13 @@ let activeSliderIndex = 0;
 function sliderGoTo(index, smooth) {
   const slider = document.getElementById('mainSlider');
   if (!slider) return;
+  const inner = slider.querySelector('.slider-inner');
+  if (!inner) return;
   const pages = slider.querySelectorAll('.slider-page');
   if (index < 0 || index >= pages.length) return;
   activeSliderIndex = index;
-  slider.scrollTo({ left: index * slider.offsetWidth, behavior: smooth ? 'smooth' : 'instant' });
+  inner.style.transition = smooth ? 'transform .28s cubic-bezier(.25,.46,.45,.94)' : 'none';
+  inner.style.transform = 'translateX(-' + (index * (100/3)) + '%)';
   // Update bottom nav
   const names = ['home','reviews','analytics'];
   const name = names[index] || 'home';
