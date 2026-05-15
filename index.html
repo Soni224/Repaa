@@ -80,8 +80,9 @@ input,textarea,select{font-family:inherit}
 
 /* Header — removed (was top bar with Репа / Центр управления) */
 
-/* Bottom Nav — Compact floating pill */
-.bnav{position:fixed;bottom:6px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:320px;background:var(--bg-card);border:1px solid var(--border);border-radius:22px;z-index:50;padding:4px 6px;padding-bottom:calc(4px + var(--safe-b));box-shadow:0 2px 16px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.03)}
+/* Bottom Nav — Compact floating pill with auto-hide */
+.bnav{position:fixed;bottom:6px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:320px;background:var(--bg-card);border:1px solid var(--border);border-radius:22px;z-index:50;padding:4px 6px;padding-bottom:calc(4px + var(--safe-b));box-shadow:0 2px 16px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.03);transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .3s ease}
+.bnav.nav-hidden{transform:translateX(-50%) translateY(calc(100% + 20px));opacity:0;pointer-events:none}
 .bnav-in{display:flex;align-items:center;justify-content:space-around}
 .bnav-i{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 0;min-width:56px;color:var(--text-3);position:relative;transition:all .2s ease;border-radius:16px}
 .bnav-i.active{color:var(--primary);background:var(--primary-light)}
@@ -593,6 +594,54 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
 /* Theme card highlight border */
 #themeCards label:has(input:checked){border-color:var(--primary)!important;background:var(--primary-soft)}
+
+/* === Settings animations === */
+/* Profile zone fade-in */
+.s-head{animation:sHeadIn .4s ease both}
+@keyframes sHeadIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+
+/* Settings card rows stagger */
+.s-row{opacity:0;animation:sRowIn .35s ease both}
+.s-row:nth-child(1){animation-delay:.04s}
+.s-row:nth-child(2){animation-delay:.08s}
+.s-row:nth-child(3){animation-delay:.12s}
+.s-row:nth-child(4){animation-delay:.16s}
+.s-row:nth-child(5){animation-delay:.20s}
+.s-row:nth-child(6){animation-delay:.24s}
+.s-row:nth-child(7){animation-delay:.28s}
+@keyframes sRowIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+
+/* Detail view sections stagger */
+#settingsDetailView .card{opacity:0;animation:detCardIn .35s ease both}
+#settingsDetailView .card:nth-child(1){animation-delay:.05s}
+#settingsDetailView .card:nth-child(2){animation-delay:.10s}
+#settingsDetailView .card:nth-child(3){animation-delay:.15s}
+#settingsDetailView .card:nth-child(4){animation-delay:.20s}
+#settingsDetailView .card:nth-child(5){animation-delay:.25s}
+@keyframes detCardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Section headers slide-in */
+#settingsDetailView .sec-h{animation:secHIn .3s ease both}
+@keyframes secHIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+
+/* Sub-widget pulse entrance */
+.sub-widget{animation:subWIn .4s ease both}
+@keyframes subWIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+
+/* Subscription recommendation slide */
+.sub-widget-rec{animation:recSlide .4s ease both;animation-delay:.3s}
+@keyframes recSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Tariff cards stagger */
+.tariff{opacity:0;animation:tariffIn .35s ease both}
+.tariff:nth-of-type(1){animation-delay:.1s}
+.tariff:nth-of-type(2){animation-delay:.2s}
+.tariff:nth-of-type(3){animation-delay:.3s}
+@keyframes tariffIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* Back button in settings */
+#settingsDetailView .back-btn{animation:backBtnIn .25s ease both}
+@keyframes backBtnIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -1611,6 +1660,53 @@ function haptic(type) {
     else if (type === 'warning') tg.HapticFeedback.notificationOccurred('warning');
   } catch(e) {}
 }
+
+// ===========================================================================
+// AUTO-HIDE BOTTOM NAV ON SCROLL
+// ===========================================================================
+(function() {
+  const nav = document.querySelector('.bnav');
+  if (!nav) return;
+  let lastScrollY = 0;
+  let ticking = false;
+  let navVisible = true;
+
+  function checkNavVisibility() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const docHeight = document.documentElement.scrollHeight;
+    const viewHeight = window.innerHeight;
+    const scrollPercent = (scrollY + viewHeight) / docHeight;
+
+    if (scrollPercent >= 0.90 && navVisible) {
+      // Near bottom — hide nav
+      nav.classList.add('nav-hidden');
+      navVisible = false;
+    } else if (scrollPercent < 0.80 && !navVisible) {
+      // Scrolled back up — show nav
+      nav.classList.remove('nav-hidden');
+      navVisible = true;
+    }
+
+    // Also hide on fast scroll-down, show on scroll-up
+    if (navVisible && scrollY > lastScrollY + 8 && scrollY > 120) {
+      nav.classList.add('nav-hidden');
+      navVisible = false;
+    } else if (!navVisible && scrollY < lastScrollY - 8) {
+      nav.classList.remove('nav-hidden');
+      navVisible = true;
+    }
+
+    lastScrollY = scrollY;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(checkNavVisibility);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
 
 // ===========================================================================
 // TOAST
