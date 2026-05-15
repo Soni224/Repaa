@@ -310,18 +310,47 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 
 /* Theme follows Telegram colorScheme via .dark class on <html> — no separate TG override needed */
 
-/* Settings list (Telegram-style) */
-.settings-list{margin-bottom:16px}
-.settings-item{display:flex;align-items:center;gap:14px;width:100%;padding:13px 0;border-bottom:1px solid var(--border);text-align:left;background:none;border-left:none;border-right:none;border-top:none}
-.settings-item:last-child{border-bottom:none}
-.settings-item:active{opacity:.7}
-.settings-avatar{width:54px;height:54px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0}
-.settings-item-ico{width:28px;height:28px;border-radius:8px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0}
-.settings-item-body{flex:1;min-width:0}
-.settings-item-text{font-size:15px;font-weight:500;color:var(--text);display:block;line-height:1.3}
-.settings-item-sub{font-size:13px;color:var(--text-3);display:block;margin-top:2px}
-.settings-ch{color:var(--text-3);flex-shrink:0;opacity:.5}
-.settings-item-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);color:#fff;flex-shrink:0}
+/* Settings — Redesigned (7-item product system) */
+.s-head{text-align:center;padding:24px 0 18px}
+.s-avatar{width:76px;height:76px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 10px;box-shadow:0 4px 16px rgba(13,124,102,.18)}
+.s-name{font-size:20px;font-weight:700;color:var(--text);line-height:1.2}
+.s-status{font-size:12px;color:var(--text-3);margin-top:3px;line-height:1.4}
+.s-hint{font-size:12px;color:var(--primary);font-weight:500;margin-top:2px}
+
+.s-card{background:var(--bg-card);border-radius:22px;padding:6px 0;box-shadow:0 1px 4px rgba(0,0,0,.04);border:1px solid var(--border);margin-bottom:16px;overflow:hidden}
+.s-row{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;text-align:left;background:none;border:none;cursor:pointer;transition:background .12s}
+.s-row:active{background:var(--bg-input)}
+.s-row+.s-row{border-top:1px solid var(--border)}
+.s-row-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.s-row-ico svg{width:18px;height:18px}
+.s-row-body{flex:1;min-width:0}
+.s-row-title{font-size:15px;font-weight:600;color:var(--text);line-height:1.3}
+.s-row-sub{font-size:11px;color:var(--text-3);margin-top:1px;line-height:1.3}
+.s-row-chev{color:var(--text-3);flex-shrink:0;opacity:.4}
+.s-row-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);color:#fff;flex-shrink:0;margin-left:6px}
+
+/* Color groups for icon backgrounds — 5 base + 2 neutral */
+.s-ico-blue{background:rgba(45,167,255,.1);color:#2DA7FF}
+.s-ico-green{background:rgba(45,184,75,.1);color:#2DB84B}
+.s-ico-primary{background:var(--primary-soft);color:var(--primary)}
+.s-ico-amber{background:rgba(243,156,18,.1);color:#F39C12}
+.s-ico-gold{background:rgba(244,180,0,.1);color:#F4B400}
+.s-ico-slate{background:rgba(92,107,138,.1);color:#5C6B8A}
+.s-ico-neutral{background:var(--bg-input);color:var(--text-2)}
+
+/* Section divider in settings list */
+.s-divider{padding:6px 16px 4px;font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.3px}
+
+/* Subscription widget inside settings */
+.sub-widget{background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:14px}
+.sub-widget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sub-widget-tariff{font-size:14px;font-weight:700;color:var(--text)}
+.sub-widget-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:var(--radius-full);color:var(--primary);background:var(--primary-soft)}
+.sub-widget-bar{height:6px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:8px}
+.sub-widget-fill{height:100%;background:var(--primary);border-radius:var(--radius-full);transition:width .5s ease}
+.sub-widget-footer{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text-3)}
+.sub-widget-rec{font-size:11px;font-weight:600;color:var(--warning);display:flex;align-items:center;gap:3px;margin-top:8px;padding:6px 10px;background:var(--warning-light);border-radius:var(--radius-sm)}
+.sub-widget-rec svg{width:14px;height:14px;flex-shrink:0}
 
 /* Loading overlay */
 .loading-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.15);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s}
@@ -536,6 +565,16 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .dark .home-tab.active{background:var(--bg-card);color:var(--text)}
 /* .dark .home-theme-btn removed */
 .dark .home-avatar{box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.dark .s-avatar{box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.dark .s-card{box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.dark .s-row:active{background:var(--card-hover)}
+.dark .s-ico-blue{background:rgba(45,167,255,.15);color:#5CB8FF}
+.dark .s-ico-green{background:rgba(45,184,75,.15);color:#4DD468}
+.dark .s-ico-primary{background:rgba(52,207,170,.12);color:var(--primary)}
+.dark .s-ico-amber{background:rgba(243,156,18,.15);color:#FFB84D}
+.dark .s-ico-gold{background:rgba(244,180,0,.15);color:#FFD033}
+.dark .s-ico-slate{background:rgba(92,107,138,.15);color:#8B9AC0}
+.dark .s-ico-neutral{background:var(--bg-input);color:var(--text-2)}
 
 /* Compact mode */
 .compact .card{padding:12px!important}
@@ -578,7 +617,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
     </div>
     <div class="home-header-right">
-      <div class="home-balance-widget" onclick="openSettings('Store')">
+      <div class="home-balance-widget" onclick="openSettings('Subscription')">
         <span class="home-balance-val" id="userBalance">0</span>
         <span class="home-balance-cur">токенов</span>
         <div class="home-balance-plus">
@@ -621,7 +660,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <svg class="onboarding-step-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
-      <div class="onboarding-step" onclick="openSettings('Store')">
+      <div class="onboarding-step" onclick="openSettings('Subscription')">
         <div class="onboarding-step-ico todo" id="onboardStep3Ico">3</div>
         <div class="onboarding-step-body">
           <div class="onboarding-step-text">Пополнить баланс</div>
@@ -629,7 +668,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <svg class="onboarding-step-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
-      <div class="onboarding-step" onclick="openSettings('Automation')">
+      <div class="onboarding-step" onclick="openSettings('Autopilot')">
         <div class="onboarding-step-ico todo" id="onboardStep4Ico">4</div>
         <div class="onboarding-step-body">
           <div class="onboarding-step-text">Включить автопилот</div>
@@ -651,12 +690,12 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
     <div class="sub-bar-info">
       <div class="sub-bar-left" id="subBarLeft">0 из 0 ответов в этом месяце</div>
-      <div class="sub-bar-buy" onclick="openSettings('Store')">+ Докупить</div>
+      <div class="sub-bar-buy" onclick="openSettings('Subscription')">+ Докупить</div>
     </div>
   </div>
 
   <!-- Autopilot Status -->
-  <div class="autopilot-status" id="autopilotStatusBar" onclick="openSettings('Automation')" style="cursor:pointer">
+  <div class="autopilot-status" id="autopilotStatusBar" onclick="openSettings('Autopilot')" style="cursor:pointer">
     <div class="autopilot-dot off" id="autopilotDot"></div>
     <div class="autopilot-text" id="autopilotStatusText"><strong>Автопилот:</strong> Выключен</div>
   </div>
@@ -674,7 +713,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       <div class="home-action-pill-lock" id="actionReplyLock">Подключите API</div>
     </div>
-    <div class="home-action-pill locked" id="actionAutopilot" onclick="openSettings('Automation')">
+    <div class="home-action-pill locked" id="actionAutopilot" onclick="openSettings('Autopilot')">
       <div class="home-action-pill-ico" style="background:var(--success-light);color:var(--success)">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
       </div>
@@ -685,7 +724,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       <div class="home-action-pill-lock" id="actionAutopilotLock">Подключите API</div>
     </div>
-    <div class="home-action-pill" onclick="openSettings('Generation')">
+    <div class="home-action-pill" onclick="openSettings('BrandVoice')">
       <div class="home-action-pill-ico" style="background:var(--warning-light);color:var(--warning)">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       </div>
@@ -785,75 +824,107 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <!-- ========== SETTINGS (overlay) ========== -->
 <div class="sub" id="subSettings">
 <div class="sub-c">
-  <!-- Settings List View -->
+  <!-- Settings List View — Redesigned -->
   <div id="settingsListView">
     <button class="back-btn mb-16" onclick="closeSettings()">
       <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
       Назад
     </button>
-    <div class="settings-item" onclick="openSettingsSection('Profile')" style="padding-top:4px">
-      <div class="settings-avatar" id="settingsAvatar">?</div>
-      <div class="settings-item-body">
-        <span class="settings-item-text" id="settingsListItemName">Загрузка...</span>
-        <span class="settings-item-sub" id="settingsListItemSub">—</span>
-      </div>
+
+    <!-- Top: Centered avatar + name + status -->
+    <div class="s-head">
+      <div class="s-avatar" id="settingsAvatar">?</div>
+      <div class="s-name" id="settingsListItemName">Загрузка...</div>
+      <div class="s-status" id="settingsListItemSub">0 токенов &bull; Free plan</div>
+      <div class="s-hint" id="settingsLaunchHint">До запуска осталось 2 шага</div>
     </div>
 
-    <div style="height:8px"></div>
+    <!-- Main card: 7 primary sections -->
+    <div class="s-card">
+      <!-- 1. Аккаунт -->
+      <button class="s-row" onclick="openSettingsSection('Account')">
+        <div class="s-row-ico s-ico-blue">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="s-row-body">
+          <div class="s-row-title">Аккаунт</div>
+          <div class="s-row-sub">Имя, аватар, язык, внешний вид</div>
+        </div>
+        <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
 
-    <div class="settings-list">
-      <div class="settings-item" onclick="openSettingsSection('Profile')">
-        <div class="settings-item-ico">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <!-- 2. Магазины и API -->
+      <button class="s-row" onclick="openSettingsSection('Marketplace')">
+        <div class="s-row-ico s-ico-green">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         </div>
-        <span class="settings-item-text">Мой аккаунт</span>
-        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="settings-item" onclick="openSettingsSection('Generation')">
-        <div class="settings-item-ico">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        <div class="s-row-body">
+          <div class="s-row-title">Магазины и API</div>
+          <div class="s-row-sub" id="settingsMarketplaceSub">WB, Ozon, ключи, статус подключения</div>
         </div>
-        <span class="settings-item-text">Генерация ответов</span>
-        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="settings-item" onclick="openSettingsSection('Automation')">
-        <div class="settings-item-ico" style="background:var(--success-light);color:var(--success)">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+        <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- 3. Автопилот -->
+      <button class="s-row" onclick="openSettingsSection('Autopilot')">
+        <div class="s-row-ico s-ico-primary">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
         </div>
-        <span class="settings-item-text">Автопилот</span>
-        <span class="settings-item-badge" id="settingsAutopilotBadge" style="background:var(--text-3)">Выкл</span>
-        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="settings-item" onclick="openSettingsSection('Safety')">
-        <div class="settings-item-ico" style="background:var(--warning-light);color:var(--warning)">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="s-row-body">
+          <div class="s-row-title">Автопилот</div>
+          <div class="s-row-sub">Автоответы, подтверждение, правила</div>
         </div>
-        <span class="settings-item-text">Безопасность</span>
-        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="settings-item" onclick="openSettingsSection('Store')">
-        <div class="settings-item-ico" style="background:var(--primary-light);color:var(--primary)">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="s-row-badge" id="settingsAutopilotBadge" style="background:var(--text-3)">Выкл</span>
+        <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- 4. Brand Voice -->
+      <button class="s-row" onclick="openSettingsSection('BrandVoice')">
+        <div class="s-row-ico s-ico-amber">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
         </div>
-        <span class="settings-item-text">Магазин</span>
-        <span class="settings-item-badge" id="settingsStoreBadge" style="background:var(--primary)">Тарифы</span>
-        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="settings-item" onclick="openSettingsSection('Help')">
-        <div class="settings-item-ico" style="background:var(--bg-input);color:var(--text-2)">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
+        <div class="s-row-body">
+          <div class="s-row-title">Brand Voice</div>
+          <div class="s-row-sub">Тон ответов, стиль, примеры</div>
         </div>
-        <span class="settings-item-text">Помощь</span>
-        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="settings-item" onclick="openSettingsSection('Appearance')">
-        <div class="settings-item-ico" style="background:rgba(107,114,128,0.08);color:var(--text-2)">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- 5. Подписка и токены -->
+      <button class="s-row" onclick="openSettingsSection('Subscription')">
+        <div class="s-row-ico s-ico-gold">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
-        <span class="settings-item-text">Внешний вид</span>
-        <span class="settings-item-sub" id="settingsThemeSub">Системная</span>
-        <svg class="settings-ch" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
+        <div class="s-row-body">
+          <div class="s-row-title">Подписка и токены</div>
+          <div class="s-row-sub" id="settingsSubscriptionSub">Free plan &bull; 0 токенов</div>
+        </div>
+        <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- 6. Уведомления -->
+      <button class="s-row" onclick="openSettingsSection('Notifications')">
+        <div class="s-row-ico s-ico-slate">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </div>
+        <div class="s-row-body">
+          <div class="s-row-title">Уведомления</div>
+          <div class="s-row-sub">Новые отзывы, ошибки, лимиты</div>
+        </div>
+        <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- 7. Приватность и данные -->
+      <button class="s-row" onclick="openSettingsSection('Privacy')">
+        <div class="s-row-ico s-ico-slate">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="s-row-body">
+          <div class="s-row-title">Приватность и данные</div>
+          <div class="s-row-sub">Доступы, токены, кэш, экспорт</div>
+        </div>
+        <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
 
     <div style="margin-top:20px;text-align:center">
@@ -868,8 +939,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       Назад
     </button>
 
-    <!-- TAB: General -->
-  <div class="stab active" id="tabGeneral">
+    <!-- ===== TAB 1: Аккаунт ===== -->
+  <div class="stab active" id="tabAccount">
     <div class="sec-h"><div class="sec-t">Профиль</div></div>
     <div class="card mb-16">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
@@ -888,84 +959,96 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
     </div>
 
-    <div class="sec-h" id="brandVoiceSection"><div class="sec-t">Brand Voice</div></div>
+    <div class="sec-h"><div class="sec-t">Внешний вид</div></div>
+    <div class="card mb-16">
+      <div style="display:flex;flex-direction:column;gap:6px" id="themeCards">
+        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .15s" onclick="setTheme('system')">
+          <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:linear-gradient(135deg,#F5F5F9 50%,#121214 50%);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="var(--text-2)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600">Системная</div><div style="font-size:11px;color:var(--text-3)">Подстраивается под устройство</div></div>
+          <input type="radio" name="themeChoice" value="system" id="themeSystem" checked style="accent-color:var(--primary)">
+        </label>
+        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .15s" onclick="setTheme('light')">
+          <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:#F5F5F9;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="#1A1A2E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+          </div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600">Светлая</div><div style="font-size:11px;color:var(--text-3)">Светлый фон, тёмный текст</div></div>
+          <input type="radio" name="themeChoice" value="light" id="themeLight" style="accent-color:var(--primary)">
+        </label>
+        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .15s" onclick="setTheme('dark')">
+          <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:#121214;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="#EEEEF0" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:600">Тёмная</div><div style="font-size:11px;color:var(--text-3)">Тёмный фон, удобнее для глаз</div></div>
+          <input type="radio" name="themeChoice" value="dark" id="themeDark" style="accent-color:var(--primary)">
+        </label>
+      </div>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">Отображение</div></div>
+    <div class="card">
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Компактный режим</div><div class="tgl-d">Меньше отступы</div></div>
+        <label class="tgl"><input type="checkbox" id="compactMode" onchange="toggleCompactMode(this.checked)"><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Анимации</div><div class="tgl-d">Плавные переходы</div></div>
+        <label class="tgl"><input type="checkbox" id="animationsToggle" checked onchange="toggleAnimations(this.checked)"><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Скрывать онбординг</div><div class="tgl-d">Убрать карточку с главной</div></div>
+        <label class="tgl"><input type="checkbox" id="hideOnboarding" onchange="toggleOnboardingVisibility(this.checked)"><span class="tgl-s"></span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 2: Магазины и API ===== -->
+  <div class="stab" id="tabMarketplace" style="display:none">
+    <div class="sec-h" id="platformsSection"><div class="sec-t">Подключённые магазины</div></div>
+    <div class="card mb-16">
+      <div class="plat-card">
+        <div class="plat-logo wb">WB</div>
+        <div style="flex:1"><div class="plat-name">Wildberries</div><div class="plat-st" id="settingsWBStatus"><span class="dot dot-off"></span> Не подключён</div></div>
+        <button class="btn btn-o btn-sm" onclick="showToast('Вставьте API-ключ WB')">Подключить</button>
+      </div>
+      <div class="plat-card">
+        <div class="plat-logo ozon">OZ</div>
+        <div style="flex:1"><div class="plat-name">Ozon</div><div class="plat-st" id="settingsOzonStatus">Не подключён</div></div>
+        <button class="btn btn-o btn-sm" onclick="showToast('Вставьте API-ключ Ozon')">Подключить</button>
+      </div>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">API-ключи</div></div>
     <div class="card mb-16">
       <div class="mb-8">
-        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Название бренда</label>
-        <input type="text" class="inp" value="" id="brandName" placeholder="Название бренда" onchange="updateSetting('brand_name',this.value)">
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Wildberries API-ключ</label>
+        <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" onclick="showToast('Ключ сохранён')">OK</button></div>
       </div>
       <div>
-        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Правила общения</label>
-        <textarea class="inp" id="brandVoice" rows="3" placeholder="Опишите стиль общения вашего бренда..." onchange="updateSetting('brand_voice',this.value)"></textarea>
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Ozon API-ключ</label>
+        <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" onclick="showToast('Ключ сохранён')">OK</button></div>
       </div>
     </div>
 
-    <div class="sec-h" id="platformsSection"><div class="sec-t">Площадки</div></div>
+    <div class="sec-h"><div class="sec-t">Статус интеграций</div></div>
     <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-        <div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:8px;background:#9B2DFF;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:800">WB</div><span style="font-size:13px;font-weight:600">Wildberries</span></div>
-        <span id="settingsWBStatus" style="font-size:11px;font-weight:600;color:var(--text-3)"><span class="dot dot-off"></span> Не подключён</span>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Автосинхронизация отзывов</div><div class="tgl-d">Каждые 5 минут</div></div>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('auto_sync',this.checked)"><span class="tgl-s"></span></label>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
-        <div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:8px;background:#005BFF;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:800">OZ</div><span style="font-size:13px;font-weight:600">Ozon</span></div>
-        <span id="settingsOzonStatus" style="font-size:11px;font-weight:600;color:var(--text-3)">Не подключён</span>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Проверка статуса API</div><div class="tgl-d">Уведомлять при ошибках</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
       </div>
     </div>
   </div>
 
-<!-- TAB: Generation -->
-  <div class="stab" id="tabGeneration" style="display:none">
-    <div class="sec-h"><div class="sec-t">Стиль ответов</div></div>
-    <div class="card mb-16">
-      <div style="display:flex;flex-direction:column;gap:6px" id="styleCards">
-        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm)">
-          <input type="radio" name="responseStyle" value="friendly" style="accent-color:var(--primary)">
-          <div style="flex:1"><div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"/></svg>Дружелюбный</div><div style="font-size:11px;color:var(--text-3)">Тёплый, неформальный тон</div></div>
-        </label>
-        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm)">
-          <input type="radio" name="responseStyle" value="professional" checked style="accent-color:var(--primary)">
-          <div style="flex:1"><div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Профессиональный</div><div style="font-size:11px;color:var(--text-3)">По существу, уверенно</div></div>
-        </label>
-        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm)">
-          <input type="radio" name="responseStyle" value="formal" style="accent-color:var(--primary)">
-          <div style="flex:1"><div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Официальный</div><div style="font-size:11px;color:var(--text-3)">Строгий, деловой стиль</div></div>
-        </label>
-        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm)">
-          <input type="radio" name="responseStyle" value="casual" style="accent-color:var(--primary)">
-          <div style="flex:1"><div style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"/></svg>Свободный</div><div style="font-size:11px;color:var(--text-3)">Лёгкий, как с другом</div></div>
-        </label>
-      </div>
-    </div>
-
-
-      <div class="sec-t">Шаблоны</div>
-      <button class="btn btn-g btn-sm" onclick="showToast('Создание шаблона...')">
-        <svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Создать
-      </button>
-    <div class="card">
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"/></svg>Позитивный отзыв</div><div class="tgl-d">Ещё не использован</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
-      </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke-width="3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>Жалоба на качество</div><div class="tgl-d">Ещё не использован</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
-      </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Вопрос по размеру</div><div class="tgl-d">Ещё не использован</div></div>
-        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
-      </div>
-    </div>
-  </div>
-
-  
-
-  <!-- TAB: Automation -->
-  <div class="stab" id="tabAutomation" style="display:none">
+  <!-- ===== TAB 3: Автопилот ===== -->
+  <div class="stab" id="tabAutopilot" style="display:none">
   <div class="card" style="text-align:center;padding:20px;margin-bottom:14px">
     <div style="margin-bottom:6px">
-      <svg width="44" height="44" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+      <svg width="44" height="44" fill="none" stroke="var(--primary)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
     </div>
     <div style="font-size:16px;font-weight:700;color:var(--text)" id="autopilotTitle">Автопилот выключен</div>
     <div style="font-size:12px;color:var(--text-3);margin-top:2px" id="autopilotSubtitle">Неактивен</div>
@@ -976,40 +1059,50 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <span class="tgl-s"></span>
     </label>
   </div>
+    <div class="sec-h"><div class="sec-t">Правила срабатывания</div></div>
     <div class="card mb-16">
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Автоответ на новые отзывы</div><div class="tgl-d">Ответ в течение 1 минуты</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Автоответ на новые отзывы</div><div class="tgl-d">Ответ в течение 1 минуты</div></div>
         <label class="tgl"><input type="checkbox" checked onchange="updateSetting('auto_response',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Ночной режим</div><div class="tgl-d">Пауза с 22:00 до 08:00</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Ночной режим</div><div class="tgl-d">Пауза с 22:00 до 08:00</div></div>
         <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Follow-up</div><div class="tgl-d">Повтор через 24ч если нет ответа</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Follow-up</div><div class="tgl-d">Повтор через 24ч если нет ответа</div></div>
         <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Рекомендации товаров</div><div class="tgl-d">Автоматически подбирать товары</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Приоритет негатива</div><div class="tgl-d">Сначала отвечать на 1-2 звёзды</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      </div>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">Подтверждение и ограничения</div></div>
+    <div class="card mb-16">
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Подтверждение перед отправкой</div><div class="tgl-d">Показывать ответ перед отправкой</div></div>
+        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Рекомендации товаров</div><div class="tgl-d">Автоматически подбирать товары</div></div>
         <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Приоритет негатива</div><div class="tgl-d">Сначала отвечать на 1-2 звёзды</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
-      </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Чат с покупателями</div><div class="tgl-d">AI-агент ведёт диалог</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Чат с покупателями</div><div class="tgl-d">AI-агент ведёт диалог</div></div>
         <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
       </div>
     </div>
-    <div class="sec-h"><div class="sec-t">Лимиты</div></div>
+
+    <div class="sec-h"><div class="sec-t">Лимиты автодействий</div></div>
     <div class="card">
       <div class="mb-8"><label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Макс. ответов / день</label><input type="number" class="inp" value="500" id="dailyLimit"></div>
       <div><label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Задержка перед ответом (сек.)</label><input type="number" class="inp" value="30" id="responseDelay"></div>
     </div>
 
   <button class="emg" onclick="emergencyStop()">
-    <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+    <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
     Тревожная кнопка — остановить всё
   </button>
   <button class="btn btn-s btn-full" id="undoStopBtn" onclick="undoEmergencyStop()" style="display:none;margin-top:8px">
@@ -1017,152 +1110,79 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </button>
   </div>
 
-  <!-- TAB: Safety -->
-  <div class="stab" id="tabSafety" style="display:none">
-    <div class="card">
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Brand Safety</div><div class="tgl-d">Защита репутации бренда</div></div>
-        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('brand_safety',this.checked)"><span class="tgl-s"></span></label>
+  <!-- ===== TAB 4: Brand Voice ===== -->
+  <div class="stab" id="tabBrandVoice" style="display:none">
+    <div class="sec-h" id="brandVoiceSection"><div class="sec-t">Тон и стиль бренда</div></div>
+    <div class="card mb-16">
+      <div class="mb-8">
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Название бренда</label>
+        <input type="text" class="inp" value="" id="brandName" placeholder="Название бренда" onchange="updateSetting('brand_name',this.value)">
       </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Детектор фейков</div><div class="tgl-d">Распознаёт накрученные отзывы</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      <div class="mb-8">
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Правила общения</label>
+        <textarea class="inp" id="brandVoice" rows="3" placeholder="Опишите стиль общения вашего бренда..." onchange="updateSetting('brand_voice',this.value)"></textarea>
       </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Определение пола</div><div class="tgl-d">Адаптирует обращение</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Стиль ответов</label>
+        <div style="display:flex;flex-direction:column;gap:6px" id="styleCards">
+          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm)">
+            <input type="radio" name="responseStyle" value="friendly" style="accent-color:var(--primary)">
+            <div style="flex:1"><div style="font-size:13px;font-weight:600">Дружелюбный</div><div style="font-size:11px;color:var(--text-3)">Тёплый, неформальный тон</div></div>
+          </label>
+          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm)">
+            <input type="radio" name="responseStyle" value="professional" checked style="accent-color:var(--primary)">
+            <div style="flex:1"><div style="font-size:13px;font-weight:600">Профессиональный</div><div style="font-size:11px;color:var(--text-3)">По существу, уверенно</div></div>
+          </label>
+          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm)">
+            <input type="radio" name="responseStyle" value="formal" style="accent-color:var(--primary)">
+            <div style="flex:1"><div style="font-size:13px;font-weight:600">Официальный</div><div style="font-size:11px;color:var(--text-3)">Строгий, деловой стиль</div></div>
+          </label>
+          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm)">
+            <input type="radio" name="responseStyle" value="casual" style="accent-color:var(--primary)">
+            <div style="flex:1"><div style="font-size:13px;font-weight:600">Свободный</div><div style="font-size:11px;color:var(--text-3)">Лёгкий, как с другом</div></div>
+          </label>
+        </div>
       </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>Анти-спам</div><div class="tgl-d">Фильтрует спам-отзывы</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">Примеры ответов</div></div>
+    <div class="card mb-16">
+      <div class="mb-8">
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Желаемые формулировки</label>
+        <textarea class="inp" rows="3" placeholder="Например: &laquo;Спасибо за отзыв! Нам очень важно ваше мнение&raquo;" onchange="updateSetting('good_examples',this.value)"></textarea>
       </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Фильтр мата</div><div class="tgl-d">Цензура в ответах</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
-      </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Анализ тональности</div><div class="tgl-d">Оценка настроения отзыва</div></div>
-        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+      <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Нежелательные формулировки</label>
+        <textarea class="inp" rows="3" placeholder="Например: &laquo;К сожалению&raquo;, извинятия, обещания которые нельзя выполнить" onchange="updateSetting('bad_examples',this.value)"></textarea>
       </div>
     </div>
   </div>
 
-  <!-- TAB: Help -->
-  <div class="stab" id="tabHelp" style="display:none">
-    <div class="tabs" id="helpTabs" style="margin-bottom:14px">
-      <button class="tab active" data-helptab="faq">FAQ</button>
-      <button class="tab" data-helptab="academy">Академия</button>
-      <button class="tab" data-helptab="support">Поддержка</button>
-    </div>
-    <div class="htab active" id="helpFaq">
-      <div class="card mb-12">
-        <div class="help-item" onclick="showToast('Подключение WB через API-ключ')">
-          <div class="help-ico" style="background:#F3EAFF;color:#9B2DFF"><span style="font-size:10px;font-weight:800">WB</span></div>
-          <div class="help-t">Как подключить Wildberries?</div>
-          <div class="help-ch"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="help-item" onclick="showToast('Настройка автопилота в разделе Автопилот')">
-          <div class="help-ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
-          <div class="help-t">Настройка автопилота</div>
-          <div class="help-ch"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="help-item" onclick="showToast('Brand Voice определяет тон ответов')">
-          <div class="help-ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-          <div class="help-t">Как работает Brand Voice?</div>
-          <div class="help-ch"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="help-item" onclick="showToast('Подключите Ozon через API-ключ')">
-          <div class="help-ico" style="background:#EBF0FF;color:#005BFF"><span style="font-size:10px;font-weight:800">OZ</span></div>
-          <div class="help-t">Подключение Ozon</div>
-          <div class="help-ch"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="help-item" onclick="showToast('Выберите подходящий тариф в Магазине')">
-          <div class="help-ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
-          <div class="help-t">Тарифы и оплата</div>
-          <div class="help-ch"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="help-item" onclick="showToast('Фильтры в Настройки - Безопасность')">
-          <div class="help-ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="help-t">Безопасность и анти-спам</div>
-          <div class="help-ch"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="help-item" onclick="showToast('Пригласите друзей за бонус!')">
-          <div class="help-ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-          <div class="help-t">Реферальная программа</div>
-          <div class="help-ch"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
-        <div class="help-item" onclick="showToast('Токены не сгорают!')">
-          <div class="help-ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg></div>
-          <div class="help-t">Токены не сгорают</div>
-          <div class="help-ch"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-        </div>
+  <!-- ===== TAB 5: Подписка и токены ===== -->
+  <div class="stab" id="tabSubscription" style="display:none">
+    <!-- Subscription widget with economics -->
+    <div class="sub-widget">
+      <div class="sub-widget-header">
+        <div class="sub-widget-tariff" id="subWidgetTariff">Бесплатный тариф</div>
+        <div class="sub-widget-badge" id="subWidgetBadge">Free</div>
       </div>
-    </div>
-    <div class="htab" id="helpAcademy" style="display:none">
-      <div class="card mb-12">
-        <div class="acad">
-          <div class="acad-num done">
-            <svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div class="acad-info"><div class="acad-t">Основы работы с отзывами</div><div class="acad-d">Как правильно отвечать на отзывы</div><div class="acad-meta"><span class="acad-tag">5 мин</span><span class="acad-tag" style="color:var(--success)">Пройден</span></div></div>
-        </div>
-        <div class="acad">
-          <div class="acad-num done">
-            <svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div class="acad-info"><div class="acad-t">Секреты Brand Voice</div><div class="acad-d">Уникальный голос бренда</div><div class="acad-meta"><span class="acad-tag">8 мин</span><span class="acad-tag" style="color:var(--success)">Пройден</span></div></div>
-        </div>
-        <div class="acad" onclick="showToast('Открыт урок: Автопилот')">
-          <div class="acad-num todo">3</div>
-          <div class="acad-info"><div class="acad-t">Автопилот: полный гайд</div><div class="acad-d">Настройте автоматические ответы</div><div class="acad-meta"><span class="acad-tag">10 мин</span><span class="acad-tag">Средний</span></div></div>
-        </div>
-        <div class="acad" onclick="showToast('Открыт урок: Аналитика')">
-          <div class="acad-num todo">4</div>
-          <div class="acad-info"><div class="acad-t">Аналитика продаж по отзывам</div><div class="acad-d">Улучшайте продукты через отзывы</div><div class="acad-meta"><span class="acad-tag">7 мин</span><span class="acad-tag">Продвинутый</span></div></div>
-        </div>
-        <div class="acad" onclick="showToast('Открыт урок: Негатив')">
-          <div class="acad-num todo">5</div>
-          <div class="acad-info"><div class="acad-t">Работа с негативными отзывами</div><div class="acad-d">Превратите недовольного в лояльного</div><div class="acad-meta"><span class="acad-tag">6 мин</span><span class="acad-tag">Начальный</span></div></div>
-        </div>
-        <div class="acad" onclick="showToast('Открыт урок: Шаблоны')">
-          <div class="acad-num todo">6</div>
-          <div class="acad-info"><div class="acad-t">Продвинутые шаблоны</div><div class="acad-d">Система шаблонов для быстрого ответа</div><div class="acad-meta"><span class="acad-tag">9 мин</span><span class="acad-tag">Продвинутый</span></div></div>
-        </div>
+      <div class="sub-widget-bar">
+        <div class="sub-widget-fill" id="subWidgetFill" style="width:0%"></div>
       </div>
-    </div>
-    <div class="htab" id="helpSupport" style="display:none">
-      <div class="card mb-12" style="text-align:center;padding:24px">
-        <div style="margin-bottom:10px">
-          <svg width="40" height="40" fill="none" stroke="var(--text-3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <div style="font-size:15px;font-weight:700;margin-bottom:4px">Нужна помощь?</div>
-        <div style="font-size:12px;color:var(--text-3);margin-bottom:14px">Мы на связи Пн-Пт, 10:00-19:00 (МСК)</div>
-        <button class="btn btn-p btn-full mb-8" onclick="showToast('Открытие чата...')">Написать в Telegram</button>
-        <button class="btn btn-o btn-full btn-sm" onclick="showToast('mailto:support@reviewbot.ru')">support@reviewbot.ru</button>
+      <div class="sub-widget-footer">
+        <div id="subWidgetLeft">0 из 10 генераций использовано</div>
+        <div id="subWidgetTokens" style="font-weight:600;color:var(--primary)">0 токенов</div>
       </div>
-      <div class="card" style="text-align:center;padding:18px">
-        <div style="font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:6px">Подключите за 3 минуты</div>
-        <div style="font-size:12px;color:var(--text-3);line-height:1.6">1. Зарегистрируйтесь<br>2. Подключите WB/Ozon через API<br>3. Настройте автопилот — готово!</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB: Store -->
-  <div class="stab" id="tabStore" style="display:none">
-    <div class="card" style="text-align:center;padding:20px;margin-bottom:14px">
-      <div style="font-size:12px;color:var(--text-3);font-weight:600">Ваш баланс</div>
-      <div style="font-size:36px;font-weight:700;color:var(--primary);margin:2px 0" id="storeBalance2">0</div>
-      <div style="font-size:12px;color:var(--text-2)">токенов</div>
+      <div id="subWidgetForecast" style="font-size:11px;color:var(--text-3);margin-top:6px">Примерно хватит на 0 ответов</div>
     </div>
 
-    <div class="sec-h">
-      <div class="sec-t">Пакеты токенов</div>
-      <div style="font-size:11px;color:var(--success);font-weight:600;display:flex;align-items:center;gap:3px">
-        <svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        Безлимитный срок
-      </div>
+    <!-- Recommendation: upgrade if cheaper than buying tokens -->
+    <div class="sub-widget-rec" id="subWidgetRecommendation" style="display:none">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
+      <span id="subWidgetRecText">Переход на PRO выгоднее: 500 генераций за 599₽ вместо 690₽ за 100 токенов</span>
     </div>
 
+    <div class="sec-h mt-16"><div class="sec-t">Тарифные планы</div></div>
     <div class="tariff card">
       <div class="tariff-name">Бесплатный</div>
       <div class="tariff-price"><span class="tariff-pv">0 &#8381;</span><span class="tariff-pp">навсегда</span></div>
@@ -1175,7 +1195,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div class="tariff-name">PRO</div>
       <div class="tariff-price"><span class="tariff-pv">599 &#8381;</span><span class="tariff-pp">/ мес</span></div>
       <ul class="tariff-feat"><li>500 ответов / день</li><li>2 площадки (WB + Ozon)</li><li>Автопилот 24/7</li><li>Brand Voice</li><li>Аналитика PRO</li><li>Приоритетная поддержка</li></ul>
-      <button class="btn btn-p btn-full btn-lg" onclick="showToast('Переход к оплате...')">Продлить PRO</button>
+      <button class="btn btn-p btn-full btn-lg" onclick="showToast('Переход к оплате...')">Перейти на PRO</button>
     </div>
 
     <div class="tariff card">
@@ -1186,6 +1206,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
 
     <div class="sec-h mt-16"><div class="sec-t">Дополнительные токены</div></div>
+    <div style="font-size:11px;color:var(--text-3);margin-bottom:10px">Токены не сгорают и используются сверх подписки</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
       <div class="card" style="text-align:center;padding:14px">
         <div style="font-size:18px;font-weight:700;color:var(--text)">100</div>
@@ -1213,8 +1234,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
     </div>
 
-    <div class="sec-h"><div class="sec-t">Реферальная программа</div></div>
+    <div class="sec-h"><div class="sec-t">История расхода</div></div>
     <div class="card mb-16">
+      <div class="lf-item"><div class="lf-plat" style="color:var(--primary)">Сегодня</div><div class="lf-text">3 ответа (3 токена)</div><div class="lf-time">14:30</div></div>
+      <div class="lf-item"><div class="lf-plat" style="color:var(--text-3)">Вчера</div><div class="lf-text">7 ответов (7 токенов)</div><div class="lf-time">18:45</div></div>
+      <div class="lf-item"><div class="lf-plat" style="color:var(--text-3)">12 мая</div><div class="lf-text">5 ответов (5 токенов)</div><div class="lf-time">09:12</div></div>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">Реферальная программа</div></div>
+    <div class="card">
       <div style="font-size:12px;color:var(--text-2);margin-bottom:10px">Пригласите друга и получите <strong style="color:var(--primary)">150 токенов</strong> на счёт</div>
       <div class="ref-box"><span class="ref-code" id="refCode2">—</span><button class="btn btn-g btn-sm" onclick="copyRefCode()"><svg class="ico-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div>
       <button class="btn btn-p btn-full btn-sm mb-8" onclick="showToast('Ссылка скопирована!')">Поделиться ссылкой</button>
@@ -1222,55 +1250,103 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <div class="stat-card card" style="padding:10px"><div class="stat-v" id="referralCount2">0</div><div class="stat-l">Всего рефералов</div></div>
         <div class="stat-card card" style="padding:10px"><div class="stat-v" style="color:var(--primary)" id="referralEarned2">0</div><div class="stat-l">Заработано токенов</div></div>
       </div>
-      <div class="mt-12">
-        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Ввести промокод</label>
-        <div style="display:flex;gap:6px"><input type="text" class="inp" placeholder="Промокод" style="flex:1"><button class="btn btn-s btn-sm" onclick="showToast('Промокод активирован!')">OK</button></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 6: Уведомления ===== -->
+  <div class="stab" id="tabNotifications" style="display:none">
+    <div class="sec-h"><div class="sec-t">Виды уведомлений</div></div>
+    <div class="card mb-16">
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Новые отзывы</div><div class="tgl-d">Когда поступает новый отзыв</div></div>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('notif_reviews',this.checked)"><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Ошибки API</div><div class="tgl-d">При сбоях подключения</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke-width="3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>Лимиты</div><div class="tgl-d">Когда токены или генерации на исходе</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16" stroke-width="3"/></svg>Системные уведомления</div><div class="tgl-d">Обновления, обслуживание, новости</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      </div>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">Управление уведомлениями</div></div>
+    <div class="card">
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>Звук уведомлений</div><div class="tgl-d">Звуковой сигнал при новом отзыве</div></div>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('notif_sound',this.checked)"><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Частота</div><div class="tgl-d">Не чаще 1 раза в 5 минут</div></div>
+        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Тихие часы</div><div class="tgl-d">Без уведомлений с 22:00 до 08:00</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
       </div>
     </div>
   </div>
 
-  <!-- TAB: Appearance -->
-  <div class="stab" id="tabAppearance" style="display:none">
-    <div class="sec-h"><div class="sec-t">Тема оформления</div></div>
+  <!-- ===== TAB 7: Приватность и данные ===== -->
+  <div class="stab" id="tabPrivacy" style="display:none">
+    <div class="sec-h"><div class="sec-t">Безопасность</div></div>
     <div class="card mb-16">
-      <div style="display:flex;flex-direction:column;gap:6px" id="themeCards">
-        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .15s" onclick="setTheme('system')">
-          <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:linear-gradient(135deg,#F5F5F9 50%,#121214 50%);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <svg width="16" height="16" fill="none" stroke="var(--text-2)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          </div>
-          <div style="flex:1"><div style="font-size:13px;font-weight:600">Системная</div><div style="font-size:11px;color:var(--text-3)">Подстраивается под настройки устройства</div></div>
-          <input type="radio" name="themeChoice" value="system" id="themeSystem" checked style="accent-color:var(--primary)">
-        </label>
-        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .15s" onclick="setTheme('light')">
-          <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:#F5F5F9;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <svg width="16" height="16" fill="none" stroke="#1A1A2E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          </div>
-          <div style="flex:1"><div style="font-size:13px;font-weight:600">Светлая</div><div style="font-size:11px;color:var(--text-3)">Светлый фон и тёмный текст</div></div>
-          <input type="radio" name="themeChoice" value="light" id="themeLight" style="accent-color:var(--primary)">
-        </label>
-        <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .15s" onclick="setTheme('dark')">
-          <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:#121214;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <svg width="16" height="16" fill="none" stroke="#EEEEF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-          </div>
-          <div style="flex:1"><div style="font-size:13px;font-weight:600">Тёмная</div><div style="font-size:11px;color:var(--text-3)">Тёмный фон — удобнее для глаз</div></div>
-          <input type="radio" name="themeChoice" value="dark" id="themeDark" style="accent-color:var(--primary)">
-        </label>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Brand Safety</div><div class="tgl-d">Защита репутации бренда</div></div>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('brand_safety',this.checked)"><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Детектор фейков</div><div class="tgl-d">Распознаёт накрученные отзывы</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>Анти-спам</div><div class="tgl-d">Фильтрует спам-отзывы</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Фильтр мата</div><div class="tgl-d">Цензура в ответах</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Анализ тональности</div><div class="tgl-d">Оценка настроения отзыва</div></div>
+        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
       </div>
     </div>
 
-    <div class="sec-h"><div class="sec-t">Отображение</div></div>
+    <div class="sec-h"><div class="sec-t">Доступы и токены</div></div>
+    <div class="card mb-16">
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Определение пола</div><div class="tgl-d">Адаптирует обращение</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+      </div>
+      <div class="tgl-row">
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Блокировка сессий</div><div class="tgl-d">Завершить все другие сессии</div></div>
+        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+      </div>
+    </div>
+
+    <div class="sec-h"><div class="sec-t">Данные и память</div></div>
     <div class="card">
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Компактный режим</div><div class="tgl-d">Меньше отступы, больше данных на экране</div></div>
-        <label class="tgl"><input type="checkbox" id="compactMode" onchange="toggleCompactMode(this.checked)"><span class="tgl-s"></span></label>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Сохранять историю ответов</div><div class="tgl-d">Хранить все сгенерированные ответы</div></div>
+        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
       </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Анимации</div><div class="tgl-d">Плавные переходы и эффекты</div></div>
-        <label class="tgl"><input type="checkbox" id="animationsToggle" checked onchange="toggleAnimations(this.checked)"><span class="tgl-s"></span></label>
+      <div style="padding:12px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text)">Кэш ответов</div><div style="font-size:11px;color:var(--text-3)">Занимает 2.4 МБ</div></div>
+        <button class="btn btn-o btn-sm" onclick="showToast('Кэш очищен')">Очистить</button>
       </div>
-      <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Скрывать онбординг</div><div class="tgl-d">Убрать карточку «Остался 1 шаг» с главной</div></div>
-        <label class="tgl"><input type="checkbox" id="hideOnboarding" onchange="toggleOnboardingVisibility(this.checked)"><span class="tgl-s"></span></label>
+      <div style="padding:12px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+        <div><div style="font-size:13px;font-weight:600;color:var(--text)">Экспорт данных</div><div style="font-size:11px;color:var(--text-3)">Скачать все ответы в CSV</div></div>
+        <button class="btn btn-o btn-sm" onclick="showToast('Экспорт начат...')">Скачать</button>
+      </div>
+      <div style="padding:12px 0;display:flex;align-items:center;justify-content:space-between">
+        <div><div style="font-size:13px;font-weight:600;color:var(--danger)">Удалить все данные</div><div style="font-size:11px;color:var(--text-3)">Безвозвратно удалить историю и настройки</div></div>
+        <button class="btn btn-sm" style="background:var(--danger-light);color:var(--danger)" onclick="showToast('Требуется подтверждение через бота')">Удалить</button>
       </div>
     </div>
   </div>
@@ -1577,20 +1653,27 @@ const SCREEN_HASH_MAP = {
   'home': '',
   'reviews': 'reviews',
   'settings': 'settings',
-  'settings/generation': 'settings|Generation',
-  'settings/automation': 'settings|Automation',
-  'settings/safety': 'settings|Safety',
-  'settings/store': 'settings|Store',
-  'settings/help': 'settings|Help',
-  'settings/appearance': 'settings|Appearance',
-  'store': 'settings|Store',
+  'settings/account': 'settings|Account',
+  'settings/marketplace': 'settings|Marketplace',
+  'settings/autopilot': 'settings|Autopilot',
+  'settings/brandvoice': 'settings|BrandVoice',
+  'settings/subscription': 'settings|Subscription',
+  'settings/notifications': 'settings|Notifications',
+  'settings/privacy': 'settings|Privacy',
+  'store': 'settings|Subscription',
   'analytics': 'analytics',
   'platforms': 'platforms',
-  // Short aliases (used by Python WebApp buttons)
-  'generation': 'settings|Generation',
-  'automation': 'settings|Automation',
-  'safety': 'settings|Safety',
-  'help': 'settings|Help'
+  // Legacy aliases (backward compat)
+  'settings/generation': 'settings|BrandVoice',
+  'settings/automation': 'settings|Autopilot',
+  'settings/safety': 'settings|Privacy',
+  'settings/store': 'settings|Subscription',
+  'settings/help': 'settings|Account',
+  'settings/appearance': 'settings|Account',
+  'generation': 'settings|BrandVoice',
+  'automation': 'settings|Autopilot',
+  'safety': 'settings|Privacy',
+  'help': 'settings|Account'
 };
 
 function navigateFromHash() {
@@ -1909,6 +1992,31 @@ function applyUserData(u) {
   if (subBarFill) subBarFill.style.width = monthlyLimit > 0 ? Math.round((usedThisMonth/monthlyLimit)*100)+'%' : '0%';
   if (subBarLeft) subBarLeft.textContent = remaining + ' из ' + monthlyLimit + ' ответов в этом месяце';
 
+  // Subscription widget in settings detail
+  const swTariff = document.getElementById('subWidgetTariff');
+  if (swTariff) swTariff.textContent = planRaw === 'free' ? 'Бесплатный тариф' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
+  const swBadge = document.getElementById('subWidgetBadge');
+  if (swBadge) swBadge.textContent = planRaw === 'free' ? 'Free' : planRaw.charAt(0).toUpperCase() + planRaw.slice(1);
+  const swFill = document.getElementById('subWidgetFill');
+  if (swFill) swFill.style.width = monthlyLimit > 0 ? Math.round((usedThisMonth/monthlyLimit)*100)+'%' : '0%';
+  const swLeft = document.getElementById('subWidgetLeft');
+  if (swLeft) swLeft.textContent = usedThisMonth + ' из ' + monthlyLimit + ' генераций использовано';
+  const swTokens = document.getElementById('subWidgetTokens');
+  if (swTokens) swTokens.textContent = balStr + ' токенов';
+  const swForecast = document.getElementById('subWidgetForecast');
+  if (swForecast) swForecast.textContent = 'Примерно хватит на ' + Math.max(0, balance) + ' ответов';
+  const swRec = document.getElementById('subWidgetRecommendation');
+  const swRecText = document.getElementById('subWidgetRecText');
+  if (swRec && swRecText) {
+    // Show recommendation if buying tokens is less cost-effective than upgrading
+    if (planRaw === 'free' && balance < 50) {
+      swRec.style.display = 'flex';
+      swRecText.textContent = 'Переход на PRO выгоднее: 500 генераций за 599₽ вместо 690₽ за 100 токенов';
+    } else {
+      swRec.style.display = 'none';
+    }
+  }
+
   // Settings profile platform status
   const wbSet = document.getElementById('settingsWBStatus');
   if (wbSet) wbSet.innerHTML = '<span class="dot ' + (wbOn ? 'dot-on' : 'dot-off') + '"></span> ' + (wbOn ? 'Подключён' : 'Не подключён');
@@ -1952,7 +2060,10 @@ function applyUserData(u) {
   const sln = document.getElementById('settingsListItemName');
   if (sln) sln.textContent = safeName;
   const sls = document.getElementById('settingsListItemSub');
-  if (sls) sls.textContent = plan + ' · LVL ' + level + ' · ' + balStr + ' токенов';
+  if (sls) sls.textContent = balStr + ' токенов \u2022 ' + plan + ' plan';
+  // Update subscription sub-row in settings list
+  const sss = document.getElementById('settingsSubscriptionSub');
+  if (sss) sss.textContent = plan + ' \u2022 ' + balStr + ' токенов';
 
   // Settings profile tab
   setAvatar(document.getElementById('settingsProfileAvatar'));
@@ -2439,15 +2550,21 @@ function openSettingsSection(section) {
   // Show the corresponding tab content, hide others
   document.querySelectorAll('.stab').forEach(t => t.style.display = 'none');
   const tabMap = {
-    Profile: 'tabGeneral',
-    Generation: 'tabGeneration',
-    Automation: 'tabAutomation',
-    Safety: 'tabSafety',
-    Store: 'tabStore',
-    Help: 'tabHelp',
-    Appearance: 'tabAppearance',
-    Marketplace: 'tabGeneral',
-    BrandVoice: 'tabGeneral'
+    Account: 'tabAccount',
+    Marketplace: 'tabMarketplace',
+    Autopilot: 'tabAutopilot',
+    BrandVoice: 'tabBrandVoice',
+    Subscription: 'tabSubscription',
+    Notifications: 'tabNotifications',
+    Privacy: 'tabPrivacy',
+    // Legacy aliases for backward compatibility
+    Profile: 'tabAccount',
+    Store: 'tabSubscription',
+    Automation: 'tabAutopilot',
+    Safety: 'tabPrivacy',
+    Help: 'tabAccount',
+    Appearance: 'tabAccount',
+    Generation: 'tabBrandVoice'
   };
   const tabId = tabMap[section];
   if (tabId) {
@@ -2456,15 +2573,21 @@ function openSettingsSection(section) {
   }
   // Update back button text to show current section name
   const subtitles = {
-    Profile: 'Профиль',
-    Generation: 'Генерация ответов',
+    Account: 'Аккаунт',
+    Marketplace: 'Магазины и API',
+    Autopilot: 'Автопилот',
+    BrandVoice: 'Brand Voice',
+    Subscription: 'Подписка и токены',
+    Notifications: 'Уведомления',
+    Privacy: 'Приватность и данные',
+    // Legacy aliases
+    Profile: 'Аккаунт',
+    Store: 'Подписка и токены',
     Automation: 'Автопилот',
-    Safety: 'Безопасность',
-    Store: 'Магазин',
-    Help: 'Помощь',
-    Appearance: 'Внешний вид',
-    Marketplace: 'Площадки',
-    BrandVoice: 'Brand Voice'
+    Safety: 'Приватность и данные',
+    Help: 'Аккаунт',
+    Appearance: 'Аккаунт',
+    Generation: 'Brand Voice'
   };
   const backBtn = dv.querySelector('.back-btn');
   if (backBtn) {
@@ -2472,18 +2595,6 @@ function openSettingsSection(section) {
     backBtn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" width="18" height="18"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> ' + sectionName;
   }
   window.scrollTo(0, 0);
-  // Scroll to specific subsection if applicable
-  const scrollTargets = {
-    Marketplace: 'platformsSection',
-    BrandVoice: 'brandVoiceSection'
-  };
-  const scrollId = scrollTargets[section];
-  if (scrollId) {
-    setTimeout(() => {
-      const target = document.getElementById(scrollId);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 300);
-  }
 }
 
 function showSettingsList() {
