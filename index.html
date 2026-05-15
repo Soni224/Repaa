@@ -2399,6 +2399,9 @@ function openSettings(section) {
     document.getElementById('subSettings').classList.add('active');
     activeSub = 'subSettings';
   }
+  // Hide bottom nav — settings has its own back navigation
+  const nav = document.querySelector('.bnav');
+  if (nav) nav.classList.add('nav-hidden');
   // Highlight settings nav button
   document.querySelectorAll('.bnav-i').forEach(i => i.classList.remove('active'));
   const settingsBtn = document.getElementById('bnavSettings');
@@ -2424,6 +2427,9 @@ function closeSettings() {
     navHistory.pop();
   }
   activeSub = null;
+  // Show bottom nav again
+  const nav = document.querySelector('.bnav');
+  if (nav) nav.classList.remove('nav-hidden');
   // Restore active nav button for current screen
   document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[currentScreen]));
   updateBackButton();
