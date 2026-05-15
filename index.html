@@ -731,17 +731,24 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .period-opt.active{color:var(--primary);font-weight:600;background:var(--primary-soft)}
 @keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 
-/* Platform selector cards (in subReviewNew) */
-.plat-sel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.plat-sel-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg-card);cursor:pointer;transition:all .2s ease;position:relative}
+/* Platform selector cards (in subReviewNew) — compact horizontal row */
+.plat-sel{display:flex;gap:8px;margin-bottom:8px}
+.plat-sel-card{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--radius-sm);border:2px solid var(--border);background:var(--bg-card);cursor:pointer;transition:border-color .2s ease, background .2s ease, box-shadow .2s ease, transform .15s ease;position:relative;flex:1}
 .plat-sel-card:active{transform:scale(.96)}
-.plat-sel-card.selected{border-color:var(--primary);background:var(--primary-soft)}
-.plat-sel-card .plat-logo{width:40px;height:40px;border-radius:10px;font-size:13px}
-.plat-sel-card-name{font-size:12px;font-weight:600;color:var(--text)}
-.plat-sel-card-sub{font-size:10px;color:var(--text-3)}
-.plat-sel-check{position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--primary);display:none;align-items:center;justify-content:center;color:#fff}
-.plat-sel-card.selected .plat-sel-check{display:flex}
-.plat-sel-card.selected .plat-sel-check svg{width:12px;height:12px}
+.plat-sel-card.selected{border-color:var(--primary);background:var(--primary-soft);box-shadow:0 0 0 3px rgba(13,124,102,.08)}
+.plat-sel-card .plat-logo{width:30px;height:30px;border-radius:8px;font-size:10px}
+.plat-sel-card-info{display:flex;flex-direction:column;min-width:0}
+.plat-sel-card-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.2}
+.plat-sel-card-sub{font-size:9px;color:var(--text-3);line-height:1.2}
+.plat-sel-check{position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;background:var(--primary);display:none;align-items:center;justify-content:center;color:#fff;transition:transform .2s ease}
+.plat-sel-card.selected .plat-sel-check{display:flex;animation:checkPop .3s cubic-bezier(.175,.885,.32,1.275) both}
+@keyframes checkPop{from{transform:scale(0)}to{transform:scale(1)}}
+.plat-sel-card.selected .plat-sel-check svg{width:10px;height:10px}
+/* Staggered entrance for platform cards when sub opens */
+.sub.active .plat-sel-card{opacity:0;animation:platCardIn .35s ease both}
+.sub.active .plat-sel-card:nth-child(1){animation-delay:.1s}
+.sub.active .plat-sel-card:nth-child(2){animation-delay:.18s}
+@keyframes platCardIn{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -1074,13 +1081,6 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div style="display:flex;align-items:center;gap:8px">
         <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:45%;height:100%;background:#005BFF;border-radius:3px"></div></div>
         <div style="font-size:12px;font-weight:700" id="analyticsOzonCount">45</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0">
-      <div style="display:flex;align-items:center;gap:8px"><span class="rv-plat" style="background:#FFCC00;color:#1A1A2E">ЯМ</span><span style="font-size:12px;font-weight:600">Яндекс Маркет</span></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:10%;height:100%;background:#FFCC00;border-radius:3px"></div></div>
-        <div style="font-size:12px;font-weight:700" id="analyticsYMCount">10</div>
       </div>
     </div>
   </div>
@@ -1686,20 +1686,18 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- Platform selector -->
-  <div class="card anim-card mb-16">
-    <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:8px">Площадка</label>
+  <div class="card anim-card mb-16" style="padding:12px 14px">
+    <label style="font-size:10px;font-weight:600;color:var(--text-3);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Площадка</label>
     <div class="plat-sel">
       <div class="plat-sel-card selected" data-platform="wb" onclick="selectPlatform(this,'wb')">
         <div class="plat-sel-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="plat-logo wb">WB</div>
-        <div class="plat-sel-card-name">Wildberries</div>
-        <div class="plat-sel-card-sub">Маркетплейс</div>
+        <div class="plat-sel-card-info"><div class="plat-sel-card-name">Wildberries</div><div class="plat-sel-card-sub">Маркетплейс</div></div>
       </div>
       <div class="plat-sel-card" data-platform="ozon" onclick="selectPlatform(this,'ozon')">
         <div class="plat-sel-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="plat-logo ozon">OZ</div>
-        <div class="plat-sel-card-name">Ozon</div>
-        <div class="plat-sel-card-sub">Маркетплейс</div>
+        <div class="plat-sel-card-info"><div class="plat-sel-card-name">Ozon</div><div class="plat-sel-card-sub">Маркетплейс</div></div>
       </div>
     </div>
   </div>
@@ -1924,14 +1922,11 @@ function haptic(type) {
     }
   }, { passive: true, capture: true });
 
-  // Ensure nav is visible when switching screens
-  const origSliderGoTo = window.sliderGoTo;
-  window.sliderGoTo = function(index, smooth) {
-    nav.classList.remove('nav-hidden');
+  // Listen for slider page change to reset scroll tracking
+  window.addEventListener('sliderPageChanged', function() {
     navVisible = true;
     lastScrollY = 0;
-    origSliderGoTo(index, smooth);
-  };
+  });
 })();
 
 // ===========================================================================
@@ -2671,6 +2666,13 @@ function sliderGoTo(index, smooth) {
   const name = names[index] || 'home';
   document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[name]));
   currentScreen = name;
+  // Ensure nav is visible when switching screens & reset scroll tracking
+  const nav = document.querySelector('.bnav');
+  if (nav) {
+    nav.classList.remove('nav-hidden');
+    // Reset the IIFE's scroll tracker — dispatch a custom event
+    window.dispatchEvent(new CustomEvent('sliderPageChanged'));
+  }
 }
 
 function navigateTo(m) {
@@ -2692,6 +2694,9 @@ function openSub(id) {
   navHistory.push({ type: 'screen', screen: currentScreen });
   activeSub = id;
   document.getElementById(id).classList.add('active');
+  // Hide bottom nav for full-screen sub-screens (like Settings)
+  const nav = document.querySelector('.bnav');
+  if (nav) nav.classList.add('nav-hidden');
   window.scrollTo(0, 0);
   updateBackButton();
 }
@@ -2700,6 +2705,9 @@ function closeSub(id) {
   haptic('light');
   if (id) document.getElementById(id).classList.remove('active');
   activeSub = null;
+  // Show bottom nav again
+  const nav = document.querySelector('.bnav');
+  if (nav) nav.classList.remove('nav-hidden');
   updateBackButton();
 }
 
@@ -2763,6 +2771,9 @@ function navigateBack() {
   if (activeSub) {
     document.getElementById(activeSub).classList.remove('active');
     activeSub = null;
+    // Show bottom nav again
+    const nav = document.querySelector('.bnav');
+    if (nav) nav.classList.remove('nav-hidden');
     haptic('light');
     updateBackButton();
     return;
@@ -2952,8 +2963,14 @@ document.addEventListener('click', function(e) {
 let selectedPlatform = 'wb';
 
 function selectPlatform(el, platform) {
+  if (selectedPlatform === platform) return;
   selectedPlatform = platform;
-  document.querySelectorAll('.plat-sel-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.plat-sel-card').forEach(c => {
+    c.classList.remove('selected');
+    // Reset check animation
+    const chk = c.querySelector('.plat-sel-check');
+    if (chk) { chk.style.animation = 'none'; chk.offsetHeight; chk.style.animation = ''; }
+  });
   el.classList.add('selected');
   haptic('light');
 }
