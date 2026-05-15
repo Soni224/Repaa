@@ -81,8 +81,8 @@ input,textarea,select{font-family:inherit}
 /* Header — removed (was top bar with Репа / Центр управления) */
 
 /* Bottom Nav — Compact floating pill with auto-hide */
-.bnav{position:fixed;bottom:6px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:320px;background:var(--bg-card);border:1px solid var(--border);border-radius:22px;z-index:50;padding:4px 6px;padding-bottom:calc(4px + var(--safe-b));box-shadow:0 2px 16px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.03);transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .3s ease}
-.bnav.nav-hidden{transform:translateX(-50%) translateY(calc(100% + 20px));opacity:0;pointer-events:none}
+.bnav{position:fixed;bottom:6px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:320px;background:var(--bg-card);border:1px solid var(--border);border-radius:22px;z-index:50;padding:4px 6px;padding-bottom:calc(4px + var(--safe-b));box-shadow:0 2px 16px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.03);transition:transform .25s ease,opacity .2s ease}
+.bnav.nav-hidden{transform:translateX(-50%) translateY(80px);opacity:0;pointer-events:none}
 .bnav-in{display:flex;align-items:center;justify-content:space-around}
 .bnav-i{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 0;min-width:56px;color:var(--text-3);position:relative;transition:all .2s ease;border-radius:16px}
 .bnav-i.active{color:var(--primary);background:var(--primary-light)}
