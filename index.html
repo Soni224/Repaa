@@ -69,9 +69,17 @@ input,textarea,select{font-family:inherit}
 
 /* Shell */
 .shell{max-width:430px;margin:0 auto;min-height:100dvh;position:relative;background:var(--bg)}
-.content{padding:14px 16px 0;padding-bottom:calc(var(--nav-h) + var(--safe-b) + 18px)}
 
-/* Screens */
+/* Horizontal slider for main screens */
+.slider{display:flex;width:100%;height:100dvh;overflow-x:hidden;touch-action:pan-y}
+.slider-page{flex:0 0 100%;width:100%;height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+.slider-page .content{padding:14px 16px 0;padding-bottom:calc(var(--nav-h) + var(--safe-b) + 18px)}
+
+/* Override .screen for slider pages */
+.slider .screen{display:block!important;animation:none!important}
+.slider .screen.active{display:block!important}
+
+/* Screens — only for non-slider screens (sub-screens) */
 .screen{display:none;animation:fadeIn .2s ease}
 .screen.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
@@ -396,11 +404,11 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 .card:hover,.scard:hover,.qact-btn:hover{transform:translateY(-2px)}
 .card:active,.scard:active,.qact-btn:active{transform:scale(.97)!important}
 
-/* Micro-animations */
+/* Micro-animations — only for non-slider screens */
 @keyframes slideUpFade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.screen.active .card:nth-child(1){animation:slideUpFade .4s ease forwards;animation-delay:0s}
-.screen.active .card:nth-child(2){animation:slideUpFade .4s ease forwards;animation-delay:.1s}
-.screen.active .card:nth-child(3){animation:slideUpFade .4s ease forwards;animation-delay:.2s}
+.sub.active .card:nth-child(1){animation:slideUpFade .4s ease forwards;animation-delay:0s}
+.sub.active .card:nth-child(2){animation:slideUpFade .4s ease forwards;animation-delay:.1s}
+.sub.active .card:nth-child(3){animation:slideUpFade .4s ease forwards;animation-delay:.2s}
 
 /* Empty state */
 .empty-state{text-align:center;padding:40px 20px}
@@ -652,7 +660,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ========== HOME ========== -->
+<!-- ========== HORIZONTAL SLIDER (Home ↔ Reviews ↔ Analytics) ========== -->
+<div class="slider" id="mainSlider">
+
+<!-- ===== PAGE 1: HOME ===== -->
+<div class="slider-page">
 <div class="screen active" id="screenHome">
 <div class="content">
 
@@ -846,8 +858,10 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
 </div>
 </div>
+</div><!-- /slider-page Home -->
 
-<!-- ========== REVIEWS ========== -->
+<!-- ===== PAGE 2: REVIEWS ===== -->
+<div class="slider-page">
 <div class="screen" id="screenReviews">
 <div class="content">
   <div class="sec-h">
@@ -869,6 +883,9 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 </div>
 </div>
+</div><!-- /slider-page Reviews -->
+
+</div><!-- /mainSlider -->
 
 <!-- ========== SETTINGS (overlay) ========== -->
 <div class="sub" id="subSettings">
@@ -1404,7 +1421,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 </div>
 </div>
 
-<!-- ========== ANALYTICS ========== -->
+<!-- ===== PAGE 3: ANALYTICS ===== -->
+<div class="slider-page">
 <div class="screen" id="screenAnalytics">
 <div class="content">
   <div class="stat-grid mb-16">
@@ -1487,6 +1505,9 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 </div>
 </div>
+</div><!-- /slider-page Analytics -->
+
+</div><!-- /mainSlider -->
 
 <!-- ========== SUB: New Review ========== -->
 <div class="sub" id="subReviewNew">
@@ -1706,6 +1727,75 @@ function haptic(type) {
       ticking = true;
     }
   }, { passive: true });
+})();
+
+// ===========================================================================
+// SWIPE NAVIGATION (horizontal swipe between Home ↔ Reviews ↔ Analytics)
+// ===========================================================================
+(function() {
+  const slider = document.getElementById('mainSlider');
+  if (!slider) return;
+  let startX = 0;
+  let startY = 0;
+  let isSwiping = false;
+  let swipeHandled = false;
+
+  function onStart(e) {
+    // Don't intercept if in settings overlay or sub-screen
+    if (activeSub) return;
+    const touch = e.touches ? e.touches[0] : e;
+    startX = touch.clientX;
+    startY = touch.clientY;
+    isSwiping = true;
+    swipeHandled = false;
+  }
+
+  function onMove(e) {
+    if (!isSwiping || swipeHandled) return;
+    const touch = e.touches ? e.touches[0] : e;
+    const diffX = startX - touch.clientX;
+    const diffY = startY - touch.clientY;
+
+    // Only handle horizontal swipes (2x more horizontal than vertical)
+    if (Math.abs(diffX) > Math.abs(diffY) * 1.5 && Math.abs(diffX) > 50) {
+      swipeHandled = true;
+      isSwiping = false;
+      const names = ['home', 'reviews', 'analytics'];
+      const maxIdx = names.length - 1;
+
+      if (diffX > 0 && activeSliderIndex < maxIdx) {
+        // Swipe left → next screen
+        haptic('light');
+        navHistory.push({ type: 'screen', screen: names[activeSliderIndex] });
+        sliderGoTo(activeSliderIndex + 1, true);
+      } else if (diffX < 0 && activeSliderIndex > 0) {
+        // Swipe right → previous screen
+        haptic('light');
+        navHistory.push({ type: 'screen', screen: names[activeSliderIndex] });
+        sliderGoTo(activeSliderIndex - 1, true);
+      }
+    }
+  }
+
+  function onEnd() {
+    isSwiping = false;
+    swipeHandled = false;
+  }
+
+  // Touch events (mobile)
+  slider.addEventListener('touchstart', onStart, { passive: true });
+  slider.addEventListener('touchmove', onMove, { passive: true });
+  slider.addEventListener('touchend', onEnd);
+
+  // Mouse events (desktop testing)
+  slider.addEventListener('mousedown', onStart);
+  slider.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onEnd);
+
+  // Recalculate on resize/rotation
+  window.addEventListener('resize', () => {
+    slider.scrollTo({ left: activeSliderIndex * slider.offsetWidth, behavior: 'instant' });
+  });
 })();
 
 // ===========================================================================
@@ -2358,7 +2448,22 @@ const screenMap = {
   analytics: 'screenAnalytics',
   settings: 'subSettings'
 };
-// headerTitles removed (header bar removed)
+const screenIndex = { home: 0, reviews: 1, analytics: 2 };
+let activeSliderIndex = 0;
+
+function sliderGoTo(index, smooth) {
+  const slider = document.getElementById('mainSlider');
+  if (!slider) return;
+  const pages = slider.querySelectorAll('.slider-page');
+  if (index < 0 || index >= pages.length) return;
+  activeSliderIndex = index;
+  slider.scrollTo({ left: index * slider.offsetWidth, behavior: smooth ? 'smooth' : 'instant' });
+  // Update bottom nav
+  const names = ['home','reviews','analytics'];
+  const name = names[index] || 'home';
+  document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[name]));
+  currentScreen = name;
+}
 
 function navigateTo(m) {
   if (m === 'settings') { openSettings(); return; }
@@ -2366,10 +2471,10 @@ function navigateTo(m) {
   haptic('light');
   if (currentScreen !== m) navHistory.push({ type: 'screen', screen: currentScreen });
   if (activeSub) { document.getElementById(activeSub).classList.remove('active'); activeSub = null; }
-  document.querySelectorAll('.screen').forEach(x => x.classList.remove('active'));
-  document.getElementById(screenMap[m]).classList.add('active');
-  document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[m]));
-  currentScreen = m;
+  const idx = screenIndex[m];
+  if (idx !== undefined) {
+    sliderGoTo(idx, true);
+  }
   window.scrollTo(0, 0);
   updateBackButton();
 }
@@ -2457,11 +2562,10 @@ function navigateBack() {
   if (navHistory.length > 0) {
     const prev = navHistory.pop();
     if (prev.type === 'screen') {
-      document.querySelectorAll('.screen').forEach(x => x.classList.remove('active'));
-      document.getElementById(screenMap[prev.screen]).classList.add('active');
-      document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[prev.screen]));
-      currentScreen = prev.screen;
-      window.scrollTo(0, 0);
+      const idx = screenIndex[prev.screen];
+      if (idx !== undefined) {
+        sliderGoTo(idx, true);
+      }
     }
   }
   updateBackButton();
