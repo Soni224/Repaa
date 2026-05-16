@@ -2116,6 +2116,9 @@ function getAuthHeaders() {
   const headers = { 'Content-Type': 'application/json' };
   if (tg && tg.initData) {
     headers['X-Telegram-Init-Data'] = tg.initData;
+    console.log('[auth] Sending initData, length:', tg.initData.length, 'preview:', tg.initData.substring(0, 60) + '...');
+  } else {
+    console.warn('[auth] No tg.initData available! tg:', !!tg, 'initData:', tg?.initData ? 'present' : 'missing');
   }
   return headers;
 }
