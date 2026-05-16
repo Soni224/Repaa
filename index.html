@@ -1283,12 +1283,12 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div class="plat-card">
         <div class="plat-logo wb">WB</div>
         <div style="flex:1"><div class="plat-name">Wildberries</div><div class="plat-st" id="settingsWBStatus"><span class="dot dot-off"></span> Не подключён</div></div>
-        <button class="btn btn-o btn-sm" onclick="showToast('Вставьте API-ключ WB')">Подключить</button>
+        <button class="btn btn-o btn-sm" id="wbConnectBtn" onclick="connectWB()">Подключить</button>
       </div>
       <div class="plat-card">
         <div class="plat-logo ozon">OZ</div>
-        <div style="flex:1"><div class="plat-name">Ozon</div><div class="plat-st" id="settingsOzonStatus">Не подключён</div></div>
-        <button class="btn btn-o btn-sm" onclick="showToast('Вставьте API-ключ Ozon')">Подключить</button>
+        <div style="flex:1"><div class="plat-name">Ozon</div><div class="plat-st" id="settingsOzonStatus"><span class="dot dot-off"></span> Не подключён</div></div>
+        <button class="btn btn-o btn-sm" id="ozonConnectBtn" onclick="connectOzon()">Подключить</button>
       </div>
     </div>
 
@@ -1296,11 +1296,17 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="card mb-16">
       <div class="mb-8">
         <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Wildberries API-ключ</label>
-        <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" onclick="showToast('Ключ сохранён')">OK</button></div>
+        <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="wbSaveBtn" onclick="saveWBKey()">OK</button></div>
+        <div id="wbKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
       </div>
       <div>
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Ozon Client ID</label>
+        <div style="display:flex;gap:6px"><input type="text" class="inp" id="ozonClientId" placeholder="Client ID" style="flex:1"></div>
+      </div>
+      <div style="margin-top:8px">
         <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Ozon API-ключ</label>
-        <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" onclick="showToast('Ключ сохранён')">OK</button></div>
+        <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="ozonSaveBtn" onclick="saveOzonKey()">OK</button></div>
+        <div id="ozonKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
       </div>
     </div>
 
@@ -1475,7 +1481,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div class="tariff-name">BUSINESS</div>
       <div class="tariff-price"><span class="tariff-pv">1 499 &#8381;</span><span class="tariff-pp">/ мес</span></div>
       <ul class="tariff-feat"><li>Безлимит ответов</li><li>Все площадки</li><li>Расширенная аналитика</li><li>API доступ</li><li>Персональный менеджер</li></ul>
-      <button class="btn btn-s btn-full" onclick="showToast('Переход к оплате...')">Перейти на BUSINESS</button>
+      <button class="btn btn-s btn-full" onclick="openInvoice('business')">Перейти на BUSINESS</button>
     </div>
 
     <div class="sec-h mt-16"><div class="sec-t">Дополнительные токены</div></div>
@@ -1485,25 +1491,25 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <div style="font-size:18px;font-weight:700;color:var(--text)">100</div>
         <div style="font-size:10px;color:var(--text-3)">токенов</div>
         <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">690 &#8381;</div>
-        <button class="btn btn-o btn-sm btn-full" onclick="showToast('Оплата...')">Купить</button>
+        <button class="btn btn-o btn-sm btn-full" onclick="openInvoice('tokens_100')">Купить</button>
       </div>
       <div class="card" style="text-align:center;padding:14px">
         <div style="font-size:18px;font-weight:700;color:var(--text)">500</div>
         <div style="font-size:10px;color:var(--text-3)">токенов</div>
         <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">2 990 &#8381;</div>
-        <button class="btn btn-o btn-sm btn-full" onclick="showToast('Оплата...')">Купить</button>
+        <button class="btn btn-o btn-sm btn-full" onclick="openInvoice('tokens_500')">Купить</button>
       </div>
       <div class="card" style="text-align:center;padding:14px">
         <div style="font-size:18px;font-weight:700;color:var(--text)">5 000</div>
         <div style="font-size:10px;color:var(--text-3)">токенов</div>
         <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">15 990 &#8381;</div>
-        <button class="btn btn-o btn-sm btn-full" onclick="showToast('Оплата...')">Купить</button>
+        <button class="btn btn-o btn-sm btn-full" onclick="openInvoice('tokens_5000')">Купить</button>
       </div>
       <div class="card" style="text-align:center;padding:14px">
         <div style="font-size:18px;font-weight:700;color:var(--text)">10 000</div>
         <div style="font-size:10px;color:var(--text-3)">токенов</div>
         <div style="font-size:15px;font-weight:700;color:var(--primary);margin:4px 0">26 990 &#8381;</div>
-        <button class="btn btn-o btn-sm btn-full" onclick="showToast('Оплата...')">Купить</button>
+        <button class="btn btn-o btn-sm btn-full" onclick="openInvoice('tokens_10000')">Купить</button>
       </div>
     </div>
 
@@ -2379,8 +2385,11 @@ function applyUserData(u) {
   if (wbSet) wbSet.innerHTML = '<span class="dot ' + (wbOn ? 'dot-on' : 'dot-off') + '"></span> ' + (wbOn ? 'Подключён' : 'Не подключён');
   if (wbSet) wbSet.style.color = wbOn ? 'var(--success)' : 'var(--text-3)';
   const ozSet = document.getElementById('settingsOzonStatus');
-  if (ozSet) ozSet.textContent = ozOn ? 'Подключён' : 'Не подключён';
+  if (ozSet) ozSet.innerHTML = '<span class="dot ' + (ozOn ? 'dot-on' : 'dot-off') + '"></span> ' + (ozOn ? 'Подключён' : 'Не подключён');
   if (ozSet) ozSet.style.color = ozOn ? 'var(--success)' : 'var(--text-3)';
+  // Update connect/disconnect buttons
+  updatePlatformStatus('wb', wbOn);
+  updatePlatformStatus('ozon', ozOn);
 
   // Sub-platforms page
   const spwb = document.getElementById('subPlatWB');
@@ -2996,25 +3005,11 @@ async function initChart() {
   const c = document.getElementById('analyticsChart');
   if (!c) return;
 
-  // Generate labels & data based on currentPeriod
-  let labels, rv;
-  const seed = currentPeriod; // deterministic demo per period
-
-  if (currentPeriod <= 7) {
-    labels = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-    rv = [3,5,4,7,6,2,7];
-  } else if (currentPeriod <= 14) {
-    labels = ['1-2','3-4','5-6','7-8','9-10','11-12','13-14'];
-    rv = [8,12,10,15,11,9,14];
-  } else if (currentPeriod <= 30) {
-    labels = ['1','2','3','4','5','6','7','8'];
-    rv = [18,25,22,30,28,20,24,32];
-  } else {
-    labels = ['М1','М2','М3'];
-    rv = [72,89,65];
-  }
+  // Start with empty chart
+  let labels = [], rv = [];
 
   // Try to fetch real analytics from API
+  let analyticsOk = false;
   if (API_BASE) {
     try {
       const res = await fetch(API_BASE + '/api/analytics?period=' + currentPeriod, { headers: getAuthHeaders() });
@@ -3025,6 +3020,9 @@ async function initChart() {
           rv = data.daily_gens;
           labels = rv.map((_, i) => (i + 1).toString());
         } else if (data.weekly_gens > 0) {
+          labels = currentPeriod <= 7
+            ? ['Пн','Вт','Ср','Чт','Пт','Сб','Вс']
+            : Array.from({length: Math.min(currentPeriod, 12)}, (_, i) => (i+1).toString());
           const w = data.weekly_gens;
           const spread = labels.map((_, i) => {
             const weights = currentPeriod <= 7
@@ -3038,9 +3036,15 @@ async function initChart() {
         renderPlatformBreakdown(data);
         renderToneDistribution(data);
         renderTopProducts(data);
+        analyticsOk = true;
+      } else {
+        console.warn('Analytics API returned', res.status);
+        renderPlatformBreakdown(null);
+        renderToneDistribution(null);
+        renderTopProducts(null);
       }
     } catch(e) {
-      console.warn('Failed to fetch analytics, using demo data:', e);
+      console.warn('Failed to fetch analytics:', e);
       renderPlatformBreakdown(null);
       renderToneDistribution(null);
       renderTopProducts(null);
@@ -3051,10 +3055,16 @@ async function initChart() {
     renderTopProducts(null);
   }
 
+  // Fallback: show empty chart if no API data
+  if (!rv.length) {
+    labels = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+    rv = [0,0,0,0,0,0,0];
+  }
+
   const mx = Math.max(...rv, 1);
   c.innerHTML = labels.map((d,i) => {
     const h = Math.max(rv[i]/mx*100, 4);
-    const isMax = rv[i] === mx;
+    const isMax = rv[i] === mx && rv[i] > 0;
     return `<div class="chart-bar-g"><div class="chart-bar${isMax?' sec':''}" style="height:${h}px;${isMax?'background:var(--primary);opacity:1':''}"></div><div class="chart-lbl">${d}</div></div>`;
   }).join('');
 }
@@ -3328,6 +3338,170 @@ function updateSetting(key, value) {
   addPendingChange(key, value);
   const label = key.replace(/_/g, ' ');
   showToast(label + ': ' + (value ? 'Вкл' : 'Выкл'));
+}
+
+// ===========================================================================
+// PLATFORM CONNECTION (WB / Ozon) — with validation
+// ===========================================================================
+
+async function saveWBKey() {
+  const key = document.getElementById('wbApiKey').value.trim();
+  const statusEl = document.getElementById('wbKeyStatus');
+  const btn = document.getElementById('wbSaveBtn');
+  if (!key) { showKeyStatus(statusEl, 'Введите API-ключ', 'error'); return; }
+  if (!API_BASE) { showKeyStatus(statusEl, 'Нет подключения к серверу', 'error'); return; }
+
+  btn.disabled = true; btn.textContent = 'Проверка...';
+  try {
+    const res = await fetch(API_BASE + '/api/connect-platform', {
+      method: 'POST', headers: getAuthHeaders(),
+      body: JSON.stringify({ platform: 'wb', api_key: key })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      showKeyStatus(statusEl, 'Wildberries подключён!', 'success');
+      updatePlatformStatus('wb', true);
+      document.getElementById('wbApiKey').value = '';
+      showToast('WB подключён');
+    } else {
+      showKeyStatus(statusEl, data.error || 'Ошибка подключения', 'error');
+    }
+  } catch(e) {
+    showKeyStatus(statusEl, 'Ошибка сети: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'OK';
+  }
+}
+
+async function saveOzonKey() {
+  const key = document.getElementById('ozonApiKey').value.trim();
+  const clientId = document.getElementById('ozonClientId').value.trim();
+  const statusEl = document.getElementById('ozonKeyStatus');
+  const btn = document.getElementById('ozonSaveBtn');
+  if (!key) { showKeyStatus(statusEl, 'Введите API-ключ', 'error'); return; }
+  if (!clientId) { showKeyStatus(statusEl, 'Введите Client ID', 'error'); return; }
+  if (!API_BASE) { showKeyStatus(statusEl, 'Нет подключения к серверу', 'error'); return; }
+
+  btn.disabled = true; btn.textContent = 'Проверка...';
+  try {
+    const res = await fetch(API_BASE + '/api/connect-platform', {
+      method: 'POST', headers: getAuthHeaders(),
+      body: JSON.stringify({ platform: 'ozon', api_key: key, client_id: clientId })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      showKeyStatus(statusEl, 'Ozon подключён!', 'success');
+      updatePlatformStatus('ozon', true);
+      document.getElementById('ozonApiKey').value = '';
+      document.getElementById('ozonClientId').value = '';
+      showToast('Ozon подключён');
+    } else {
+      showKeyStatus(statusEl, data.error || 'Ошибка подключения', 'error');
+    }
+  } catch(e) {
+    showKeyStatus(statusEl, 'Ошибка сети: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'OK';
+  }
+}
+
+function connectWB() {
+  // Scroll to the WB API key input and focus it
+  const el = document.getElementById('wbApiKey');
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => el.focus(), 300); }
+}
+
+function connectOzon() {
+  const el = document.getElementById('ozonClientId');
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => el.focus(), 300); }
+}
+
+function showKeyStatus(el, msg, type) {
+  if (!el) return;
+  el.style.display = 'block';
+  el.style.color = type === 'success' ? 'var(--success)' : 'var(--danger)';
+  el.textContent = msg;
+  if (type === 'success') setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+function updatePlatformStatus(platform, connected) {
+  const statusEl = platform === 'wb'
+    ? document.getElementById('settingsWBStatus')
+    : document.getElementById('settingsOzonStatus');
+  const btnEl = platform === 'wb'
+    ? document.getElementById('wbConnectBtn')
+    : document.getElementById('ozonConnectBtn');
+
+  if (statusEl) {
+    statusEl.innerHTML = connected
+      ? '<span class="dot dot-on"></span> Подключён'
+      : '<span class="dot dot-off"></span> Не подключён';
+  }
+  if (btnEl) {
+    btnEl.textContent = connected ? 'Отключить' : 'Подключить';
+    btnEl.onclick = connected
+      ? () => disconnectPlatform(platform)
+      : () => { platform === 'wb' ? connectWB() : connectOzon(); };
+  }
+  // Update currentUser
+  if (currentUser) {
+    if (platform === 'wb') currentUser.wb_connected = connected;
+    else currentUser.ozon_connected = connected;
+  }
+}
+
+async function disconnectPlatform(platform) {
+  if (!API_BASE) return;
+  if (!confirm('Отключить ' + (platform === 'wb' ? 'Wildberries' : 'Ozon') + '?')) return;
+  try {
+    const res = await fetch(API_BASE + '/api/disconnect-platform', {
+      method: 'POST', headers: getAuthHeaders(),
+      body: JSON.stringify({ platform })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      updatePlatformStatus(platform, false);
+      showToast((platform === 'wb' ? 'WB' : 'Ozon') + ' отключён');
+    }
+  } catch(e) {
+    showToast('Ошибка: ' + e.message);
+  }
+}
+
+// ===========================================================================
+// PAYMENTS — Telegram Invoice
+// ===========================================================================
+
+const INVOICE_LINKS = {
+  'tokens_100': '',    // TODO: add real payment links from @BotFather
+  'tokens_500': '',
+  'tokens_5000': '',
+  'tokens_10000': '',
+  'business': '',
+};
+
+function openInvoice(plan) {
+  const url = INVOICE_LINKS[plan];
+  if (url && tg && tg.openInvoice) {
+    tg.openInvoice(url, (status) => {
+      if (status === 'paid') {
+        showToast('Оплата прошла! Обновляем баланс...');
+        // Reload user data to get updated balance
+        loadUserData();
+      } else if (status === 'cancelled') {
+        showToast('Оплата отменена');
+      } else {
+        showToast('Оплата не завершена');
+      }
+    });
+  } else if (tg && tg.openTelegramLink) {
+    // Fallback: open payment via bot
+    const botUser = currentUser?.username || '';
+    tg.openTelegramLink('https://t.me/' + botUser.replace('@',''));
+    showToast('Для оплаты напишите боту');
+  } else {
+    showToast('Оплата доступна только через Telegram');
+  }
 }
 
 function emergencyStop() {
@@ -3614,6 +3788,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+  });
+
+  // Hide bottom nav when keyboard is open (input/textarea focus)
+  const bnav = document.querySelector('.bnav');
+  document.addEventListener('focusin', (e) => {
+    if (e.target.matches('input, textarea') && bnav) {
+      bnav.classList.add('nav-hidden');
+    }
+  });
+  document.addEventListener('focusout', (e) => {
+    if (e.target.matches('input, textarea') && bnav) {
+      // Small delay to prevent flicker when switching between inputs
+      setTimeout(() => {
+        if (!document.activeElement?.matches('input, textarea')) {
+          bnav.classList.remove('nav-hidden');
+        }
+      }, 150);
+    }
   });
 
   console.log('Репа Mini App initialized. Mock mode:', useMockData);
