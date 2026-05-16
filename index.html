@@ -2553,7 +2553,8 @@ function applyUserData(u) {
 
   // Helper: apply avatar (photo or initials) to any element
   function setAvatar(el) {
-    if (!el) return;
+    if (!el) { console.warn('[avatar] element not found!'); return; }
+    console.log('[avatar] setting', el.id, 'photoUrl=', !!photoUrl, 'initials=', initials);
     if (photoUrl) {
       el.style.backgroundColor = 'transparent';
       el.style.backgroundImage = 'url(' + photoUrl + ')';
@@ -2831,8 +2832,12 @@ function applyUserData(u) {
   }
 
   // === Settings list (top item) ===
-  setAvatar(document.getElementById('settingsAvatar'));
+  console.log('[apply] Settings — safeName:', safeName, 'plan:', plan, 'remaining:', remaining);
+  const saEl = document.getElementById('settingsAvatar');
+  console.log('[apply] settingsAvatar element:', saEl ? saEl.id : 'NOT FOUND');
+  setAvatar(saEl);
   const sln = document.getElementById('settingsListItemName');
+  console.log('[apply] settingsListItemName element:', sln ? sln.id : 'NOT FOUND', '→ setting to:', safeName);
   if (sln) sln.textContent = safeName;
   const sls = document.getElementById('settingsListItemSub');
   if (sls) sls.textContent = (plan === 'FREE' ? 'Бесплатный план' : 'Тариф «' + plan + '»') + ' \u2022 ' + remaining + ' ответов';
