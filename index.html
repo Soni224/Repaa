@@ -1069,63 +1069,22 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
   <div class="sec-h anim-sec"><div class="sec-t">По площадкам</div></div>
   <div class="card anim-card mb-16" id="analyticsPlatforms">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:8px"><span class="rv-plat wb">WB</span><span style="font-size:12px;font-weight:600">Wildberries</span></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:72%;height:100%;background:#9B2DFF;border-radius:3px"></div></div>
-        <div style="font-size:12px;font-weight:700" id="analyticsWBCount">72</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:8px"><span class="rv-plat ozon">OZON</span><span style="font-size:12px;font-weight:600">Ozon</span></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:45%;height:100%;background:#005BFF;border-radius:3px"></div></div>
-        <div style="font-size:12px;font-weight:700" id="analyticsOzonCount">45</div>
-      </div>
+    <div id="analyticsPlatformContent">
+      <div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Загрузка...</div>
     </div>
   </div>
 
   <div class="sec-h anim-sec"><div class="sec-t">Тон ответов</div></div>
-  <div class="card anim-card mb-16">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
-      <span style="font-size:12px;font-weight:600">Дружелюбный</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:58%;height:100%;background:var(--success);border-radius:3px"></div></div>
-        <span style="font-size:12px;font-weight:700;color:var(--success)">58%</span>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
-      <span style="font-size:12px;font-weight:600">Нейтральный</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:28%;height:100%;background:var(--primary);border-radius:3px"></div></div>
-        <span style="font-size:12px;font-weight:700;color:var(--primary)">28%</span>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0">
-      <span style="font-size:12px;font-weight:600">Официальный</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:14%;height:100%;background:var(--warning);border-radius:3px"></div></div>
-        <span style="font-size:12px;font-weight:700;color:var(--warning)">14%</span>
-      </div>
+  <div class="card anim-card mb-16" id="analyticsToneCard">
+    <div id="analyticsToneContent">
+      <div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Загрузка...</div>
     </div>
   </div>
 
   <div class="sec-h anim-sec"><div class="sec-t">Топ товаров</div></div>
   <div class="card anim-card" id="analyticsTopProducts">
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
-      <div style="width:24px;height:24px;border-radius:6px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--primary)">1</div>
-      <div style="flex:1"><div style="font-size:12px;font-weight:600">Кроссовки Air Max</div><div style="font-size:10px;color:var(--text-3)">24 отзыва</div></div>
-      <div style="font-size:11px;font-weight:600;color:var(--success)">+12</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
-      <div style="width:24px;height:24px;border-radius:6px;background:var(--bg-input);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2)">2</div>
-      <div style="flex:1"><div style="font-size:12px;font-weight:600">Футболка Classic</div><div style="font-size:10px;color:var(--text-3)">18 отзывов</div></div>
-      <div style="font-size:11px;font-weight:600;color:var(--success)">+8</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
-      <div style="width:24px;height:24px;border-radius:6px;background:var(--bg-input);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-2)">3</div>
-      <div style="flex:1"><div style="font-size:12px;font-weight:600">Рюкзак Urban</div><div style="font-size:10px;color:var(--text-3)">11 отзывов</div></div>
-      <div style="font-size:11px;font-weight:600;color:var(--success)">+5</div>
+    <div id="analyticsTopProductsContent">
+      <div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Загрузка...</div>
     </div>
   </div>
 </div>
@@ -1353,7 +1312,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Проверка статуса API</div><div class="tgl-d">Уведомлять при ошибках</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('api_errors_notify',this.checked)"><span class="tgl-s"></span></label>
       </div>
     </div>
   </div>
@@ -1381,15 +1340,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Ночной режим</div><div class="tgl-d">Пауза с 22:00 до 08:00</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('night_mode',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Follow-up</div><div class="tgl-d">Повтор через 24ч если нет ответа</div></div>
-        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" onchange="updateSetting('follow_up',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Приоритет негатива</div><div class="tgl-d">Сначала отвечать на 1-2 звёзды</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('negative_priority',this.checked)"><span class="tgl-s"></span></label>
       </div>
     </div>
 
@@ -1397,15 +1356,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="card mb-16">
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Подтверждение перед отправкой</div><div class="tgl-d">Показывать ответ перед отправкой</div></div>
-        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" onchange="updateSetting('confirm_before_send',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Рекомендации товаров</div><div class="tgl-d">Автоматически подбирать товары</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('recommendations',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Чат с покупателями</div><div class="tgl-d">AI-агент ведёт диалог</div></div>
-        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" onchange="updateSetting('chat_with_customers',this.checked)"><span class="tgl-s"></span></label>
       </div>
     </div>
 
@@ -1577,15 +1536,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Ошибки API</div><div class="tgl-d">При сбоях подключения</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('notif_api_errors',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke-width="3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>Лимиты</div><div class="tgl-d">Когда токены или генерации на исходе</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('notif_limits',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16" stroke-width="3"/></svg>Системные уведомления</div><div class="tgl-d">Обновления, обслуживание, новости</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('notif_system',this.checked)"><span class="tgl-s"></span></label>
       </div>
     </div>
 
@@ -1597,11 +1556,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Частота</div><div class="tgl-d">Не чаще 1 раза в 5 минут</div></div>
-        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" onchange="updateSetting('notif_throttle',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Тихие часы</div><div class="tgl-d">Без уведомлений с 22:00 до 08:00</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('notif_quiet_hours',this.checked)"><span class="tgl-s"></span></label>
       </div>
     </div>
   </div>
@@ -1616,19 +1575,19 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Детектор фейков</div><div class="tgl-d">Распознаёт накрученные отзывы</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('fake_detect',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>Анти-спам</div><div class="tgl-d">Фильтрует спам-отзывы</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('anti_spam',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Фильтр мата</div><div class="tgl-d">Цензура в ответах</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('profanity_filter',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Анализ тональности</div><div class="tgl-d">Оценка настроения отзыва</div></div>
-        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" onchange="updateSetting('sentiment_analysis',this.checked)"><span class="tgl-s"></span></label>
       </div>
     </div>
 
@@ -1636,11 +1595,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="card mb-16">
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Определение пола</div><div class="tgl-d">Адаптирует обращение</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('gender_mode',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Блокировка сессий</div><div class="tgl-d">Завершить все другие сессии</div></div>
-        <label class="tgl"><input type="checkbox"><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" onchange="updateSetting('session_lock',this.checked)"><span class="tgl-s"></span></label>
       </div>
     </div>
 
@@ -1648,7 +1607,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="card">
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Сохранять историю ответов</div><div class="tgl-d">Хранить все сгенерированные ответы</div></div>
-        <label class="tgl"><input type="checkbox" checked><span class="tgl-s"></span></label>
+        <label class="tgl"><input type="checkbox" checked onchange="updateSetting('save_history',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div style="padding:12px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
         <div><div style="font-size:13px;font-weight:600;color:var(--text)">Кэш ответов</div><div style="font-size:11px;color:var(--text-3)">Занимает 2.4 МБ</div></div>
@@ -2843,6 +2802,16 @@ async function initReviewsList() {
           status: r.status || 'pending',
           response: r.answer || ''
         }));
+        // Update review count badges
+        const pendingCount = fetchedReviews.filter(r => r.status === 'pending').length;
+        const sentCount = fetchedReviews.filter(r => r.status === 'sent').length;
+        const pEl = document.getElementById('reviewsPendingCount');
+        const sEl = document.getElementById('reviewsSentCount');
+        if (pEl) pEl.textContent = pendingCount;
+        if (sEl) sEl.textContent = sentCount;
+        // Also update bottom nav badge
+        const bnav = document.getElementById('bnavReviewsBadge');
+        if (bnav) { bnav.textContent = pendingCount; bnav.style.display = pendingCount > 0 ? '' : 'none'; }
       }
     } catch(e) {
       console.warn('Failed to fetch reviews from API:', e);
@@ -2891,28 +2860,64 @@ async function generateForReview(id) {
 // LIVE FEED
 // ===========================================================================
 
-function initLiveFeed() {
+async function initLiveFeed() {
   const f = document.getElementById('liveFeed');
   const emptyEl = document.getElementById('emptyLiveFeed');
-  if (!MOCK_LIVE_FEED.length && !currentUser?.wb_connected && !currentUser?.ozon_connected) {
+
+  // Try to fetch real live feed from API
+  let feedItems = [];
+  if (API_BASE) {
+    try {
+      const res = await fetch(API_BASE + '/api/live-feed', { headers: getAuthHeaders() });
+      if (res.ok) {
+        const data = await res.json();
+        feedItems = data.items || [];
+      }
+    } catch(e) {
+      console.warn('Failed to fetch live feed from API:', e);
+    }
+  }
+
+  // Show empty state if no data and no platforms connected
+  if (!feedItems.length && !currentUser?.wb_connected && !currentUser?.ozon_connected) {
     if (emptyEl) emptyEl.style.display = '';
     return;
   }
   if (emptyEl) emptyEl.style.display = 'none';
-  MOCK_LIVE_FEED.forEach(i => {
+
+  // Render items from API
+  feedItems.forEach(i => {
     const n = document.createElement('div');
     n.className = 'lf-item';
-    n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${i.platform}</div><div class="lf-text">${i.text}</div></div><div class="lf-time">${i.time}</div>`;
+    n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${i.platform || ''}</div><div class="lf-text">${i.text || ''}</div></div><div class="lf-time">${i.time || ''}</div>`;
     f.appendChild(n);
   });
-  setInterval(() => {
-    const ps=['WB','Ozon'],ns=['Анна','Игорь','Светлана','Михаил','Оксана'],as=[`Ответ на отзыв от ${ns[Math.floor(Math.random()*ns.length)]} — отправлен`,`Негатив обработан: ${ns[Math.floor(Math.random()*ns.length)]}`,`Пакет: ${Math.floor(Math.random()*10+3)} отзывов обработано`,`Новый отзыв от ${ns[Math.floor(Math.random()*ns.length)]}`];
-    const n = document.createElement('div');
-    n.className = 'lf-item';
-    n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${ps[Math.floor(Math.random()*2)]}</div><div class="lf-text">${as[Math.floor(Math.random()*as.length)]}</div></div><div class="lf-time">сейчас</div>`;
-    f.insertBefore(n, f.firstChild);
-    if (f.children.length > 8) f.removeChild(f.lastChild);
-  }, 8000);
+
+  // Auto-refresh live feed every 30 seconds
+  if (API_BASE) {
+    setInterval(async () => {
+      try {
+        const res = await fetch(API_BASE + '/api/live-feed', { headers: getAuthHeaders() });
+        if (res.ok) {
+          const data = await res.json();
+          const items = data.items || [];
+          if (items.length && f) {
+            // Add newest item at top if it's new
+            const firstText = items[0]?.text;
+            const existing = f.querySelector('.lf-text');
+            if (!existing || existing.textContent !== firstText) {
+              const n = document.createElement('div');
+              n.className = 'lf-item';
+              n.style.animation = 'fadeIn 0.3s ease';
+              n.innerHTML = `<div class="lf-dot"></div><div style="flex:1;min-width:0"><div class="lf-plat">${items[0].platform || ''}</div><div class="lf-text">${items[0].text || ''}</div></div><div class="lf-time">${items[0].time || ''}</div>`;
+              f.insertBefore(n, f.firstChild);
+              if (f.children.length > 8) f.removeChild(f.lastChild);
+            }
+          }
+        }
+      } catch(e) { /* silently ignore */ }
+    }, 30000);
+  }
 }
 
 // ===========================================================================
@@ -3029,10 +3034,21 @@ async function initChart() {
           });
           rv = spread;
         }
+        // Render dynamic sections from API data
+        renderPlatformBreakdown(data);
+        renderToneDistribution(data);
+        renderTopProducts(data);
       }
     } catch(e) {
       console.warn('Failed to fetch analytics, using demo data:', e);
+      renderPlatformBreakdown(null);
+      renderToneDistribution(null);
+      renderTopProducts(null);
     }
+  } else {
+    renderPlatformBreakdown(null);
+    renderToneDistribution(null);
+    renderTopProducts(null);
   }
 
   const mx = Math.max(...rv, 1);
@@ -3040,6 +3056,85 @@ async function initChart() {
     const h = Math.max(rv[i]/mx*100, 4);
     const isMax = rv[i] === mx;
     return `<div class="chart-bar-g"><div class="chart-bar${isMax?' sec':''}" style="height:${h}px;${isMax?'background:var(--primary);opacity:1':''}"></div><div class="chart-lbl">${d}</div></div>`;
+  }).join('');
+}
+
+function renderPlatformBreakdown(data) {
+  const el = document.getElementById('analyticsPlatformContent');
+  if (!el) return;
+  const platforms = (data && data.platform_breakdown) || {};
+  const keys = Object.keys(platforms);
+  if (!keys.length) {
+    el.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Пока нет данных</div>';
+    return;
+  }
+  const total = Object.values(platforms).reduce((a, b) => a + b, 0) || 1;
+  const platMeta = {
+    'wb': { label: 'Wildberries', cls: 'wb', color: '#9B2DFF' },
+    'ozon': { label: 'Ozon', cls: 'ozon', color: '#005BFF' },
+  };
+  el.innerHTML = keys.map(k => {
+    const cnt = platforms[k];
+    const pct = Math.round(cnt / total * 100);
+    const meta = platMeta[k] || { label: k.toUpperCase(), cls: '', color: 'var(--primary)' };
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:8px"><span class="rv-plat ${meta.cls}">${k.toUpperCase()}</span><span style="font-size:12px;font-weight:600">${meta.label}</span></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:60px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:${pct}%;height:100%;background:${meta.color};border-radius:3px"></div></div>
+        <div style="font-size:12px;font-weight:700">${cnt}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderToneDistribution(data) {
+  const el = document.getElementById('analyticsToneContent');
+  if (!el) return;
+  const ratings = (data && data.rating_distribution) || {};
+  const keys = Object.keys(ratings);
+  if (!keys.length) {
+    el.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Пока нет данных</div>';
+    return;
+  }
+  const total = Object.values(ratings).reduce((a, b) => a + b, 0) || 1;
+  const toneMeta = {
+    '5': { label: 'Позитивные (5★)', color: 'var(--success)' },
+    '4': { label: 'Хорошие (4★)', color: 'var(--success)' },
+    '3': { label: 'Нейтральные (3★)', color: 'var(--primary)' },
+    '2': { label: 'Негативные (2★)', color: 'var(--warning)' },
+    '1': { label: 'Критичные (1★)', color: 'var(--danger)' },
+  };
+  // Sort: 5,4,3,2,1
+  const sorted = keys.sort((a, b) => Number(b) - Number(a));
+  el.innerHTML = sorted.map(k => {
+    const cnt = ratings[k];
+    const pct = Math.round(cnt / total * 100);
+    const meta = toneMeta[k] || { label: k + '★', color: 'var(--text-2)' };
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+      <span style="font-size:12px;font-weight:600">${meta.label}</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:80px;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden"><div class="anim-bar" style="width:${pct}%;height:100%;background:${meta.color};border-radius:3px"></div></div>
+        <span style="font-size:12px;font-weight:700;color:${meta.color}">${pct}%</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderTopProducts(data) {
+  const el = document.getElementById('analyticsTopProductsContent');
+  if (!el) return;
+  const products = (data && data.top_products) || [];
+  if (!products.length) {
+    el.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Пока нет данных</div>';
+    return;
+  }
+  el.innerHTML = products.map((p, i) => {
+    const bg = i === 0 ? 'var(--primary-light)' : 'var(--bg-input)';
+    const clr = i === 0 ? 'var(--primary)' : 'var(--text-2)';
+    return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;${i < products.length - 1 ? 'border-bottom:1px solid var(--border)' : ''}">
+      <div style="width:24px;height:24px;border-radius:6px;background:${bg};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:${clr}">${i + 1}</div>
+      <div style="flex:1"><div style="font-size:12px;font-weight:600">${p}</div></div>
+    </div>`;
   }).join('');
 }
 
