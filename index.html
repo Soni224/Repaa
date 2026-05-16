@@ -2777,12 +2777,12 @@ function applyUserData(u) {
   const swTokens = document.getElementById('subWidgetTokens');
   if (swTokens) swTokens.textContent = balStr + ' токенов';
   const swForecast = document.getElementById('subWidgetForecast');
-  if (swForecast) swForecast.textContent = 'Примерно хватит на ' + Math.max(0, balance) + ' ответов';
+  if (swForecast) swForecast.textContent = 'Примерно хватит на ' + Math.max(0, bal) + ' ответов';
   const swRec = document.getElementById('subWidgetRecommendation');
   const swRecText = document.getElementById('subWidgetRecText');
   if (swRec && swRecText) {
     // Show recommendation if buying tokens is less cost-effective than upgrading
-    if (planRaw === 'free' && balance < 50) {
+    if (planRaw === 'free' && bal < 50) {
       swRec.style.display = 'flex';
       swRecText.textContent = 'Переход на PRO выгоднее: 500 ответов, Brand Voice и автопилот в комплекте';
     } else {
