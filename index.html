@@ -9,17 +9,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #6B7FD7;
-  --primary-hover: #5A6DC5;
-  --primary-light: #F0F2FB;
-  --primary-soft: rgba(107,127,215,.08);
-  --bg: #F5F7FC;
-  --bg-card: #FFFFFF;
-  --bg-input: #EBEDF5;
+  --primary: #7B8FD4;
+  --primary-hover: #6A7EC3;
+  --primary-light: #EEF1FA;
+  --primary-soft: rgba(123,143,212,.07);
+  --primary-glow: rgba(123,143,212,.18);
+  --bg: #F6F7FB;
+  --bg-card: #FEFEFF;
+  --bg-card-milky: #FDFDFF;
+  --bg-input: #EEF0F6;
   --text: #1E2440;
   --text-2: #6B7A99;
   --text-3: #9EA8BF;
-  --border: #E0E4EF;
+  --border: #E4E8F0;
+  --border-soft: #EEF0F5;
   --success: #6BBF8A;
   --success-light: #EFF9F3;
   --danger: #E06C75;
@@ -28,10 +31,14 @@
   --warning-light: #FBF6EC;
   --lavender: #9B8FD4;
   --mint: #7BC8A4;
-  --radius: 16px;
-  --radius-sm: 12px;
+  --mint-light: #EEFAF4;
+  --radius: 20px;
+  --radius-sm: 14px;
   --radius-full: 999px;
-  --shadow: 0 2px 8px rgba(30,36,64,.06), 0 1px 3px rgba(30,36,64,.03);
+  --shadow: 0 1px 4px rgba(30,36,64,.04);
+  --shadow-card: 0 2px 12px rgba(30,36,64,.06);
+  --shadow-prominent: 0 4px 20px rgba(123,143,212,.12), 0 1px 6px rgba(30,36,64,.06);
+  --shadow-cta: 0 6px 24px rgba(123,143,212,.28), 0 2px 8px rgba(30,36,64,.08);
   --nav-h: 56px;
   --safe-b: env(safe-area-inset-bottom, 0px);
 }
@@ -40,13 +47,16 @@
   --primary-hover: #9FB3F0;
   --primary-light: #1A2040;
   --primary-soft: rgba(143,163,232,.08);
+  --primary-glow: rgba(143,163,232,.2);
   --bg: #0F1119;
   --bg-card: #181B28;
+  --bg-card-milky: #1A1E2C;
   --bg-input: #1E2234;
   --text: #E8EAF2;
   --text-2: #8E9AB8;
   --text-3: #555F7A;
   --border: #262B3D;
+  --border-soft: #1E2234;
   --success: #5EC47E;
   --success-light: #132219;
   --danger: #E87079;
@@ -54,6 +64,9 @@
   --warning: #E8B34A;
   --warning-light: #282010;
   --shadow: 0 2px 8px rgba(0,0,0,0.4);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.3);
+  --shadow-prominent: 0 4px 20px rgba(143,163,232,.12), 0 1px 6px rgba(0,0,0,0.3);
+  --shadow-cta: 0 6px 24px rgba(143,163,232,.2), 0 2px 8px rgba(0,0,0,0.3);
   --card-hover: #1E2236;
 }
 .dark .bnav{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(24,27,40,0.95)}
@@ -109,7 +122,9 @@ input,textarea,select{font-family:inherit}
 .ico-xl{width:40px;height:40px;flex-shrink:0}
 
 /* Card */
-.card{background:var(--bg-card);border-radius:var(--radius);padding:18px;border:1px solid var(--border);box-shadow:var(--shadow);transition:all .2s cubic-bezier(.4,0,.2,1)}
+.card{background:var(--bg-card);border-radius:var(--radius);padding:18px;border:1px solid var(--border-soft);box-shadow:var(--shadow-card);transition:all .2s cubic-bezier(.4,0,.2,1)}
+.card-prominent{background:var(--bg-card);border-radius:var(--radius);padding:22px;border:1.5px solid rgba(123,143,212,.2);box-shadow:var(--shadow-prominent);transition:all .2s cubic-bezier(.4,0,.2,1)}
+.card-quiet{background:var(--bg-card-milky);border-radius:var(--radius);padding:16px;border:1px solid var(--border-soft);box-shadow:var(--shadow);transition:all .2s cubic-bezier(.4,0,.2,1)}
 
 /* Profile */
 .prof{padding:16px}
@@ -393,19 +408,21 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 /* === PRODUCTION ADDITIONS === */
 
 /* Main CTA button */
-.main-cta{position:relative;font-size:16px;padding:18px 20px;font-weight:700;border-radius:var(--radius);min-height:100px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;border:none;box-shadow:0 8px 24px rgba(107,127,215,.25)}
+.main-cta{position:relative;font-size:16px;padding:18px 20px;font-weight:700;border-radius:var(--radius);min-height:100px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;border:none;box-shadow:var(--shadow-cta)}
 .main-cta:active{transform:scale(.97);background:var(--primary-hover)}
 .live-badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;background:#10b981;color:#fff;font-size:11px;font-weight:700;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(16,185,129,.4)}
 
 /* Breathing spacing */
-.content>.card:not(:last-child){margin-bottom:16px!important}
+.content>.card:not(:last-child){margin-bottom:14px!important}
+.content>.card-prominent:not(:last-child){margin-bottom:16px!important}
+.content>.card-quiet:not(:last-child){margin-bottom:10px!important}
 .screen .sec-h{margin-bottom:14px!important}
-.screen .card{margin-bottom:16px!important}
+.screen .card{margin-bottom:14px!important}
 
 /* Premium hover/press */
-.card,.scard,.qact-btn{transition:all .15s cubic-bezier(.4,0,.2,1)}
-.card:hover,.scard:hover,.qact-btn:hover{transform:translateY(-2px)}
-.card:active,.scard:active,.qact-btn:active{transform:scale(.97)!important}
+.card,.card-prominent,.card-quiet,.scard,.qact-btn{transition:all .15s cubic-bezier(.4,0,.2,1)}
+.card:hover,.card-prominent:hover,.scard:hover,.qact-btn:hover{transform:translateY(-1px)}
+.card:active,.card-prominent:active,.scard:active,.qact-btn:active{transform:scale(.98)!important}
 
 /* Micro-animations — only for non-slider screens */
 @keyframes slideUpFade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
@@ -479,14 +496,62 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
 /* === HOME REDESIGN: Calm, clear, controlled === */
 
-/* Top header — minimal, just name + balance */
-.home-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-top:4px}
+/* Top header — centered product identity */
+.home-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-top:4px}
 .home-header-left{display:flex;align-items:center;gap:10px}
-.home-avatar{width:32px;height:32px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:transform .15s;flex-shrink:0}
-.home-avatar:active{transform:scale(.9)}
+.home-avatar{display:none}
 .home-brand{font-size:18px;font-weight:700;color:var(--text);line-height:1.2}
 .home-brand-sub{font-size:11px;color:var(--text-3);font-weight:500}
 .home-header-right{display:flex;align-items:center;gap:8px}
+
+/* Hero status card — THE most prominent element */
+.hero-status{background:linear-gradient(135deg,var(--primary-light) 0%,var(--bg-card) 100%);border:1.5px solid rgba(123,143,212,.18);border-radius:var(--radius);padding:24px 22px;box-shadow:var(--shadow-prominent);position:relative;overflow:hidden;transition:all .2s ease}
+.hero-status::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:rgba(123,143,212,.06);pointer-events:none}
+.hero-status::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(123,191,138,.04);pointer-events:none}
+.hero-status-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.2}
+.hero-status-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hero-status-item{display:flex;align-items:center;gap:10px}
+.hero-status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.hero-status-value{font-size:20px;font-weight:700;color:var(--primary);line-height:1.1}
+.hero-status-label{font-size:11px;color:var(--text-3);margin-top:2px}
+.hero-status-divider{height:1px;background:rgba(123,143,212,.1);margin:14px 0}
+.hero-status-autopilot{display:flex;align-items:center;gap:8px;cursor:pointer}
+
+/* CTA connect block — second most important */
+.cta-connect{background:var(--bg-card);border-radius:var(--radius);padding:28px 22px;text-align:center;border:1.5px solid rgba(123,143,212,.15);box-shadow:var(--shadow-card);transition:all .2s ease}
+.cta-connect-icon{width:56px;height:56px;border-radius:16px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--primary)}
+.cta-connect-icon svg{width:28px;height:28px}
+.cta-connect-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.2}
+.cta-connect-sub{font-size:13px;color:var(--text-3);margin-bottom:18px;line-height:1.5}
+.cta-connect-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:14px 28px;border-radius:var(--radius-sm);background:var(--primary);color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;box-shadow:var(--shadow-cta);transition:all .15s ease;width:100%}
+.cta-connect-btn:active{transform:scale(.97);background:var(--primary-hover)}
+
+/* Subscription bar — clear and honest */
+.sub-block{background:var(--bg-card);border-radius:var(--radius);padding:18px 20px;border:1px solid var(--border-soft);box-shadow:var(--shadow-card)}
+.sub-block-header{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px}
+.sub-block-bar{height:5px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:8px}
+.sub-block-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--lavender));border-radius:var(--radius-full);transition:width .5s ease}
+.sub-block-info{font-size:12px;color:var(--text-3);margin-bottom:12px}
+.sub-block-actions{display:flex;gap:8px}
+
+/* Autopilot card — calm and safe */
+.autopilot-card{background:var(--bg-card-milky);border-radius:var(--radius);padding:16px 18px;border:1px solid var(--border-soft);box-shadow:var(--shadow);cursor:pointer;transition:all .2s ease}
+.autopilot-card:active{transform:scale(.98)}
+.autopilot-card-row{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.autopilot-card-ico{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--mint-light);display:flex;align-items:center;justify-content:center;color:var(--mint);flex-shrink:0}
+.autopilot-card-ico svg{width:18px;height:18px}
+.autopilot-card-title{font-size:14px;font-weight:600;color:var(--text)}
+.autopilot-card-sub{font-size:12px;color:var(--text-3);margin-top:1px}
+.autopilot-card-status{display:flex;align-items:center;gap:6px;padding-left:48px}
+
+/* Event feed — truly secondary */
+.feed-secondary{opacity:.6}
+.feed-secondary .sec-t{font-size:13px;opacity:.7}
+.feed-secondary .sec-t::before{height:8px;opacity:.2}
+.feed-item-quiet{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-soft);animation:fadeIn .25s ease}
+.feed-item-quiet:last-child{border-bottom:none}
+.feed-item-quiet .lf-text{font-size:11px;color:var(--text-3)}
+.feed-item-quiet .lf-time{font-size:10px;color:var(--text-3);opacity:.6}
 
 /* Balance pill — prominent but calm */
 .home-balance-widget{display:flex;align-items:center;gap:8px;background:var(--primary-soft);border-radius:var(--radius-full);padding:8px 12px 8px 14px;cursor:pointer;transition:all .15s}
@@ -782,100 +847,104 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="screen active" id="screenHome">
 <div class="content">
 
-  <!-- ===== TOP ZONE: Product name + tagline + menu ===== -->
-  <div class="home-header anim-home-header" style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding-top:8px">
+  <!-- ===== TOP ZONE (5.1): Product name + value prop + menu ===== -->
+  <div class="home-header anim-home-header" style="padding-top:8px">
     <div style="text-align:center;flex:1">
-      <div style="font-size:26px;font-weight:700;color:var(--text);line-height:1.1;letter-spacing:-.3px">Repa</div>
-      <div style="font-size:12px;color:var(--text-3);font-weight:500;margin-top:4px;line-height:1.4">Ответы на отзывы вручную и автоматически</div>
+      <div style="font-size:28px;font-weight:700;color:var(--text);line-height:1.1;letter-spacing:-.5px">Repa</div>
+      <div style="font-size:12px;color:var(--text-3);font-weight:500;margin-top:5px;line-height:1.4">Ответы на отзывы вручную и автоматически</div>
     </div>
-    <button style="background:var(--bg-input);border:none;border-radius:var(--radius-sm);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-2);flex-shrink:0;margin-left:8px" onclick="openSettings()">
+    <button style="background:var(--bg-input);border:none;border-radius:var(--radius-sm);width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-2);flex-shrink:0;margin-left:8px;transition:background .15s" onclick="openSettings()" onmousedown="this.style.background='var(--primary-light)'" onmouseup="this.style.background='var(--bg-input)'" onmouseleave="this.style.background='var(--bg-input)'">
       <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
     </button>
   </div>
 
-  <!-- ===== BLOCK 1: Status Card (most prominent) ===== -->
-  <div class="card anim-onboard" id="statusCard" style="margin-bottom:12px;background:var(--primary-light);border-color:rgba(107,127,215,.15);position:relative;overflow:hidden">
-    <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(107,127,215,.06)"></div>
-    <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:12px" id="statusMainTitle">Остался 1 шаг до запуска</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:8px;height:8px;border-radius:50%;background:var(--text-3);flex-shrink:0" id="statusTokenDot"></div>
-        <div>
-          <div style="font-size:18px;font-weight:700;color:var(--primary)" id="userBalance">0</div>
-          <div style="font-size:11px;color:var(--text-3)">токенов</div>
+  <!-- ===== BLOCK 5.2: Hero Status Card (MOST prominent) ===== -->
+  <div class="hero-status anim-onboard" id="statusCard" style="margin-bottom:16px">
+    <div style="position:relative;z-index:1">
+      <div class="hero-status-title" id="statusMainTitle">Остался 1 шаг до запуска</div>
+      <div class="hero-status-grid">
+        <div class="hero-status-item">
+          <div class="hero-status-dot" id="statusTokenDot" style="background:var(--text-3)"></div>
+          <div>
+            <div class="hero-status-value" id="userBalance">0</div>
+            <div class="hero-status-label">токенов</div>
+          </div>
+        </div>
+        <div class="hero-status-item">
+          <div class="hero-status-dot" style="background:var(--lavender)"></div>
+          <div>
+            <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.2" id="statusTariff">Бесплатный план</div>
+            <div class="hero-status-label" id="statusResponses">0 ответов доступно</div>
+          </div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div style="width:8px;height:8px;border-radius:50%;background:var(--lavender);flex-shrink:0"></div>
-        <div>
-          <div style="font-size:14px;font-weight:600;color:var(--text)" id="statusTariff">Бесплатный план</div>
-          <div style="font-size:11px;color:var(--text-3)" id="statusResponses">0 ответов доступно</div>
-        </div>
+      <div class="hero-status-divider"></div>
+      <div class="hero-status-autopilot" id="statusAutopilotRow" onclick="openSettings('Autopilot')">
+        <div class="autopilot-dot off" id="autopilotDot"></div>
+        <div style="font-size:13px;color:var(--text-2)" id="autopilotStatusText"><strong style="color:var(--text)">Автопилот:</strong> выключен</div>
       </div>
     </div>
-    <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(107,127,215,.1);display:flex;align-items:center;gap:8px" id="statusAutopilotRow" onclick="openSettings('Autopilot')" style="cursor:pointer">
-      <div class="autopilot-dot off" id="autopilotDot"></div>
-      <div style="font-size:13px;color:var(--text-2)" id="autopilotStatusText"><strong style="color:var(--text)">Автопилот:</strong> выключен</div>
+    <div style="position:absolute;top:12px;right:14px;z-index:2">
+      <span style="font-size:10px;font-weight:600;padding:3px 10px;border-radius:var(--radius-full);background:rgba(123,143,212,.12);color:var(--primary)" id="onboardingBadge">1 из 4</span>
     </div>
-    <div class="onboarding-badge" id="onboardingBadge" style="position:absolute;top:14px;right:14px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);background:rgba(107,127,215,.12);color:var(--primary)">1 из 4</div>
   </div>
 
-  <!-- ===== BLOCK 2: Next Action (second most important) ===== -->
-  <div id="emptyCta" class="card anim-card" style="margin-bottom:12px;text-align:center;padding:24px 18px">
-    <div style="width:48px;height:48px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--primary)">
-      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+  <!-- ===== BLOCK 5.3: CTA Connect Store (second most important) ===== -->
+  <div id="emptyCta" class="cta-connect anim-card" style="margin-bottom:16px">
+    <div class="cta-connect-icon">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     </div>
-    <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Подключить магазин</div>
-    <div style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.5">Чтобы получать и отвечать на отзывы</div>
-    <button class="btn btn-p btn-lg btn-full" onclick="openSettings('Marketplace')" style="border-radius:var(--radius)">Перейти к подключению</button>
+    <div class="cta-connect-title">Подключить магазин</div>
+    <div class="cta-connect-sub">Чтобы получать и отвечать на отзывы</div>
+    <button class="cta-connect-btn" onclick="openSettings('Marketplace')">Перейти к подключению</button>
   </div>
 
-  <button class="btn btn-p main-cta" id="activeCta" onclick="navigateTo('reviews')" style="width:100%;display:none">
+  <button class="btn btn-p main-cta" id="activeCta" onclick="navigateTo('reviews')" style="width:100%;display:none;margin-bottom:16px">
     <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
     Ответить на <span id="liveReviewCount">0</span> отзывов
     <span class="live-badge" id="ctaBadge" style="display:none">0</span>
   </button>
 
-  <!-- ===== BLOCK 3: Subscription & Tokens ===== -->
-  <div class="card anim-card" style="margin-bottom:12px" id="subBar">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <div style="font-size:14px;font-weight:700;color:var(--text)" id="subBarTariff">Бесплатный план: 2 ответа для знакомства</div>
+  <!-- ===== BLOCK 5.4: Subscription & Tokens ===== -->
+  <div class="sub-block anim-card" style="margin-bottom:12px" id="subBar">
+    <div class="sub-block-header" id="subBarTariff">Бесплатный план: 2 ответа для знакомства</div>
+    <div class="sub-block-bar">
+      <div class="sub-block-fill" id="subBarFill" style="width:0%"></div>
     </div>
-    <div style="height:4px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:8px">
-      <div style="height:100%;background:var(--primary);border-radius:var(--radius-full);transition:width .5s ease;width:0%" id="subBarFill"></div>
-    </div>
-    <div style="font-size:12px;color:var(--text-3);margin-bottom:10px" id="subBarLeft">В этом месяце доступно 0 ответов</div>
-    <div style="font-size:11px;color:var(--text-3);margin-bottom:4px" id="subBarDate"></div>
-    <div style="display:flex;gap:8px">
+    <div class="sub-block-info" id="subBarLeft">В этом месяце доступно 0 ответов</div>
+    <div style="font-size:11px;color:var(--text-3);margin-bottom:10px" id="subBarDate"></div>
+    <div class="sub-block-actions">
       <button class="btn btn-o btn-sm" onclick="openSettings('Subscription')" style="flex:1;border-radius:var(--radius-sm)">Докупить токены</button>
       <button class="btn btn-p btn-sm" onclick="openSettings('Subscription')" style="flex:1;border-radius:var(--radius-sm)">Перейти на тариф выше</button>
     </div>
   </div>
 
-  <!-- ===== BLOCK 4: Autopilot ===== -->
-  <div class="card anim-card" style="margin-bottom:12px;cursor:pointer" onclick="openSettings('Autopilot')">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-      <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--success-light);display:flex;align-items:center;justify-content:center;color:var(--success);flex-shrink:0">
+  <!-- ===== BLOCK 5.5: Autopilot (calm, safe) ===== -->
+  <div class="autopilot-card anim-card" style="margin-bottom:12px" onclick="openSettings('Autopilot')">
+    <div class="autopilot-card-row">
+      <div class="autopilot-card-ico">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
       </div>
       <div style="flex:1">
-        <div style="font-size:14px;font-weight:700;color:var(--text)">Автоматические ответы на отзывы</div>
-        <div style="font-size:12px;color:var(--text-3);margin-top:2px">Тестовый режим с подтверждением</div>
+        <div class="autopilot-card-title">Автоматические ответы на отзывы</div>
+        <div class="autopilot-card-sub">Тестовый режим с подтверждением</div>
       </div>
-      <svg width="16" height="16" fill="none" stroke="var(--text-3)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      <svg width="16" height="16" fill="none" stroke="var(--text-3)" stroke-width="2" viewBox="0 0 24 24" style="opacity:.4"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
-    <div style="display:flex;align-items:center;gap:6px;padding-left:48px">
+    <div class="autopilot-card-status">
       <div class="autopilot-dot off" id="autopilotDot2"></div>
       <div style="font-size:12px;color:var(--text-2)" id="autopilotStatus2"><strong style="color:var(--text)">Автопилот:</strong> выключен</div>
     </div>
   </div>
 
-  <!-- ===== BLOCK 5: Event Feed (secondary) ===== -->
-  <div class="sec-h anim-sec" style="margin-top:4px">
-    <div class="sec-t secondary-feed">Лента событий</div>
-    <div class="sec-link" style="opacity:.5"><span class="dot dot-on"></span> Эфир</div>
+  <!-- ===== BLOCK 5.6: Event Feed (truly secondary) ===== -->
+  <div class="feed-secondary anim-sec" style="margin-top:8px">
+    <div class="sec-h">
+      <div class="sec-t">Лента событий</div>
+      <div class="sec-link" style="opacity:.4"><span class="dot dot-on"></span> Эфир</div>
+    </div>
   </div>
-  <div class="card anim-card" id="liveFeed" style="padding:12px"><div class="empty-state" id="emptyLiveFeed" style="display:none;padding:20px"><div style="font-size:13px;font-weight:600;color:var(--text-2)">Лента пуста</div><div style="font-size:11px;color:var(--text-3);margin-top:3px">События появятся автоматически</div></div></div>
+  <div class="card-quiet anim-card" id="liveFeed" style="padding:12px;margin-bottom:12px"><div class="empty-state" id="emptyLiveFeed" style="display:none;padding:16px"><div style="font-size:12px;font-weight:500;color:var(--text-3)">Лента пуста</div><div style="font-size:11px;color:var(--text-3);margin-top:2px;opacity:.7">События появятся автоматически</div></div></div>
 
   <!-- Hidden data elements (used by applyUserData JS) -->
   <div style="display:none">
@@ -1101,7 +1170,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
           <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
         </div>
         <div class="s-row-body">
-          <div class="s-row-title">Стиль ответов</div>
+          <div class="s-row-title">Brand Voice</div>
           <div class="s-row-sub">Стиль, тон, примеры ответов</div>
         </div>
         <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1335,7 +1404,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
   <!-- ===== TAB 4: Brand Voice ===== -->
   <div class="stab" id="tabBrandVoice" style="display:none">
-    <div class="sec-h" id="brandVoiceSection"><div class="sec-t">Стиль и тон</div></div>
+    <div class="sec-h" id="brandVoiceSection"><div class="sec-t">Brand Voice</div></div>
     <div class="card mb-16">
       <div class="mb-8">
         <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Название бренда</label>
@@ -1386,17 +1455,17 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <!-- Subscription widget with economics -->
     <div class="sub-widget">
       <div class="sub-widget-header">
-        <div class="sub-widget-tariff" id="subWidgetTariff">Free план</div>
-        <div class="sub-widget-badge" id="subWidgetBadge">Free</div>
+        <div class="sub-widget-tariff" id="subWidgetTariff">Бесплатный план</div>
+        <div class="sub-widget-badge" id="subWidgetBadge">Бесплатный</div>
       </div>
       <div class="sub-widget-bar">
         <div class="sub-widget-fill" id="subWidgetFill" style="width:0%"></div>
       </div>
       <div class="sub-widget-footer">
-        <div id="subWidgetLeft">Ответов использовано: 0 из 10</div>
-        <div id="subWidgetTokens" style="font-weight:600;color:var(--primary)">Токенов осталось: 0</div>
+        <div id="subWidgetLeft">В этом месяце доступно 2 ответа</div>
+        <div id="subWidgetTokens" style="font-weight:600;color:var(--primary)">0 токенов</div>
       </div>
-      <div id="subWidgetForecast" style="font-size:11px;color:var(--text-3);margin-top:6px">Примерно хватит на 0 ответов</div>
+      <div id="subWidgetForecast" style="font-size:11px;color:var(--text-3);margin-top:6px">Подключите магазин для начала работы</div>
     </div>
 
     <!-- Recommendation: upgrade if cheaper than buying tokens -->
@@ -1409,7 +1478,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="tariff card">
       <div class="tariff-name">Free</div>
       <div class="tariff-price"><span class="tariff-pv">0 &#8381;</span><span class="tariff-pp">навсегда</span></div>
-      <ul class="tariff-feat"><li>10 ответов / день</li><li>1 площадка (WB)</li><li>Базовые шаблоны</li><li>Ручной режим</li></ul>
+      <ul class="tariff-feat"><li>10 ответов в день</li><li>1 площадка (WB)</li><li>Базовые шаблоны</li><li>Ручной режим</li></ul>
       <button class="btn btn-o btn-full" disabled>Текущий план</button>
     </div>
 
@@ -1417,14 +1486,14 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div class="tariff-badge">ПОПУЛЯРНЫЙ</div>
       <div class="tariff-name">PRO</div>
       <div class="tariff-price"><span class="tariff-pv">599 &#8381;</span><span class="tariff-pp">/ мес</span></div>
-      <ul class="tariff-feat"><li>500 ответов / день</li><li>2 площадки (WB + Ozon)</li><li>Автопилот 24/7</li><li>Стиль ответов</li><li>Аналитика PRO</li><li>Приоритетная поддержка</li></ul>
+      <ul class="tariff-feat"><li>500 ответов в день</li><li>2 площадки (WB + Ozon)</li><li>Brand Voice — стиль ответов</li><li>Автопилот 24/7 с подтверждением</li><li>Тестовый режим — безопасно</li><li>Аналитика PRO</li><li>Полный контроль и история</li></ul>
       <button class="btn btn-p btn-full btn-lg" onclick="showToast('Переход к оплате...')">Перейти на PRO</button>
     </div>
 
     <div class="tariff card">
       <div class="tariff-name">BUSINESS</div>
       <div class="tariff-price"><span class="tariff-pv">1 499 &#8381;</span><span class="tariff-pp">/ мес</span></div>
-      <ul class="tariff-feat"><li>Безлимит ответов</li><li>Все площадки</li><li>Расширенная аналитика</li><li>API доступ</li><li>Персональный менеджер</li></ul>
+      <ul class="tariff-feat"><li>Безлимит ответов</li><li>Все площадки</li><li>Brand Voice PRO</li><li>Расширенная аналитика</li><li>API доступ</li><li>Персональный менеджер</li></ul>
       <button class="btn btn-s btn-full" onclick="openInvoice('business')">Перейти на BUSINESS</button>
     </div>
 
@@ -1705,89 +1774,82 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <!-- Screen 1: Value -->
     <div class="onb-screen" id="onbScreen1">
       <div style="text-align:center;margin-bottom:40px">
-        <div style="width:72px;height:72px;border-radius:20px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 24px">
+        <div style="width:76px;height:76px;border-radius:22px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;border:1.5px solid rgba(123,143,212,.15)">
           <svg width="36" height="36" fill="none" stroke="var(--primary)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
         </div>
-        <div style="font-size:28px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:-.3px">Repa</div>
-        <div style="font-size:16px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Отвечает на отзывы вручную и автоматически</div>
-        <div style="font-size:14px;color:var(--primary);margin-top:8px;font-weight:500">Экономьте время и сохраняйте контроль</div>
+        <div style="font-size:30px;font-weight:700;color:var(--text);line-height:1.1;letter-spacing:-.5px">Repa</div>
+        <div style="font-size:17px;color:var(--text-2);margin-top:14px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Отвечает на отзывы вручную и автоматически</div>
+        <div style="font-size:14px;color:var(--primary);margin-top:10px;font-weight:600">Экономьте время и сохраняйте контроль</div>
       </div>
-      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(2)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px">Начать</button>
+      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(2)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Начать</button>
     </div>
 
     <!-- Screen 2: Trust -->
     <div class="onb-screen" id="onbScreen2" style="display:none">
       <div style="text-align:center;margin-bottom:32px">
-        <div style="font-size:22px;font-weight:700;color:var(--text);margin-bottom:20px">Вы сами управляете ответами</div>
+        <div style="font-size:22px;font-weight:700;color:var(--text);margin-bottom:24px">Вы сами управляете ответами</div>
         <div style="text-align:left;max-width:300px;margin:0 auto">
-          <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:18px">
-            <div style="width:32px;height:32px;border-radius:10px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--primary)">
+          <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px">
+            <div style="width:34px;height:34px;border-radius:10px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--primary);border:1px solid rgba(123,143,212,.1)">
               <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <div>
-              <div style="font-size:14px;font-weight:600;color:var(--text)">Сначала вручную</div>
-              <div style="font-size:12px;color:var(--text-3);margin-top:2px;line-height:1.4">Вы сами решаете, когда и как отвечать</div>
+              <div style="font-size:15px;font-weight:600;color:var(--text)">Сначала можно отвечать вручную</div>
             </div>
           </div>
-          <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:18px">
-            <div style="width:32px;height:32px;border-radius:10px;background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--success)">
+          <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px">
+            <div style="width:34px;height:34px;border-radius:10px;background:var(--mint-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--mint);border:1px solid rgba(123,191,138,.1)">
               <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
             </div>
             <div>
-              <div style="font-size:14px;font-weight:600;color:var(--text)">Потом автопилот с подтверждением</div>
-              <div style="font-size:12px;color:var(--text-3);margin-top:2px;line-height:1.4">Автоматические ответы, но вы всегда контролируете</div>
+              <div style="font-size:15px;font-weight:600;color:var(--text)">Потом включить автопилот с подтверждением</div>
             </div>
           </div>
-          <div style="display:flex;align-items:flex-start;gap:12px">
-            <div style="width:32px;height:32px;border-radius:10px;background:var(--warning-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--warning)">
+          <div style="display:flex;align-items:flex-start;gap:14px">
+            <div style="width:34px;height:34px;border-radius:10px;background:var(--warning-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--warning);border:1px solid rgba(212,165,74,.1)">
               <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
             </div>
             <div>
-              <div style="font-size:14px;font-weight:600;color:var(--text)">Стиль ответа можно настроить</div>
-              <div style="font-size:12px;color:var(--text-3);margin-top:2px;line-height:1.4">Выберите тон и формат, подходящий вашему бренду</div>
+              <div style="font-size:15px;font-weight:600;color:var(--text)">Стиль ответа можно настроить</div>
             </div>
           </div>
         </div>
       </div>
-      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(3)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px">Продолжить</button>
+      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(3)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Продолжить</button>
     </div>
 
     <!-- Screen 3: Start -->
     <div class="onb-screen" id="onbScreen3" style="display:none">
       <div style="text-align:center;margin-bottom:32px">
-        <div style="font-size:22px;font-weight:700;color:var(--text);margin-bottom:20px">Подключите магазин и начните работу</div>
+        <div style="font-size:22px;font-weight:700;color:var(--text);margin-bottom:24px">Подключите магазин и начните работу</div>
         <div style="text-align:left;max-width:300px;margin:0 auto">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary)">1</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary);border:1.5px solid rgba(123,143,212,.2)">1</div>
             <div>
               <div style="font-size:14px;font-weight:600;color:var(--text)">Подключить WB / Ozon</div>
-              <div style="font-size:11px;color:var(--text-3)">Для получения отзывов с площадки</div>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary)">2</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary);border:1.5px solid rgba(123,143,212,.2)">2</div>
             <div>
               <div style="font-size:14px;font-weight:600;color:var(--text)">Ввести API-ключ</div>
-              <div style="font-size:11px;color:var(--text-3)">Для доступа к данным магазина</div>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary)">3</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary);border:1.5px solid rgba(123,143,212,.2)">3</div>
             <div>
               <div style="font-size:14px;font-weight:600;color:var(--text)">Выбрать тариф</div>
-              <div style="font-size:11px;color:var(--text-3)">Бесплатный план даёт 2 ответа для знакомства</div>
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:12px">
-            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary)">4</div>
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary);border:1.5px solid rgba(123,143,212,.2)">4</div>
             <div>
               <div style="font-size:14px;font-weight:600;color:var(--text)">Включить автопилот</div>
-              <div style="font-size:11px;color:var(--text-3)">Автоответы с подтверждением — безопасно</div>
             </div>
           </div>
         </div>
       </div>
-      <button class="btn btn-p btn-lg" onclick="finishOnboarding()" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px">Перейти к подключению</button>
+      <button class="btn btn-p btn-lg" onclick="finishOnboarding()" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Перейти к подключению</button>
     </div>
   </div>
 
@@ -2427,7 +2489,7 @@ function applyUserData(u) {
   const swLeft = document.getElementById('subWidgetLeft');
   if (swLeft) swLeft.textContent = 'В этом месяце доступно ' + remaining + ' ответов';
   const swTokens = document.getElementById('subWidgetTokens');
-  if (swTokens) swTokens.textContent = 'Токенов осталось: ' + balStr;
+  if (swTokens) swTokens.textContent = balStr + ' токенов';
   const swForecast = document.getElementById('subWidgetForecast');
   if (swForecast) swForecast.textContent = 'Примерно хватит на ' + Math.max(0, balance) + ' ответов';
   const swRec = document.getElementById('subWidgetRecommendation');
@@ -2436,7 +2498,7 @@ function applyUserData(u) {
     // Show recommendation if buying tokens is less cost-effective than upgrading
     if (planRaw === 'free' && balance < 50) {
       swRec.style.display = 'flex';
-      swRecText.textContent = 'Переход на PRO выгоднее: больше ответов и автопилот в комплекте';
+      swRecText.textContent = 'Переход на PRO выгоднее: 500 ответов, Brand Voice и автопилот в комплекте';
     } else {
       swRec.style.display = 'none';
     }
@@ -2488,10 +2550,10 @@ function applyUserData(u) {
   const sln = document.getElementById('settingsListItemName');
   if (sln) sln.textContent = safeName;
   const sls = document.getElementById('settingsListItemSub');
-  if (sls) sls.textContent = balStr + ' ответов \u2022 ' + (plan === 'FREE' ? 'Бесплатный' : plan) + ' план';
+  if (sls) sls.textContent = (plan === 'FREE' ? 'Бесплатный план' : 'Тариф «' + plan + '»') + ' \u2022 ' + remaining + ' ответов';
   // Update subscription sub-row in settings list
   const sss = document.getElementById('settingsSubscriptionSub');
-  if (sss) sss.textContent = (plan === 'FREE' ? 'Бесплатный' : plan) + ' \u2022 ' + balStr + ' ответов';
+  if (sss) sss.textContent = (plan === 'FREE' ? 'Бесплатный план' : 'Тариф «' + plan + '»') + ' \u2022 ' + remaining + ' ответов';
 
   // Settings profile tab
   setAvatar(document.getElementById('settingsProfileAvatar'));
