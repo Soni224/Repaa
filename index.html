@@ -71,7 +71,6 @@
 }
 .dark .bnav{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(24,27,40,0.95)}
 .dark .bnav{border-color:var(--border);box-shadow:0 4px 24px rgba(0,0,0,.5)}
-.dark .bnav-i.active{background:rgba(143,163,232,0.12)}
 /* hdr-avatar removed */
 .dark .card:hover{background:var(--card-hover)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -104,15 +103,38 @@ input,textarea,select{font-family:inherit}
 
 /* Header — removed (was top bar with Репа / Центр управления) */
 
-/* Bottom Nav — Compact floating pill with auto-hide */
+/* Bottom Nav — Compact floating pill with auto-hide + Telegram-style icon fill */
 .bnav{position:fixed;bottom:6px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:320px;background:var(--bg-card);border:1px solid var(--border);border-radius:22px;z-index:50;padding:4px 6px;padding-bottom:calc(4px + var(--safe-b));box-shadow:0 2px 16px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.03);transition:transform .25s ease,opacity .2s ease}
 .bnav.nav-hidden{transform:translateX(-50%) translateY(80px);opacity:0;pointer-events:none}
 .bnav-in{display:flex;align-items:center;justify-content:space-around}
-.bnav-i{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 0;min-width:56px;color:var(--text-3);position:relative;transition:all .2s ease;border-radius:16px}
-.bnav-i.active{color:var(--primary);background:var(--primary-light)}
-.bnav-i svg{width:19px;height:19px;margin-bottom:1px}
-.bnav-i span{font-size:9px;font-weight:500}
-.bnav-i.active span{font-weight:600}
+
+/* Nav item — base (inactive) state */
+.bnav-i{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 0;min-width:56px;color:var(--text-3);position:relative;border-radius:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;overflow:hidden}
+
+/* Icon wrapper — houses both outline and filled SVG layers */
+.bnav-i-ico{position:relative;width:24px;height:24px;flex-shrink:0;margin-bottom:2px}
+.bnav-i-ico svg{position:absolute;inset:0;width:24px;height:24px;transition:opacity .25s cubic-bezier(.4,0,.2,1),transform .25s cubic-bezier(.4,0,.2,1)}
+
+/* Outline icon (always present, visible when inactive) */
+.bnav-i-ico .ico-outline{opacity:1;transform:scale(1)}
+.bnav-i-ico .ico-filled{opacity:0;transform:scale(.8)}
+
+/* Active state — fill the icon smoothly */
+.bnav-i.active .bnav-i-ico .ico-outline{opacity:0;transform:scale(.8)}
+.bnav-i.active .bnav-i-ico .ico-filled{opacity:1;transform:scale(1)}
+.bnav-i.active .bnav-i-ico{color:var(--primary)}
+
+/* Press feedback — subtle scale down on tap */
+.bnav-i:active .bnav-i-ico{transform:scale(.88);transition:transform .1s ease}
+
+/* Label */
+.bnav-i span{font-size:9px;font-weight:500;transition:color .25s cubic-bezier(.4,0,.2,1)}
+.bnav-i.active span{font-weight:600;color:var(--primary)}
+
+/* Remove old bg pill on active */
+.bnav-i.active{background:transparent!important}
+
+/* Badge */
 .bnav-badge{position:absolute;top:-2px;right:50%;margin-right:-14px;min-width:14px;height:14px;background:var(--danger);color:#fff;font-size:8px;font-weight:700;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;padding:0 3px;line-height:1}
 
 /* Icon helper */
@@ -439,8 +461,6 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
   .qact{grid-template-columns:1fr 1fr!important}
   .sgrid{grid-template-columns:1fr!important}
   .bnav-i{min-width:40px!important}
-  .bnav-i svg{width:18px!important;height:18px!important}
-  .bnav-i span{font-size:9px!important}
   .prof-row{gap:8px!important}
   /* hdr responsive padding removed */
   .content{padding:0 12px!important}
@@ -455,7 +475,6 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 .scard-clickable:active .scard-chevron{opacity:1}
 .scard-clickable:active{transform:scale(.98)!important}
 
-/* Bottom nav active indicator — pill background instead of top line */
 .bnav-i.active::before{display:none}
 
 /* hdr-avatar button removed */
@@ -478,8 +497,7 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 .sec-t.secondary-feed::before{height:8px;opacity:.2}
 
 /* Nav items 4-up (compact pill) */
-.bnav-i svg{width:18px;height:18px;margin-bottom:1px}
-.bnav-i{min-width:44px}
+.bnav-i-ico svg{width:24px!important;height:24px!important}
 
 /* Toast blur */
 .toast{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(26,26,34,0.92)}
@@ -678,7 +696,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .no-animations .screen,.no-animations .sub,.no-animations .card,.no-animations .scard,.no-animations .qact-btn{animation:none!important;transition:none!important}
 .no-animations .screen.active .card{animation:none!important}
 .no-animations .lf-item{animation:none!important}
-.no-animations .bnav-i{transition:none!important}
+.no-animations .bnav-i-ico svg{transition:none!important}
 
 /* Theme card highlight border */
 #themeCards label:has(input:checked){border-color:var(--primary)!important;background:var(--primary-soft)}
@@ -884,9 +902,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <div style="font-size:13px;color:var(--text-2)" id="autopilotStatusText"><strong style="color:var(--text)">Автопилот:</strong> выключен</div>
       </div>
     </div>
-    <div style="position:absolute;top:12px;right:14px;z-index:2">
-      <span style="font-size:10px;font-weight:600;padding:3px 10px;border-radius:var(--radius-full);background:rgba(123,143,212,.12);color:var(--primary)" id="onboardingBadge">1 из 4</span>
-    </div>
+
   </div>
 
   <!-- ===== BLOCK 5.3: CTA Connect Store (second most important) ===== -->
@@ -1865,20 +1881,40 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <nav class="bnav">
   <div class="bnav-in">
     <button class="bnav-i active" data-screen="screenHome" onclick="navigateTo('home')">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.5z"/></svg>
+      <div class="bnav-i-ico">
+        <!-- Outline (inactive) -->
+        <svg class="ico-outline" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.5z"/></svg>
+        <!-- Filled (active) -->
+        <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L3 9.5V20a1 1 0 001 1h5v-6h6v6h5a1 1 0 001-1V9.5L12 3z"/></svg>
+      </div>
       <span>Главная</span>
     </button>
     <button class="bnav-i" data-screen="screenReviews" onclick="navigateTo('reviews')">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      <div class="bnav-i-ico">
+        <!-- Outline (inactive) -->
+        <svg class="ico-outline" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        <!-- Filled (active) -->
+        <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a8.5 8.5 0 00-7.6 4.7 8.38 8.38 0 00-.9 3.8 8.38 8.38 0 00.9 3.8L3 21l5.7-1.9a8.38 8.38 0 003.8.9 8.5 8.5 0 007.6-4.7 8.38 8.38 0 00.9-3.8v-.5a8.48 8.48 0 00-8-8H12z"/></svg>
+      </div>
       <span>Отзывы</span>
       <span class="bnav-badge" id="bnavReviewsBadge">0</span>
     </button>
     <button class="bnav-i" data-screen="screenAnalytics" onclick="navigateTo('analytics')">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <div class="bnav-i-ico">
+        <!-- Outline (inactive) -->
+        <svg class="ico-outline" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <!-- Filled (active) -->
+        <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M6 20h2V10H6v10zm5 0h2V4h-2v16zm5 0h2v-6h-2v6z"/></svg>
+      </div>
       <span>Аналитика</span>
     </button>
     <button class="bnav-i" id="bnavSettings" data-screen="subSettings" onclick="openSettings()">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.604.852 1.004 1.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      <div class="bnav-i-ico">
+        <!-- Outline (inactive) -->
+        <svg class="ico-outline" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.604.852 1.004 1.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <!-- Filled (active) -->
+        <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1112 8.4a3.6 3.6 0 010 7.2z"/></svg>
+      </div>
       <span>Настройки</span>
     </button>
   </div>
@@ -1942,6 +1978,13 @@ function haptic(type) {
   let ticking = false;
   let navVisible = true;
 
+  // Expose reset function globally so other code can force-reset
+  window.__resetNavScroll = function() {
+    navVisible = true;
+    lastScrollY = 0;
+    if (nav) nav.classList.remove('nav-hidden');
+  };
+
   function checkNavVisibility(e) {
     const target = e.target;
     // Only react to scroll inside slider-pages
@@ -1996,7 +2039,17 @@ function haptic(type) {
   window.addEventListener('sliderPageChanged', function() {
     navVisible = true;
     lastScrollY = 0;
+    if (nav) nav.classList.remove('nav-hidden');
   });
+
+  // Also listen for nav-hidden class being removed externally (e.g. closeSettings)
+  // and sync our internal state
+  const observer = new MutationObserver(function() {
+    if (!nav.classList.contains('nav-hidden')) {
+      navVisible = true;
+    }
+  });
+  observer.observe(nav, { attributes: true, attributeFilter: ['class'] });
 })();
 
 // ===========================================================================
@@ -2440,7 +2493,7 @@ function applyUserData(u) {
   if (bal > 0 && step3Ico) { step3Ico.className = 'onboarding-step-ico done'; step3Ico.innerHTML = checkSvg; completedSteps++; }
   if (apOn && step4Ico) { step4Ico.className = 'onboarding-step-ico done'; step4Ico.innerHTML = checkSvg; completedSteps++; }
 
-  if (onboardingBadge) onboardingBadge.textContent = completedSteps + ' из 4';
+  // onboardingBadge removed per design — no 'X of 4' indicator
   if (onboardingTitle) {
     const remaining2 = 4 - completedSteps;
     if (completedSteps >= 4) {
@@ -2763,8 +2816,28 @@ function sliderGoTo(index, smooth) {
   const pages = slider.querySelectorAll('.slider-page');
   if (index < 0 || index >= pages.length) return;
   activeSliderIndex = index;
-  inner.style.transition = smooth ? 'transform .28s cubic-bezier(.25,.46,.45,.94)' : 'none';
+
+  // Reset scroll position of the target page to top
+  const targetPage = pages[index];
+  if (targetPage) targetPage.scrollTop = 0;
+
+  if (smooth) {
+    inner.style.transition = 'transform .28s cubic-bezier(.25,.46,.45,.94)';
+  } else {
+    // For instant jumps (resize), temporarily disable transition
+    inner.style.transition = 'none';
+    // Force reflow so the browser applies 'none' before we set transform
+    void inner.offsetHeight;
+  }
   inner.style.transform = 'translateX(-' + (index * (100/3)) + '%)';
+
+  // If we disabled transition, re-enable it after the transform is applied
+  if (!smooth) {
+    requestAnimationFrame(() => {
+      inner.style.transition = 'transform .28s cubic-bezier(.25,.46,.45,.94)';
+    });
+  }
+
   // Update bottom nav
   const names = ['home','reviews','analytics'];
   const name = names[index] || 'home';
@@ -2809,9 +2882,8 @@ function closeSub(id) {
   haptic('light');
   if (id) document.getElementById(id).classList.remove('active');
   activeSub = null;
-  // Show bottom nav again
-  const nav = document.querySelector('.bnav');
-  if (nav) nav.classList.remove('nav-hidden');
+  // Show bottom nav again + reset scroll tracker
+  if (window.__resetNavScroll) window.__resetNavScroll();
   updateBackButton();
 }
 
@@ -2852,9 +2924,8 @@ function closeSettings() {
     navHistory.pop();
   }
   activeSub = null;
-  // Show bottom nav again
-  const nav = document.querySelector('.bnav');
-  if (nav) nav.classList.remove('nav-hidden');
+  // Show bottom nav again + reset scroll tracker
+  if (window.__resetNavScroll) window.__resetNavScroll();
   // Restore active nav button for current screen
   document.querySelectorAll('.bnav-i').forEach(i => i.classList.toggle('active', i.dataset.screen === screenMap[currentScreen]));
   updateBackButton();
@@ -2875,9 +2946,8 @@ function navigateBack() {
   if (activeSub) {
     document.getElementById(activeSub).classList.remove('active');
     activeSub = null;
-    // Show bottom nav again
-    const nav = document.querySelector('.bnav');
-    if (nav) nav.classList.remove('nav-hidden');
+    // Show bottom nav again + reset scroll tracker
+    if (window.__resetNavScroll) window.__resetNavScroll();
     haptic('light');
     updateBackButton();
     return;
