@@ -107,7 +107,7 @@ input,textarea,select{font-family:inherit}
 .ico-xl{width:40px;height:40px;flex-shrink:0}
 
 /* Card */
-.card{background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);box-shadow:var(--shadow);transition:all .15s ease}
+.card{background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.03);transition:all .15s ease}
 
 /* Profile */
 .prof{padding:16px}
@@ -391,14 +391,14 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 /* === PRODUCTION ADDITIONS === */
 
 /* Main CTA button */
-.main-cta{position:relative;font-size:16px;padding:18px 20px;font-weight:700;border-radius:var(--radius);min-height:100px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--bg-card);color:var(--primary);border:2px solid var(--primary);box-shadow:0 8px 24px rgba(13,124,102,.15)}
-.main-cta:active{transform:scale(.97);background:var(--primary);color:#fff}
+.main-cta{position:relative;font-size:16px;padding:18px 20px;font-weight:700;border-radius:var(--radius);min-height:100px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;border:none;box-shadow:0 8px 24px rgba(13,124,102,.25)}
+.main-cta:active{transform:scale(.97);background:var(--primary-hover)}
 .live-badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;background:#10b981;color:#fff;font-size:11px;font-weight:700;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(16,185,129,.4)}
 
 /* Breathing spacing */
-.content>.card:not(:last-child){margin-bottom:24px!important}
-.screen .sec-h{margin-bottom:28px!important}
-.screen .card{margin-bottom:24px!important}
+.content>.card:not(:last-child){margin-bottom:16px!important}
+.screen .sec-h{margin-bottom:14px!important}
+.screen .card{margin-bottom:16px!important}
 
 /* Premium hover/press */
 .card,.scard,.qact-btn{transition:all .15s cubic-bezier(.4,0,.2,1)}
@@ -441,20 +441,22 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 
 /* hdr-avatar button removed */
 
-/* Section accent */
-.sec-t{position:relative;padding-left:16px}
-.sec-t::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:16px;background:var(--primary);border-radius:2px}
+/* Section accent — subtle */
+.sec-t{position:relative;padding-left:12px}
+.sec-t::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:12px;background:var(--primary);border-radius:2px;opacity:.35}
 
 /* Compact profile */
 .prof-av{width:40px;height:40px;font-size:14px}
 
 /* Card padding refined */
-.card{padding:18px}
+.card{padding:16px}
 
-/* Live feed left accent */
-.lf-item{border-left:2px solid var(--border);padding-left:10px}
-.lf-item:first-child{border-left-color:var(--primary)}
+/* Live feed — secondary visual weight */
+.lf-item{border-left:2px solid var(--border);padding-left:10px;opacity:.7}
+.lf-item:first-child{border-left-color:var(--primary);opacity:.85}
 .lf-dot{display:none}
+.sec-t.secondary-feed{font-size:13px;opacity:.6}
+.sec-t.secondary-feed::before{height:8px;opacity:.2}
 
 /* Nav items 4-up (compact pill) */
 .bnav-i svg{width:18px;height:18px;margin-bottom:1px}
@@ -499,7 +501,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .home-tab:active{transform:scale(.96)}
 
 /* Onboarding checklist */
-.onboarding-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.onboarding-card{background:var(--bg-card);border:1.5px solid var(--primary);border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(13,124,102,.08)}
 .onboarding-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .onboarding-title{font-size:15px;font-weight:700;color:var(--text)}
 .onboarding-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary)}
@@ -511,6 +513,13 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .onboarding-step-ico{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700}
 .onboarding-step-ico.done{background:var(--success-light);color:var(--success)}
 .onboarding-step-ico.todo{background:var(--bg-input);color:var(--text-3);border:1.5px dashed var(--border)}
+.onboarding-step-ico.current{background:var(--primary-light);color:var(--primary);border:1.5px solid var(--primary)}
+.onboarding-step:has(.onboarding-step-ico.done){opacity:.55}
+.onboarding-step:has(.onboarding-step-ico.done) .onboarding-step-text{color:var(--text-3);font-weight:500}
+.onboarding-step:has(.onboarding-step-ico.todo):not(:has(~ .onboarding-step:has(.onboarding-step-ico.todo))){background:var(--primary-soft);border-radius:var(--radius-sm);padding:12px;margin:-4px -8px}
+.onboarding-step:has(.onboarding-step-ico.todo):not(:has(~ .onboarding-step:has(.onboarding-step-ico.todo))) .onboarding-step-ico{box-shadow:0 2px 8px rgba(13,124,102,.2);background:var(--primary-light);color:var(--primary);border:1.5px solid var(--primary)}
+.onboarding-step:has(.onboarding-step-ico.todo):has(~ .onboarding-step:has(.onboarding-step-ico.todo)){opacity:.45;pointer-events:none}
+.onboarding-step:has(.onboarding-step-ico.todo):has(~ .onboarding-step:has(.onboarding-step-ico.todo)) .onboarding-step-text{color:var(--text-3)}
 .onboarding-step-body{flex:1;min-width:0}
 .onboarding-step-text{font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
 .onboarding-step-sub{font-size:11px;color:var(--text-3);margin-top:1px}
@@ -518,7 +527,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .onboarding-step-chev{color:var(--text-3);flex-shrink:0;opacity:.4}
 
 /* Subscription/tariff bar */
-.sub-bar{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.sub-bar{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
 .sub-bar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .sub-bar-tariff{font-size:13px;font-weight:700;color:var(--text)}
 .sub-bar-date{font-size:11px;color:var(--text-3)}
@@ -533,7 +542,9 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .home-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
 .home-action-pill{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);cursor:pointer;transition:all .15s;box-shadow:var(--shadow);position:relative}
 .home-action-pill:active{transform:scale(.98)}
-.home-action-pill.locked{opacity:.5;pointer-events:none}
+.home-action-pill.locked{opacity:.45;pointer-events:none}
+.home-action-pill.locked .home-action-pill-ico{filter:grayscale(1);opacity:.5}
+.home-action-pill.locked .home-action-pill-lock{background:var(--danger-light);color:var(--danger);font-size:9px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full)}
 .home-action-pill-ico{width:38px;height:38px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .home-action-pill-ico svg{width:20px;height:20px}
 .home-action-pill-body{flex:1;min-width:0}
@@ -542,8 +553,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .home-action-pill-chev{color:var(--text-3);flex-shrink:0;opacity:.4}
 .home-action-pill-lock{position:absolute;top:8px;right:12px;font-size:9px;font-weight:600;color:var(--text-3);background:var(--bg-input);padding:2px 7px;border-radius:var(--radius-full)}
 
-/* Brand Voice widget */
-.brand-voice-widget{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;box-shadow:var(--shadow);cursor:pointer;transition:all .15s}
+/* Brand Voice widget — reduced weight */
+.brand-voice-widget{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;box-shadow:none;cursor:pointer;transition:all .15s}
 .brand-voice-widget:active{transform:scale(.98)}
 .brand-voice-top{display:flex;align-items:center;gap:10px}
 .brand-voice-ico{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--warning-light);display:flex;align-items:center;justify-content:center;color:var(--warning);flex-shrink:0}
@@ -774,13 +785,13 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div class="home-avatar" id="homeAvatar" onclick="openSettings()">?</div>
       <div>
         <div class="home-brand">Репа</div>
-        <div class="home-brand-sub">Центр управления</div>
+        <div class="home-brand-sub">Управление отзывами</div>
       </div>
     </div>
     <div class="home-header-right">
       <div class="home-balance-widget" onclick="openSettings('Subscription')">
         <span class="home-balance-val" id="userBalance">0</span>
-        <span class="home-balance-cur">токенов</span>
+        <span class="home-balance-cur">ответов</span>
         <div class="home-balance-plus">
           <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </div>
@@ -800,7 +811,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <!-- Onboarding Checklist -->
   <div class="onboarding-card anim-onboard" id="onboardingCard">
     <div class="onboarding-header">
-      <div class="onboarding-title">Остался 1 шаг до запуска</div>
+      <div class="onboarding-title" style="font-size:16px">Остался 1 шаг до запуска</div>
       <div class="onboarding-badge" id="onboardingBadge">1 из 4</div>
     </div>
     <div class="onboarding-steps">
@@ -809,22 +820,22 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
         <div class="onboarding-step-body">
-          <div class="onboarding-step-text">Зарегистрироваться</div>
+          <div class="onboarding-step-text" style="color:var(--text-3);font-weight:500">Регистрация</div>
           <div class="onboarding-step-sub">Аккаунт создан</div>
         </div>
       </div>
       <div class="onboarding-step" onclick="openSettings('Marketplace')">
         <div class="onboarding-step-ico todo" id="onboardStep2Ico">2</div>
         <div class="onboarding-step-body">
-          <div class="onboarding-step-text">Подключить WB / Ozon</div>
-          <div class="onboarding-step-action">Вставить API-ключ →</div>
+          <div class="onboarding-step-text">Подключить магазин</div>
+          <div class="onboarding-step-action">Ввести API-ключ →</div>
         </div>
         <svg class="onboarding-step-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
       <div class="onboarding-step" onclick="openSettings('Subscription')">
         <div class="onboarding-step-ico todo" id="onboardStep3Ico">3</div>
         <div class="onboarding-step-body">
-          <div class="onboarding-step-text">Пополнить баланс</div>
+          <div class="onboarding-step-text">Выбрать тариф</div>
           <div class="onboarding-step-action">Выбрать тариф →</div>
         </div>
         <svg class="onboarding-step-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -843,15 +854,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <!-- Subscription / Tariff Bar -->
   <div class="sub-bar anim-card" id="subBar">
     <div class="sub-bar-top">
-      <div class="sub-bar-tariff" id="subBarTariff">Бесплатный тариф</div>
+      <div class="sub-bar-tariff" id="subBarTariff">Free план</div>
       <div class="sub-bar-date" id="subBarDate"></div>
     </div>
     <div class="sub-bar-track">
       <div class="sub-bar-fill" id="subBarFill" style="width:0%"></div>
     </div>
     <div class="sub-bar-info">
-      <div class="sub-bar-left" id="subBarLeft">0 из 0 ответов в этом месяце</div>
-      <div class="sub-bar-buy" onclick="openSettings('Subscription')">+ Докупить</div>
+      <div class="sub-bar-left" id="subBarLeft">Ответов использовано: 0 из 0</div>
+      <div class="sub-bar-buy" onclick="openSettings('Subscription')">Докупить токены</div>
     </div>
   </div>
 
@@ -859,6 +870,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <div class="autopilot-status anim-card" id="autopilotStatusBar" onclick="openSettings('Autopilot')" style="cursor:pointer">
     <div class="autopilot-dot off" id="autopilotDot"></div>
     <div class="autopilot-text" id="autopilotStatusText"><strong>Автопилот:</strong> Выключен</div>
+    <div style="font-size:11px;color:var(--text-3);margin-top:2px;margin-left:16px">Автоматические ответы на отзывы</div>
   </div>
 
   <!-- Quick Actions (horizontal pills) -->
@@ -880,7 +892,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
       <div class="home-action-pill-body">
         <div class="home-action-pill-text">Автопилот</div>
-        <div class="home-action-pill-sub" id="actionAutopilotSub">Тестовый режим с подтверждением</div>
+        <div class="home-action-pill-sub" id="actionAutopilotSub">Выключен — настройте в Автопилот</div>
       </div>
       <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       <div class="home-action-pill-lock" id="actionAutopilotLock">Подключите API</div>
@@ -890,8 +902,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       </div>
       <div class="home-action-pill-body">
-        <div class="home-action-pill-text">Шаблоны ответов</div>
-        <div class="home-action-pill-sub">Настроить стиль генерации</div>
+        <div class="home-action-pill-text">Стиль ответов</div>
+        <div class="home-action-pill-sub">Настроить тон и примеры</div>
       </div>
       <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
@@ -904,8 +916,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
       </div>
       <div class="brand-voice-body">
-        <div class="brand-voice-text">Brand Voice</div>
-        <div class="brand-voice-sub" id="brandVoiceSub">Не настроен — ответы в стандартном тоне</div>
+        <div class="brand-voice-text">Стиль ответов</div>
+        <div class="brand-voice-sub" id="brandVoiceSub">Стандартный тон</div>
       </div>
       <svg class="brand-voice-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
@@ -932,8 +944,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </button>
 
   <div class="sec-h anim-sec">
-    <div class="sec-t">Live-лента</div>
-    <div class="sec-link"><span class="dot dot-on"></span> Эфир</div>
+    <div class="sec-t secondary-feed">Лента событий</div>
+    <div class="sec-link" style="opacity:.5"><span class="dot dot-on"></span> Эфир</div>
   </div>
   <div class="card anim-card" id="liveFeed"><div class="empty-state" id="emptyLiveFeed" style="display:none"><div class="empty-state-icon" style="font-size:28px">📡</div><div style="font-size:13px;font-weight:600;color:var(--text-2)">Лента пуста</div><div style="font-size:11px;color:var(--text-3);margin-top:3px">Новые события появятся автоматически</div></div></div>
 
@@ -968,7 +980,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <div class="home-header anim-rv-header" style="margin-bottom:16px">
     <div class="home-header-left">
       <div style="font-size:20px;font-weight:700;color:var(--text)">Отзывы</div>
-      <div style="font-size:11px;color:var(--text-3);font-weight:500">Управление ответами</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:500">Новые и обработанные</div>
     </div>
     <div class="home-header-right">
       <button class="btn btn-p btn-sm" onclick="openSub('subReviewNew')">
@@ -1036,7 +1048,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   <div class="home-header" style="margin-bottom:16px">
     <div class="home-header-left">
       <div style="font-size:20px;font-weight:700;color:var(--text)">Аналитика</div>
-      <div style="font-size:11px;color:var(--text-3);font-weight:500">Обзор активности</div>
+      <div style="font-size:11px;color:var(--text-3);font-weight:500">Статистика ответов</div>
     </div>
     <div class="home-header-right">
       <div style="position:relative" id="periodDropdownWrap">
@@ -1108,7 +1120,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="s-head">
       <div class="s-avatar" id="settingsAvatar">?</div>
       <div class="s-name" id="settingsListItemName">Загрузка...</div>
-      <div class="s-status" id="settingsListItemSub">0 токенов &bull; Free plan</div>
+      <div class="s-status" id="settingsListItemSub">0 ответов &bull; Free план</div>
       <div class="s-hint" id="settingsLaunchHint">До запуска осталось 2 шага</div>
     </div>
 
@@ -1133,7 +1145,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <div class="s-row-body">
           <div class="s-row-title">Магазины и API</div>
-          <div class="s-row-sub" id="settingsMarketplaceSub">WB, Ozon, ключи, статус подключения</div>
+          <div class="s-row-sub" id="settingsMarketplaceSub">Подключение и API-ключи</div>
         </div>
         <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -1145,7 +1157,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <div class="s-row-body">
           <div class="s-row-title">Автопилот</div>
-          <div class="s-row-sub">Автоответы, подтверждение, правила</div>
+          <div class="s-row-sub">Автоответы, контроль, лимиты</div>
         </div>
         <span class="s-row-badge" id="settingsAutopilotBadge" style="background:var(--text-3)">Выкл</span>
         <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1157,8 +1169,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
           <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
         </div>
         <div class="s-row-body">
-          <div class="s-row-title">Brand Voice</div>
-          <div class="s-row-sub">Тон ответов, стиль, примеры</div>
+          <div class="s-row-title">Стиль ответов</div>
+          <div class="s-row-sub">Стиль, тон, примеры ответов</div>
         </div>
         <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -1170,7 +1182,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <div class="s-row-body">
           <div class="s-row-title">Подписка и токены</div>
-          <div class="s-row-sub" id="settingsSubscriptionSub">Free plan &bull; 0 токенов</div>
+          <div class="s-row-sub" id="settingsSubscriptionSub">Free план &bull; 0 ответов</div>
         </div>
         <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -1182,7 +1194,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <div class="s-row-body">
           <div class="s-row-title">Уведомления</div>
-          <div class="s-row-sub">Новые отзывы, ошибки, лимиты</div>
+          <div class="s-row-sub">Отзывы, ошибки, лимиты</div>
         </div>
         <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -1227,7 +1239,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border)">
-        <div><div style="font-size:12px;color:var(--text-3)">Баланс</div><div style="font-size:16px;font-weight:700;color:var(--primary)" id="settingsProfileBalance">0 токенов</div></div>
+        <div><div style="font-size:12px;color:var(--text-3)">Токены</div><div style="font-size:16px;font-weight:700;color:var(--primary)" id="settingsProfileBalance">0 ответов</div></div>
         <div style="text-align:right"><div style="font-size:12px;color:var(--text-3)">Всего ответов</div><div style="font-size:16px;font-weight:700;color:var(--text)" id="settingsProfileResponses">0</div></div>
       </div>
     </div>
@@ -1338,7 +1350,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <span class="tgl-s"></span>
     </label>
   </div>
-    <div class="sec-h"><div class="sec-t">Правила срабатывания</div></div>
+    <div class="sec-h"><div class="sec-t">Правила работы</div></div>
     <div class="card mb-16">
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Автоответ на новые отзывы</div><div class="tgl-d">Ответ в течение 1 минуты</div></div>
@@ -1358,7 +1370,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
     </div>
 
-    <div class="sec-h"><div class="sec-t">Подтверждение и ограничения</div></div>
+    <div class="sec-h"><div class="sec-t">Контроль и подтверждение</div></div>
     <div class="card mb-16">
       <div class="tgl-row">
         <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Подтверждение перед отправкой</div><div class="tgl-d">Показывать ответ перед отправкой</div></div>
@@ -1369,12 +1381,12 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <label class="tgl"><input type="checkbox" checked onchange="updateSetting('recommendations',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Чат с покупателями</div><div class="tgl-d">AI-агент ведёт диалог</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>Чат с покупателями</div><div class="tgl-d">Автоматические ответы в чате</div></div>
         <label class="tgl"><input type="checkbox" onchange="updateSetting('chat_with_customers',this.checked)"><span class="tgl-s"></span></label>
       </div>
     </div>
 
-    <div class="sec-h"><div class="sec-t">Лимиты автодействий</div></div>
+    <div class="sec-h"><div class="sec-t">Лимиты</div></div>
     <div class="card">
       <div class="mb-8"><label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Макс. ответов / день</label><input type="number" class="inp" value="500" id="dailyLimit"></div>
       <div><label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Задержка перед ответом (сек.)</label><input type="number" class="inp" value="30" id="responseDelay"></div>
@@ -1382,7 +1394,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
   <button class="emg" onclick="emergencyStop()">
     <svg class="ico" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
-    Тревожная кнопка — остановить всё
+    Экстренная остановка
   </button>
   <button class="btn btn-s btn-full" id="undoStopBtn" onclick="undoEmergencyStop()" style="display:none;margin-top:8px">
     ↩ Отменить остановку
@@ -1391,14 +1403,14 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
   <!-- ===== TAB 4: Brand Voice ===== -->
   <div class="stab" id="tabBrandVoice" style="display:none">
-    <div class="sec-h" id="brandVoiceSection"><div class="sec-t">Тон и стиль бренда</div></div>
+    <div class="sec-h" id="brandVoiceSection"><div class="sec-t">Стиль и тон</div></div>
     <div class="card mb-16">
       <div class="mb-8">
         <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Название бренда</label>
         <input type="text" class="inp" value="" id="brandName" placeholder="Название бренда" onchange="updateSetting('brand_name',this.value)">
       </div>
       <div class="mb-8">
-        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Правила общения</label>
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Как общаемся с клиентами</label>
         <textarea class="inp" id="brandVoice" rows="3" placeholder="Опишите стиль общения вашего бренда..." onchange="updateSetting('brand_voice',this.value)"></textarea>
       </div>
       <div>
@@ -1427,11 +1439,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="sec-h"><div class="sec-t">Примеры ответов</div></div>
     <div class="card mb-16">
       <div class="mb-8">
-        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Желаемые формулировки</label>
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Хорошие примеры</label>
         <textarea class="inp" rows="3" placeholder="Например: &laquo;Спасибо за отзыв! Нам очень важно ваше мнение&raquo;" onchange="updateSetting('good_examples',this.value)"></textarea>
       </div>
       <div>
-        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Нежелательные формулировки</label>
+        <label style="font-size:11px;font-weight:600;color:var(--text-2);display:block;margin-bottom:3px">Избегать в ответах</label>
         <textarea class="inp" rows="3" placeholder="Например: &laquo;К сожалению&raquo;, извинятия, обещания которые нельзя выполнить" onchange="updateSetting('bad_examples',this.value)"></textarea>
       </div>
     </div>
@@ -1442,15 +1454,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <!-- Subscription widget with economics -->
     <div class="sub-widget">
       <div class="sub-widget-header">
-        <div class="sub-widget-tariff" id="subWidgetTariff">Бесплатный тариф</div>
+        <div class="sub-widget-tariff" id="subWidgetTariff">Free план</div>
         <div class="sub-widget-badge" id="subWidgetBadge">Free</div>
       </div>
       <div class="sub-widget-bar">
         <div class="sub-widget-fill" id="subWidgetFill" style="width:0%"></div>
       </div>
       <div class="sub-widget-footer">
-        <div id="subWidgetLeft">0 из 10 генераций использовано</div>
-        <div id="subWidgetTokens" style="font-weight:600;color:var(--primary)">0 токенов</div>
+        <div id="subWidgetLeft">Ответов использовано: 0 из 10</div>
+        <div id="subWidgetTokens" style="font-weight:600;color:var(--primary)">Токенов осталось: 0</div>
       </div>
       <div id="subWidgetForecast" style="font-size:11px;color:var(--text-3);margin-top:6px">Примерно хватит на 0 ответов</div>
     </div>
@@ -1458,12 +1470,12 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <!-- Recommendation: upgrade if cheaper than buying tokens -->
     <div class="sub-widget-rec" id="subWidgetRecommendation" style="display:none">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>
-      <span id="subWidgetRecText">Переход на PRO выгоднее: 500 генераций за 599₽ вместо 690₽ за 100 токенов</span>
+      <span id="subWidgetRecText">Переход на PRO выгоднее: 500 ответов за 599₽ вместо 690₽ за 100 токенов</span>
     </div>
 
     <div class="sec-h mt-16"><div class="sec-t">Тарифные планы</div></div>
     <div class="tariff card">
-      <div class="tariff-name">Бесплатный</div>
+      <div class="tariff-name">Free</div>
       <div class="tariff-price"><span class="tariff-pv">0 &#8381;</span><span class="tariff-pp">навсегда</span></div>
       <ul class="tariff-feat"><li>10 ответов / день</li><li>1 площадка (WB)</li><li>Базовые шаблоны</li><li>Ручной режим</li></ul>
       <button class="btn btn-o btn-full" disabled>Текущий план</button>
@@ -1473,7 +1485,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div class="tariff-badge">ПОПУЛЯРНЫЙ</div>
       <div class="tariff-name">PRO</div>
       <div class="tariff-price"><span class="tariff-pv">599 &#8381;</span><span class="tariff-pp">/ мес</span></div>
-      <ul class="tariff-feat"><li>500 ответов / день</li><li>2 площадки (WB + Ozon)</li><li>Автопилот 24/7</li><li>Brand Voice</li><li>Аналитика PRO</li><li>Приоритетная поддержка</li></ul>
+      <ul class="tariff-feat"><li>500 ответов / день</li><li>2 площадки (WB + Ozon)</li><li>Автопилот 24/7</li><li>Стиль ответов</li><li>Аналитика PRO</li><li>Приоритетная поддержка</li></ul>
       <button class="btn btn-p btn-full btn-lg" onclick="showToast('Переход к оплате...')">Перейти на PRO</button>
     </div>
 
@@ -1484,7 +1496,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <button class="btn btn-s btn-full" onclick="openInvoice('business')">Перейти на BUSINESS</button>
     </div>
 
-    <div class="sec-h mt-16"><div class="sec-t">Дополнительные токены</div></div>
+    <div class="sec-h mt-16"><div class="sec-t">Докупить токены</div></div>
     <div style="font-size:11px;color:var(--text-3);margin-bottom:10px">Токены не сгорают и используются сверх подписки</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
       <div class="card" style="text-align:center;padding:14px">
@@ -1543,7 +1555,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <label class="tgl"><input type="checkbox" checked onchange="updateSetting('notif_api_errors',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
-        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke-width="3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>Лимиты</div><div class="tgl-d">Когда токены или генерации на исходе</div></div>
+        <div class="tgl-info"><div class="tgl-t"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13" stroke-width="3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"/></svg>Лимиты</div><div class="tgl-d">Когда токены или ответы на исходе</div></div>
         <label class="tgl"><input type="checkbox" checked onchange="updateSetting('notif_limits',this.checked)"><span class="tgl-s"></span></label>
       </div>
       <div class="tgl-row">
@@ -2221,7 +2233,7 @@ function applyUserData(u) {
   const ub = document.getElementById('userBalance');
   if (ub) ub.textContent = balStr;
   const spb = document.getElementById('settingsProfileBalance');
-  if (spb) spb.textContent = balStr + ' токенов';
+  if (spb) spb.textContent = balStr + ' ответов';
   const sb = document.getElementById('storeBalance');
   if (sb) sb.textContent = balStr;
   const sb2 = document.getElementById('storeBalance2');
@@ -2345,25 +2357,25 @@ function applyUserData(u) {
   const subBarDate = document.getElementById('subBarDate');
   const subBarFill = document.getElementById('subBarFill');
   const subBarLeft = document.getElementById('subBarLeft');
-  if (subBarTariff) subBarTariff.textContent = planRaw === 'free' ? 'Бесплатный тариф' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
+  if (subBarTariff) subBarTariff.textContent = planRaw === 'free' ? 'Free план' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
   if (subBarDate && u.subscription_end) subBarDate.textContent = 'До ' + new Date(u.subscription_end).toLocaleDateString('ru-RU', {day:'numeric',month:'short'});
   const monthlyLimit = u.monthly_limit || 0;
   const usedThisMonth = u.used_this_month || 0;
   const remaining = Math.max(0, monthlyLimit - usedThisMonth);
   if (subBarFill) subBarFill.style.width = monthlyLimit > 0 ? Math.round((usedThisMonth/monthlyLimit)*100)+'%' : '0%';
-  if (subBarLeft) subBarLeft.textContent = remaining + ' из ' + monthlyLimit + ' ответов в этом месяце';
+  if (subBarLeft) subBarLeft.textContent = 'Ответов использовано: ' + usedThisMonth + ' из ' + monthlyLimit;
 
   // Subscription widget in settings detail
   const swTariff = document.getElementById('subWidgetTariff');
-  if (swTariff) swTariff.textContent = planRaw === 'free' ? 'Бесплатный тариф' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
+  if (swTariff) swTariff.textContent = planRaw === 'free' ? 'Free план' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
   const swBadge = document.getElementById('subWidgetBadge');
   if (swBadge) swBadge.textContent = planRaw === 'free' ? 'Free' : planRaw.charAt(0).toUpperCase() + planRaw.slice(1);
   const swFill = document.getElementById('subWidgetFill');
   if (swFill) swFill.style.width = monthlyLimit > 0 ? Math.round((usedThisMonth/monthlyLimit)*100)+'%' : '0%';
   const swLeft = document.getElementById('subWidgetLeft');
-  if (swLeft) swLeft.textContent = usedThisMonth + ' из ' + monthlyLimit + ' генераций использовано';
+  if (swLeft) swLeft.textContent = 'Ответов использовано: ' + usedThisMonth + ' из ' + monthlyLimit;
   const swTokens = document.getElementById('subWidgetTokens');
-  if (swTokens) swTokens.textContent = balStr + ' токенов';
+  if (swTokens) swTokens.textContent = 'Токенов осталось: ' + balStr;
   const swForecast = document.getElementById('subWidgetForecast');
   if (swForecast) swForecast.textContent = 'Примерно хватит на ' + Math.max(0, balance) + ' ответов';
   const swRec = document.getElementById('subWidgetRecommendation');
@@ -2372,7 +2384,7 @@ function applyUserData(u) {
     // Show recommendation if buying tokens is less cost-effective than upgrading
     if (planRaw === 'free' && balance < 50) {
       swRec.style.display = 'flex';
-      swRecText.textContent = 'Переход на PRO выгоднее: 500 генераций за 599₽ вместо 690₽ за 100 токенов';
+      swRecText.textContent = 'Переход на PRO выгоднее: 500 ответов за 599₽ вместо 690₽ за 100 токенов';
     } else {
       swRec.style.display = 'none';
     }
@@ -2424,10 +2436,10 @@ function applyUserData(u) {
   const sln = document.getElementById('settingsListItemName');
   if (sln) sln.textContent = safeName;
   const sls = document.getElementById('settingsListItemSub');
-  if (sls) sls.textContent = balStr + ' токенов \u2022 ' + plan + ' plan';
+  if (sls) sls.textContent = balStr + ' ответов \u2022 ' + plan + ' план';
   // Update subscription sub-row in settings list
   const sss = document.getElementById('settingsSubscriptionSub');
-  if (sss) sss.textContent = plan + ' \u2022 ' + balStr + ' токенов';
+  if (sss) sss.textContent = plan + ' \u2022 ' + balStr + ' ответов';
 
   // Settings profile tab
   setAvatar(document.getElementById('settingsProfileAvatar'));
@@ -3385,7 +3397,7 @@ function toggleAutopilot(el) {
   const apIcon2 = document.getElementById('autopilotDot');
   if (apIcon2) apIcon2.className = 'autopilot-dot ' + (on ? 'on' : 'test');
   const apText2 = document.getElementById('autopilotStatusText');
-  if (apText2) apText2.innerHTML = on ? '<strong>Автопилот:</strong> Активен — отвечает автоматически' : '<strong>Автопилот:</strong> Тестовый режим (требует вашего утверждения)';
+  if (apText2) apText2.innerHTML = on ? '<strong>Автопилот:</strong> Активен — отвечает автоматически' : '<strong>Автопилот:</strong> Требует подтверждения перед отправкой';
   haptic(on ? 'success' : 'warning');
   showToast(on ? 'Автопилот включён' : 'Автопилот выключен');
 }
@@ -3609,7 +3621,7 @@ function emergencyStop() {
   const undoBtn = document.getElementById('undoStopBtn');
   if (undoBtn) undoBtn.style.display = 'block';
   haptic('heavy');
-  showToast('Все автоответы остановлены!');
+  showToast('Все автоответы остановлены');
   // Немедленно отправляем через sendData (не ждём MainButton)
   sendToBot({ action: 'emergency_stop' });
   // Также через API если есть
