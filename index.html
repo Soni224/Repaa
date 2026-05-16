@@ -1056,10 +1056,10 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
   <!-- Quick stats row -->
   <div class="stat-grid mb-16">
-    <div class="stat-card card anim-stat"><div class="stat-v" style="color:var(--primary)" id="analyticsTotal">127</div><div class="stat-l">Всего ответов</div></div>
-    <div class="stat-card card anim-stat"><div class="stat-v" style="color:var(--success)" id="analyticsWeekly">34</div><div class="stat-l">За неделю</div></div>
-    <div class="stat-card card anim-stat"><div class="stat-v" id="analyticsMonthly">89</div><div class="stat-l">За месяц</div></div>
-    <div class="stat-card card anim-stat"><div class="stat-v" id="analyticsAvgQuality">4.6</div><div class="stat-l">Ср. качество</div></div>
+    <div class="stat-card card anim-stat"><div class="stat-v" style="color:var(--primary)" id="analyticsTotal">—</div><div class="stat-l">Всего ответов</div></div>
+    <div class="stat-card card anim-stat"><div class="stat-v" style="color:var(--success)" id="analyticsWeekly">—</div><div class="stat-l">За неделю</div></div>
+    <div class="stat-card card anim-stat"><div class="stat-v" id="analyticsMonthly">—</div><div class="stat-l">За месяц</div></div>
+    <div class="stat-card card anim-stat"><div class="stat-v" id="analyticsAvgQuality">—</div><div class="stat-l">Ср. качество</div></div>
   </div>
 
   <div class="sec-h anim-sec"><div class="sec-t" id="chartSectionTitle">Ответы за неделю</div></div>
@@ -3012,13 +3012,29 @@ async function initChart() {
   let analyticsOk = false;
   if (API_BASE) {
     try {
-      const res = await fetch(API_BASE + '/api/analytics?period=' + currentPeriod, { headers: getAuthHeaders() });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+      const res = await fetch(API_BASE + '/api/analytics?period=' + currentPeriod, { headers: getAuthHeaders(), signal: controller.signal });
+      clearTimeout(timeoutId);
       if (res.ok) {
         const data = await res.json();
         chartData = data;
+
+        // Update top stat cards from analytics data (more accurate than /api/user)
+        const at = document.getElementById('analyticsTotal');
+        const aw = document.getElementById('analyticsWeekly');
+        const am = document.getElementById('analyticsMonthly');
+        const aq = document.getElementById('analyticsAvgQuality');
+        // Use analytics data for today, or fall back to user data
+        if (at) at.textContent = ((currentUser?.total_responses || 0) + 0).toLocaleString('ru-RU');
+        if (aw) aw.textContent = (data.weekly_gens || 0).toLocaleString('ru-RU');
+        if (am) am.textContent = (data.monthly_gens || 0).toLocaleString('ru-RU');
+        if (aq) aq.textContent = data.avg_quality ? (Math.round(data.avg_quality * 10) / 10 + '%') : '—';
+
         if (data.daily_gens && data.daily_gens.length) {
           rv = data.daily_gens;
-          labels = rv.map((_, i) => (i + 1).toString());
+          const dayLabels = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+          labels = rv.map((_, i) => dayLabels[i] || (i+1).toString());
         } else if (data.weekly_gens > 0) {
           labels = currentPeriod <= 7
             ? ['Пн','Вт','Ср','Чт','Пт','Сб','Вс']
@@ -3473,31 +3489,64 @@ async function disconnectPlatform(platform) {
 // ===========================================================================
 
 const INVOICE_LINKS = {
-  'tokens_100': '',    // TODO: add real payment links from @BotFather
+  'tokens_100': '',
   'tokens_500': '',
   'tokens_5000': '',
   'tokens_10000': '',
   'business': '',
 };
 
-function openInvoice(plan) {
-  const url = INVOICE_LINKS[plan];
-  if (url && tg && tg.openInvoice) {
-    tg.openInvoice(url, (status) => {
-      if (status === 'paid') {
-        showToast('Оплата прошла! Обновляем баланс...');
-        // Reload user data to get updated balance
-        loadUserData();
-      } else if (status === 'cancelled') {
-        showToast('Оплата отменена');
-      } else {
-        showToast('Оплата не завершена');
+async function openInvoice(plan) {
+  haptic('light');
+  // Try API-based invoice first
+  if (API_BASE) {
+    try {
+      const res = await fetch(API_BASE + '/api/create-invoice', {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ plan })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        if (data.method === 'invoice' && data.url) {
+          // Open Telegram Invoice
+          if (tg && tg.openInvoice) {
+            tg.openInvoice(data.url, (status) => {
+              if (status === 'paid') {
+                haptic('success');
+                showToast('Оплата прошла! Обновляем баланс...');
+                loadUserData();
+              } else if (status === 'cancelled') {
+                showToast('Оплата отменена');
+              } else {
+                showToast('Оплата не завершена');
+              }
+            });
+          } else {
+            // Desktop fallback — open link in browser
+            window.open(data.url, '_blank');
+          }
+          return;
+        }
+        if (data.method === 'bot_redirect' && data.bot_url) {
+          // Redirect to bot for manual payment
+          if (tg && tg.openTelegramLink) {
+            tg.openTelegramLink(data.bot_url);
+          } else {
+            window.open(data.bot_url, '_blank');
+          }
+          showToast(data.message || 'Для оплаты напишите боту');
+          return;
+        }
       }
-    });
-  } else if (tg && tg.openTelegramLink) {
-    // Fallback: open payment via bot
-    const botUser = currentUser?.username || '';
-    tg.openTelegramLink('https://t.me/' + botUser.replace('@',''));
+    } catch(e) {
+      console.warn('Invoice API failed:', e);
+    }
+  }
+  // Final fallback — redirect to bot
+  if (tg && tg.openTelegramLink) {
+    const botUsername = '@RepaReviewBot'; // TODO: replace with actual bot username
+    tg.openTelegramLink('https://t.me/' + botUsername.replace('@','') + '?start=pay_' + plan);
     showToast('Для оплаты напишите боту');
   } else {
     showToast('Оплата доступна только через Telegram');
@@ -3762,10 +3811,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initStarRating();
 
   // --- Wire form inputs to pendingChanges ---
+  // Exclude API key inputs (wbApiKey, ozonApiKey, ozonClientId) — they use saveWBKey/saveOzonKey
+  const EXCLUDED_INPUT_IDS = new Set(['wbApiKey', 'ozonApiKey', 'ozonClientId', 'wbSaveBtn', 'ozonSaveBtn']);
   document.querySelectorAll('input.inp, textarea.inp').forEach(inp => {
     inp.addEventListener('change', () => {
       const key = inp.id || inp.name;
-      if (key) addPendingChange(key, inp.value);
+      if (key && !EXCLUDED_INPUT_IDS.has(key)) addPendingChange(key, inp.value);
     });
   });
 
@@ -3792,6 +3843,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Hide bottom nav when keyboard is open (input/textarea focus)
   const bnav = document.querySelector('.bnav');
+  // Method 1: focusin/focusout events
   document.addEventListener('focusin', (e) => {
     if (e.target.matches('input, textarea') && bnav) {
       bnav.classList.add('nav-hidden');
@@ -3799,14 +3851,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('focusout', (e) => {
     if (e.target.matches('input, textarea') && bnav) {
-      // Small delay to prevent flicker when switching between inputs
+      // Longer delay to prevent flicker when switching between inputs
       setTimeout(() => {
         if (!document.activeElement?.matches('input, textarea')) {
           bnav.classList.remove('nav-hidden');
         }
-      }, 150);
+      }, 300);
     }
   });
+  // Method 2: visualViewport resize (catches iOS keyboard)
+  if (window.visualViewport) {
+    let previousHeight = window.visualViewport.height;
+    window.visualViewport.addEventListener('resize', () => {
+      const currentHeight = window.visualViewport.height;
+      const heightDiff = window.innerHeight - currentHeight;
+      // If viewport shrunk by more than 100px → keyboard is open
+      if (heightDiff > 100 && bnav) {
+        bnav.classList.add('nav-hidden');
+      } else if (heightDiff < 50 && bnav) {
+        bnav.classList.remove('nav-hidden');
+      }
+      previousHeight = currentHeight;
+    });
+  }
 
   console.log('Репа Mini App initialized. Mock mode:', useMockData);
 });
