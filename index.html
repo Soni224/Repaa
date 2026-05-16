@@ -3131,6 +3131,54 @@ function closeSub(id) {
 
 function openSettings(section) {
   haptic('light');
+  // Re-apply user data to settings elements
+  if (currentUser) {
+    const u = currentUser;
+    const dn = u.full_name || ((u.first_name || '') + ' ' + (u.last_name || '')).trim() || 'Пользователь';
+    const fn = u.first_name || '';
+    const ln = u.last_name || '';
+    const ini = (fn[0] || '?') + (ln[0] || '');
+    const pu = u.photo_url || '';
+    const el = document.getElementById('settingsAvatar');
+    if (el) {
+      if (pu) {
+        el.style.backgroundColor = 'transparent';
+        el.style.backgroundImage = 'url(' + pu + ')';
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center';
+        el.style.color = 'transparent';
+        el.textContent = '';
+      } else {
+        el.style.backgroundColor = '';
+        el.style.backgroundImage = '';
+        el.style.color = '';
+        el.textContent = ini.toUpperCase();
+      }
+    }
+    const nmEl = document.getElementById('settingsListItemName');
+    if (nmEl) nmEl.textContent = dn;
+    // Also update Account tab
+    const el2 = document.getElementById('settingsProfileAvatar2');
+    if (el2) {
+      if (pu) {
+        el2.style.backgroundColor = 'transparent';
+        el2.style.backgroundImage = 'url(' + pu + ')';
+        el2.style.backgroundSize = 'cover';
+        el2.style.backgroundPosition = 'center';
+        el2.style.color = 'transparent';
+        el2.textContent = '';
+      } else {
+        el2.style.backgroundColor = '';
+        el2.style.backgroundImage = '';
+        el2.style.color = '';
+        el2.textContent = ini.toUpperCase();
+      }
+    }
+    const nmEl2 = document.getElementById('settingsProfileName');
+    if (nmEl2) nmEl2.textContent = dn;
+    const nvEl = document.getElementById('settingsNameValue');
+    if (nvEl) nvEl.textContent = dn;
+  }
   // Prevent duplicate pushes if settings already open
   const alreadyOpen = activeSub === 'subSettings';
   if (!alreadyOpen) {
