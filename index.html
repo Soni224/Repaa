@@ -1514,10 +1514,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
 
     <div class="sec-h"><div class="sec-t">История расхода</div></div>
-    <div class="card mb-16">
-      <div class="lf-item"><div class="lf-plat" style="color:var(--primary)">Сегодня</div><div class="lf-text">3 ответа (3 токена)</div><div class="lf-time">14:30</div></div>
-      <div class="lf-item"><div class="lf-plat" style="color:var(--text-3)">Вчера</div><div class="lf-text">7 ответов (7 токенов)</div><div class="lf-time">18:45</div></div>
-      <div class="lf-item"><div class="lf-plat" style="color:var(--text-3)">12 мая</div><div class="lf-text">5 ответов (5 токенов)</div><div class="lf-time">09:12</div></div>
+    <div class="card mb-16" id="tokenUsageHistory">
+      <div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px" id="tokenUsageContent">Загрузка...</div>
     </div>
 
     <div class="sec-h"><div class="sec-t">Реферальная программа</div></div>
@@ -2930,6 +2928,48 @@ async function initLiveFeed() {
 }
 
 // ===========================================================================
+// TOKEN USAGE HISTORY (in Subscription settings)
+// ===========================================================================
+
+async function loadTokenUsageHistory() {
+  const el = document.getElementById('tokenUsageContent');
+  if (!el || !API_BASE) {
+    if (el) el.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Нет данных</div>';
+    return;
+  }
+  try {
+    const res = await fetch(API_BASE + '/api/analytics?period=7', { headers: getAuthHeaders() });
+    if (res.ok) {
+      const data = await res.json();
+      const daily = data.daily_gens || [];
+      const dayLabels = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+      const total = daily.reduce((a, b) => a + b, 0);
+      if (total === 0) {
+        el.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Пока нет расходов</div>';
+        return;
+      }
+      const today = new Date().getDay(); // 0=Sun, 1=Mon...
+      const todayIdx = today === 0 ? 6 : today - 1; // convert to Mon=0
+      // Show last 3 non-zero days
+      const rows = [];
+      for (let i = daily.length - 1; i >= 0 && rows.length < 3; i--) {
+        if (daily[i] > 0) {
+          const dayName = i === todayIdx ? 'Сегодня' : (i === todayIdx - 1 || (todayIdx === 0 && i === 6)) ? 'Вчера' : dayLabels[i] || '';
+          rows.push({ day: dayName, count: daily[i], idx: i });
+        }
+      }
+      el.innerHTML = rows.map(r =>
+        `<div class="lf-item"><div class="lf-plat" style="color:${r.idx === todayIdx ? 'var(--primary)' : 'var(--text-3)'}">${r.day}</div><div class="lf-text">${r.count} ответов (${r.count} токенов)</div></div>`
+      ).join('');
+    } else {
+      el.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Нет данных</div>';
+    }
+  } catch(e) {
+    el.innerHTML = '<div style="text-align:center;padding:12px;color:var(--text-3);font-size:12px">Нет данных</div>';
+  }
+}
+
+// ===========================================================================
 // CHART
 // ===========================================================================
 
@@ -3803,6 +3843,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Init components that depend on user data AFTER loading
     initLiveFeed();
     initChart();
+    loadTokenUsageHistory();
   });
 
   // --- Init UI components ---
