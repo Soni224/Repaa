@@ -1975,7 +1975,6 @@ function haptic(type) {
   const nav = document.querySelector('.bnav');
   if (!nav) return;
   let lastScrollY = 0;
-  let ticking = false;
   let navVisible = true;
 
   // Expose reset function globally so other code can force-reset
@@ -1985,15 +1984,20 @@ function haptic(type) {
     if (nav) nav.classList.remove('nav-hidden');
   };
 
-  function checkNavVisibility(e) {
-    const target = e.target;
-    // Only react to scroll inside slider-pages
-    if (!target || !target.classList || !target.classList.contains('slider-page')) return;
-    if (activeSub) return; // Don't interfere with sub-screens
+  // Get the currently active slider-page element
+  function getActivePage() {
+    const pages = document.querySelectorAll('.slider-page');
+    return pages[activeSliderIndex] || pages[0] || null;
+  }
 
-    const scrollY = target.scrollTop;
-    const docHeight = target.scrollHeight;
-    const viewHeight = target.clientHeight;
+  function checkNavVisibility() {
+    if (activeSub) return; // Don't interfere with sub-screens
+    const page = getActivePage();
+    if (!page) return;
+
+    const scrollY = page.scrollTop;
+    const docHeight = page.scrollHeight;
+    const viewHeight = page.clientHeight;
     const scrollPercent = (scrollY + viewHeight) / docHeight;
 
     // Near bottom (>=90%) — hide nav
@@ -2001,7 +2005,6 @@ function haptic(type) {
       nav.classList.add('nav-hidden');
       navVisible = false;
       lastScrollY = scrollY;
-      ticking = false;
       return;
     }
 
@@ -2010,7 +2013,6 @@ function haptic(type) {
       nav.classList.remove('nav-hidden');
       navVisible = true;
       lastScrollY = scrollY;
-      ticking = false;
       return;
     }
 
@@ -2024,15 +2026,16 @@ function haptic(type) {
     }
 
     lastScrollY = scrollY;
-    ticking = false;
   }
 
-  // Listen on all slider-pages (they have their own scroll)
-  document.addEventListener('scroll', function(e) {
-    if (!ticking) {
-      requestAnimationFrame(() => checkNavVisibility(e));
-      ticking = true;
-    }
+  // Listen on scroll events — use rAF throttle but ALWAYS reset the flag
+  let rafId = null;
+  document.addEventListener('scroll', function() {
+    if (rafId) return; // already scheduled
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
+      checkNavVisibility();
+    });
   }, { passive: true, capture: true });
 
   // Listen for slider page change to reset scroll tracking
