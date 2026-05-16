@@ -3,60 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Репа — Telegram Mini App</title>
+<title>Repa — Ответы на отзывы</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #0D7C66;
-  --primary-hover: #0A6652;
-  --primary-light: #EDF7F4;
-  --primary-soft: rgba(13,124,102,.08);
-  --bg: #F5F5F9;
+  --primary: #6B7FD7;
+  --primary-hover: #5A6DC5;
+  --primary-light: #F0F2FB;
+  --primary-soft: rgba(107,127,215,.08);
+  --bg: #F5F7FC;
   --bg-card: #FFFFFF;
-  --bg-input: #F0F0F4;
-  --text: #1A1A2E;
-  --text-2: #5A5A72;
-  --text-3: #9898AD;
-  --border: #E8E8EE;
-  --success: #2DB84B;
-  --success-light: #EEFBF1;
-  --danger: #E5484D;
-  --danger-light: #FEF1F1;
-  --warning: #D4860A;
-  --warning-light: #FFF8EB;
-  --radius: 14px;
-  --radius-sm: 10px;
+  --bg-input: #EBEDF5;
+  --text: #1E2440;
+  --text-2: #6B7A99;
+  --text-3: #9EA8BF;
+  --border: #E0E4EF;
+  --success: #6BBF8A;
+  --success-light: #EFF9F3;
+  --danger: #E06C75;
+  --danger-light: #FDF2F3;
+  --warning: #D4A54A;
+  --warning-light: #FBF6EC;
+  --lavender: #9B8FD4;
+  --mint: #7BC8A4;
+  --radius: 16px;
+  --radius-sm: 12px;
   --radius-full: 999px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --shadow: 0 2px 8px rgba(30,36,64,.06), 0 1px 3px rgba(30,36,64,.03);
   --nav-h: 56px;
   --safe-b: env(safe-area-inset-bottom, 0px);
 }
 .dark {
-  --primary: #34CFAA;
-  --primary-hover: #44DFBA;
-  --primary-light: #162A24;
-  --primary-soft: rgba(52,207,170,.08);
-  --bg: #121214;
-  --bg-card: #1C1C20;
-  --bg-input: #26262C;
-  --text: #EEEEF0;
-  --text-2: #9898B0;
-  --text-3: #5C5C72;
-  --border: #2E2E38;
-  --success: #34D168;
-  --success-light: #12261A;
-  --danger: #FF6B6E;
-  --danger-light: #2A1616;
-  --warning: #FFBA33;
-  --warning-light: #2A2010;
+  --primary: #8FA3E8;
+  --primary-hover: #9FB3F0;
+  --primary-light: #1A2040;
+  --primary-soft: rgba(143,163,232,.08);
+  --bg: #0F1119;
+  --bg-card: #181B28;
+  --bg-input: #1E2234;
+  --text: #E8EAF2;
+  --text-2: #8E9AB8;
+  --text-3: #555F7A;
+  --border: #262B3D;
+  --success: #5EC47E;
+  --success-light: #132219;
+  --danger: #E87079;
+  --danger-light: #281618;
+  --warning: #E8B34A;
+  --warning-light: #282010;
   --shadow: 0 2px 8px rgba(0,0,0,0.4);
-  --card-hover: #22222E;
+  --card-hover: #1E2236;
 }
-.dark .bnav{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(28,28,32,0.95)}
+.dark .bnav{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(24,27,40,0.95)}
 .dark .bnav{border-color:var(--border);box-shadow:0 4px 24px rgba(0,0,0,.5)}
-.dark .bnav-i.active{background:rgba(52,207,170,0.12)}
+.dark .bnav-i.active{background:rgba(143,163,232,0.12)}
 /* hdr-avatar removed */
 .dark .card:hover{background:var(--card-hover)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -107,7 +109,7 @@ input,textarea,select{font-family:inherit}
 .ico-xl{width:40px;height:40px;flex-shrink:0}
 
 /* Card */
-.card{background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);box-shadow:0 1px 2px rgba(0,0,0,.03);transition:all .15s ease}
+.card{background:var(--bg-card);border-radius:var(--radius);padding:18px;border:1px solid var(--border);box-shadow:var(--shadow);transition:all .2s cubic-bezier(.4,0,.2,1)}
 
 /* Profile */
 .prof{padding:16px}
@@ -322,7 +324,7 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 
 /* Settings — Redesigned (7-item product system) */
 .s-head{text-align:center;padding:24px 0 18px}
-.s-avatar{width:76px;height:76px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 10px;box-shadow:0 4px 16px rgba(13,124,102,.18)}
+.s-avatar{width:76px;height:76px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 10px;box-shadow:0 4px 16px rgba(107,127,215,.18)}
 .s-name{font-size:20px;font-weight:700;color:var(--text);line-height:1.2}
 .s-status{font-size:12px;color:var(--text-3);margin-top:3px;line-height:1.4}
 .s-hint{font-size:12px;color:var(--primary);font-weight:500;margin-top:2px}
@@ -339,13 +341,13 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 .s-row-chev{color:var(--text-3);flex-shrink:0;opacity:.4}
 .s-row-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);color:#fff;flex-shrink:0;margin-left:6px}
 
-/* Color groups for icon backgrounds — 5 base + 2 neutral */
-.s-ico-blue{background:rgba(45,167,255,.1);color:#2DA7FF}
-.s-ico-green{background:rgba(45,184,75,.1);color:#2DB84B}
+/* Color groups for icon backgrounds — calm palette */
+.s-ico-blue{background:rgba(107,127,215,.1);color:#6B7FD7}
+.s-ico-green{background:rgba(107,191,138,.1);color:#6BBF8A}
 .s-ico-primary{background:var(--primary-soft);color:var(--primary)}
-.s-ico-amber{background:rgba(243,156,18,.1);color:#F39C12}
-.s-ico-gold{background:rgba(244,180,0,.1);color:#F4B400}
-.s-ico-slate{background:rgba(92,107,138,.1);color:#5C6B8A}
+.s-ico-amber{background:rgba(212,165,74,.1);color:#D4A54A}
+.s-ico-gold{background:rgba(155,143,212,.1);color:#9B8FD4}
+.s-ico-slate{background:rgba(107,122,153,.1);color:#6B7A99}
 .s-ico-neutral{background:var(--bg-input);color:var(--text-2)}
 
 /* Section divider in settings list */
@@ -391,7 +393,7 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 /* === PRODUCTION ADDITIONS === */
 
 /* Main CTA button */
-.main-cta{position:relative;font-size:16px;padding:18px 20px;font-weight:700;border-radius:var(--radius);min-height:100px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;border:none;box-shadow:0 8px 24px rgba(13,124,102,.25)}
+.main-cta{position:relative;font-size:16px;padding:18px 20px;font-weight:700;border-radius:var(--radius);min-height:100px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;border:none;box-shadow:0 8px 24px rgba(107,127,215,.25)}
 .main-cta:active{transform:scale(.97);background:var(--primary-hover)}
 .live-badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;background:#10b981;color:#fff;font-size:11px;font-weight:700;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(16,185,129,.4)}
 
@@ -590,12 +592,12 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .dark .s-avatar{box-shadow:0 4px 20px rgba(0,0,0,.4)}
 .dark .s-card{box-shadow:0 2px 12px rgba(0,0,0,.3)}
 .dark .s-row:active{background:var(--card-hover)}
-.dark .s-ico-blue{background:rgba(45,167,255,.15);color:#5CB8FF}
-.dark .s-ico-green{background:rgba(45,184,75,.15);color:#4DD468}
-.dark .s-ico-primary{background:rgba(52,207,170,.12);color:var(--primary)}
-.dark .s-ico-amber{background:rgba(243,156,18,.15);color:#FFB84D}
-.dark .s-ico-gold{background:rgba(244,180,0,.15);color:#FFD033}
-.dark .s-ico-slate{background:rgba(92,107,138,.15);color:#8B9AC0}
+.dark .s-ico-blue{background:rgba(107,127,215,.15);color:#8FA3E8}
+.dark .s-ico-green{background:rgba(107,191,138,.15);color:#5EC47E}
+.dark .s-ico-primary{background:rgba(143,163,232,.12);color:var(--primary)}
+.dark .s-ico-amber{background:rgba(232,179,74,.15);color:#E8B34A}
+.dark .s-ico-gold{background:rgba(155,143,212,.15);color:#B8ACE8}
+.dark .s-ico-slate{background:rgba(85,95,122,.15);color:#8B9AC0}
 .dark .s-ico-neutral{background:var(--bg-input);color:var(--text-2)}
 
 /* Compact mode */
@@ -780,167 +782,52 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="screen active" id="screenHome">
 <div class="content">
 
-  <!-- Top Header Row: Avatar+Brand | Balance Widget + Theme -->
-  <div class="home-header anim-home-header">
-    <div class="home-header-left">
-      <div class="home-avatar" id="homeAvatar" onclick="openSettings()">?</div>
-      <div>
-        <div class="home-brand">Репа</div>
-        <div class="home-brand-sub">Управление отзывами</div>
-      </div>
+  <!-- ===== TOP ZONE: Product name + tagline + menu ===== -->
+  <div class="home-header anim-home-header" style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding-top:8px">
+    <div style="text-align:center;flex:1">
+      <div style="font-size:26px;font-weight:700;color:var(--text);line-height:1.1;letter-spacing:-.3px">Repa</div>
+      <div style="font-size:12px;color:var(--text-3);font-weight:500;margin-top:4px;line-height:1.4">Ответы на отзывы вручную и автоматически</div>
     </div>
-    <div class="home-header-right">
-      <div class="home-balance-widget" onclick="openSettings('Subscription')">
-        <span class="home-balance-val" id="userBalance">0</span>
-        <span class="home-balance-cur">ответов</span>
-        <div class="home-balance-plus">
-          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </div>
-      </div>
-      <!-- Theme toggle moved to Settings → Внешний вид -->
-    </div>
-  </div>
-
-  <!-- Marketplace Tabs: WB / OZON -->
-  <div class="home-tabs-row">
-    <div class="home-tabs">
-      <div class="home-tab active" id="homeTabWB" onclick="switchHomeTab('wb')">WB</div>
-      <div class="home-tab" id="homeTabOzon" onclick="switchHomeTab('ozon')">OZON</div>
-    </div>
-  </div>
-
-  <!-- Onboarding Checklist -->
-  <div class="onboarding-card anim-onboard" id="onboardingCard">
-    <div class="onboarding-header">
-      <div class="onboarding-title" style="font-size:16px">Остался 1 шаг до запуска</div>
-      <div class="onboarding-badge" id="onboardingBadge">1 из 4</div>
-    </div>
-    <div class="onboarding-steps">
-      <div class="onboarding-step" style="cursor:default">
-        <div class="onboarding-step-ico done">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <div class="onboarding-step-body">
-          <div class="onboarding-step-text" style="color:var(--text-3);font-weight:500">Регистрация</div>
-          <div class="onboarding-step-sub">Аккаунт создан</div>
-        </div>
-      </div>
-      <div class="onboarding-step" onclick="openSettings('Marketplace')">
-        <div class="onboarding-step-ico todo" id="onboardStep2Ico">2</div>
-        <div class="onboarding-step-body">
-          <div class="onboarding-step-text">Подключить магазин</div>
-          <div class="onboarding-step-action">Ввести API-ключ →</div>
-        </div>
-        <svg class="onboarding-step-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="onboarding-step" onclick="openSettings('Subscription')">
-        <div class="onboarding-step-ico todo" id="onboardStep3Ico">3</div>
-        <div class="onboarding-step-body">
-          <div class="onboarding-step-text">Выбрать тариф</div>
-          <div class="onboarding-step-action">Выбрать тариф →</div>
-        </div>
-        <svg class="onboarding-step-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-      <div class="onboarding-step" onclick="openSettings('Autopilot')">
-        <div class="onboarding-step-ico todo" id="onboardStep4Ico">4</div>
-        <div class="onboarding-step-body">
-          <div class="onboarding-step-text">Включить автопилот</div>
-          <div class="onboarding-step-sub">Автоматические ответы на отзывы</div>
-        </div>
-        <svg class="onboarding-step-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- Subscription / Tariff Bar -->
-  <div class="sub-bar anim-card" id="subBar">
-    <div class="sub-bar-top">
-      <div class="sub-bar-tariff" id="subBarTariff">Free план</div>
-      <div class="sub-bar-date" id="subBarDate"></div>
-    </div>
-    <div class="sub-bar-track">
-      <div class="sub-bar-fill" id="subBarFill" style="width:0%"></div>
-    </div>
-    <div class="sub-bar-info">
-      <div class="sub-bar-left" id="subBarLeft">Ответов использовано: 0 из 0</div>
-      <div class="sub-bar-buy" onclick="openSettings('Subscription')">Докупить токены</div>
-    </div>
-  </div>
-
-  <!-- Autopilot Status -->
-  <div class="autopilot-status anim-card" id="autopilotStatusBar" onclick="openSettings('Autopilot')" style="cursor:pointer">
-    <div class="autopilot-dot off" id="autopilotDot"></div>
-    <div class="autopilot-text" id="autopilotStatusText"><strong>Автопилот:</strong> Выключен</div>
-    <div style="font-size:11px;color:var(--text-3);margin-top:2px;margin-left:16px">Автоматические ответы на отзывы</div>
-  </div>
-
-  <!-- Quick Actions — 2-column compact grid -->
-  <div class="home-actions">
-    <div class="home-action-pill locked anim-pill" id="actionReply" onclick="navigateTo('reviews')">
-      <div class="home-action-pill-ico" style="background:var(--primary-soft);color:var(--primary)">
-        <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-      </div>
-      <div class="home-action-pill-body">
-        <div class="home-action-pill-text">Отзывы</div>
-        <div class="home-action-pill-sub" id="actionReplySub">0 новых</div>
-      </div>
-      <div class="home-action-pill-lock" id="actionReplyLock">API</div>
-    </div>
-    <div class="home-action-pill locked anim-pill" id="actionAutopilot" onclick="openSettings('Autopilot')">
-      <div class="home-action-pill-ico" style="background:var(--success-light);color:var(--success)">
-        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
-      </div>
-      <div class="home-action-pill-body">
-        <div class="home-action-pill-text">Автопилот</div>
-        <div class="home-action-pill-sub" id="actionAutopilotSub">Выключен</div>
-      </div>
-      <div class="home-action-pill-lock" id="actionAutopilotLock">API</div>
-    </div>
-    <div class="home-action-pill anim-pill" onclick="openSettings('BrandVoice')">
-      <div class="home-action-pill-ico" style="background:var(--warning-light);color:var(--warning)">
-        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-      </div>
-      <div class="home-action-pill-body">
-        <div class="home-action-pill-text">Стиль</div>
-        <div class="home-action-pill-sub" id="brandVoiceSub">Стандартный тон</div>
-      </div>
-    </div>
-    <div class="home-action-pill anim-pill" onclick="openSettings('Marketplace')">
-      <div class="home-action-pill-ico" style="background:rgba(155,45,255,.1);color:#9B2DFF">
-        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      </div>
-      <div class="home-action-pill-body">
-        <div class="home-action-pill-text">Магазин</div>
-        <div class="home-action-pill-sub" id="marketplaceSub">Подключить</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Brand Voice Widget — hidden, merged into action grid above -->
-  <div class="brand-voice-widget anim-brand" onclick="openSettings('BrandVoice')" id="brandVoiceWidget" style="display:none">
-    <div class="brand-voice-top">
-      <div class="brand-voice-ico">
-        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-      </div>
-      <div class="brand-voice-body">
-        <div class="brand-voice-text">Стиль ответов</div>
-        <div class="brand-voice-sub" id="brandVoiceSubAlt">Стандартный тон</div>
-      </div>
-      <svg class="brand-voice-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
-  </div>
-
-  <!-- Main CTA — primary action button -->
-  <div id="emptyCta" class="empty-cta anim-card">
-    <div class="empty-cta-icon">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-    </div>
-    <div class="empty-cta-text">Подключите магазин</div>
-    <div class="empty-cta-sub">Чтобы получать и отвечать на отзывы</div>
-    <button class="empty-cta-btn" onclick="openSettings('Marketplace')">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Подключить магазин
+    <button style="background:var(--bg-input);border:none;border-radius:var(--radius-sm);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-2);flex-shrink:0;margin-left:8px" onclick="openSettings()">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
     </button>
+  </div>
+
+  <!-- ===== BLOCK 1: Status Card (most prominent) ===== -->
+  <div class="card anim-onboard" id="statusCard" style="margin-bottom:12px;background:var(--primary-light);border-color:rgba(107,127,215,.15);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(107,127,215,.06)"></div>
+    <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:12px" id="statusMainTitle">Остался 1 шаг до запуска</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--text-3);flex-shrink:0" id="statusTokenDot"></div>
+        <div>
+          <div style="font-size:18px;font-weight:700;color:var(--primary)" id="userBalance">0</div>
+          <div style="font-size:11px;color:var(--text-3)">токенов</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--lavender);flex-shrink:0"></div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--text)" id="statusTariff">Бесплатный план</div>
+          <div style="font-size:11px;color:var(--text-3)" id="statusResponses">0 ответов доступно</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(107,127,215,.1);display:flex;align-items:center;gap:8px" id="statusAutopilotRow" onclick="openSettings('Autopilot')" style="cursor:pointer">
+      <div class="autopilot-dot off" id="autopilotDot"></div>
+      <div style="font-size:13px;color:var(--text-2)" id="autopilotStatusText"><strong style="color:var(--text)">Автопилот:</strong> выключен</div>
+    </div>
+    <div class="onboarding-badge" id="onboardingBadge" style="position:absolute;top:14px;right:14px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);background:rgba(107,127,215,.12);color:var(--primary)">1 из 4</div>
+  </div>
+
+  <!-- ===== BLOCK 2: Next Action (second most important) ===== -->
+  <div id="emptyCta" class="card anim-card" style="margin-bottom:12px;text-align:center;padding:24px 18px">
+    <div style="width:48px;height:48px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--primary)">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </div>
+    <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Подключить магазин</div>
+    <div style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.5">Чтобы получать и отвечать на отзывы</div>
+    <button class="btn btn-p btn-lg btn-full" onclick="openSettings('Marketplace')" style="border-radius:var(--radius)">Перейти к подключению</button>
   </div>
 
   <button class="btn btn-p main-cta" id="activeCta" onclick="navigateTo('reviews')" style="width:100%;display:none">
@@ -949,6 +836,41 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <span class="live-badge" id="ctaBadge" style="display:none">0</span>
   </button>
 
+  <!-- ===== BLOCK 3: Subscription & Tokens ===== -->
+  <div class="card anim-card" style="margin-bottom:12px" id="subBar">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div style="font-size:14px;font-weight:700;color:var(--text)" id="subBarTariff">Бесплатный план: 2 ответа для знакомства</div>
+    </div>
+    <div style="height:4px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:8px">
+      <div style="height:100%;background:var(--primary);border-radius:var(--radius-full);transition:width .5s ease;width:0%" id="subBarFill"></div>
+    </div>
+    <div style="font-size:12px;color:var(--text-3);margin-bottom:10px" id="subBarLeft">В этом месяце доступно 0 ответов</div>
+    <div style="font-size:11px;color:var(--text-3);margin-bottom:4px" id="subBarDate"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-o btn-sm" onclick="openSettings('Subscription')" style="flex:1;border-radius:var(--radius-sm)">Докупить токены</button>
+      <button class="btn btn-p btn-sm" onclick="openSettings('Subscription')" style="flex:1;border-radius:var(--radius-sm)">Перейти на тариф выше</button>
+    </div>
+  </div>
+
+  <!-- ===== BLOCK 4: Autopilot ===== -->
+  <div class="card anim-card" style="margin-bottom:12px;cursor:pointer" onclick="openSettings('Autopilot')">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+      <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--success-light);display:flex;align-items:center;justify-content:center;color:var(--success);flex-shrink:0">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700;color:var(--text)">Автоматические ответы на отзывы</div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:2px">Тестовый режим с подтверждением</div>
+      </div>
+      <svg width="16" height="16" fill="none" stroke="var(--text-3)" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;padding-left:48px">
+      <div class="autopilot-dot off" id="autopilotDot2"></div>
+      <div style="font-size:12px;color:var(--text-2)" id="autopilotStatus2"><strong style="color:var(--text)">Автопилот:</strong> выключен</div>
+    </div>
+  </div>
+
+  <!-- ===== BLOCK 5: Event Feed (secondary) ===== -->
   <div class="sec-h anim-sec" style="margin-top:4px">
     <div class="sec-t secondary-feed">Лента событий</div>
     <div class="sec-link" style="opacity:.5"><span class="dot dot-on"></span> Эфир</div>
@@ -972,6 +894,10 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <span id="xpFillBar" style="width:0%"></span>
     <span id="setupTitle"></span>
     <span id="setupSub"></span>
+    <!-- Onboarding step icons for JS references -->
+    <span id="onboardStep2Ico"></span>
+    <span id="onboardStep3Ico"></span>
+    <span id="onboardStep4Ico"></span>
   </div>
 
 </div>
@@ -1126,7 +1052,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div class="s-head">
       <div class="s-avatar" id="settingsAvatar">?</div>
       <div class="s-name" id="settingsListItemName">Загрузка...</div>
-      <div class="s-status" id="settingsListItemSub">0 ответов &bull; Free план</div>
+      <div class="s-status" id="settingsListItemSub">0 ответов &bull; Бесплатный план</div>
       <div class="s-hint" id="settingsLaunchHint">До запуска осталось 2 шага</div>
     </div>
 
@@ -1163,7 +1089,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <div class="s-row-body">
           <div class="s-row-title">Автопилот</div>
-          <div class="s-row-sub">Автоответы, контроль, лимиты</div>
+          <div class="s-row-sub">Автоответы, подтверждение, правила</div>
         </div>
         <span class="s-row-badge" id="settingsAutopilotBadge" style="background:var(--text-3)">Выкл</span>
         <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1188,7 +1114,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <div class="s-row-body">
           <div class="s-row-title">Подписка и токены</div>
-          <div class="s-row-sub" id="settingsSubscriptionSub">Free план &bull; 0 ответов</div>
+              <div class="s-row-sub" id="settingsSubscriptionSub">Бесплатный план &bull; 0 ответов</div>
         </div>
         <svg class="s-row-chev" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
@@ -1219,7 +1145,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
 
     <div style="margin-top:20px;text-align:center">
-      <div style="font-size:11px;color:var(--text-3)">Репа v1.0</div>
+      <div style="font-size:11px;color:var(--text-3)">Repa v2.0</div>
     </div>
   </div><!-- /settingsListView -->
 
@@ -1245,8 +1171,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border)">
-        <div><div style="font-size:12px;color:var(--text-3)">Токены</div><div style="font-size:16px;font-weight:700;color:var(--primary)" id="settingsProfileBalance">0 ответов</div></div>
-        <div style="text-align:right"><div style="font-size:12px;color:var(--text-3)">Всего ответов</div><div style="font-size:16px;font-weight:700;color:var(--text)" id="settingsProfileResponses">0</div></div>
+        <div><div style="font-size:12px;color:var(--text-3)">Ответов доступно</div><div style="font-size:16px;font-weight:700;color:var(--primary)" id="settingsProfileBalance">0</div></div>
+        <div style="text-align:right"><div style="font-size:12px;color:var(--text-3)">Всего отправлено</div><div style="font-size:16px;font-weight:700;color:var(--text)" id="settingsProfileResponses">0</div></div>
       </div>
     </div>
 
@@ -1772,6 +1698,107 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 </div>
 </div>
 
+<!-- ========== ONBOARDING OVERLAY (3 screens) ========== -->
+<div class="onboarding-overlay" id="onboardingOverlay" style="display:none;position:fixed;inset:0;z-index:100;background:var(--bg);max-width:430px;margin:0 auto;overflow-y:auto">
+  <div style="min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 24px" id="onboardingContent">
+
+    <!-- Screen 1: Value -->
+    <div class="onb-screen" id="onbScreen1">
+      <div style="text-align:center;margin-bottom:40px">
+        <div style="width:72px;height:72px;border-radius:20px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 24px">
+          <svg width="36" height="36" fill="none" stroke="var(--primary)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        </div>
+        <div style="font-size:28px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:-.3px">Repa</div>
+        <div style="font-size:16px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Отвечает на отзывы вручную и автоматически</div>
+        <div style="font-size:14px;color:var(--primary);margin-top:8px;font-weight:500">Экономьте время и сохраняйте контроль</div>
+      </div>
+      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(2)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px">Начать</button>
+    </div>
+
+    <!-- Screen 2: Trust -->
+    <div class="onb-screen" id="onbScreen2" style="display:none">
+      <div style="text-align:center;margin-bottom:32px">
+        <div style="font-size:22px;font-weight:700;color:var(--text);margin-bottom:20px">Вы сами управляете ответами</div>
+        <div style="text-align:left;max-width:300px;margin:0 auto">
+          <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:18px">
+            <div style="width:32px;height:32px;border-radius:10px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--primary)">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--text)">Сначала вручную</div>
+              <div style="font-size:12px;color:var(--text-3);margin-top:2px;line-height:1.4">Вы сами решаете, когда и как отвечать</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:18px">
+            <div style="width:32px;height:32px;border-radius:10px;background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--success)">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+            </div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--text)">Потом автопилот с подтверждением</div>
+              <div style="font-size:12px;color:var(--text-3);margin-top:2px;line-height:1.4">Автоматические ответы, но вы всегда контролируете</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="width:32px;height:32px;border-radius:10px;background:var(--warning-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--warning)">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
+            </div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--text)">Стиль ответа можно настроить</div>
+              <div style="font-size:12px;color:var(--text-3);margin-top:2px;line-height:1.4">Выберите тон и формат, подходящий вашему бренду</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(3)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px">Продолжить</button>
+    </div>
+
+    <!-- Screen 3: Start -->
+    <div class="onb-screen" id="onbScreen3" style="display:none">
+      <div style="text-align:center;margin-bottom:32px">
+        <div style="font-size:22px;font-weight:700;color:var(--text);margin-bottom:20px">Подключите магазин и начните работу</div>
+        <div style="text-align:left;max-width:300px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary)">1</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--text)">Подключить WB / Ozon</div>
+              <div style="font-size:11px;color:var(--text-3)">Для получения отзывов с площадки</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary)">2</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--text)">Ввести API-ключ</div>
+              <div style="font-size:11px;color:var(--text-3)">Для доступа к данным магазина</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary)">3</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--text)">Выбрать тариф</div>
+              <div style="font-size:11px;color:var(--text-3)">Бесплатный план даёт 2 ответа для знакомства</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700;color:var(--primary)">4</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--text)">Включить автопилот</div>
+              <div style="font-size:11px;color:var(--text-3)">Автоответы с подтверждением — безопасно</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-p btn-lg" onclick="finishOnboarding()" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px">Перейти к подключению</button>
+    </div>
+  </div>
+
+  <!-- Progress dots -->
+  <div style="position:absolute;bottom:calc(var(--safe-b) + 20px);left:0;right:0;display:flex;justify-content:center;gap:6px" id="onbDots">
+    <div class="onb-dot active" id="onbDot1" style="width:6px;height:6px;border-radius:50%;background:var(--primary);transition:all .2s"></div>
+    <div class="onb-dot" id="onbDot2" style="width:6px;height:6px;border-radius:50%;background:var(--border);transition:all .2s"></div>
+    <div class="onb-dot" id="onbDot3" style="width:6px;height:6px;border-radius:50%;background:var(--border);transition:all .2s"></div>
+  </div>
+</div>
+
 <!-- ========== BOTTOM NAV ========== -->
 <nav class="bnav">
   <div class="bnav-in">
@@ -2214,8 +2241,7 @@ function applyUserData(u) {
 
   // Home profile
   setAvatar(document.getElementById('profileAvatar'));
-  // Home top-row avatar
-  setAvatar(document.getElementById('homeAvatar'));
+  // Home profile (avatar removed from top header per ТЗ)
   const pn = document.getElementById('profileName');
   if (pn) pn.textContent = safeName;
 
@@ -2239,7 +2265,7 @@ function applyUserData(u) {
   const ub = document.getElementById('userBalance');
   if (ub) ub.textContent = balStr;
   const spb = document.getElementById('settingsProfileBalance');
-  if (spb) spb.textContent = balStr + ' ответов';
+  if (spb) spb.textContent = balStr;
   const sb = document.getElementById('storeBalance');
   if (sb) sb.textContent = balStr;
   const sb2 = document.getElementById('storeBalance2');
@@ -2329,52 +2355,38 @@ function applyUserData(u) {
   const apDot = document.getElementById('autopilotDot');
   const apText = document.getElementById('autopilotStatusText');
   if (apDot) { apDot.className = 'autopilot-dot ' + (apOn ? 'on' : 'off'); }
-  if (apText) { apText.innerHTML = apOn ? '<strong>Автопилот:</strong> Активен — отвечает автоматически' : '<strong>Автопилот:</strong> Выключен'; }
+  if (apText) { apText.innerHTML = apOn ? '<strong style="color:var(--text)">Автопилот:</strong> включён' : '<strong style="color:var(--text)">Автопилот:</strong> выключен'; }
+  // Autopilot card on home
+  const apDot2 = document.getElementById('autopilotDot2');
+  const apStatus2 = document.getElementById('autopilotStatus2');
+  if (apDot2) { apDot2.className = 'autopilot-dot ' + (apOn ? 'on' : 'off'); }
+  if (apStatus2) { apStatus2.innerHTML = apOn ? '<strong style="color:var(--text)">Автопилот:</strong> включён — отвечает автоматически' : '<strong style="color:var(--text)">Автопилот:</strong> выключен'; }
 
   // Autopilot action pill sub text
   const aas = document.getElementById('actionAutopilotSub');
   if (aas) aas.textContent = apOn ? 'Активен — отвечает автоматически' : 'Выключен — настройте в Автопилот';
 
-  // Onboarding steps update — JS-controlled visual states (reliable across WebViews)
+  // Onboarding steps update — JS-controlled visual states
   const step2Ico = document.getElementById('onboardStep2Ico');
   const step3Ico = document.getElementById('onboardStep3Ico');
   const step4Ico = document.getElementById('onboardStep4Ico');
   const onboardingBadge = document.getElementById('onboardingBadge');
-  const onboardingTitle = document.querySelector('.onboarding-title');
-  const onboardingSteps = document.querySelectorAll('.onboarding-step');
+  const onboardingTitle = document.getElementById('statusMainTitle');
   let completedSteps = 1; // Step 1 (register) is always done
   const checkSvg = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
   if (anyPlatformConnected && step2Ico) { step2Ico.className = 'onboarding-step-ico done'; step2Ico.innerHTML = checkSvg; completedSteps++; }
   if (bal > 0 && step3Ico) { step3Ico.className = 'onboarding-step-ico done'; step3Ico.innerHTML = checkSvg; completedSteps++; }
   if (apOn && step4Ico) { step4Ico.className = 'onboarding-step-ico done'; step4Ico.innerHTML = checkSvg; completedSteps++; }
 
-  // Apply step-done / step-current / step-locked classes
-  let foundCurrent = false;
-  onboardingSteps.forEach(function(step) {
-    const ico = step.querySelector('.onboarding-step-ico');
-    if (!ico) return;
-    step.classList.remove('step-done', 'step-current', 'step-locked');
-    if (ico.classList.contains('done')) {
-      step.classList.add('step-done');
-    } else if (!foundCurrent) {
-      ico.classList.add('current');
-      ico.classList.remove('todo');
-      step.classList.add('step-current');
-      foundCurrent = true;
-    } else {
-      step.classList.add('step-locked');
-    }
-  });
-
   if (onboardingBadge) onboardingBadge.textContent = completedSteps + ' из 4';
   if (onboardingTitle) {
-    const remaining = 4 - completedSteps;
+    const remaining2 = 4 - completedSteps;
     if (completedSteps >= 4) {
       onboardingTitle.textContent = 'Всё настроено';
-    } else if (remaining === 1) {
+    } else if (remaining2 === 1) {
       onboardingTitle.textContent = 'Остался 1 шаг до запуска';
     } else {
-      onboardingTitle.textContent = 'Осталось ' + remaining + ' шага до запуска';
+      onboardingTitle.textContent = 'Осталось ' + remaining2 + ' шага до запуска';
     }
   }
 
@@ -2388,23 +2400,32 @@ function applyUserData(u) {
   const subBarDate = document.getElementById('subBarDate');
   const subBarFill = document.getElementById('subBarFill');
   const subBarLeft = document.getElementById('subBarLeft');
-  if (subBarTariff) subBarTariff.textContent = planRaw === 'free' ? 'Free план' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
+  if (subBarTariff) subBarTariff.textContent = planRaw === 'free' ? 'Бесплатный план: 2 ответа для знакомства' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
   if (subBarDate && u.subscription_end) subBarDate.textContent = 'До ' + new Date(u.subscription_end).toLocaleDateString('ru-RU', {day:'numeric',month:'short'});
   const monthlyLimit = u.monthly_limit || 0;
   const usedThisMonth = u.used_this_month || 0;
   const remaining = Math.max(0, monthlyLimit - usedThisMonth);
   if (subBarFill) subBarFill.style.width = monthlyLimit > 0 ? Math.round((usedThisMonth/monthlyLimit)*100)+'%' : '0%';
-  if (subBarLeft) subBarLeft.textContent = 'Ответов использовано: ' + usedThisMonth + ' из ' + monthlyLimit;
+  if (subBarLeft) subBarLeft.textContent = 'В этом месяце доступно ' + remaining + ' ответов';
+
+  // Status card elements
+  const statusMainTitle = document.getElementById('statusMainTitle');
+  const statusTariff = document.getElementById('statusTariff');
+  const statusResponses = document.getElementById('statusResponses');
+  const statusTokenDot = document.getElementById('statusTokenDot');
+  if (statusTariff) statusTariff.textContent = planRaw === 'free' ? 'Бесплатный план' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
+  if (statusResponses) statusResponses.textContent = remaining + ' ответов доступно';
+  if (statusTokenDot) statusTokenDot.style.background = bal > 0 ? 'var(--primary)' : 'var(--text-3)';
 
   // Subscription widget in settings detail
   const swTariff = document.getElementById('subWidgetTariff');
-  if (swTariff) swTariff.textContent = planRaw === 'free' ? 'Free план' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
+  if (swTariff) swTariff.textContent = planRaw === 'free' ? 'Бесплатный план' : 'Тариф «' + planRaw.charAt(0).toUpperCase() + planRaw.slice(1) + '»';
   const swBadge = document.getElementById('subWidgetBadge');
-  if (swBadge) swBadge.textContent = planRaw === 'free' ? 'Free' : planRaw.charAt(0).toUpperCase() + planRaw.slice(1);
+  if (swBadge) swBadge.textContent = planRaw === 'free' ? 'Бесплатный' : planRaw.charAt(0).toUpperCase() + planRaw.slice(1);
   const swFill = document.getElementById('subWidgetFill');
   if (swFill) swFill.style.width = monthlyLimit > 0 ? Math.round((usedThisMonth/monthlyLimit)*100)+'%' : '0%';
   const swLeft = document.getElementById('subWidgetLeft');
-  if (swLeft) swLeft.textContent = 'Ответов использовано: ' + usedThisMonth + ' из ' + monthlyLimit;
+  if (swLeft) swLeft.textContent = 'В этом месяце доступно ' + remaining + ' ответов';
   const swTokens = document.getElementById('subWidgetTokens');
   if (swTokens) swTokens.textContent = 'Токенов осталось: ' + balStr;
   const swForecast = document.getElementById('subWidgetForecast');
@@ -2415,7 +2436,7 @@ function applyUserData(u) {
     // Show recommendation if buying tokens is less cost-effective than upgrading
     if (planRaw === 'free' && balance < 50) {
       swRec.style.display = 'flex';
-      swRecText.textContent = 'Переход на PRO выгоднее: 500 ответов за 599₽ вместо 690₽ за 100 токенов';
+      swRecText.textContent = 'Переход на PRO выгоднее: больше ответов и автопилот в комплекте';
     } else {
       swRec.style.display = 'none';
     }
@@ -2467,10 +2488,10 @@ function applyUserData(u) {
   const sln = document.getElementById('settingsListItemName');
   if (sln) sln.textContent = safeName;
   const sls = document.getElementById('settingsListItemSub');
-  if (sls) sls.textContent = balStr + ' ответов \u2022 ' + plan + ' план';
+  if (sls) sls.textContent = balStr + ' ответов \u2022 ' + (plan === 'FREE' ? 'Бесплатный' : plan) + ' план';
   // Update subscription sub-row in settings list
   const sss = document.getElementById('settingsSubscriptionSub');
-  if (sss) sss.textContent = plan + ' \u2022 ' + balStr + ' ответов';
+  if (sss) sss.textContent = (plan === 'FREE' ? 'Бесплатный' : plan) + ' \u2022 ' + balStr + ' ответов';
 
   // Settings profile tab
   setAvatar(document.getElementById('settingsProfileAvatar'));
@@ -2648,7 +2669,7 @@ function updateMainButton() {
   if (pendingChanges.length > 0) {
     tg.MainButton.setParams({
       text: 'Сохранить ' + pendingChanges.length + ' измен.',
-      color: '#0D7C66',
+      color: '#6B7FD7',
       textColor: '#FFFFFF'
     });
     tg.MainButton.show();
@@ -3805,11 +3826,50 @@ function loadDisplaySettings() {
 
 let currentHomeTab = 'wb';
 
+// ===========================================================================
+// ONBOARDING FLOW (3 screens)
+// ===========================================================================
+
+let onboardingComplete = localStorage.getItem('repa_onboarding_done') === 'true';
+
+function showOnboarding() {
+  if (onboardingComplete) return;
+  const overlay = document.getElementById('onboardingOverlay');
+  if (overlay) overlay.style.display = '';
+  // Hide bottom nav during onboarding
+  const nav = document.querySelector('.bnav');
+  if (nav) nav.classList.add('nav-hidden');
+}
+
+function goOnboardingScreen(n) {
+  haptic('light');
+  for (let i = 1; i <= 3; i++) {
+    const s = document.getElementById('onbScreen' + i);
+    const d = document.getElementById('onbDot' + i);
+    if (s) s.style.display = i === n ? '' : 'none';
+    if (d) { d.style.background = i === n ? 'var(--primary)' : 'var(--border)'; d.style.width = i === n ? '18px' : '6px'; d.style.borderRadius = '3px'; }
+  }
+}
+
+function finishOnboarding() {
+  haptic('success');
+  onboardingComplete = true;
+  localStorage.setItem('repa_onboarding_done', 'true');
+  const overlay = document.getElementById('onboardingOverlay');
+  if (overlay) overlay.style.display = 'none';
+  const nav = document.querySelector('.bnav');
+  if (nav) nav.classList.remove('nav-hidden');
+  // Open marketplace settings as the first action
+  openSettings('Marketplace');
+}
+
 function switchHomeTab(tab) {
   currentHomeTab = tab;
   haptic('light');
-  document.getElementById('homeTabWB').classList.toggle('active', tab === 'wb');
-  document.getElementById('homeTabOzon').classList.toggle('active', tab === 'ozon');
+  const wbTab = document.getElementById('homeTabWB');
+  const ozTab = document.getElementById('homeTabOzon');
+  if (wbTab) wbTab.classList.toggle('active', tab === 'wb');
+  if (ozTab) ozTab.classList.toggle('active', tab === 'ozon');
   // Update setup card based on platform
   const setupTitle = document.getElementById('setupTitle');
   const setupSub = document.getElementById('setupSub');
@@ -3851,7 +3911,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tg) {
     tg.ready();
     tg.expand();
-    tg.MainButton.setParams({ color: '#0D7C66', textColor: '#FFFFFF', text: 'Сохранить' });
+    tg.MainButton.setParams({ color: '#6B7FD7', textColor: '#FFFFFF', text: 'Сохранить' });
     tg.MainButton.hide();
     tg.MainButton.onClick(() => { saveSettings(); });
     if (tg.BackButton) { tg.BackButton.onClick(() => { navigateBack(); }); }
@@ -3887,6 +3947,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initLiveFeed();
     initChart();
     loadTokenUsageHistory();
+    // Show onboarding for first-time users
+    if (!onboardingComplete && !currentUser?.wb_connected && !currentUser?.ozon_connected) {
+      showOnboarding();
+    }
   });
 
   // --- Init UI components ---
@@ -3959,7 +4023,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  console.log('Репа Mini App initialized. Mock mode:', useMockData);
+  console.log('Repa Mini App initialized. Mock mode:', useMockData);
 });
 </script>
 </body>
