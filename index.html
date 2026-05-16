@@ -2465,6 +2465,8 @@ async function loadUserData() {
       total_responses: 0,
       weekly_gens: 0,
       monthly_gens: 0,
+      monthly_limit: 5,
+      used_this_month: 0,
       wb_connected: false,
       ozon_connected: false,
       autopilot_enabled: false,
@@ -2553,12 +2555,14 @@ function applyUserData(u) {
   function setAvatar(el) {
     if (!el) return;
     if (photoUrl) {
+      el.style.backgroundColor = 'transparent';
       el.style.backgroundImage = 'url(' + photoUrl + ')';
       el.style.backgroundSize = 'cover';
       el.style.backgroundPosition = 'center';
       el.style.color = 'transparent';
       el.textContent = '';
     } else {
+      el.style.backgroundColor = '';
       el.style.backgroundImage = '';
       el.style.color = '';
       el.textContent = initials.toUpperCase();
