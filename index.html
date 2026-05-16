@@ -2125,7 +2125,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 // ===========================================================================
 
 // === MOCK DATA (fallback when no backend) ===
-const MOCK_USER = {id:'usr_001',telegram_id:0,first_name:'',last_name:'',username:'',level:1,xp:0,xp_to_next:500,balance:0,plan:'free',wb_connected:false,ozon_connected:false,new_reviews:0,total_responses:0,weekly_gens:0,monthly_gens:0,avg_quality:0,autopilot_enabled:false,referrals_count:0,settings:{night_mode:false,monitoring:false,follow_up:false,recommendations:false,negative_reaction:false,auto_response:false,brand_safety:false,brand_name:'',brand_voice:'',response_style:'professional',tone:'friendly'}};
+const MOCK_USER = {id:'usr_001',telegram_id:0,first_name:'Пользователь',last_name:'',username:'',level:1,xp:0,xp_to_next:500,balance:0,plan:'free',wb_connected:false,ozon_connected:false,new_reviews:0,total_responses:0,weekly_gens:0,monthly_gens:0,avg_quality:0,autopilot_enabled:false,referrals_count:0,settings:{night_mode:false,monitoring:false,follow_up:false,recommendations:false,negative_reaction:false,auto_response:false,brand_safety:false,brand_name:'',brand_voice:'',response_style:'professional',tone:'friendly'}};
 const MOCK_REVIEWS = [];
 const MOCK_LIVE_FEED = [];
 
@@ -2458,6 +2458,18 @@ async function loadUserData() {
       username: tgUser.username || '',
       telegram_id: tgUser.id || 0,
       photo_url: tgUser.photo_url || '',
+      plan: 'free',
+      balance: 0,
+      level: 1,
+      xp: 0,
+      total_responses: 0,
+      weekly_gens: 0,
+      monthly_gens: 0,
+      wb_connected: false,
+      ozon_connected: false,
+      autopilot_enabled: false,
+      referrals_count: 0,
+      settings: {},
     };
     applyUserData(quickUser);
   }
@@ -2470,13 +2482,20 @@ async function loadUserData() {
       showLoading('Загрузка данных...');
       const res = await fetch(API_BASE + '/api/user', { headers: getAuthHeaders(), signal: controller.signal });
       clearTimeout(timeoutId);
-      if (res.status === 401 && tg) {
-        console.warn('[user] Session expired — reloading mini app to get fresh initData');
+      if (res.status === 401) {
+        console.warn('[user] API returned 401 — falling back to Telegram user data');
+        // Don't close the app — just use tgUser data + mock defaults
+        useMockData = true;
+        currentUser = { ...MOCK_USER };
+        if (tgUser) {
+          currentUser.first_name = tgUser.first_name || '';
+          currentUser.last_name = tgUser.last_name || '';
+          currentUser.username = tgUser.username || '';
+          currentUser.telegram_id = tgUser.id || 0;
+          if (tgUser.photo_url) currentUser.photo_url = tgUser.photo_url;
+        }
+        applyUserData(currentUser);
         hideLoading();
-        tg.showPopup({ title: 'Сессия истекла', message: 'Нажмите ОК для обновления', type: 'warning' }, () => {
-          // Close and reopen to get fresh initData
-          tg.close();
-        });
         return;
       }
       if (!res.ok) throw new Error('API ' + res.status);
