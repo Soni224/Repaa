@@ -475,87 +475,88 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 /* Safe area padding */
 body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
-/* === HOME REDESIGN: Premium clean layout === */
+/* === HOME REDESIGN: Calm, clear, controlled === */
 
-/* Top header row */
-.home-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-top:4px}
+/* Top header — minimal, just name + balance */
+.home-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-top:4px}
 .home-header-left{display:flex;align-items:center;gap:10px}
-.home-avatar{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:transform .15s;flex-shrink:0}
+.home-avatar{width:32px;height:32px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:transform .15s;flex-shrink:0}
 .home-avatar:active{transform:scale(.9)}
-.home-brand{font-size:17px;font-weight:700;color:var(--text);line-height:1.2}
+.home-brand{font-size:18px;font-weight:700;color:var(--text);line-height:1.2}
 .home-brand-sub{font-size:11px;color:var(--text-3);font-weight:500}
 .home-header-right{display:flex;align-items:center;gap:8px}
-.home-balance-widget{display:flex;align-items:center;gap:6px;background:var(--bg-input);border-radius:var(--radius-full);padding:6px 10px 6px 12px;cursor:pointer;transition:all .15s}
-.home-balance-widget:active{transform:scale(.96);background:var(--border)}
-.home-balance-val{font-size:14px;font-weight:700;color:var(--text)}
-.home-balance-cur{font-size:11px;color:var(--text-3);font-weight:500}
+
+/* Balance pill — prominent but calm */
+.home-balance-widget{display:flex;align-items:center;gap:8px;background:var(--primary-soft);border-radius:var(--radius-full);padding:8px 12px 8px 14px;cursor:pointer;transition:all .15s}
+.home-balance-widget:active{transform:scale(.96);background:var(--primary-light)}
+.home-balance-val{font-size:18px;font-weight:700;color:var(--primary)}
+.home-balance-cur{font-size:11px;color:var(--text-2);font-weight:500}
 .home-balance-plus{width:22px;height:22px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
 .home-balance-plus svg{width:13px;height:13px}
-/* home-theme-btn removed — theme toggle moved to Settings */
 
-/* Marketplace tabs */
-.home-tabs-row{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+/* Marketplace tabs — compact */
+.home-tabs-row{display:flex;align-items:center;justify-content:center;margin-bottom:16px}
 .home-tabs{display:flex;gap:2px;padding:3px;background:var(--bg-input);border-radius:var(--radius-sm);width:fit-content}
-.home-tab{padding:7px 22px;font-size:12px;font-weight:600;color:var(--text-3);border-radius:8px;cursor:pointer;transition:all .2s}
+.home-tab{padding:6px 18px;font-size:12px;font-weight:600;color:var(--text-3);border-radius:8px;cursor:pointer;transition:all .2s}
 .home-tab.active{background:var(--bg-card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .home-tab:active{transform:scale(.96)}
 
-/* Onboarding checklist */
-.onboarding-card{background:var(--bg-card);border:1.5px solid var(--primary);border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(13,124,102,.08)}
-.onboarding-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.onboarding-title{font-size:15px;font-weight:700;color:var(--text)}
-.onboarding-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary)}
+/* Onboarding — sequential, only current step prominent */
+.onboarding-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.onboarding-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.onboarding-title{font-size:14px;font-weight:700;color:var(--text)}
+.onboarding-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary)}
 .onboarding-steps{display:flex;flex-direction:column;gap:0}
-.onboarding-step{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .15s}
+.onboarding-step{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .15s}
 .onboarding-step:last-child{border-bottom:none;padding-bottom:0}
 .onboarding-step:first-child{padding-top:0}
 .onboarding-step:active{opacity:.7}
-.onboarding-step-ico{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;font-weight:700}
+.onboarding-step-ico{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700}
 .onboarding-step-ico.done{background:var(--success-light);color:var(--success)}
 .onboarding-step-ico.todo{background:var(--bg-input);color:var(--text-3);border:1.5px dashed var(--border)}
-.onboarding-step-ico.current{background:var(--primary-light);color:var(--primary);border:1.5px solid var(--primary)}
-.onboarding-step:has(.onboarding-step-ico.done){opacity:.55}
-.onboarding-step:has(.onboarding-step-ico.done) .onboarding-step-text{color:var(--text-3);font-weight:500}
-.onboarding-step:has(.onboarding-step-ico.todo):not(:has(~ .onboarding-step:has(.onboarding-step-ico.todo))){background:var(--primary-soft);border-radius:var(--radius-sm);padding:12px;margin:-4px -8px}
-.onboarding-step:has(.onboarding-step-ico.todo):not(:has(~ .onboarding-step:has(.onboarding-step-ico.todo))) .onboarding-step-ico{box-shadow:0 2px 8px rgba(13,124,102,.2);background:var(--primary-light);color:var(--primary);border:1.5px solid var(--primary)}
-.onboarding-step:has(.onboarding-step-ico.todo):has(~ .onboarding-step:has(.onboarding-step-ico.todo)){opacity:.45;pointer-events:none}
-.onboarding-step:has(.onboarding-step-ico.todo):has(~ .onboarding-step:has(.onboarding-step-ico.todo)) .onboarding-step-text{color:var(--text-3)}
+.onboarding-step-ico.current{background:var(--primary-light);color:var(--primary);border:1.5px solid var(--primary);box-shadow:0 2px 8px rgba(13,124,102,.18)}
+/* JS-controlled visual states (reliable across WebViews) */
+.onboarding-step.step-done{opacity:.5}
+.onboarding-step.step-done .onboarding-step-text{color:var(--text-3);font-weight:500;text-decoration:line-through}
+.onboarding-step.step-current{background:var(--primary-soft);border-radius:var(--radius-sm);padding:10px;margin:-2px -4px;border-bottom-color:transparent}
+.onboarding-step.step-locked{opacity:.4;pointer-events:none}
+.onboarding-step.step-locked .onboarding-step-text{color:var(--text-3)}
 .onboarding-step-body{flex:1;min-width:0}
 .onboarding-step-text{font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
 .onboarding-step-sub{font-size:11px;color:var(--text-3);margin-top:1px}
 .onboarding-step-action{font-size:11px;font-weight:600;color:var(--primary);margin-top:2px}
 .onboarding-step-chev{color:var(--text-3);flex-shrink:0;opacity:.4}
+.onboarding-step.step-done .onboarding-step-chev{display:none}
 
-/* Subscription/tariff bar */
-.sub-bar{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-.sub-bar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+/* Subscription/tariff bar — compact status */
+.sub-bar{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px}
+.sub-bar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .sub-bar-tariff{font-size:13px;font-weight:700;color:var(--text)}
 .sub-bar-date{font-size:11px;color:var(--text-3)}
-.sub-bar-track{height:6px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:6px}
+.sub-bar-track{height:4px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:6px}
 .sub-bar-fill{height:100%;background:var(--primary);border-radius:var(--radius-full);transition:width .5s ease}
 .sub-bar-info{display:flex;align-items:center;justify-content:space-between}
 .sub-bar-left{font-size:11px;color:var(--text-3)}
 .sub-bar-buy{font-size:11px;font-weight:600;color:var(--primary);cursor:pointer;padding:3px 8px;border-radius:var(--radius-full);background:var(--primary-soft);transition:all .15s}
 .sub-bar-buy:active{transform:scale(.95)}
 
-/* Quick action pills */
-.home-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.home-action-pill{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);cursor:pointer;transition:all .15s;box-shadow:var(--shadow);position:relative}
-.home-action-pill:active{transform:scale(.98)}
-.home-action-pill.locked{opacity:.45;pointer-events:none}
+/* Quick actions — 2-column compact grid */
+.home-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.home-action-pill{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);cursor:pointer;transition:all .15s;position:relative;text-align:center}
+.home-action-pill:active{transform:scale(.97)}
+.home-action-pill.locked{opacity:.4;pointer-events:none}
 .home-action-pill.locked .home-action-pill-ico{filter:grayscale(1);opacity:.5}
 .home-action-pill.locked .home-action-pill-lock{background:var(--danger-light);color:var(--danger);font-size:9px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full)}
-.home-action-pill-ico{width:38px;height:38px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.home-action-pill-ico svg{width:20px;height:20px}
+.home-action-pill-ico{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.home-action-pill-ico svg{width:18px;height:18px}
 .home-action-pill-body{flex:1;min-width:0}
-.home-action-pill-text{font-size:14px;font-weight:600;color:var(--text)}
-.home-action-pill-sub{font-size:11px;color:var(--text-3);margin-top:1px}
-.home-action-pill-chev{color:var(--text-3);flex-shrink:0;opacity:.4}
-.home-action-pill-lock{position:absolute;top:8px;right:12px;font-size:9px;font-weight:600;color:var(--text-3);background:var(--bg-input);padding:2px 7px;border-radius:var(--radius-full)}
+.home-action-pill-text{font-size:12px;font-weight:600;color:var(--text);line-height:1.3}
+.home-action-pill-sub{font-size:10px;color:var(--text-3);margin-top:1px;line-height:1.3}
+.home-action-pill-chev{display:none}
+.home-action-pill-lock{position:absolute;top:6px;right:8px;font-size:9px;font-weight:600;color:var(--text-3);background:var(--bg-input);padding:2px 7px;border-radius:var(--radius-full)}
 
-/* Brand Voice widget — reduced weight */
-.brand-voice-widget{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;box-shadow:none;cursor:pointer;transition:all .15s}
-.brand-voice-widget:active{transform:scale(.98)}
+/* Brand Voice — inline compact row */
+.brand-voice-widget{display:none}
 .brand-voice-top{display:flex;align-items:center;gap:10px}
 .brand-voice-ico{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--warning-light);display:flex;align-items:center;justify-content:center;color:var(--warning);flex-shrink:0}
 .brand-voice-ico svg{width:18px;height:18px}
@@ -564,8 +565,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .brand-voice-sub{font-size:11px;color:var(--warning);margin-top:1px;font-weight:500}
 .brand-voice-chev{color:var(--text-3);flex-shrink:0;opacity:.4}
 
-/* Autopilot status pill */
-.autopilot-status{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--radius-sm);background:var(--bg-input);margin-bottom:16px}
+/* Autopilot status — inline in sub-bar area */
+.autopilot-status{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--radius-sm);background:var(--bg-input);margin-bottom:10px;cursor:pointer}
 .autopilot-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .autopilot-dot.on{background:var(--success)}
 .autopilot-dot.test{background:var(--warning)}
@@ -573,12 +574,12 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .autopilot-text{font-size:12px;font-weight:500;color:var(--text-2)}
 .autopilot-text strong{color:var(--text);font-weight:600}
 
-/* Empty state CTA */
-.empty-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px 20px;text-align:center;margin-bottom:16px;box-shadow:var(--shadow)}
-.empty-cta-icon{width:56px;height:56px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--primary)}
-.empty-cta-icon svg{width:26px;height:26px}
-.empty-cta-text{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
-.empty-cta-sub{font-size:12px;color:var(--text-3);margin-bottom:16px;line-height:1.5}
+/* Empty state CTA — compact */
+.empty-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;text-align:center;margin-bottom:12px}
+.empty-cta-icon{width:44px;height:44px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:var(--primary)}
+.empty-cta-icon svg{width:22px;height:22px}
+.empty-cta-text{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+.empty-cta-sub{font-size:12px;color:var(--text-3);margin-bottom:12px;line-height:1.4}
 .empty-cta-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:var(--radius-sm);background:var(--primary);color:#fff;font-size:13px;font-weight:600;transition:all .15s}
 .empty-cta-btn:active{transform:scale(.96)}
 
@@ -873,18 +874,17 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <div style="font-size:11px;color:var(--text-3);margin-top:2px;margin-left:16px">Автоматические ответы на отзывы</div>
   </div>
 
-  <!-- Quick Actions (horizontal pills) -->
+  <!-- Quick Actions — 2-column compact grid -->
   <div class="home-actions">
     <div class="home-action-pill locked anim-pill" id="actionReply" onclick="navigateTo('reviews')">
       <div class="home-action-pill-ico" style="background:var(--primary-soft);color:var(--primary)">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
       </div>
       <div class="home-action-pill-body">
-        <div class="home-action-pill-text">Ответить на отзывы</div>
-        <div class="home-action-pill-sub" id="actionReplySub">0 новых отзывов</div>
+        <div class="home-action-pill-text">Отзывы</div>
+        <div class="home-action-pill-sub" id="actionReplySub">0 новых</div>
       </div>
-      <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      <div class="home-action-pill-lock" id="actionReplyLock">Подключите API</div>
+      <div class="home-action-pill-lock" id="actionReplyLock">API</div>
     </div>
     <div class="home-action-pill locked anim-pill" id="actionAutopilot" onclick="openSettings('Autopilot')">
       <div class="home-action-pill-ico" style="background:var(--success-light);color:var(--success)">
@@ -892,62 +892,68 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
       <div class="home-action-pill-body">
         <div class="home-action-pill-text">Автопилот</div>
-        <div class="home-action-pill-sub" id="actionAutopilotSub">Выключен — настройте в Автопилот</div>
+        <div class="home-action-pill-sub" id="actionAutopilotSub">Выключен</div>
       </div>
-      <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      <div class="home-action-pill-lock" id="actionAutopilotLock">Подключите API</div>
+      <div class="home-action-pill-lock" id="actionAutopilotLock">API</div>
     </div>
     <div class="home-action-pill anim-pill" onclick="openSettings('BrandVoice')">
       <div class="home-action-pill-ico" style="background:var(--warning-light);color:var(--warning)">
-        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
       </div>
       <div class="home-action-pill-body">
-        <div class="home-action-pill-text">Стиль ответов</div>
-        <div class="home-action-pill-sub">Настроить тон и примеры</div>
+        <div class="home-action-pill-text">Стиль</div>
+        <div class="home-action-pill-sub" id="brandVoiceSub">Стандартный тон</div>
       </div>
-      <svg class="home-action-pill-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div class="home-action-pill anim-pill" onclick="openSettings('Marketplace')">
+      <div class="home-action-pill-ico" style="background:rgba(155,45,255,.1);color:#9B2DFF">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      </div>
+      <div class="home-action-pill-body">
+        <div class="home-action-pill-text">Магазин</div>
+        <div class="home-action-pill-sub" id="marketplaceSub">Подключить</div>
+      </div>
     </div>
   </div>
 
-  <!-- Brand Voice Widget -->
-  <div class="brand-voice-widget anim-brand" onclick="openSettings('BrandVoice')" id="brandVoiceWidget">
+  <!-- Brand Voice Widget — hidden, merged into action grid above -->
+  <div class="brand-voice-widget anim-brand" onclick="openSettings('BrandVoice')" id="brandVoiceWidget" style="display:none">
     <div class="brand-voice-top">
       <div class="brand-voice-ico">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
       </div>
       <div class="brand-voice-body">
         <div class="brand-voice-text">Стиль ответов</div>
-        <div class="brand-voice-sub" id="brandVoiceSub">Стандартный тон</div>
+        <div class="brand-voice-sub" id="brandVoiceSubAlt">Стандартный тон</div>
       </div>
       <svg class="brand-voice-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
   </div>
 
-  <!-- Empty State CTA (shown when no reviews) -->
-  <div class="empty-cta anim-card" id="emptyCta">
+  <!-- Main CTA — primary action button -->
+  <div id="emptyCta" class="empty-cta anim-card">
     <div class="empty-cta-icon">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     </div>
-    <div class="empty-cta-text">Здесь будут новые отзывы</div>
-    <div class="empty-cta-sub">Подключите магазин, чтобы начать получать уведомления</div>
+    <div class="empty-cta-text">Подключите магазин</div>
+    <div class="empty-cta-sub">Чтобы получать и отвечать на отзывы</div>
     <button class="empty-cta-btn" onclick="openSettings('Marketplace')">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Подключить магазин
     </button>
   </div>
 
-  <!-- Active CTA (shown when there are reviews) -->
   <button class="btn btn-p main-cta" id="activeCta" onclick="navigateTo('reviews')" style="width:100%;display:none">
-    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-    Ответить на <span id="liveReviewCount">0</span> новых отзывов
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+    Ответить на <span id="liveReviewCount">0</span> отзывов
     <span class="live-badge" id="ctaBadge" style="display:none">0</span>
   </button>
 
-  <div class="sec-h anim-sec">
+  <div class="sec-h anim-sec" style="margin-top:4px">
     <div class="sec-t secondary-feed">Лента событий</div>
     <div class="sec-link" style="opacity:.5"><span class="dot dot-on"></span> Эфир</div>
   </div>
-  <div class="card anim-card" id="liveFeed"><div class="empty-state" id="emptyLiveFeed" style="display:none"><div class="empty-state-icon" style="font-size:28px">📡</div><div style="font-size:13px;font-weight:600;color:var(--text-2)">Лента пуста</div><div style="font-size:11px;color:var(--text-3);margin-top:3px">Новые события появятся автоматически</div></div></div>
+  <div class="card anim-card" id="liveFeed" style="padding:12px"><div class="empty-state" id="emptyLiveFeed" style="display:none;padding:20px"><div style="font-size:13px;font-weight:600;color:var(--text-2)">Лента пуста</div><div style="font-size:11px;color:var(--text-3);margin-top:3px">События появятся автоматически</div></div></div>
 
   <!-- Hidden data elements (used by applyUserData JS) -->
   <div style="display:none">
@@ -2329,27 +2335,52 @@ function applyUserData(u) {
   const aas = document.getElementById('actionAutopilotSub');
   if (aas) aas.textContent = apOn ? 'Активен — отвечает автоматически' : 'Выключен — настройте в Автопилот';
 
-  // Onboarding steps update
+  // Onboarding steps update — JS-controlled visual states (reliable across WebViews)
   const step2Ico = document.getElementById('onboardStep2Ico');
   const step3Ico = document.getElementById('onboardStep3Ico');
   const step4Ico = document.getElementById('onboardStep4Ico');
   const onboardingBadge = document.getElementById('onboardingBadge');
   const onboardingTitle = document.querySelector('.onboarding-title');
+  const onboardingSteps = document.querySelectorAll('.onboarding-step');
   let completedSteps = 1; // Step 1 (register) is always done
-  if (anyPlatformConnected && step2Ico) { step2Ico.className = 'onboarding-step-ico done'; step2Ico.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'; completedSteps++; }
-  if (bal > 0 && step3Ico) { step3Ico.className = 'onboarding-step-ico done'; step3Ico.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'; completedSteps++; }
-  if (apOn && step4Ico) { step4Ico.className = 'onboarding-step-ico done'; step4Ico.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'; completedSteps++; }
+  const checkSvg = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+  if (anyPlatformConnected && step2Ico) { step2Ico.className = 'onboarding-step-ico done'; step2Ico.innerHTML = checkSvg; completedSteps++; }
+  if (bal > 0 && step3Ico) { step3Ico.className = 'onboarding-step-ico done'; step3Ico.innerHTML = checkSvg; completedSteps++; }
+  if (apOn && step4Ico) { step4Ico.className = 'onboarding-step-ico done'; step4Ico.innerHTML = checkSvg; completedSteps++; }
+
+  // Apply step-done / step-current / step-locked classes
+  let foundCurrent = false;
+  onboardingSteps.forEach(function(step) {
+    const ico = step.querySelector('.onboarding-step-ico');
+    if (!ico) return;
+    step.classList.remove('step-done', 'step-current', 'step-locked');
+    if (ico.classList.contains('done')) {
+      step.classList.add('step-done');
+    } else if (!foundCurrent) {
+      ico.classList.add('current');
+      ico.classList.remove('todo');
+      step.classList.add('step-current');
+      foundCurrent = true;
+    } else {
+      step.classList.add('step-locked');
+    }
+  });
+
   if (onboardingBadge) onboardingBadge.textContent = completedSteps + ' из 4';
   if (onboardingTitle) {
     const remaining = 4 - completedSteps;
     if (completedSteps >= 4) {
-      onboardingTitle.textContent = 'Всё настроено!';
+      onboardingTitle.textContent = 'Всё настроено';
     } else if (remaining === 1) {
       onboardingTitle.textContent = 'Остался 1 шаг до запуска';
     } else {
       onboardingTitle.textContent = 'Осталось ' + remaining + ' шага до запуска';
     }
   }
+
+  // Update marketplace sub text
+  const mpSub = document.getElementById('marketplaceSub');
+  if (mpSub) mpSub.textContent = anyPlatformConnected ? 'Подключён' : 'Подключить';
 
   // Subscription bar
   const planRaw = (u.plan || 'free');
