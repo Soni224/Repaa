@@ -1974,7 +1974,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
 <!-- ========== ONBOARDING OVERLAY (6 screens) ========== -->
 <style>
-.onb-anim-item{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+.onb-screen{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center}
+.onb-anim-item{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease;width:100%}
 .onb-anim-item.visible{opacity:1;transform:translateY(0)}
 .onb-card-glow{transition:box-shadow .4s ease}
 @keyframes onbScaleIn{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
@@ -1989,9 +1990,9 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <!-- Screen 1: Value Proposition -->
     <div class="onb-screen" id="onbScreen1">
       <div style="text-align:center;margin-bottom:40px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:24px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:-.3px">Repa отвечает на отзывы за тебя.</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:26px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:-.3px">Repa отвечает на отзывы за тебя.</div>
         <div class="onb-anim-item" data-delay="120" style="font-size:16px;color:var(--primary);margin-top:14px;font-weight:600">Быстрее. В стиле бренда. Без рутины.</div>
-        <div class="onb-anim-item" data-delay="240" style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Есть отзывы — значит, есть что ускорить. Repa превращает их в готовые ответы за секунды.</div>
+        <div class="onb-anim-item" data-delay="240" style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:300px;margin-left:auto;margin-right:auto">Есть отзывы — значит, есть что ускорить. Repa превращает их в готовые ответы за секунды.</div>
       </div>
       <div class="onb-anim-item" data-delay="360">
         <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(2)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Показать демо</button>
@@ -2023,8 +2024,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     <!-- Screen 3: Trial -->
     <div class="onb-screen" id="onbScreen3" style="display:none">
       <div style="text-align:center;margin-bottom:40px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:24px;font-weight:700;color:var(--text)">7 дней бесплатно.</div>
-        <div class="onb-anim-item" data-delay="120" style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Этого достаточно, чтобы понять, подходит ли тебе формат.</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:24px;font-weight:700;color:var(--text)">3 дня бесплатно.</div>
+        <div class="onb-anim-item" data-delay="120" style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:300px;margin-left:auto;margin-right:auto">Этого достаточно, чтобы понять, подходит ли тебе формат.</div>
         <div class="onb-anim-item" data-delay="220" style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
           <span class="onb-badge">без карты</span>
           <span class="onb-badge">пробуй спокойно</span>
@@ -4315,9 +4316,11 @@ function showOnboarding() {
   if (onboardingComplete) return;
   const overlay = document.getElementById('onboardingOverlay');
   if (overlay) overlay.style.display = '';
-  // Hide bottom nav during onboarding
+  // Hide bottom nav and MainButton during onboarding
   const nav = document.querySelector('.bnav');
   if (nav) nav.classList.add('nav-hidden');
+  if (tg && tg.MainButton) tg.MainButton.hide();
+  pendingChanges = [];
   // Restore last step or start from 1
   const saved = localStorage.getItem('repa_onb_step');
   if (saved) { const n = parseInt(saved); if (n >= 1 && n <= 6) goOnboardingScreen(n); }
@@ -4366,7 +4369,7 @@ function goOnboardingScreen(n) {
 function activateTrial() {
   const btn = document.getElementById('trialBtn');
   if (btn) { btn.textContent = 'Активируем...'; btn.disabled = true; }
-  fetch(API_BASE + '/activate-trial', { method: 'POST', headers: _onbApiHeaders() })
+  fetch(API_BASE + '/api/activate-trial', { method: 'POST', headers: _onbApiHeaders() })
     .then(r => r.json())
     .then(data => {
       haptic('success');
@@ -4385,7 +4388,7 @@ function sendOnboardingReview() {
 
   // Free onboarding generation — no balance deduction
   const body = JSON.stringify({ review_text: text, rating: 3, style: '' });
-  fetch(API_BASE + '/onboarding-generate', { method: 'POST', headers: _onbApiHeaders(), body })
+  fetch(API_BASE + '/api/onboarding-generate', { method: 'POST', headers: _onbApiHeaders(), body })
     .then(r => r.json())
     .then(data => {
       onbResponseText = data.response || 'Здравствуйте! Спасибо за ваш отзыв. Мы ценим обратную связь и обязательно учтём ваши комментарии.';
@@ -4405,7 +4408,7 @@ function adjustTone(tone) {
   const wresp = document.getElementById('wowResponse');
   if (wresp) wresp.style.opacity = '.4';
   const body = JSON.stringify({ review_text: onbReviewText, rating: 3, style: toneMap[tone] || '' });
-  fetch(API_BASE + '/onboarding-generate', { method: 'POST', headers: _onbApiHeaders(), body })
+  fetch(API_BASE + '/api/onboarding-generate', { method: 'POST', headers: _onbApiHeaders(), body })
     .then(r => r.json())
     .then(data => { if (data.response && wresp) { wresp.textContent = data.response; wresp.style.opacity = '1'; } })
     .catch(() => { if (wresp) wresp.style.opacity = '1'; });
@@ -4418,17 +4421,20 @@ function finishOnboarding(action) {
   localStorage.removeItem('repa_onb_step');
 
   // Notify backend that onboarding is complete
-  fetch(API_BASE + '/complete-onboarding', { method: 'POST', headers: _onbApiHeaders() }).catch(() => {});
+  fetch(API_BASE + '/api/complete-onboarding', { method: 'POST', headers: _onbApiHeaders() }).catch(() => {});
 
   const overlay = document.getElementById('onboardingOverlay');
   if (overlay) overlay.style.display = 'none';
   const nav = document.querySelector('.bnav');
   if (nav) nav.classList.remove('nav-hidden');
+  // Ensure MainButton stays hidden after onboarding completes
+  if (tg && tg.MainButton) tg.MainButton.hide();
+  pendingChanges = [];
 
   // Different actions depending on which button was pressed
   if (action === 'autopilot') {
     // Enable autopilot via API
-    fetch(API_BASE + '/autopilot', { method: 'POST', headers: _onbApiHeaders(), body: JSON.stringify({ enabled: true }) })
+    fetch(API_BASE + '/api/autopilot', { method: 'POST', headers: _onbApiHeaders(), body: JSON.stringify({ enabled: true }) })
       .then(() => { loadUserData(); showToast('Автопилот включён'); })
       .catch(() => { loadUserData(); });
   } else {
