@@ -1972,30 +1972,42 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 </div>
 </div>
 
-<!-- ========== ONBOARDING OVERLAY (3 screens) ========== -->
+<!-- ========== ONBOARDING OVERLAY (6 screens) ========== -->
+<style>
+.onb-anim-item{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+.onb-anim-item.visible{opacity:1;transform:translateY(0)}
+.onb-card-glow{transition:box-shadow .4s ease}
+@keyframes onbScaleIn{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
+.onb-scale-in{animation:onbScaleIn .4s ease forwards}
+.onb-badge{display:inline-block;font-size:11px;font-weight:600;padding:4px 12px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary)}
+.onb-tone-btn{font-size:12px;padding:6px 14px;border-radius:10px;border:1px solid var(--border);color:var(--text-2);background:var(--bg-card);transition:all .15s}
+.onb-tone-btn:active{opacity:.7;transform:scale(.96)}
+</style>
 <div class="onboarding-overlay" id="onboardingOverlay" style="display:none;position:fixed;inset:0;z-index:100;background:var(--bg);max-width:430px;margin:0 auto;overflow-y:auto">
-  <div style="min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 24px;position:relative" id="onboardingContent">
+  <div style="min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 24px 80px;position:relative" id="onboardingContent">
 
     <!-- Screen 1: Value Proposition -->
     <div class="onb-screen" id="onbScreen1">
       <div style="text-align:center;margin-bottom:40px">
-        <div style="font-size:24px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:-.3px">Repa отвечает на отзывы за тебя.</div>
-        <div style="font-size:16px;color:var(--primary);margin-top:14px;font-weight:600">Быстрее. В стиле бренда. Без рутины.</div>
-        <div style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Есть отзывы — значит, есть что ускорить. Repa превращает их в готовые ответы за секунды.</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:24px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:-.3px">Repa отвечает на отзывы за тебя.</div>
+        <div class="onb-anim-item" data-delay="120" style="font-size:16px;color:var(--primary);margin-top:14px;font-weight:600">Быстрее. В стиле бренда. Без рутины.</div>
+        <div class="onb-anim-item" data-delay="240" style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Есть отзывы — значит, есть что ускорить. Repa превращает их в готовые ответы за секунды.</div>
       </div>
-      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(2)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Показать демо</button>
+      <div class="onb-anim-item" data-delay="360">
+        <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(2)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Показать демо</button>
+      </div>
     </div>
 
     <!-- Screen 2: Demo -->
     <div class="onb-screen" id="onbScreen2" style="display:none">
       <div style="text-align:center;margin-bottom:20px">
-        <div style="font-size:20px;font-weight:700;color:var(--text)">Вот как это выглядит на деле.</div>
-        <div style="font-size:13px;color:var(--text-2);margin-top:6px">Repa берёт отзыв и превращает его в готовый ответ за секунды.</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Вот как это выглядит на деле.</div>
+        <div class="onb-anim-item" data-delay="100" style="font-size:13px;color:var(--text-2);margin-top:6px">Repa берёт отзыв и превращает его в готовый ответ за секунды.</div>
       </div>
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:24px;box-shadow:var(--shadow-card);text-align:left">
+      <div id="demoCard" class="onb-anim-item onb-card-glow" data-delay="200" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:24px;box-shadow:var(--shadow-card);text-align:left">
         <div style="margin-bottom:14px">
           <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Отзыв</div>
-          <div style="font-size:13px;line-height:1.6;color:var(--text)">Товар хороший, но упаковка пришла помятой. Доставка быстрая, но товар был помят.</div>
+          <div style="font-size:13px;line-height:1.6;color:var(--text)">Товар хороший, но упаковка пришла помятой.</div>
         </div>
         <div style="border-top:1px solid var(--border);margin-bottom:14px"></div>
         <div id="demoResponse" style="opacity:0;transform:translateY(8px);transition:all .5s ease">
@@ -2003,35 +2015,46 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
           <div style="font-size:13px;line-height:1.6;color:var(--text)">Здравствуйте! Спасибо, что поделились впечатлением. Рады, что товар вам понравился. Сожалеем, что упаковка пришла в таком виде — обязательно учтём это, чтобы становиться лучше. Спасибо за обратную связь!</div>
         </div>
       </div>
-      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(3)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Попробовать</button>
+      <div class="onb-anim-item" data-delay="400">
+        <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(3)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Попробовать</button>
+      </div>
     </div>
 
     <!-- Screen 3: Trial -->
     <div class="onb-screen" id="onbScreen3" style="display:none">
       <div style="text-align:center;margin-bottom:40px">
-        <div style="font-size:24px;font-weight:700;color:var(--text)">7 дней бесплатно.</div>
-        <div style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Этого достаточно, чтобы понять, подходит ли тебе формат.</div>
-        <div style="display:inline-block;font-size:11px;font-weight:600;padding:4px 12px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary);margin-top:16px">без карты</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:24px;font-weight:700;color:var(--text)">7 дней бесплатно.</div>
+        <div class="onb-anim-item" data-delay="120" style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto">Этого достаточно, чтобы понять, подходит ли тебе формат.</div>
+        <div class="onb-anim-item" data-delay="220" style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <span class="onb-badge">без карты</span>
+          <span class="onb-badge">пробуй спокойно</span>
+        </div>
       </div>
-      <button id="trialBtn" class="btn btn-p btn-lg" onclick="activateTrial()" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Активировать</button>
+      <div class="onb-anim-item" data-delay="320">
+        <button id="trialBtn" class="btn btn-p btn-lg" onclick="activateTrial()" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Активировать</button>
+      </div>
     </div>
 
     <!-- Screen 4: First Review -->
     <div class="onb-screen" id="onbScreen4" style="display:none">
       <div style="text-align:center;margin-bottom:20px">
-        <div style="font-size:20px;font-weight:700;color:var(--text)">Кидай первый отзыв.</div>
-        <div style="font-size:13px;color:var(--text-2);margin-top:6px">Вставь текст отзыва — и получишь готовый ответ.</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Кидай первый отзыв.</div>
+        <div class="onb-anim-item" data-delay="100" style="font-size:13px;color:var(--text-2);margin-top:6px">Вставь текст — и получишь готовый ответ.</div>
       </div>
-      <textarea id="onbReviewInput" class="inp" placeholder="Вставьте текст отзыва сюда..." style="width:100%;min-height:140px;border-radius:var(--radius-sm);font-size:14px;padding:14px;margin-bottom:16px;resize:none;border:1.5px solid var(--border);transition:border-color .2s" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'" oninput="const b=document.getElementById('onbSendBtn');b.disabled=this.value.trim().length<5;b.style.opacity=b.disabled?'.5':'1';b.style.cursor=b.disabled?'not-allowed':'pointer'"></textarea>
-      <button id="onbSendBtn" class="btn btn-p btn-lg" onclick="sendOnboardingReview()" disabled style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta);opacity:.5;cursor:not-allowed">Отправить</button>
+      <div class="onb-anim-item" data-delay="200">
+        <textarea id="onbReviewInput" class="inp" placeholder="Вставьте текст отзыва сюда..." style="width:100%;min-height:140px;border-radius:var(--radius-sm);font-size:14px;padding:14px;margin-bottom:16px;resize:none;border:1.5px solid var(--border);transition:border-color .2s" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'" oninput="const b=document.getElementById('onbSendBtn');b.disabled=this.value.trim().length<5;b.style.opacity=b.disabled?'.5':'1';b.style.cursor=b.disabled?'not-allowed':'pointer'"></textarea>
+      </div>
+      <div class="onb-anim-item" data-delay="300">
+        <button id="onbSendBtn" class="btn btn-p btn-lg" onclick="sendOnboardingReview()" disabled style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta);opacity:.5;cursor:not-allowed">Отправить</button>
+      </div>
     </div>
 
     <!-- Screen 5: Wow Effect -->
     <div class="onb-screen" id="onbScreen5" style="display:none">
       <div style="text-align:center;margin-bottom:16px">
-        <div style="font-size:16px;font-weight:700;color:var(--primary)">Ответ готов</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:16px;font-weight:700;color:var(--primary)">Ответ готов</div>
       </div>
-      <div id="wowCard" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:var(--shadow-card);text-align:left;transition:box-shadow .4s ease">
+      <div id="wowCard" class="onb-anim-item onb-card-glow" data-delay="100" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:var(--shadow-card);text-align:left;transform:scale(.96);transition:box-shadow .4s ease,transform .4s ease">
         <div style="margin-bottom:14px">
           <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Отзыв</div>
           <div id="wowReview" style="font-size:13px;line-height:1.6;color:var(--text)"></div>
@@ -2042,30 +2065,32 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
           <div id="wowResponse" style="font-size:13px;line-height:1.6;color:var(--text)"></div>
         </div>
       </div>
-      <div style="text-align:center;font-size:12px;color:var(--text-3);margin-bottom:12px">Можно отправлять сразу. Или подправить тон.</div>
-      <div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px">
-        <button class="btn" onclick="adjustTone('softer')" style="font-size:12px;padding:6px 14px;border-radius:10px;border:1px solid var(--border);color:var(--text-2);background:var(--bg-card)">Мягче</button>
-        <button class="btn" onclick="adjustTone('shorter')" style="font-size:12px;padding:6px 14px;border-radius:10px;border:1px solid var(--border);color:var(--text-2);background:var(--bg-card)">Короче</button>
-        <button class="btn" onclick="adjustTone('stricter')" style="font-size:12px;padding:6px 14px;border-radius:10px;border:1px solid var(--border);color:var(--text-2);background:var(--bg-card)">Строже</button>
+      <div class="onb-anim-item" data-delay="300" style="text-align:center;font-size:12px;color:var(--text-3);margin-bottom:12px">Можно отправлять сразу. Или подправить тон.</div>
+      <div class="onb-anim-item" data-delay="350" style="display:flex;gap:8px;justify-content:center;margin-bottom:20px">
+        <button class="btn onb-tone-btn" onclick="adjustTone('softer')">Мягче</button>
+        <button class="btn onb-tone-btn" onclick="adjustTone('shorter')">Короче</button>
+        <button class="btn onb-tone-btn" onclick="adjustTone('stricter')">Строже</button>
       </div>
-      <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(6)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Продолжить</button>
+      <div class="onb-anim-item" data-delay="400">
+        <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(6)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Продолжить</button>
+      </div>
     </div>
 
     <!-- Screen 6: Final -->
     <div class="onb-screen" id="onbScreen6" style="display:none">
       <div style="text-align:center;margin-bottom:32px">
-        <div style="font-size:20px;font-weight:700;color:var(--text)">Теперь Repa может делать это регулярно.</div>
-        <div style="font-size:14px;color:var(--text-2);margin-top:10px">Подключи магазин и включи автопилот.</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Теперь Repa может делать это регулярно.</div>
+        <div class="onb-anim-item" data-delay="120" style="font-size:14px;color:var(--text-2);margin-top:10px">Подключи магазин и включи автопилот.</div>
       </div>
-      <div style="width:100%;max-width:280px;margin:0 auto;display:flex;flex-direction:column;gap:12px">
-        <button class="btn btn-p btn-lg" onclick="finishOnboarding()" style="width:100%;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Подключить магазин</button>
-        <button class="btn btn-lg" onclick="finishOnboarding()" style="width:100%;border-radius:var(--radius);font-size:16px;padding:14px;border:1px solid var(--border);color:var(--text);background:var(--bg-card)">Включить автопилот</button>
+      <div class="onb-anim-item" data-delay="220" style="width:100%;max-width:280px;margin:0 auto;display:flex;flex-direction:column;gap:12px">
+        <button class="btn btn-p btn-lg" onclick="finishOnboarding('store')" style="width:100%;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Подключить магазин</button>
+        <button class="btn btn-lg" onclick="finishOnboarding('autopilot')" style="width:100%;border-radius:var(--radius);font-size:16px;padding:14px;border:1px solid var(--border);color:var(--text);background:var(--bg-card)">Включить автопилот</button>
         <div style="text-align:center;font-size:12px;color:var(--text-3)">чтобы Repa отвечала сама</div>
       </div>
     </div>
 
     <!-- Step dots -->
-    <div id="onbDots" style="position:fixed;bottom:16px;left:0;right:0;display:flex;justify-content:center;gap:6px">
+    <div id="onbDots" style="position:fixed;bottom:16px;left:0;right:0;display:flex;justify-content:center;gap:6px;max-width:430px;margin:0 auto">
       <div class="onb-dot" id="onbDot1" style="width:18px;height:5px;border-radius:3px;background:var(--primary);transition:all .3s"></div>
       <div class="onb-dot" id="onbDot2" style="width:5px;height:5px;border-radius:3px;background:var(--border);transition:all .3s"></div>
       <div class="onb-dot" id="onbDot3" style="width:5px;height:5px;border-radius:3px;background:var(--border);transition:all .3s"></div>
@@ -2135,7 +2160,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 // ===========================================================================
 
 // === MOCK DATA (fallback when no backend) ===
-const MOCK_USER = {id:'usr_001',telegram_id:0,first_name:'Пользователь',last_name:'',username:'',level:1,xp:0,xp_to_next:500,balance:0,plan:'free',wb_connected:false,ozon_connected:false,new_reviews:0,total_responses:0,weekly_gens:0,monthly_gens:0,avg_quality:0,autopilot_enabled:false,referrals_count:0,settings:{night_mode:false,monitoring:false,follow_up:false,recommendations:false,negative_reaction:false,auto_response:false,brand_safety:false,brand_name:'',brand_voice:'',response_style:'professional',tone:'friendly'}};
+const MOCK_USER = {id:'usr_001',telegram_id:0,first_name:'Пользователь',last_name:'',username:'',level:1,xp:0,xp_to_next:500,balance:0,plan:'free',wb_connected:false,ozon_connected:false,new_reviews:0,total_responses:0,weekly_gens:0,monthly_gens:0,avg_quality:0,autopilot_enabled:false,referrals_count:0,onboarding_completed:true,settings:{night_mode:false,monitoring:false,follow_up:false,recommendations:false,negative_reaction:false,auto_response:false,brand_safety:false,brand_name:'',brand_voice:'',response_style:'professional',tone:'friendly'}};
 const MOCK_REVIEWS = [];
 const MOCK_LIVE_FEED = [];
 
@@ -2374,6 +2399,7 @@ const SCREEN_HASH_MAP = {
   'store': 'settings|Subscription',
   'analytics': 'analytics',
   'platforms': 'platforms',
+  'onboarding': 'onboarding',
   // Legacy aliases (backward compat)
   'settings/generation': 'settings|BrandVoice',
   'settings/automation': 'settings|Autopilot',
@@ -2426,6 +2452,9 @@ function navigateFromHash() {
   } else if (mapping === 'platforms') {
     navigateTo('home');
     setTimeout(() => openSub('subPlatforms'), 200);
+  } else if (mapping === 'onboarding') {
+    // ?screen=onboarding — triggered from /start in bot
+    showOnboarding();
   } else if (mapping === 'settings') {
     openSettings();
   } else {
@@ -4259,12 +4288,28 @@ function loadDisplaySettings() {
 let currentHomeTab = 'wb';
 
 // ===========================================================================
-// ONBOARDING FLOW (3 screens)
+// ONBOARDING FLOW (6 screens)
 // ===========================================================================
 
-let onboardingComplete = localStorage.getItem('repa_onboarding_done') === 'true';
+let onboardingComplete = false;  // Set from DB after /api/user loads
 let onbReviewText = '';
 let onbResponseText = '';
+
+function _onbApiHeaders() {
+  const h = { 'Content-Type': 'application/json' };
+  if (tg && tg.initData) h['X-Telegram-Init-Data'] = tg.initData;
+  return h;
+}
+
+function _triggerOnbAnimations(screenEl) {
+  if (!screenEl) return;
+  const items = screenEl.querySelectorAll('.onb-anim-item');
+  items.forEach(item => {
+    item.classList.remove('visible');
+    const delay = parseInt(item.getAttribute('data-delay') || '0');
+    setTimeout(() => { item.classList.add('visible'); }, delay + 50);
+  });
+}
 
 function showOnboarding() {
   if (onboardingComplete) return;
@@ -4273,9 +4318,10 @@ function showOnboarding() {
   // Hide bottom nav during onboarding
   const nav = document.querySelector('.bnav');
   if (nav) nav.classList.add('nav-hidden');
-  // Restore last step
+  // Restore last step or start from 1
   const saved = localStorage.getItem('repa_onb_step');
   if (saved) { const n = parseInt(saved); if (n >= 1 && n <= 6) goOnboardingScreen(n); }
+  else { goOnboardingScreen(1); }
 }
 
 function goOnboardingScreen(n) {
@@ -4287,32 +4333,45 @@ function goOnboardingScreen(n) {
     if (s) s.style.display = i === n ? '' : 'none';
     if (d) { d.style.background = i === n ? 'var(--primary)' : 'var(--border)'; d.style.width = i === n ? '18px' : '5px'; }
   }
+
+  // Trigger staggered fade-in + rise animations for this screen
+  const screenEl = document.getElementById('onbScreen' + n);
+  _triggerOnbAnimations(screenEl);
+
   // Screen-specific animations
   if (n === 2) {
-    // Demo: show response with delay
+    // Demo: show response with delay + card glow
     const dr = document.getElementById('demoResponse');
-    if (dr) { dr.style.opacity = '0'; dr.style.transform = 'translateY(8px)'; setTimeout(() => { dr.style.opacity = '1'; dr.style.transform = 'translateY(0)'; }, 800); }
+    if (dr) { dr.style.opacity = '0'; dr.style.transform = 'translateY(8px)'; setTimeout(() => { dr.style.opacity = '1'; dr.style.transform = 'translateY(0)'; }, 900); }
+    const card = document.getElementById('demoCard');
+    if (card) { setTimeout(() => { card.style.boxShadow = '0 0 20px rgba(123,143,212,.2), var(--shadow-card)'; }, 1500); setTimeout(() => { card.style.boxShadow = 'var(--shadow-card)'; }, 2000); }
   }
   if (n === 5) {
-    // Wow effect: fill review/response, animate
+    // Wow effect: fill review/response, scale-in card, animate response
     const wr = document.getElementById('wowReview');
     const wresp = document.getElementById('wowResponse');
     const wb = document.getElementById('wowResponseBlock');
     const wc = document.getElementById('wowCard');
     if (wr) wr.textContent = onbReviewText || 'Товар хороший, но упаковка пришла помятой.';
     if (wresp) wresp.textContent = onbResponseText || 'Здравствуйте! Спасибо за обратную связь. Сожалеем о проблеме с упаковкой — обязательно улучшим.';
-    if (wb) { wb.style.opacity = '0'; wb.style.transform = 'translateY(8px)'; setTimeout(() => { wb.style.opacity = '1'; wb.style.transform = 'translateY(0)'; }, 600); }
-    if (wc) { setTimeout(() => { wc.style.boxShadow = '0 0 20px rgba(123,143,212,.25), var(--shadow-card)'; }, 1400); setTimeout(() => { wc.style.boxShadow = 'var(--shadow-card)'; }, 1900); }
+    // Scale card from 96% to 100%
+    if (wc) { wc.style.transform = 'scale(.96)'; setTimeout(() => { wc.style.transform = 'scale(1)'; }, 200); }
+    // Reveal response block
+    if (wb) { wb.style.opacity = '0'; wb.style.transform = 'translateY(8px)'; setTimeout(() => { wb.style.opacity = '1'; wb.style.transform = 'translateY(0)'; }, 700); }
+    // Glow on card edge
+    if (wc) { setTimeout(() => { wc.style.boxShadow = '0 0 24px rgba(123,143,212,.25), var(--shadow-card)'; }, 1400); setTimeout(() => { wc.style.boxShadow = 'var(--shadow-card)'; }, 1900); }
   }
 }
 
 function activateTrial() {
   const btn = document.getElementById('trialBtn');
   if (btn) { btn.textContent = 'Активируем...'; btn.disabled = true; }
-  // Call backend
-  const userId = tg?.initDataUnsafe?.user?.id || 0;
-  fetch(API_BASE + '/activate-trial', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id: userId }) })
-    .then(() => { haptic('success'); goOnboardingScreen(4); })
+  fetch(API_BASE + '/activate-trial', { method: 'POST', headers: _onbApiHeaders() })
+    .then(r => r.json())
+    .then(data => {
+      haptic('success');
+      goOnboardingScreen(4);
+    })
     .catch(() => { haptic('success'); goOnboardingScreen(4); }); // Proceed anyway
 }
 
@@ -4324,12 +4383,12 @@ function sendOnboardingReview() {
   const btn = document.getElementById('onbSendBtn');
   if (btn) { btn.textContent = 'Генерируем ответ...'; btn.disabled = true; }
 
-  // Call AI backend — match existing /generate API format
-  const body = JSON.stringify({ review_text: text, rating: 3, platform: 'wb', style: '' });
-  fetch(API_BASE + '/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
+  // Free onboarding generation — no balance deduction
+  const body = JSON.stringify({ review_text: text, rating: 3, style: '' });
+  fetch(API_BASE + '/onboarding-generate', { method: 'POST', headers: _onbApiHeaders(), body })
     .then(r => r.json())
     .then(data => {
-      onbResponseText = data.answer || data.response || 'Здравствуйте! Спасибо за ваш отзыв. Мы ценим обратную связь и обязательно учтём ваши комментарии.';
+      onbResponseText = data.response || 'Здравствуйте! Спасибо за ваш отзыв. Мы ценим обратную связь и обязательно учтём ваши комментарии.';
       haptic('success');
       goOnboardingScreen(5);
     })
@@ -4345,23 +4404,37 @@ function adjustTone(tone) {
   const toneMap = { softer: 'мягче', shorter: 'короче', stricter: 'строже' };
   const wresp = document.getElementById('wowResponse');
   if (wresp) wresp.style.opacity = '.4';
-  fetch(API_BASE + '/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ review_text: onbReviewText, rating: 3, platform: 'wb', style: toneMap[tone] || '' }) })
+  const body = JSON.stringify({ review_text: onbReviewText, rating: 3, style: toneMap[tone] || '' });
+  fetch(API_BASE + '/onboarding-generate', { method: 'POST', headers: _onbApiHeaders(), body })
     .then(r => r.json())
-    .then(data => { if ((data.answer || data.response) && wresp) { wresp.textContent = data.answer || data.response; wresp.style.opacity = '1'; } })
+    .then(data => { if (data.response && wresp) { wresp.textContent = data.response; wresp.style.opacity = '1'; } })
     .catch(() => { if (wresp) wresp.style.opacity = '1'; });
 }
 
-function finishOnboarding() {
+function finishOnboarding(action) {
   haptic('success');
   onboardingComplete = true;
   localStorage.setItem('repa_onboarding_done', 'true');
   localStorage.removeItem('repa_onb_step');
+
+  // Notify backend that onboarding is complete
+  fetch(API_BASE + '/complete-onboarding', { method: 'POST', headers: _onbApiHeaders() }).catch(() => {});
+
   const overlay = document.getElementById('onboardingOverlay');
   if (overlay) overlay.style.display = 'none';
   const nav = document.querySelector('.bnav');
   if (nav) nav.classList.remove('nav-hidden');
-  // Open marketplace settings as the first action
-  openSettings('Marketplace');
+
+  // Different actions depending on which button was pressed
+  if (action === 'autopilot') {
+    // Enable autopilot via API
+    fetch(API_BASE + '/autopilot', { method: 'POST', headers: _onbApiHeaders(), body: JSON.stringify({ enabled: true }) })
+      .then(() => { loadUserData(); showToast('Автопилот включён'); })
+      .catch(() => { loadUserData(); });
+  } else {
+    // Default: open marketplace settings (store connection)
+    openSettings('Marketplace');
+  }
 }
 
 function switchHomeTab(tab) {
@@ -4448,9 +4521,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initLiveFeed();
     initChart();
     loadTokenUsageHistory();
-    // Show onboarding for first-time users
-    if (!onboardingComplete && !currentUser?.wb_connected && !currentUser?.ozon_connected) {
+    // Show onboarding for first-time users — DB flag is the source of truth
+    if (currentUser && !currentUser.onboarding_completed) {
+      onboardingComplete = false;
       showOnboarding();
+    } else {
+      onboardingComplete = true;
+      localStorage.setItem('repa_onboarding_done', 'true');
     }
   });
 
