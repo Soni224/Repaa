@@ -1972,118 +1972,270 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 </div>
 </div>
 
-<!-- ========== ONBOARDING OVERLAY (6 screens) ========== -->
+<!-- ========== ONBOARDING OVERLAY (6 screens + animated robot) ========== -->
 <style>
+/* ── Onboarding base ── */
 .onb-screen{width:100%;display:flex;flex-direction:column;align-items:center;text-align:center}
-.onb-anim-item{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease;width:100%}
+.onb-anim-item{opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);width:100%}
 .onb-anim-item.visible{opacity:1;transform:translateY(0)}
 .onb-card-glow{transition:box-shadow .4s ease}
-@keyframes onbScaleIn{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
-.onb-scale-in{animation:onbScaleIn .4s ease forwards}
+@keyframes onbScaleIn{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.onb-scale-in{animation:onbScaleIn .5s cubic-bezier(.34,1.56,.64,1) forwards}
 .onb-badge{display:inline-block;font-size:11px;font-weight:600;padding:4px 12px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary)}
 .onb-tone-btn{font-size:12px;padding:6px 14px;border-radius:10px;border:1px solid var(--border);color:var(--text-2);background:var(--bg-card);transition:all .15s}
 .onb-tone-btn:active{opacity:.7;transform:scale(.96)}
+
+/* ── Particle background ── */
+.onb-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.onb-particle{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--primary);opacity:.15;animation:onbFloat 8s infinite ease-in-out}
+.onb-particle:nth-child(2n){animation-duration:12s;width:2px;height:2px;opacity:.1}
+.onb-particle:nth-child(3n){animation-duration:6s;width:4px;height:4px;opacity:.08}
+@keyframes onbFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-30px) translateX(10px)}50%{transform:translateY(-15px) translateX(-8px)}75%{transform:translateY(-40px) translateX(5px)}}
+
+/* ── Robot character ── */
+.robot-container{position:relative;width:80px;height:100px;margin:0 auto 12px;z-index:2}
+.robot{position:relative;width:80px;height:100px;animation:robotFloat 3s ease-in-out infinite}
+@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+/* Robot head */
+.robot-head{width:52px;height:44px;background:linear-gradient(135deg,var(--primary) 0%,#5B6BBF 100%);border-radius:16px 16px 14px 14px;position:absolute;top:0;left:14px;box-shadow:0 4px 14px rgba(123,143,212,.3);z-index:2}
+.robot-antenna{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:3px;height:12px;background:var(--primary);border-radius:2px}
+.robot-antenna::after{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:var(--primary);border-radius:50%;animation:robotAntennaBlink 2s ease-in-out infinite}
+@keyframes robotAntennaBlink{0%,100%{opacity:1;box-shadow:0 0 6px var(--primary)}50%{opacity:.3;box-shadow:0 0 2px var(--primary)}}
+/* Robot eyes */
+.robot-eyes{display:flex;gap:10px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:3}
+.robot-eye{width:12px;height:12px;background:#fff;border-radius:50%;position:relative;overflow:hidden}
+.robot-pupil{width:6px;height:6px;background:var(--text);border-radius:50%;position:absolute;top:3px;left:3px;animation:robotLook 4s ease-in-out infinite}
+.robot-eye.blink .robot-pupil{animation:robotBlink .15s ease forwards}
+@keyframes robotLook{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,0)}}
+@keyframes robotBlink{0%{transform:scaleY(1)}50%{transform:scaleY(.1)}100%{transform:scaleY(1)}}
+/* Robot mouth */
+.robot-mouth{width:14px;height:4px;background:rgba(255,255,255,.5);border-radius:2px;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:3}
+.robot-mouth.talking{animation:robotTalk .3s ease-in-out infinite alternate}
+@keyframes robotTalk{0%{height:4px;width:14px}100%{height:7px;width:16px}}
+/* Robot body */
+.robot-body{width:40px;height:30px;background:linear-gradient(135deg,var(--primary) 0%,#5B6BBF 100%);border-radius:10px 10px 12px 12px;position:absolute;top:46px;left:20px;box-shadow:0 4px 12px rgba(123,143,212,.25);z-index:1}
+.robot-chest{width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-radius:3px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
+.robot-chest::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:rgba(255,255,255,.5);border-radius:50%;animation:robotChestGlow 2s ease-in-out infinite}
+@keyframes robotChestGlow{0%,100%{opacity:.5;box-shadow:none}50%{opacity:1;box-shadow:0 0 6px rgba(255,255,255,.4)}}
+/* Robot arms */
+.robot-arm{width:10px;height:24px;background:var(--primary);border-radius:5px;position:absolute;top:48px;z-index:0}
+.robot-arm.left{left:6px;transform-origin:top center;animation:robotArmLeft 3s ease-in-out infinite}
+.robot-arm.right{right:6px;transform-origin:top center;animation:robotArmRight 3s ease-in-out infinite}
+@keyframes robotArmLeft{0%,100%{transform:rotate(5deg)}50%{transform:rotate(-5deg)}}
+@keyframes robotArmRight{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+/* Robot pointing animation */
+.robot.pointing .robot-arm.right{animation:robotPoint 1s ease-in-out infinite!important;right:4px}
+@keyframes robotPoint{0%,100%{transform:rotate(-15deg)}50%{transform:rotate(-35deg)}}
+/* Robot typing animation */
+.robot.typing .robot-arm.left,.robot.typing .robot-arm.right{animation:robotTypeL .25s ease-in-out infinite alternate!important}
+@keyframes robotTypeL{0%{transform:rotate(10deg)}100%{transform:rotate(-10deg)}}
+.robot.typing .robot-mouth{animation:robotTalk .3s ease-in-out infinite alternate!important}
+/* Robot celebrating */
+.robot.celebrating{animation:robotCelebrate .5s cubic-bezier(.34,1.56,.64,1) infinite!important}
+@keyframes robotCelebrate{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-8px) rotate(-3deg)}75%{transform:translateY(-8px) rotate(3deg)}}
+/* Robot screen transition */
+.robot-transition{animation:robotJump .5s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes robotJump{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-20px) scale(1.1)}60%{transform:translateY(5px) scale(.95)}100%{transform:translateY(0) scale(1)}}
+/* Robot wave */
+.robot.waving .robot-arm.right{animation:robotWave .6s ease-in-out 3!important}
+@keyframes robotWave{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(-45deg)}}
+
+/* ── Typing cursor effect ── */
+.typing-cursor{display:inline-block;width:2px;height:1em;background:var(--primary);margin-left:2px;animation:cursorBlink .6s step-end infinite;vertical-align:text-bottom}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── Sparkle effect ── */
+@keyframes sparkle{0%{transform:scale(0) rotate(0deg);opacity:1}50%{transform:scale(1) rotate(180deg);opacity:.8}100%{transform:scale(0) rotate(360deg);opacity:0}}
+.sparkle{position:absolute;width:6px;height:6px;background:var(--primary);border-radius:50%;animation:sparkle .8s ease forwards;pointer-events:none;z-index:10}
+
+/* ── Screen glow transition ── */
+.onb-screen-glow{position:fixed;inset:0;background:radial-gradient(circle at 50% 50%,rgba(123,143,212,.15),transparent 70%);pointer-events:none;z-index:1;animation:glowPulse 1.5s ease-out forwards;opacity:0}
+@keyframes glowPulse{0%{opacity:1}100%{opacity:0}}
+
+/* ── Gradient accent ── */
+.onb-gradient-text{background:linear-gradient(135deg,var(--primary),var(--lavender));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── Success checkmark ── */
+@keyframes checkDraw{0%{stroke-dashoffset:24}100%{stroke-dashoffset:0}}
+.onb-check-circle{width:60px;height:60px;border-radius:50%;background:var(--success-light);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.onb-check-circle svg{width:28px;height:28px;stroke:var(--success);stroke-width:3;fill:none;stroke-dasharray:24;stroke-dashoffset:24;animation:checkDraw .4s ease .2s forwards}
+
+/* ── Screen-specific robot states ── */
+.robot-screen-1 .robot{animation:robotFloat 3s ease-in-out infinite}
+.robot-screen-1 .robot-arm.right{animation:robotWave .6s ease-in-out 3!important}
+.robot-screen-2 .robot{animation:robotFloat 3s ease-in-out infinite}
+.robot-screen-3 .robot{animation:robotFloat 3s ease-in-out infinite}
+.robot-screen-4 .robot{animation:robotFloat 3s ease-in-out infinite}
+.robot-screen-5 .robot.celebrating{animation:robotCelebrate .5s cubic-bezier(.34,1.56,.64,1) infinite!important}
+.robot-screen-6 .robot{animation:robotFloat 3s ease-in-out infinite}
+.robot-screen-6 .robot-arm.right{animation:robotPoint 1s ease-in-out infinite!important}
+
+/* ── Robot desk for typing screen ── */
+.robot-desk{position:relative;width:100%;max-width:300px;margin:0 auto 8px}
+.robot-desk-surface{height:4px;background:var(--border);border-radius:2px;margin-top:-4px}
+
+/* ── Enhanced card styles ── */
+.onb-demo-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-card);text-align:left;position:relative;overflow:hidden}
+.onb-demo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--lavender));opacity:.6}
+.onb-demo-card .label{font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.onb-demo-card .content-text{font-size:13px;line-height:1.6;color:var(--text)}
+.onb-demo-card .divider{border-top:1px solid var(--border);margin:14px 0}
+
+/* ── Trial card ── */
+.onb-trial-card{background:linear-gradient(135deg,var(--primary-light) 0%,var(--bg-card) 100%);border:1.5px solid rgba(123,143,212,.2);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-prominent);position:relative;overflow:hidden}
+.onb-trial-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:rgba(123,143,212,.08);pointer-events:none}
 </style>
-<div class="onboarding-overlay" id="onboardingOverlay" style="display:none;position:fixed;inset:0;z-index:100;background:var(--bg);max-width:430px;margin:0 auto;overflow-y:auto">
-  <div style="min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 24px 80px;position:relative" id="onboardingContent">
+<div class="onboarding-overlay" id="onboardingOverlay" style="display:none;position:fixed;inset:0;z-index:100;background:var(--bg);max-width:430px;margin:0 auto;overflow:hidden">
+  <!-- Particle background -->
+  <div class="onb-particles" id="onbParticles">
+    <div class="onb-particle" style="top:10%;left:15%"></div>
+    <div class="onb-particle" style="top:25%;left:80%"></div>
+    <div class="onb-particle" style="top:50%;left:10%"></div>
+    <div class="onb-particle" style="top:70%;left:90%"></div>
+    <div class="onb-particle" style="top:85%;left:30%"></div>
+    <div class="onb-particle" style="top:15%;left:60%"></div>
+    <div class="onb-particle" style="top:60%;left:45%"></div>
+    <div class="onb-particle" style="top:40%;left:75%"></div>
+    <div class="onb-particle" style="top:90%;left:55%"></div>
+    <div class="onb-particle" style="top:35%;left:25%"></div>
+  </div>
+  <div style="min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px 20px 70px;position:relative;z-index:1" id="onboardingContent">
+
+    <!-- Robot character (persists across screens) -->
+    <div class="robot-container" id="robotContainer">
+      <div class="robot" id="robotCharacter">
+        <div class="robot-antenna"></div>
+        <div class="robot-head">
+          <div class="robot-eyes">
+            <div class="robot-eye" id="robotEyeL"><div class="robot-pupil"></div></div>
+            <div class="robot-eye" id="robotEyeR"><div class="robot-pupil"></div></div>
+          </div>
+          <div class="robot-mouth" id="robotMouth"></div>
+        </div>
+        <div class="robot-arm left"></div>
+        <div class="robot-arm right"></div>
+        <div class="robot-body"><div class="robot-chest"></div></div>
+      </div>
+    </div>
+
+    <!-- Speech bubble above robot -->
+    <div id="robotBubble" class="onb-anim-item" data-delay="200" style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:10px 16px;margin-bottom:16px;max-width:280px;box-shadow:var(--shadow-card);position:relative;font-size:13px;color:var(--text);line-height:1.5;display:none">
+      <div style="position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:12px;height:12px;background:var(--bg-card);border-left:1px solid var(--border);border-top:1px solid var(--border);transform:translateX(-50%) rotate(45deg)"></div>
+      <span id="robotBubbleText"></span>
+    </div>
 
     <!-- Screen 1: Value Proposition -->
     <div class="onb-screen" id="onbScreen1">
-      <div style="text-align:center;margin-bottom:40px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:26px;font-weight:700;color:var(--text);line-height:1.2;letter-spacing:-.3px">Repa отвечает на отзывы за тебя.</div>
-        <div class="onb-anim-item" data-delay="120" style="font-size:16px;color:var(--primary);margin-top:14px;font-weight:600">Быстрее. В стиле бренда. Без рутины.</div>
-        <div class="onb-anim-item" data-delay="240" style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:300px;margin-left:auto;margin-right:auto">Есть отзывы — значит, есть что ускорить. Repa превращает их в готовые ответы за секунды.</div>
+      <div style="text-align:center;margin-bottom:32px">
+        <div class="onb-anim-item" data-delay="0" style="font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.3px"><span class="onb-gradient-text">Repa</span> отвечает на отзывы за тебя.</div>
+        <div class="onb-anim-item" data-delay="150" style="font-size:16px;color:var(--primary);margin-top:14px;font-weight:600">Быстрее. В стиле бренда. Без рутины.</div>
+        <div class="onb-anim-item" data-delay="300" style="font-size:14px;color:var(--text-2);margin-top:14px;line-height:1.6;max-width:300px;margin-left:auto;margin-right:auto">Есть отзывы — значит, есть что ускорить. Repa превращает их в готовые ответы за секунды.</div>
       </div>
-      <div class="onb-anim-item" data-delay="360">
+      <div class="onb-anim-item" data-delay="450">
         <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(2)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Показать демо</button>
       </div>
     </div>
 
     <!-- Screen 2: Demo -->
     <div class="onb-screen" id="onbScreen2" style="display:none">
-      <div style="text-align:center;margin-bottom:20px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Вот как это выглядит на деле.</div>
-        <div class="onb-anim-item" data-delay="100" style="font-size:13px;color:var(--text-2);margin-top:6px">Repa берёт отзыв и превращает его в готовый ответ за секунды.</div>
+      <div style="text-align:center;margin-bottom:16px">
+        <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Вот как это выглядит.</div>
+        <div class="onb-anim-item" data-delay="100" style="font-size:13px;color:var(--text-2);margin-top:6px">Repa берёт отзыв и превращает его в готовый ответ.</div>
       </div>
-      <div id="demoCard" class="onb-anim-item onb-card-glow" data-delay="200" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:24px;box-shadow:var(--shadow-card);text-align:left">
+      <div id="demoCard" class="onb-anim-item onb-card-glow onb-demo-card" data-delay="200" style="margin-bottom:20px">
         <div style="margin-bottom:14px">
-          <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Отзыв</div>
-          <div style="font-size:13px;line-height:1.6;color:var(--text)">Товар хороший, но упаковка пришла помятой.</div>
+          <div class="label">Отзыв</div>
+          <div class="content-text">Товар хороший, но упаковка пришла помятой.</div>
         </div>
-        <div style="border-top:1px solid var(--border);margin-bottom:14px"></div>
-        <div id="demoResponse" style="opacity:0;transform:translateY(8px);transition:all .5s ease">
-          <div style="font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Ответ Repa</div>
-          <div style="font-size:13px;line-height:1.6;color:var(--text)">Здравствуйте! Спасибо, что поделились впечатлением. Рады, что товар вам понравился. Сожалеем, что упаковка пришла в таком виде — обязательно учтём это, чтобы становиться лучше. Спасибо за обратную связь!</div>
+        <div class="divider"></div>
+        <div id="demoResponse" style="opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.4,0,.2,1)">
+          <div class="label" style="color:var(--primary)">Ответ Repa</div>
+          <div class="content-text">Здравствуйте! Спасибо, что поделились впечатлением. Рады, что товар вам понравился. Сожалеем, что упаковка пришла в таком виде — обязательно учтём это. Спасибо за обратную связь!</div>
         </div>
       </div>
-      <div class="onb-anim-item" data-delay="400">
-        <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(3)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Попробовать</button>
+      <div class="onb-anim-item" data-delay="500">
+        <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(3)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Попробовать бесплатно</button>
       </div>
     </div>
 
     <!-- Screen 3: Trial -->
     <div class="onb-screen" id="onbScreen3" style="display:none">
-      <div style="text-align:center;margin-bottom:40px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:24px;font-weight:700;color:var(--text)">3 дня бесплатно.</div>
-        <div class="onb-anim-item" data-delay="120" style="font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.6;max-width:300px;margin-left:auto;margin-right:auto">Этого достаточно, чтобы понять, подходит ли тебе формат.</div>
-        <div class="onb-anim-item" data-delay="220" style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <span class="onb-badge">без карты</span>
-          <span class="onb-badge">пробуй спокойно</span>
+      <div class="onb-anim-item" data-delay="0">
+        <div class="onb-trial-card" style="margin-bottom:24px">
+          <div style="text-align:center">
+            <div style="font-size:28px;font-weight:700;color:var(--text);line-height:1.2">3 дня бесплатно</div>
+            <div style="font-size:14px;color:var(--text-2);margin-top:10px;line-height:1.6">Этого достаточно, чтобы понять, подходит ли тебе формат.</div>
+            <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+              <span class="onb-badge">без карты</span>
+              <span class="onb-badge">пробуй спокойно</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="onb-anim-item" data-delay="320">
+      <div class="onb-anim-item" data-delay="250">
         <button id="trialBtn" class="btn btn-p btn-lg" onclick="activateTrial()" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Активировать</button>
       </div>
     </div>
 
     <!-- Screen 4: First Review -->
     <div class="onb-screen" id="onbScreen4" style="display:none">
-      <div style="text-align:center;margin-bottom:20px">
+      <div style="text-align:center;margin-bottom:12px">
         <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Кидай первый отзыв.</div>
         <div class="onb-anim-item" data-delay="100" style="font-size:13px;color:var(--text-2);margin-top:6px">Вставь текст — и получишь готовый ответ.</div>
       </div>
-      <div class="onb-anim-item" data-delay="200">
-        <textarea id="onbReviewInput" class="inp" placeholder="Вставьте текст отзыва сюда..." style="width:100%;min-height:140px;border-radius:var(--radius-sm);font-size:14px;padding:14px;margin-bottom:16px;resize:none;border:1.5px solid var(--border);transition:border-color .2s" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'" oninput="const b=document.getElementById('onbSendBtn');b.disabled=this.value.trim().length<5;b.style.opacity=b.disabled?'.5':'1';b.style.cursor=b.disabled?'not-allowed':'pointer'"></textarea>
+      <!-- Robot desk area -->
+      <div class="onb-anim-item" data-delay="180">
+        <div class="robot-desk">
+          <div class="robot-desk-surface"></div>
+        </div>
       </div>
-      <div class="onb-anim-item" data-delay="300">
+      <div class="onb-anim-item" data-delay="220">
+        <textarea id="onbReviewInput" class="inp" placeholder="Вставьте текст отзыва сюда..." style="width:100%;min-height:120px;border-radius:var(--radius-sm);font-size:14px;padding:14px;margin-bottom:16px;resize:none;border:1.5px solid var(--border);transition:border-color .2s,box-shadow .2s" onfocus="this.style.borderColor='var(--primary)';this.style.boxShadow='0 0 0 3px var(--primary-soft)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'" oninput="const b=document.getElementById('onbSendBtn');b.disabled=this.value.trim().length<5;b.style.opacity=b.disabled?'.5':'1';b.style.cursor=b.disabled?'not-allowed':'pointer';if(this.value.trim().length>=5){document.getElementById('robotCharacter').classList.add('pointing')}else{document.getElementById('robotCharacter').classList.remove('pointing')}"></textarea>
+      </div>
+      <div class="onb-anim-item" data-delay="350">
         <button id="onbSendBtn" class="btn btn-p btn-lg" onclick="sendOnboardingReview()" disabled style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta);opacity:.5;cursor:not-allowed">Отправить</button>
       </div>
     </div>
 
     <!-- Screen 5: Wow Effect -->
     <div class="onb-screen" id="onbScreen5" style="display:none">
-      <div style="text-align:center;margin-bottom:16px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:16px;font-weight:700;color:var(--primary)">Ответ готов</div>
+      <div style="text-align:center;margin-bottom:12px">
+        <div class="onb-anim-item" data-delay="0">
+          <div class="onb-check-circle">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div class="onb-anim-item" data-delay="100" style="font-size:18px;font-weight:700;color:var(--success)">Ответ готов</div>
       </div>
-      <div id="wowCard" class="onb-anim-item onb-card-glow" data-delay="100" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:var(--shadow-card);text-align:left;transform:scale(.96);transition:box-shadow .4s ease,transform .4s ease">
+      <div id="wowCard" class="onb-anim-item onb-card-glow onb-demo-card" data-delay="200" style="margin-bottom:14px;transform:scale(.94);transition:box-shadow .4s ease,transform .5s cubic-bezier(.34,1.56,.64,1)">
         <div style="margin-bottom:14px">
-          <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Отзыв</div>
-          <div id="wowReview" style="font-size:13px;line-height:1.6;color:var(--text)"></div>
+          <div class="label">Отзыв</div>
+          <div id="wowReview" class="content-text"></div>
         </div>
-        <div style="border-top:1px solid var(--border);margin-bottom:14px"></div>
-        <div id="wowResponseBlock" style="opacity:0;transform:translateY(8px);transition:all .6s ease">
-          <div style="font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Ответ Repa</div>
-          <div id="wowResponse" style="font-size:13px;line-height:1.6;color:var(--text)"></div>
+        <div class="divider"></div>
+        <div id="wowResponseBlock" style="opacity:0;transform:translateY(8px);transition:all .7s cubic-bezier(.4,0,.2,1)">
+          <div class="label" style="color:var(--primary)">Ответ Repa</div>
+          <div id="wowResponse" class="content-text"></div>
         </div>
       </div>
-      <div class="onb-anim-item" data-delay="300" style="text-align:center;font-size:12px;color:var(--text-3);margin-bottom:12px">Можно отправлять сразу. Или подправить тон.</div>
-      <div class="onb-anim-item" data-delay="350" style="display:flex;gap:8px;justify-content:center;margin-bottom:20px">
+      <div class="onb-anim-item" data-delay="400" style="text-align:center;font-size:12px;color:var(--text-3);margin-bottom:10px">Можно отправлять сразу. Или подправить тон.</div>
+      <div class="onb-anim-item" data-delay="450" style="display:flex;gap:8px;justify-content:center;margin-bottom:16px">
         <button class="btn onb-tone-btn" onclick="adjustTone('softer')">Мягче</button>
         <button class="btn onb-tone-btn" onclick="adjustTone('shorter')">Короче</button>
         <button class="btn onb-tone-btn" onclick="adjustTone('stricter')">Строже</button>
       </div>
-      <div class="onb-anim-item" data-delay="400">
+      <div class="onb-anim-item" data-delay="550">
         <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(6)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Продолжить</button>
       </div>
     </div>
 
     <!-- Screen 6: Final -->
     <div class="onb-screen" id="onbScreen6" style="display:none">
-      <div style="text-align:center;margin-bottom:32px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Теперь Repa может делать это регулярно.</div>
-        <div class="onb-anim-item" data-delay="120" style="font-size:14px;color:var(--text-2);margin-top:10px">Подключи магазин и включи автопилот.</div>
+      <div style="text-align:center;margin-bottom:28px">
+        <div class="onb-anim-item" data-delay="0" style="font-size:22px;font-weight:700;color:var(--text)">Теперь Repa может делать это регулярно.</div>
+        <div class="onb-anim-item" data-delay="150" style="font-size:14px;color:var(--text-2);margin-top:10px;line-height:1.5">Подключи магазин и включи автопилот —<br>и Repa будет отвечать сама.</div>
       </div>
-      <div class="onb-anim-item" data-delay="220" style="width:100%;max-width:280px;margin:0 auto;display:flex;flex-direction:column;gap:12px">
+      <div class="onb-anim-item" data-delay="300" style="width:100%;max-width:280px;margin:0 auto;display:flex;flex-direction:column;gap:12px">
         <button class="btn btn-p btn-lg" onclick="finishOnboarding('store')" style="width:100%;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Подключить магазин</button>
         <button class="btn btn-lg" onclick="finishOnboarding('autopilot')" style="width:100%;border-radius:var(--radius);font-size:16px;padding:14px;border:1px solid var(--border);color:var(--text);background:var(--bg-card)">Включить автопилот</button>
         <div style="text-align:center;font-size:12px;color:var(--text-3)">чтобы Repa отвечала сама</div>
@@ -2091,7 +2243,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
 
     <!-- Step dots -->
-    <div id="onbDots" style="position:fixed;bottom:16px;left:0;right:0;display:flex;justify-content:center;gap:6px;max-width:430px;margin:0 auto">
+    <div id="onbDots" style="position:fixed;bottom:16px;left:0;right:0;display:flex;justify-content:center;gap:6px;max-width:430px;margin:0 auto;z-index:5">
       <div class="onb-dot" id="onbDot1" style="width:18px;height:5px;border-radius:3px;background:var(--primary);transition:all .3s"></div>
       <div class="onb-dot" id="onbDot2" style="width:5px;height:5px;border-radius:3px;background:var(--border);transition:all .3s"></div>
       <div class="onb-dot" id="onbDot3" style="width:5px;height:5px;border-radius:3px;background:var(--border);transition:all .3s"></div>
@@ -4295,6 +4447,7 @@ let currentHomeTab = 'wb';
 let onboardingComplete = false;  // Set from DB after /api/user loads
 let onbReviewText = '';
 let onbResponseText = '';
+let robotBlinkInterval = null;
 
 function _onbApiHeaders() {
   const h = { 'Content-Type': 'application/json' };
@@ -4312,6 +4465,140 @@ function _triggerOnbAnimations(screenEl) {
   });
 }
 
+// ── Robot eye blink (random intervals) ──
+function startRobotBlink() {
+  if (robotBlinkInterval) clearTimeout(robotBlinkInterval);
+  const doBlink = () => {
+    const eyeL = document.getElementById('robotEyeL');
+    const eyeR = document.getElementById('robotEyeR');
+    if (eyeL && eyeR) {
+      eyeL.classList.add('blink');
+      eyeR.classList.add('blink');
+      setTimeout(() => { eyeL.classList.remove('blink'); eyeR.classList.remove('blink'); }, 150);
+    }
+  };
+  const scheduleNext = () => {
+    const delay = 2000 + Math.random() * 3000;
+    robotBlinkInterval = setTimeout(() => { doBlink(); scheduleNext(); }, delay);
+  };
+  scheduleNext();
+}
+
+function stopRobotBlink() {
+  if (robotBlinkInterval) { clearTimeout(robotBlinkInterval); robotBlinkInterval = null; }
+}
+
+// ── Robot speech bubble ──
+function showRobotBubble(text, duration) {
+  const bubble = document.getElementById('robotBubble');
+  const bubbleText = document.getElementById('robotBubbleText');
+  if (!bubble || !bubbleText) return;
+  bubbleText.textContent = text;
+  bubble.style.display = '';
+  bubble.classList.remove('visible');
+  setTimeout(() => { bubble.classList.add('visible'); }, 50);
+  if (duration) {
+    setTimeout(() => { bubble.style.display = 'none'; bubble.classList.remove('visible'); }, duration);
+  }
+}
+
+function hideRobotBubble() {
+  const bubble = document.getElementById('robotBubble');
+  if (bubble) { bubble.style.display = 'none'; bubble.classList.remove('visible'); }
+}
+
+// ── Sparkle effect on robot ──
+function spawnSparkles(container, count) {
+  if (!container) return;
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = (20 + Math.random() * 40) + 'px';
+    s.style.top = (10 + Math.random() * 80) + 'px';
+    s.style.animationDelay = (Math.random() * 0.3) + 's';
+    container.appendChild(s);
+    setTimeout(() => { if (s.parentNode) s.parentNode.removeChild(s); }, 1000);
+  }
+}
+
+// ── Screen glow effect ──
+function showScreenGlow() {
+  const glow = document.createElement('div');
+  glow.className = 'onb-screen-glow';
+  document.body.appendChild(glow);
+  setTimeout(() => { if (glow.parentNode) glow.parentNode.removeChild(glow); }, 1500);
+}
+
+// ── Robot state management per screen ──
+function setRobotState(screenNum) {
+  const robot = document.getElementById('robotCharacter');
+  const container = document.getElementById('robotContainer');
+  if (!robot || !container) return;
+
+  // Remove all state classes
+  robot.classList.remove('pointing', 'typing', 'celebrating', 'waving');
+
+  // Remove screen classes from container
+  for (let i = 1; i <= 6; i++) container.classList.remove('robot-screen-' + i);
+
+  // Add current screen class
+  container.classList.add('robot-screen-' + screenNum);
+
+  // Jump transition animation
+  robot.classList.add('robot-transition');
+  setTimeout(() => { robot.classList.remove('robot-transition'); }, 500);
+
+  // Screen-specific robot behavior
+  switch (screenNum) {
+    case 1:
+      robot.classList.add('waving');
+      showRobotBubble('Привет! Я Repa', 2500);
+      break;
+    case 2:
+      hideRobotBubble();
+      break;
+    case 3:
+      showRobotBubble('Попробуй бесплатно!', 2000);
+      break;
+    case 4:
+      showRobotBubble('Вставь отзыв, я отвечу!', 2500);
+      break;
+    case 5:
+      robot.classList.add('celebrating');
+      spawnSparkles(container, 6);
+      hideRobotBubble();
+      setTimeout(() => { showRobotBubble('Готово! Классно, да?', 2000); }, 600);
+      break;
+    case 6:
+      robot.classList.add('pointing');
+      hideRobotBubble();
+      setTimeout(() => { showRobotBubble('Осталось немного!', 2000); }, 400);
+      break;
+  }
+}
+
+// ── Animated text typing effect ──
+function typeText(element, text, speed, callback) {
+  if (!element) { if (callback) callback(); return; }
+  element.innerHTML = '';
+  let i = 0;
+  const cursor = document.createElement('span');
+  cursor.className = 'typing-cursor';
+  element.appendChild(cursor);
+
+  function typeNext() {
+    if (i < text.length) {
+      element.insertBefore(document.createTextNode(text[i]), cursor);
+      i++;
+      setTimeout(typeNext, speed);
+    } else {
+      setTimeout(() => { if (cursor.parentNode) cursor.parentNode.removeChild(cursor); }, 800);
+      if (callback) callback();
+    }
+  }
+  typeNext();
+}
+
 function showOnboarding() {
   if (onboardingComplete) return;
   const overlay = document.getElementById('onboardingOverlay');
@@ -4321,6 +4608,8 @@ function showOnboarding() {
   if (nav) nav.classList.add('nav-hidden');
   if (tg && tg.MainButton) tg.MainButton.hide();
   pendingChanges = [];
+  // Start robot blink
+  startRobotBlink();
   // Restore last step or start from 1
   const saved = localStorage.getItem('repa_onb_step');
   if (saved) { const n = parseInt(saved); if (n >= 1 && n <= 6) goOnboardingScreen(n); }
@@ -4330,6 +4619,10 @@ function showOnboarding() {
 function goOnboardingScreen(n) {
   haptic('light');
   localStorage.setItem('repa_onb_step', String(n));
+
+  // Show glow transition
+  showScreenGlow();
+
   for (let i = 1; i <= 6; i++) {
     const s = document.getElementById('onbScreen' + i);
     const d = document.getElementById('onbDot' + i);
@@ -4341,41 +4634,105 @@ function goOnboardingScreen(n) {
   const screenEl = document.getElementById('onbScreen' + n);
   _triggerOnbAnimations(screenEl);
 
+  // Set robot state for this screen
+  setRobotState(n);
+
   // Screen-specific animations
   if (n === 2) {
-    // Demo: show response with delay + card glow
+    // Demo: robot types the response, show it appearing character by character
     const dr = document.getElementById('demoResponse');
-    if (dr) { dr.style.opacity = '0'; dr.style.transform = 'translateY(8px)'; setTimeout(() => { dr.style.opacity = '1'; dr.style.transform = 'translateY(0)'; }, 900); }
+    const drText = dr ? dr.querySelector('.content-text') : null;
+    if (dr) { dr.style.opacity = '0'; dr.style.transform = 'translateY(8px)'; }
+
+    setTimeout(() => {
+      if (dr) { dr.style.opacity = '1'; dr.style.transform = 'translateY(0)'; }
+      const robot = document.getElementById('robotCharacter');
+      if (robot) robot.classList.add('typing');
+
+      if (drText) {
+        const responseText = drText.textContent;
+        typeText(drText, responseText, 18, () => {
+          const robot = document.getElementById('robotCharacter');
+          if (robot) robot.classList.remove('typing');
+        });
+      }
+    }, 800);
+
+    // Card glow
     const card = document.getElementById('demoCard');
-    if (card) { setTimeout(() => { card.style.boxShadow = '0 0 20px rgba(123,143,212,.2), var(--shadow-card)'; }, 1500); setTimeout(() => { card.style.boxShadow = 'var(--shadow-card)'; }, 2000); }
+    if (card) { setTimeout(() => { card.style.boxShadow = '0 0 24px rgba(123,143,212,.2), var(--shadow-card)'; }, 2000); setTimeout(() => { card.style.boxShadow = 'var(--shadow-card)'; }, 2500); }
+  }
+  if (n === 4) {
+    // On review input screen, robot auto-types a demo review after a delay
+    const input = document.getElementById('onbReviewInput');
+    if (input && !input.value) {
+      setTimeout(() => {
+        const demoReview = 'Товар хороший, но доставка заняла 10 дней вместо 3.';
+        const robot = document.getElementById('robotCharacter');
+        if (robot) robot.classList.add('typing');
+
+        let idx = 0;
+        function autoType() {
+          if (idx < demoReview.length) {
+            input.value += demoReview[idx];
+            idx++;
+            input.dispatchEvent(new Event('input'));
+            setTimeout(autoType, 40);
+          } else {
+            if (robot) robot.classList.remove('typing');
+          }
+        }
+        autoType();
+      }, 1500);
+    }
   }
   if (n === 5) {
-    // Wow effect: fill review/response, scale-in card, animate response
+    // Wow effect: fill review/response with typing animation, scale-in card, animate response
     const wr = document.getElementById('wowReview');
     const wresp = document.getElementById('wowResponse');
     const wb = document.getElementById('wowResponseBlock');
     const wc = document.getElementById('wowCard');
+
     if (wr) wr.textContent = onbReviewText || 'Товар хороший, но упаковка пришла помятой.';
-    if (wresp) wresp.textContent = onbResponseText || 'Здравствуйте! Спасибо за обратную связь. Сожалеем о проблеме с упаковкой — обязательно улучшим.';
-    // Scale card from 96% to 100%
-    if (wc) { wc.style.transform = 'scale(.96)'; setTimeout(() => { wc.style.transform = 'scale(1)'; }, 200); }
-    // Reveal response block
-    if (wb) { wb.style.opacity = '0'; wb.style.transform = 'translateY(8px)'; setTimeout(() => { wb.style.opacity = '1'; wb.style.transform = 'translateY(0)'; }, 700); }
-    // Glow on card edge
-    if (wc) { setTimeout(() => { wc.style.boxShadow = '0 0 24px rgba(123,143,212,.25), var(--shadow-card)'; }, 1400); setTimeout(() => { wc.style.boxShadow = 'var(--shadow-card)'; }, 1900); }
+
+    if (wc) { wc.style.transform = 'scale(.94)'; setTimeout(() => { wc.style.transform = 'scale(1)'; }, 300); }
+
+    if (wb) { wb.style.opacity = '0'; wb.style.transform = 'translateY(8px)'; }
+    setTimeout(() => {
+      if (wb) { wb.style.opacity = '1'; wb.style.transform = 'translateY(0)'; }
+
+      const robot = document.getElementById('robotCharacter');
+      if (robot) robot.classList.add('typing');
+
+      const responseText = onbResponseText || 'Здравствуйте! Спасибо за обратную связь. Сожалеем о проблеме с упаковкой — обязательно улучшим.';
+      typeText(wresp, responseText, 15, () => {
+        if (robot) robot.classList.remove('typing');
+      });
+    }, 600);
+
+    if (wc) { setTimeout(() => { wc.style.boxShadow = '0 0 28px rgba(123,143,212,.3), var(--shadow-card)'; }, 1800); setTimeout(() => { wc.style.boxShadow = 'var(--shadow-card)'; }, 2300); }
+
+    const container = document.getElementById('robotContainer');
+    setTimeout(() => { spawnSparkles(container, 4); }, 1000);
   }
 }
 
 function activateTrial() {
   const btn = document.getElementById('trialBtn');
   if (btn) { btn.textContent = 'Активируем...'; btn.disabled = true; }
+
+  const robot = document.getElementById('robotCharacter');
+  if (robot) robot.classList.add('celebrating');
+  spawnSparkles(document.getElementById('robotContainer'), 5);
+
   fetch(API_BASE + '/api/activate-trial', { method: 'POST', headers: _onbApiHeaders() })
     .then(r => r.json())
     .then(data => {
       haptic('success');
+      if (robot) robot.classList.remove('celebrating');
       goOnboardingScreen(4);
     })
-    .catch(() => { haptic('success'); goOnboardingScreen(4); }); // Proceed anyway
+    .catch(() => { haptic('success'); if (robot) robot.classList.remove('celebrating'); goOnboardingScreen(4); }); // Proceed anyway
 }
 
 function sendOnboardingReview() {
@@ -4386,6 +4743,11 @@ function sendOnboardingReview() {
   const btn = document.getElementById('onbSendBtn');
   if (btn) { btn.textContent = 'Генерируем ответ...'; btn.disabled = true; }
 
+  const robot = document.getElementById('robotCharacter');
+  if (robot) robot.classList.add('typing');
+  const mouth = document.getElementById('robotMouth');
+  if (mouth) mouth.classList.add('talking');
+
   // Free onboarding generation — no balance deduction
   const body = JSON.stringify({ review_text: text, rating: 3, style: '' });
   fetch(API_BASE + '/api/onboarding-generate', { method: 'POST', headers: _onbApiHeaders(), body })
@@ -4393,11 +4755,15 @@ function sendOnboardingReview() {
     .then(data => {
       onbResponseText = data.response || 'Здравствуйте! Спасибо за ваш отзыв. Мы ценим обратную связь и обязательно учтём ваши комментарии.';
       haptic('success');
+      if (robot) robot.classList.remove('typing');
+      if (mouth) mouth.classList.remove('talking');
       goOnboardingScreen(5);
     })
     .catch(() => {
       onbResponseText = 'Здравствуйте! Спасибо за ваш отзыв. Мы ценим обратную связь и обязательно учтём ваши комментарии, чтобы становиться лучше.';
       haptic('success');
+      if (robot) robot.classList.remove('typing');
+      if (mouth) mouth.classList.remove('talking');
       goOnboardingScreen(5);
     });
 }
@@ -4407,11 +4773,22 @@ function adjustTone(tone) {
   const toneMap = { softer: 'мягче', shorter: 'короче', stricter: 'строже' };
   const wresp = document.getElementById('wowResponse');
   if (wresp) wresp.style.opacity = '.4';
+
+  const robot = document.getElementById('robotCharacter');
+  if (robot) robot.classList.add('typing');
+
   const body = JSON.stringify({ review_text: onbReviewText, rating: 3, style: toneMap[tone] || '' });
   fetch(API_BASE + '/api/onboarding-generate', { method: 'POST', headers: _onbApiHeaders(), body })
     .then(r => r.json())
-    .then(data => { if (data.response && wresp) { wresp.textContent = data.response; wresp.style.opacity = '1'; } })
-    .catch(() => { if (wresp) wresp.style.opacity = '1'; });
+    .then(data => {
+      if (data.response && wresp) {
+        typeText(wresp, data.response, 12, () => {
+          if (robot) robot.classList.remove('typing');
+        });
+        wresp.style.opacity = '1';
+      }
+    })
+    .catch(() => { if (wresp) wresp.style.opacity = '1'; if (robot) robot.classList.remove('typing'); });
 }
 
 function finishOnboarding(action) {
@@ -4420,27 +4797,35 @@ function finishOnboarding(action) {
   localStorage.setItem('repa_onboarding_done', 'true');
   localStorage.removeItem('repa_onb_step');
 
+  // Stop robot blink
+  stopRobotBlink();
+
+  // Final celebration
+  const robot = document.getElementById('robotCharacter');
+  if (robot) robot.classList.add('celebrating');
+  const container = document.getElementById('robotContainer');
+  spawnSparkles(container, 8);
+
   // Notify backend that onboarding is complete
   fetch(API_BASE + '/api/complete-onboarding', { method: 'POST', headers: _onbApiHeaders() }).catch(() => {});
 
-  const overlay = document.getElementById('onboardingOverlay');
-  if (overlay) overlay.style.display = 'none';
-  const nav = document.querySelector('.bnav');
-  if (nav) nav.classList.remove('nav-hidden');
-  // Ensure MainButton stays hidden after onboarding completes
-  if (tg && tg.MainButton) tg.MainButton.hide();
-  pendingChanges = [];
+  // Short celebration delay before closing
+  setTimeout(() => {
+    const overlay = document.getElementById('onboardingOverlay');
+    if (overlay) overlay.style.display = 'none';
+    const nav = document.querySelector('.bnav');
+    if (nav) nav.classList.remove('nav-hidden');
+    if (tg && tg.MainButton) tg.MainButton.hide();
+    pendingChanges = [];
 
-  // Different actions depending on which button was pressed
-  if (action === 'autopilot') {
-    // Enable autopilot via API
-    fetch(API_BASE + '/api/autopilot', { method: 'POST', headers: _onbApiHeaders(), body: JSON.stringify({ enabled: true }) })
-      .then(() => { loadUserData(); showToast('Автопилот включён'); })
-      .catch(() => { loadUserData(); });
-  } else {
-    // Default: open marketplace settings (store connection)
-    openSettings('Marketplace');
-  }
+    if (action === 'autopilot') {
+      fetch(API_BASE + '/api/autopilot', { method: 'POST', headers: _onbApiHeaders(), body: JSON.stringify({ enabled: true }) })
+        .then(() => { loadUserData(); showToast('Автопилот включён'); })
+        .catch(() => { loadUserData(); });
+    } else {
+      openSettings('Marketplace');
+    }
+  }, 600);
 }
 
 function switchHomeTab(tab) {
