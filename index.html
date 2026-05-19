@@ -1992,53 +1992,71 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .onb-particle:nth-child(3n){animation-duration:6s;width:4px;height:4px;opacity:.08}
 @keyframes onbFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-30px) translateX(10px)}50%{transform:translateY(-15px) translateX(-8px)}75%{transform:translateY(-40px) translateX(5px)}}
 
-/* ── Robot character ── */
-.robot-container{position:relative;width:80px;height:100px;margin:0 auto 12px;z-index:2}
-.robot{position:relative;width:80px;height:100px;animation:robotFloat 3s ease-in-out infinite}
-@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-/* Robot head */
-.robot-head{width:52px;height:44px;background:linear-gradient(135deg,var(--primary) 0%,#5B6BBF 100%);border-radius:16px 16px 14px 14px;position:absolute;top:0;left:14px;box-shadow:0 4px 14px rgba(123,143,212,.3);z-index:2}
-.robot-antenna{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:3px;height:12px;background:var(--primary);border-radius:2px}
-.robot-antenna::after{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:var(--primary);border-radius:50%;animation:robotAntennaBlink 2s ease-in-out infinite}
-@keyframes robotAntennaBlink{0%,100%{opacity:1;box-shadow:0 0 6px var(--primary)}50%{opacity:.3;box-shadow:0 0 2px var(--primary)}}
-/* Robot eyes */
-.robot-eyes{display:flex;gap:10px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:3}
-.robot-eye{width:12px;height:12px;background:#fff;border-radius:50%;position:relative;overflow:hidden}
-.robot-pupil{width:6px;height:6px;background:var(--text);border-radius:50%;position:absolute;top:3px;left:3px;animation:robotLook 4s ease-in-out infinite}
-.robot-eye.blink .robot-pupil{animation:robotBlink .15s ease forwards}
-@keyframes robotLook{0%,100%{transform:translate(0,0)}25%{transform:translate(2px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,0)}}
-@keyframes robotBlink{0%{transform:scaleY(1)}50%{transform:scaleY(.1)}100%{transform:scaleY(1)}}
-/* Robot mouth */
-.robot-mouth{width:14px;height:4px;background:rgba(255,255,255,.5);border-radius:2px;position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:3}
-.robot-mouth.talking{animation:robotTalk .3s ease-in-out infinite alternate}
-@keyframes robotTalk{0%{height:4px;width:14px}100%{height:7px;width:16px}}
-/* Robot body */
-.robot-body{width:40px;height:30px;background:linear-gradient(135deg,var(--primary) 0%,#5B6BBF 100%);border-radius:10px 10px 12px 12px;position:absolute;top:46px;left:20px;box-shadow:0 4px 12px rgba(123,143,212,.25);z-index:1}
-.robot-chest{width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-radius:3px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
-.robot-chest::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:rgba(255,255,255,.5);border-radius:50%;animation:robotChestGlow 2s ease-in-out infinite}
-@keyframes robotChestGlow{0%,100%{opacity:.5;box-shadow:none}50%{opacity:1;box-shadow:0 0 6px rgba(255,255,255,.4)}}
-/* Robot arms */
-.robot-arm{width:10px;height:24px;background:var(--primary);border-radius:5px;position:absolute;top:48px;z-index:0}
-.robot-arm.left{left:6px;transform-origin:top center;animation:robotArmLeft 3s ease-in-out infinite}
-.robot-arm.right{right:6px;transform-origin:top center;animation:robotArmRight 3s ease-in-out infinite}
-@keyframes robotArmLeft{0%,100%{transform:rotate(5deg)}50%{transform:rotate(-5deg)}}
-@keyframes robotArmRight{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
-/* Robot pointing animation */
-.robot.pointing .robot-arm.right{animation:robotPoint 1s ease-in-out infinite!important;right:4px}
-@keyframes robotPoint{0%,100%{transform:rotate(-15deg)}50%{transform:rotate(-35deg)}}
-/* Robot typing animation */
-.robot.typing .robot-arm.left,.robot.typing .robot-arm.right{animation:robotTypeL .25s ease-in-out infinite alternate!important}
-@keyframes robotTypeL{0%{transform:rotate(10deg)}100%{transform:rotate(-10deg)}}
-.robot.typing .robot-mouth{animation:robotTalk .3s ease-in-out infinite alternate!important}
+/* ── Robot character v2 — friendly, cute, well-animated ── */
+.robot-container{position:relative;width:100px;height:120px;margin:0 auto 12px;z-index:2}
+.robot{position:relative;width:100px;height:120px;animation:robotFloat 4s ease-in-out infinite}
+@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+/* Robot head — rounder, softer */
+.robot-head{width:62px;height:52px;background:linear-gradient(145deg,#7B8FD4 0%,#6274C0 60%,#5B6BBF 100%);border-radius:20px 20px 16px 16px;position:absolute;top:0;left:19px;box-shadow:0 6px 20px rgba(98,116,192,.3),inset 0 -2px 4px rgba(0,0,0,.06);z-index:2}
+/* Antenna — small and cute */
+.robot-antenna{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:2px;height:10px;background:#8B9FD8;border-radius:2px}
+.robot-antenna::after{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:6px;height:6px;background:var(--primary);border-radius:50%;animation:robotAntennaGlow 2.5s ease-in-out infinite;box-shadow:0 0 4px rgba(123,143,212,.5)}
+@keyframes robotAntennaGlow{0%,100%{opacity:1;box-shadow:0 0 6px rgba(123,143,212,.6)}50%{opacity:.4;box-shadow:0 0 2px rgba(123,143,212,.2)}}
+/* Robot eyes — big, cute, with iris and highlight */
+.robot-eyes{display:flex;gap:12px;position:absolute;top:15px;left:50%;transform:translateX(-50%);z-index:3}
+.robot-eye{width:16px;height:16px;background:#fff;border-radius:50%;position:relative;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.08)}
+.robot-iris{width:10px;height:10px;background:linear-gradient(135deg,#4A5A9E 0%,#35478C 100%);border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .4s ease}
+.robot-pupil{width:5px;height:5px;background:#1a1a2e;border-radius:50%;position:absolute;top:2px;left:2px}
+.robot-highlight{width:3px;height:3px;background:#fff;border-radius:50%;position:absolute;top:1px;right:2px;opacity:.9}
+.robot-highlight-sm{width:2px;height:2px;background:#fff;border-radius:50%;position:absolute;bottom:3px;left:2px;opacity:.5}
+/* Blink — eyelid covers the eye */
+.robot-eye.blink{animation:robotBlinkV2 .18s ease forwards}
+@keyframes robotBlinkV2{0%{transform:scaleY(1)}45%{transform:scaleY(.08)}100%{transform:scaleY(1)}}
+/* Eye look directions */
+.robot.looking-down .robot-iris{transform:translateY(3px)}
+.robot.looking-left .robot-iris{transform:translateX(-2px)}
+.robot.looking-right .robot-iris{transform:translateX(2px)}
+.robot.looking-up .robot-iris{transform:translateY(-2px)}
+/* Robot mouth — cute smile */
+.robot-mouth{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:3;width:16px;height:8px;border:2px solid rgba(255,255,255,.6);border-top:none;border-radius:0 0 10px 10px;background:transparent;transition:all .3s ease}
+.robot-mouth.smiling{width:18px;height:10px;border-radius:0 0 12px 12px;border-color:rgba(255,255,255,.75)}
+.robot-mouth.talking{animation:robotTalkV2 .25s ease-in-out infinite alternate}
+@keyframes robotTalkV2{0%{height:6px;width:12px;border-radius:0 0 6px 6px}100%{height:10px;width:14px;border-radius:0 0 10px 10px}}
+/* Cheeks — cute blush */
+.robot-cheek{position:absolute;bottom:12px;width:8px;height:4px;background:rgba(255,150,150,.2);border-radius:50%;z-index:3}
+.robot-cheek.left{left:6px}
+.robot-cheek.right{right:6px}
+/* Robot body — softer shape */
+.robot-body{width:44px;height:32px;background:linear-gradient(145deg,#7B8FD4 0%,#6274C0 60%,#5B6BBF 100%);border-radius:12px 12px 14px 14px;position:absolute;top:54px;left:28px;box-shadow:0 4px 14px rgba(98,116,192,.25);z-index:1}
+.robot-chest{width:14px;height:14px;border:2px solid rgba(255,255,255,.25);border-radius:4px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
+.robot-chest::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:rgba(255,255,255,.45);border-radius:50%;animation:robotChestGlow 2.5s ease-in-out infinite}
+@keyframes robotChestGlow{0%,100%{opacity:.4;box-shadow:none}50%{opacity:1;box-shadow:0 0 6px rgba(255,255,255,.35)}}
+/* Robot arms — softer, with hands */
+.robot-arm{width:9px;height:26px;background:linear-gradient(to bottom,#7B8FD4,#6274C0);border-radius:5px;position:absolute;top:56px;z-index:0}
+.robot-arm::after{content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:10px;height:7px;background:#7B8FD4;border-radius:50%}
+.robot-arm.left{left:16px;transform-origin:top center;animation:robotArmIdleL 4s ease-in-out infinite}
+.robot-arm.right{right:16px;transform-origin:top center;animation:robotArmIdleR 4s ease-in-out infinite}
+@keyframes robotArmIdleL{0%,100%{transform:rotate(4deg)}50%{transform:rotate(-4deg)}}
+@keyframes robotArmIdleR{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+/* Robot pointing */
+.robot.pointing .robot-arm.right{animation:robotPointV2 1.2s ease-in-out infinite!important}
+@keyframes robotPointV2{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(-30deg)}}
+/* Robot typing */
+.robot.typing .robot-arm.left,.robot.typing .robot-arm.right{animation:robotTypeV2 .22s ease-in-out infinite alternate!important}
+@keyframes robotTypeV2{0%{transform:rotate(8deg)}100%{transform:rotate(-8deg)}}
+.robot.typing .robot-mouth{animation:robotTalkV2 .25s ease-in-out infinite alternate!important}
 /* Robot celebrating */
-.robot.celebrating{animation:robotCelebrate .5s cubic-bezier(.34,1.56,.64,1) infinite!important}
-@keyframes robotCelebrate{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-8px) rotate(-3deg)}75%{transform:translateY(-8px) rotate(3deg)}}
-/* Robot screen transition */
-.robot-transition{animation:robotJump .5s cubic-bezier(.34,1.56,.64,1) forwards}
-@keyframes robotJump{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-20px) scale(1.1)}60%{transform:translateY(5px) scale(.95)}100%{transform:translateY(0) scale(1)}}
+.robot.celebrating{animation:robotCelebrateV2 .6s cubic-bezier(.34,1.56,.64,1) infinite!important}
+@keyframes robotCelebrateV2{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-10px) rotate(-4deg)}75%{transform:translateY(-10px) rotate(4deg)}}
+/* Robot screen transition — bouncy jump */
+.robot-transition{animation:robotJumpV2 .5s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes robotJumpV2{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-18px) scale(1.08)}60%{transform:translateY(4px) scale(.97)}100%{transform:translateY(0) scale(1)}}
 /* Robot wave */
-.robot.waving .robot-arm.right{animation:robotWave .6s ease-in-out 3!important}
-@keyframes robotWave{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(-45deg)}}
+.robot.waving .robot-arm.right{animation:robotWaveV2 .5s ease-in-out 4!important}
+@keyframes robotWaveV2{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(-50deg)}}
+/* Robot idle head tilt (subtle) */
+.robot.idle-tilt{animation:robotIdleTilt 5s ease-in-out infinite}
+@keyframes robotIdleTilt{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-3px) rotate(1.5deg)}75%{transform:translateY(-3px) rotate(-1.5deg)}}
 
 /* ── Typing cursor effect ── */
 .typing-cursor{display:inline-block;width:2px;height:1em;background:var(--primary);margin-left:2px;animation:cursorBlink .6s step-end infinite;vertical-align:text-bottom}
@@ -2061,14 +2079,14 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .onb-check-circle svg{width:28px;height:28px;stroke:var(--success);stroke-width:3;fill:none;stroke-dasharray:24;stroke-dashoffset:24;animation:checkDraw .4s ease .2s forwards}
 
 /* ── Screen-specific robot states ── */
-.robot-screen-1 .robot{animation:robotFloat 3s ease-in-out infinite}
-.robot-screen-1 .robot-arm.right{animation:robotWave .6s ease-in-out 3!important}
-.robot-screen-2 .robot{animation:robotFloat 3s ease-in-out infinite}
-.robot-screen-3 .robot{animation:robotFloat 3s ease-in-out infinite}
-.robot-screen-4 .robot{animation:robotFloat 3s ease-in-out infinite}
-.robot-screen-5 .robot.celebrating{animation:robotCelebrate .5s cubic-bezier(.34,1.56,.64,1) infinite!important}
-.robot-screen-6 .robot{animation:robotFloat 3s ease-in-out infinite}
-.robot-screen-6 .robot-arm.right{animation:robotPoint 1s ease-in-out infinite!important}
+.robot-screen-1 .robot{animation:robotFloat 4s ease-in-out infinite}
+.robot-screen-1 .robot-arm.right{animation:robotWaveV2 .5s ease-in-out 4!important}
+.robot-screen-2 .robot{animation:robotFloat 4s ease-in-out infinite}
+.robot-screen-3 .robot{animation:robotFloat 4s ease-in-out infinite}
+.robot-screen-4 .robot{animation:robotFloat 4s ease-in-out infinite}
+.robot-screen-5 .robot.celebrating{animation:robotCelebrateV2 .6s cubic-bezier(.34,1.56,.64,1) infinite!important}
+.robot-screen-6 .robot{animation:robotFloat 4s ease-in-out infinite}
+.robot-screen-6 .robot-arm.right{animation:robotPointV2 1.2s ease-in-out infinite!important}
 
 /* ── Robot desk for typing screen ── */
 .robot-desk{position:relative;width:100%;max-width:300px;margin:0 auto 8px}
@@ -2101,16 +2119,22 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
   <div style="min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px 20px 70px;position:relative;z-index:1" id="onboardingContent">
 
-    <!-- Robot character (persists across screens) -->
+    <!-- Robot character v2 (persists across screens) -->
     <div class="robot-container" id="robotContainer">
       <div class="robot" id="robotCharacter">
         <div class="robot-antenna"></div>
         <div class="robot-head">
           <div class="robot-eyes">
-            <div class="robot-eye" id="robotEyeL"><div class="robot-pupil"></div></div>
-            <div class="robot-eye" id="robotEyeR"><div class="robot-pupil"></div></div>
+            <div class="robot-eye" id="robotEyeL">
+              <div class="robot-iris"><div class="robot-pupil"><div class="robot-highlight"></div><div class="robot-highlight-sm"></div></div></div>
+            </div>
+            <div class="robot-eye" id="robotEyeR">
+              <div class="robot-iris"><div class="robot-pupil"><div class="robot-highlight"></div><div class="robot-highlight-sm"></div></div></div>
+            </div>
           </div>
-          <div class="robot-mouth" id="robotMouth"></div>
+          <div class="robot-cheek left"></div>
+          <div class="robot-cheek right"></div>
+          <div class="robot-mouth smiling" id="robotMouth"></div>
         </div>
         <div class="robot-arm left"></div>
         <div class="robot-arm right"></div>
@@ -4465,7 +4489,8 @@ function _triggerOnbAnimations(screenEl) {
   });
 }
 
-// ── Robot eye blink (random intervals) ──
+// ── Robot eye blink (random intervals, v2 — smoother) ──
+let robotIdleTimer = null;
 function startRobotBlink() {
   if (robotBlinkInterval) clearTimeout(robotBlinkInterval);
   const doBlink = () => {
@@ -4474,18 +4499,55 @@ function startRobotBlink() {
     if (eyeL && eyeR) {
       eyeL.classList.add('blink');
       eyeR.classList.add('blink');
-      setTimeout(() => { eyeL.classList.remove('blink'); eyeR.classList.remove('blink'); }, 150);
+      setTimeout(() => { eyeL.classList.remove('blink'); eyeR.classList.remove('blink'); }, 180);
     }
   };
   const scheduleNext = () => {
-    const delay = 2000 + Math.random() * 3000;
+    const delay = 2500 + Math.random() * 3500;
     robotBlinkInterval = setTimeout(() => { doBlink(); scheduleNext(); }, delay);
   };
   scheduleNext();
+  startRobotIdle();
+}
+
+// ── Robot idle behavior: occasional look around + smile ──
+function startRobotIdle() {
+  if (robotIdleTimer) clearTimeout(robotIdleTimer);
+  const robot = document.getElementById('robotCharacter');
+  const mouth = document.getElementById('robotMouth');
+  if (!robot) return;
+
+  const looks = ['looking-left', 'looking-right', 'looking-down', ''];
+  const doIdle = () => {
+    // Random look direction
+    looks.forEach(l => robot.classList.remove(l));
+    const look = looks[Math.floor(Math.random() * looks.length)];
+    if (look) robot.classList.add(look);
+
+    // Occasional wider smile
+    if (mouth && Math.random() < 0.3) {
+      mouth.classList.add('smiling');
+      setTimeout(() => { if (mouth) mouth.classList.remove('smiling'); }, 1500);
+    }
+
+    // Subtle head tilt sometimes
+    if (Math.random() < 0.4) {
+      robot.classList.add('idle-tilt');
+      setTimeout(() => { robot.classList.remove('idle-tilt'); }, 3000);
+    }
+
+    robotIdleTimer = setTimeout(doIdle, 2000 + Math.random() * 3000);
+  };
+  robotIdleTimer = setTimeout(doIdle, 3000);
+}
+
+function stopRobotIdle() {
+  if (robotIdleTimer) { clearTimeout(robotIdleTimer); robotIdleTimer = null; }
 }
 
 function stopRobotBlink() {
   if (robotBlinkInterval) { clearTimeout(robotBlinkInterval); robotBlinkInterval = null; }
+  stopRobotIdle();
 }
 
 // ── Robot speech bubble ──
@@ -4529,14 +4591,16 @@ function showScreenGlow() {
   setTimeout(() => { if (glow.parentNode) glow.parentNode.removeChild(glow); }, 1500);
 }
 
-// ── Robot state management per screen ──
+// ── Robot state management per screen (v2 — with look + smile) ──
 function setRobotState(screenNum) {
   const robot = document.getElementById('robotCharacter');
   const container = document.getElementById('robotContainer');
+  const mouth = document.getElementById('robotMouth');
   if (!robot || !container) return;
 
   // Remove all state classes
-  robot.classList.remove('pointing', 'typing', 'celebrating', 'waving');
+  robot.classList.remove('pointing', 'typing', 'celebrating', 'waving', 'looking-left', 'looking-right', 'looking-down', 'looking-up', 'idle-tilt');
+  if (mouth) mouth.classList.remove('smiling', 'talking');
 
   // Remove screen classes from container
   for (let i = 1; i <= 6; i++) container.classList.remove('robot-screen-' + i);
@@ -4552,27 +4616,39 @@ function setRobotState(screenNum) {
   switch (screenNum) {
     case 1:
       robot.classList.add('waving');
+      if (mouth) mouth.classList.add('smiling');
       showRobotBubble('Привет! Я Repa', 2500);
       break;
     case 2:
+      // Look at the demo card (down)
+      robot.classList.add('looking-down');
+      if (mouth) mouth.classList.add('smiling');
       hideRobotBubble();
+      setTimeout(() => { showRobotBubble('Смотри, как я работаю!', 2500); }, 400);
       break;
     case 3:
-      showRobotBubble('Попробуй бесплатно!', 2000);
+      robot.classList.add('looking-down');
+      if (mouth) mouth.classList.add('smiling');
+      showRobotBubble('Попробуй бесплатно!', 2500);
       break;
     case 4:
+      // Look at the input field (down-left)
+      robot.classList.add('looking-left');
       showRobotBubble('Вставь отзыв, я отвечу!', 2500);
       break;
     case 5:
       robot.classList.add('celebrating');
+      if (mouth) mouth.classList.add('smiling');
       spawnSparkles(container, 6);
       hideRobotBubble();
-      setTimeout(() => { showRobotBubble('Готово! Классно, да?', 2000); }, 600);
+      setTimeout(() => { showRobotBubble('Готово! Классно, да?', 2500); }, 600);
       break;
     case 6:
       robot.classList.add('pointing');
+      robot.classList.add('looking-down');
+      if (mouth) mouth.classList.add('smiling');
       hideRobotBubble();
-      setTimeout(() => { showRobotBubble('Осталось немного!', 2000); }, 400);
+      setTimeout(() => { showRobotBubble('Осталось немного!', 2500); }, 400);
       break;
   }
 }
