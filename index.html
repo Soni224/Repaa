@@ -1992,83 +1992,86 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .onb-particle:nth-child(3n){animation-duration:6s;width:4px;height:4px;opacity:.08}
 @keyframes onbFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-30px) translateX(10px)}50%{transform:translateY(-15px) translateX(-8px)}75%{transform:translateY(-40px) translateX(5px)}}
 
-/* ── Robot character v2 — friendly, cute, well-animated ── */
-.robot-container{position:relative;width:100px;height:120px;margin:0 auto 12px;z-index:2}
-.robot{position:relative;width:100px;height:120px;animation:robotFloat 4s ease-in-out infinite}
-@keyframes robotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-/* Robot head — rounder, softer */
-.robot-head{width:62px;height:52px;background:linear-gradient(145deg,#7B8FD4 0%,#6274C0 60%,#5B6BBF 100%);border-radius:20px 20px 16px 16px;position:absolute;top:0;left:19px;box-shadow:0 6px 20px rgba(98,116,192,.3),inset 0 -2px 4px rgba(0,0,0,.06);z-index:2}
-/* Antenna — small and cute */
-.robot-antenna{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:2px;height:10px;background:#8B9FD8;border-radius:2px}
-.robot-antenna::after{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:6px;height:6px;background:var(--primary);border-radius:50%;animation:robotAntennaGlow 2.5s ease-in-out infinite;box-shadow:0 0 4px rgba(123,143,212,.5)}
-@keyframes robotAntennaGlow{0%,100%{opacity:1;box-shadow:0 0 6px rgba(123,143,212,.6)}50%{opacity:.4;box-shadow:0 0 2px rgba(123,143,212,.2)}}
-/* Robot eyes — big, cute, with iris and highlight */
-.robot-eyes{display:flex;gap:12px;position:absolute;top:15px;left:50%;transform:translateX(-50%);z-index:3}
-.robot-eye{width:16px;height:16px;background:#fff;border-radius:50%;position:relative;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.08)}
-.robot-iris{width:10px;height:10px;background:linear-gradient(135deg,#4A5A9E 0%,#35478C 100%);border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .4s ease}
-.robot-pupil{width:5px;height:5px;background:#1a1a2e;border-radius:50%;position:absolute;top:2px;left:2px}
-.robot-highlight{width:3px;height:3px;background:#fff;border-radius:50%;position:absolute;top:1px;right:2px;opacity:.9}
-.robot-highlight-sm{width:2px;height:2px;background:#fff;border-radius:50%;position:absolute;bottom:3px;left:2px;opacity:.5}
-/* Blink — eyelid covers the eye */
-.robot-eye.blink{animation:robotBlinkV2 .18s ease forwards}
-@keyframes robotBlinkV2{0%{transform:scaleY(1)}45%{transform:scaleY(.08)}100%{transform:scaleY(1)}}
-/* Eye look directions */
-.robot.looking-down .robot-iris{transform:translateY(3px)}
-.robot.looking-left .robot-iris{transform:translateX(-2px)}
-.robot.looking-right .robot-iris{transform:translateX(2px)}
-.robot.looking-up .robot-iris{transform:translateY(-2px)}
-/* Robot mouth — cute smile */
-.robot-mouth{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:3;width:16px;height:8px;border:2px solid rgba(255,255,255,.6);border-top:none;border-radius:0 0 10px 10px;background:transparent;transition:all .3s ease}
-.robot-mouth.smiling{width:18px;height:10px;border-radius:0 0 12px 12px;border-color:rgba(255,255,255,.75)}
-.robot-mouth.talking{animation:robotTalkV2 .25s ease-in-out infinite alternate}
-@keyframes robotTalkV2{0%{height:6px;width:12px;border-radius:0 0 6px 6px}100%{height:10px;width:14px;border-radius:0 0 10px 10px}}
-/* Cheeks — cute blush */
-.robot-cheek{position:absolute;bottom:12px;width:8px;height:4px;background:rgba(255,150,150,.2);border-radius:50%;z-index:3}
-.robot-cheek.left{left:6px}
-.robot-cheek.right{right:6px}
-/* Robot body — softer shape */
-.robot-body{width:44px;height:32px;background:linear-gradient(145deg,#7B8FD4 0%,#6274C0 60%,#5B6BBF 100%);border-radius:12px 12px 14px 14px;position:absolute;top:54px;left:28px;box-shadow:0 4px 14px rgba(98,116,192,.25);z-index:1}
-.robot-chest{width:14px;height:14px;border:2px solid rgba(255,255,255,.25);border-radius:4px;position:absolute;top:8px;left:50%;transform:translateX(-50%)}
-.robot-chest::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:rgba(255,255,255,.45);border-radius:50%;animation:robotChestGlow 2.5s ease-in-out infinite}
-@keyframes robotChestGlow{0%,100%{opacity:.4;box-shadow:none}50%{opacity:1;box-shadow:0 0 6px rgba(255,255,255,.35)}}
-/* Robot arms — softer, with hands */
-.robot-arm{width:9px;height:26px;background:linear-gradient(to bottom,#7B8FD4,#6274C0);border-radius:5px;position:absolute;top:56px;z-index:0}
-.robot-arm::after{content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:10px;height:7px;background:#7B8FD4;border-radius:50%}
-.robot-arm.left{left:16px;transform-origin:top center;animation:robotArmIdleL 4s ease-in-out infinite}
-.robot-arm.right{right:16px;transform-origin:top center;animation:robotArmIdleR 4s ease-in-out infinite}
-@keyframes robotArmIdleL{0%,100%{transform:rotate(4deg)}50%{transform:rotate(-4deg)}}
-@keyframes robotArmIdleR{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-/* Robot pointing */
-.robot.pointing .robot-arm.right{animation:robotPointV2 1.2s ease-in-out infinite!important}
-@keyframes robotPointV2{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(-30deg)}}
-/* Robot typing */
-.robot.typing .robot-arm.left,.robot.typing .robot-arm.right{animation:robotTypeV2 .22s ease-in-out infinite alternate!important}
-@keyframes robotTypeV2{0%{transform:rotate(8deg)}100%{transform:rotate(-8deg)}}
-.robot.typing .robot-mouth{animation:robotTalkV2 .25s ease-in-out infinite alternate!important}
-/* Robot celebrating */
-.robot.celebrating{animation:robotCelebrateV2 .6s cubic-bezier(.34,1.56,.64,1) infinite!important}
-@keyframes robotCelebrateV2{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-10px) rotate(-4deg)}75%{transform:translateY(-10px) rotate(4deg)}}
-/* Robot screen transition — bouncy jump */
-.robot-transition{animation:robotJumpV2 .5s cubic-bezier(.34,1.56,.64,1) forwards}
-@keyframes robotJumpV2{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-18px) scale(1.08)}60%{transform:translateY(4px) scale(.97)}100%{transform:translateY(0) scale(1)}}
-/* Robot wave */
-.robot.waving .robot-arm.right{animation:robotWaveV2 .5s ease-in-out 4!important}
-@keyframes robotWaveV2{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(-50deg)}}
-/* Robot idle head tilt (subtle) */
-.robot.idle-tilt{animation:robotIdleTilt 5s ease-in-out infinite}
-@keyframes robotIdleTilt{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-3px) rotate(1.5deg)}75%{transform:translateY(-3px) rotate(-1.5deg)}}
+/* ── Robot v3 — микро-анимации, 5 состояний, проводник ── */
+.robot-container{position:relative;width:72px;height:96px;margin:0 auto 8px;z-index:2}
+.robot{position:relative;width:72px;height:96px;animation:robotBreathe 5s ease-in-out infinite}
+@keyframes robotBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* Head */
+.robot-head{width:50px;height:44px;background:linear-gradient(150deg,#8B9FD8 0%,#6B7FC8 60%,#5B6BBF 100%);border-radius:18px 18px 14px 14px;position:absolute;top:0;left:11px;box-shadow:0 4px 16px rgba(91,107,191,.25);z-index:2}
+/* Antenna */
+.robot-antenna{position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:2px;height:9px;background:#9AAFE0;border-radius:2px}
+.robot-antenna::after{content:'';position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:5px;height:5px;background:var(--primary);border-radius:50%;animation:antennaPulse 3s ease-in-out infinite;box-shadow:0 0 4px rgba(123,143,212,.4)}
+@keyframes antennaPulse{0%,100%{opacity:.9;box-shadow:0 0 4px rgba(123,143,212,.4)}50%{opacity:.3;box-shadow:none}}
+/* Eyes — clean, friendly, with iris + highlight */
+.robot-eyes{display:flex;gap:10px;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:3}
+.robot-eye{width:14px;height:14px;background:#fff;border-radius:50%;position:relative;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.06)}
+.robot-iris{width:9px;height:9px;background:linear-gradient(135deg,#5568B0 0%,#3D4E99 100%);border-radius:50%;position:absolute;top:2.5px;left:2.5px;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.robot-pupil{width:4px;height:4px;background:#1a1a2e;border-radius:50%;position:absolute;top:2px;left:2px}
+.robot-highlight{width:2.5px;height:2.5px;background:#fff;border-radius:50%;position:absolute;top:1px;right:1px;opacity:.85}
+/* Blink — soft eyelid */
+.robot-eye.blink{animation:eyeBlink .16s ease forwards}
+@keyframes eyeBlink{0%{transform:scaleY(1)}40%{transform:scaleY(.06)}100%{transform:scaleY(1)}}
+/* Look directions — smooth iris shift */
+.robot.look-cta .robot-iris{transform:translateY(2px) translateX(2px)}
+.robot.look-card .robot-iris{transform:translateY(3px)}
+.robot.look-input .robot-iris{transform:translateY(2px) translateX(-2px)}
+.robot.look-user .robot-iris{transform:translateY(-1px)}
+/* Mouth — subtle smile, not cartoon */
+.robot-mouth{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:3;width:12px;height:5px;border:1.5px solid rgba(255,255,255,.55);border-top:none;border-radius:0 0 8px 8px;background:transparent;transition:all .35s ease}
+.robot-mouth.smile{width:14px;height:6px;border-radius:0 0 9px 9px;border-color:rgba(255,255,255,.7)}
+.robot-mouth.talk{animation:mouthTalk .28s ease-in-out infinite alternate}
+@keyframes mouthTalk{0%{height:4px;width:10px;border-radius:0 0 5px 5px}100%{height:7px;width:12px;border-radius:0 0 8px 8px}}
+/* Cheeks — very subtle */
+.robot-cheek{position:absolute;bottom:10px;width:6px;height:3px;background:rgba(255,170,170,.15);border-radius:50%;z-index:3}
+.robot-cheek.left{left:5px}
+.robot-cheek.right{right:5px}
+/* Body */
+.robot-body{width:36px;height:28px;background:linear-gradient(150deg,#8B9FD8 0%,#6B7FC8 60%,#5B6BBF 100%);border-radius:10px 10px 12px 12px;position:absolute;top:48px;left:18px;box-shadow:0 3px 10px rgba(91,107,191,.2);z-index:1}
+.robot-chest{width:10px;height:10px;border:1.5px solid rgba(255,255,255,.2);border-radius:3px;position:absolute;top:7px;left:50%;transform:translateX(-50%)}
+.robot-chest::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:3px;height:3px;background:rgba(255,255,255,.4);border-radius:50%;animation:chestGlow 3s ease-in-out infinite}
+@keyframes chestGlow{0%,100%{opacity:.3}50%{opacity:.8;box-shadow:0 0 4px rgba(255,255,255,.25)}}
+/* Arms — minimal, soft */
+.robot-arm{width:7px;height:22px;background:linear-gradient(to bottom,#8B9FD8,#6B7FC8);border-radius:4px;position:absolute;top:50px;z-index:0;transform-origin:top center}
+.robot-arm.left{left:9px;animation:armIdleL 5s ease-in-out infinite}
+.robot-arm.right{right:9px;animation:armIdleR 5s ease-in-out infinite}
+@keyframes armIdleL{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-3deg)}}
+@keyframes armIdleR{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+/* ── Robot states: Idle / Guide / Attention / Success / CalmWin ── */
+/* Guide — look at CTA, gentle nod */
+.robot.guide{animation:robotBreathe 5s ease-in-out infinite}
+.robot.guide .robot-arm.right{animation:armGuide 2s ease-in-out infinite!important}
+@keyframes armGuide{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(-18deg)}}
+/* Attention — look at element, slight lean */
+.robot.attention{animation:robotLean 4s ease-in-out infinite}
+@keyframes robotLean{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2px) rotate(1.5deg)}}
+/* Success — brief nod, no bounce */
+.robot.success{animation:robotNod .6s ease forwards}
+@keyframes robotNod{0%{transform:translateY(0)}40%{transform:translateY(3px)}100%{transform:translateY(0)}}
+/* CalmWin — gentle float + soft smile */
+.robot.calm-win{animation:robotCalmWin 4s ease-in-out infinite}
+@keyframes robotCalmWin{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.robot.calm-win .robot-mouth{width:14px;height:6px;border-radius:0 0 9px 9px;border-color:rgba(255,255,255,.7)}
+/* Screen transition — quick fade-scale, not jump */
+.robot-transition{animation:robotTransition .35s ease forwards}
+@keyframes robotTransition{0%{opacity:.3;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
+/* Wave — gentle, short */
+.robot.wave .robot-arm.right{animation:armWave .45s ease-in-out 3!important}
+@keyframes armWave{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(-40deg)}}
+/* Typing — subtle micro */
+.robot.typing .robot-arm.left,.robot.typing .robot-arm.right{animation:armType .2s ease-in-out infinite alternate!important}
+@keyframes armType{0%{transform:rotate(5deg)}100%{transform:rotate(-5deg)}}
+.robot.typing .robot-mouth{animation:mouthTalk .28s ease-in-out infinite alternate!important}
+/* Pointing */
+.robot.pointing .robot-arm.right{animation:armPoint 1.5s ease-in-out infinite!important}
+@keyframes armPoint{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(-25deg)}}
 
 /* ── Typing cursor effect ── */
 .typing-cursor{display:inline-block;width:2px;height:1em;background:var(--primary);margin-left:2px;animation:cursorBlink .6s step-end infinite;vertical-align:text-bottom}
 @keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
 
-/* ── Sparkle effect ── */
+/* ── Sparkle effect (kept for potential use) ── */
 @keyframes sparkle{0%{transform:scale(0) rotate(0deg);opacity:1}50%{transform:scale(1) rotate(180deg);opacity:.8}100%{transform:scale(0) rotate(360deg);opacity:0}}
 .sparkle{position:absolute;width:6px;height:6px;background:var(--primary);border-radius:50%;animation:sparkle .8s ease forwards;pointer-events:none;z-index:10}
-
-/* ── Screen glow transition ── */
-.onb-screen-glow{position:fixed;inset:0;background:radial-gradient(circle at 50% 50%,rgba(123,143,212,.15),transparent 70%);pointer-events:none;z-index:1;animation:glowPulse 1.5s ease-out forwards;opacity:0}
-@keyframes glowPulse{0%{opacity:1}100%{opacity:0}}
 
 /* ── Gradient accent ── */
 .onb-gradient-text{background:linear-gradient(135deg,var(--primary),var(--lavender));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -2079,14 +2082,12 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .onb-check-circle svg{width:28px;height:28px;stroke:var(--success);stroke-width:3;fill:none;stroke-dasharray:24;stroke-dashoffset:24;animation:checkDraw .4s ease .2s forwards}
 
 /* ── Screen-specific robot states ── */
-.robot-screen-1 .robot{animation:robotFloat 4s ease-in-out infinite}
-.robot-screen-1 .robot-arm.right{animation:robotWaveV2 .5s ease-in-out 4!important}
-.robot-screen-2 .robot{animation:robotFloat 4s ease-in-out infinite}
-.robot-screen-3 .robot{animation:robotFloat 4s ease-in-out infinite}
-.robot-screen-4 .robot{animation:robotFloat 4s ease-in-out infinite}
-.robot-screen-5 .robot.celebrating{animation:robotCelebrateV2 .6s cubic-bezier(.34,1.56,.64,1) infinite!important}
-.robot-screen-6 .robot{animation:robotFloat 4s ease-in-out infinite}
-.robot-screen-6 .robot-arm.right{animation:robotPointV2 1.2s ease-in-out infinite!important}
+.robot-screen-1 .robot{animation:robotBreathe 5s ease-in-out infinite}
+.robot-screen-2 .robot{animation:robotBreathe 5s ease-in-out infinite}
+.robot-screen-3 .robot{animation:robotBreathe 5s ease-in-out infinite}
+.robot-screen-4 .robot{animation:robotBreathe 5s ease-in-out infinite}
+.robot-screen-5 .robot{animation:robotBreathe 5s ease-in-out infinite}
+.robot-screen-6 .robot{animation:robotCalmWin 4s ease-in-out infinite}
 
 /* ── Robot desk for typing screen ── */
 .robot-desk{position:relative;width:100%;max-width:300px;margin:0 auto 8px}
@@ -2119,22 +2120,22 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
   <div style="min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px 20px 70px;position:relative;z-index:1" id="onboardingContent">
 
-    <!-- Robot character v2 (persists across screens) -->
+    <!-- Robot v3 — проводник -->
     <div class="robot-container" id="robotContainer">
       <div class="robot" id="robotCharacter">
         <div class="robot-antenna"></div>
         <div class="robot-head">
           <div class="robot-eyes">
             <div class="robot-eye" id="robotEyeL">
-              <div class="robot-iris"><div class="robot-pupil"><div class="robot-highlight"></div><div class="robot-highlight-sm"></div></div></div>
+              <div class="robot-iris"><div class="robot-pupil"><div class="robot-highlight"></div></div></div>
             </div>
             <div class="robot-eye" id="robotEyeR">
-              <div class="robot-iris"><div class="robot-pupil"><div class="robot-highlight"></div><div class="robot-highlight-sm"></div></div></div>
+              <div class="robot-iris"><div class="robot-pupil"><div class="robot-highlight"></div></div></div>
             </div>
           </div>
           <div class="robot-cheek left"></div>
           <div class="robot-cheek right"></div>
-          <div class="robot-mouth smiling" id="robotMouth"></div>
+          <div class="robot-mouth smile" id="robotMouth"></div>
         </div>
         <div class="robot-arm left"></div>
         <div class="robot-arm right"></div>
@@ -2142,86 +2143,72 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
     </div>
 
-    <!-- Speech bubble above robot -->
-    <div id="robotBubble" class="onb-anim-item" data-delay="200" style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:10px 16px;margin-bottom:16px;max-width:280px;box-shadow:var(--shadow-card);position:relative;font-size:13px;color:var(--text);line-height:1.5;display:none">
-      <div style="position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:12px;height:12px;background:var(--bg-card);border-left:1px solid var(--border);border-top:1px solid var(--border);transform:translateX(-50%) rotate(45deg)"></div>
+    <!-- Speech bubble — minimalist -->
+    <div id="robotBubble" style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:8px 14px;margin-bottom:12px;max-width:240px;box-shadow:var(--shadow-card);font-size:12px;color:var(--text-2);line-height:1.4;display:none;text-align:center">
       <span id="robotBubbleText"></span>
     </div>
 
-    <!-- Screen 1: Value Proposition -->
+    <!-- Screen 1: VALUE PROP — одна мысль -->
     <div class="onb-screen" id="onbScreen1">
-      <div style="text-align:center;margin-bottom:32px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.3px"><span class="onb-gradient-text">Repa</span> отвечает на отзывы за тебя.</div>
-        <div class="onb-anim-item" data-delay="150" style="font-size:16px;color:var(--primary);margin-top:14px;font-weight:600">Быстрее. В стиле бренда. Без рутины.</div>
-        <div class="onb-anim-item" data-delay="300" style="font-size:14px;color:var(--text-2);margin-top:14px;line-height:1.6;max-width:300px;margin-left:auto;margin-right:auto">Есть отзывы — значит, есть что ускорить. Repa превращает их в готовые ответы за секунды.</div>
+      <div style="text-align:center">
+        <div class="onb-anim-item" data-delay="0" style="font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-.3px"><span class="onb-gradient-text">Repa</span> отвечает на отзывы за тебя.</div>
+        <div class="onb-anim-item" data-delay="200" style="font-size:15px;color:var(--primary);margin-top:12px;font-weight:600">Быстрее. В стиле бренда. Без рутины.</div>
       </div>
-      <div class="onb-anim-item" data-delay="450">
+      <div class="onb-anim-item" data-delay="400" style="margin-top:32px">
         <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(2)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Показать демо</button>
       </div>
     </div>
 
-    <!-- Screen 2: Demo -->
+    <!-- Screen 2: DEMO — экран доказательства -->
     <div class="onb-screen" id="onbScreen2" style="display:none">
       <div style="text-align:center;margin-bottom:16px">
-        <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Вот как это выглядит.</div>
-        <div class="onb-anim-item" data-delay="100" style="font-size:13px;color:var(--text-2);margin-top:6px">Repa берёт отзыв и превращает его в готовый ответ.</div>
+        <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Отзыв → готовый ответ.</div>
       </div>
-      <div id="demoCard" class="onb-anim-item onb-card-glow onb-demo-card" data-delay="200" style="margin-bottom:20px">
+      <div id="demoCard" class="onb-anim-item onb-card-glow onb-demo-card" data-delay="150" style="margin-bottom:20px">
         <div style="margin-bottom:14px">
           <div class="label">Отзыв</div>
           <div class="content-text">Товар хороший, но упаковка пришла помятой.</div>
         </div>
         <div class="divider"></div>
-        <div id="demoResponse" style="opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.4,0,.2,1)">
+        <div id="demoResponse" style="opacity:0;transform:translateY(6px);transition:all .6s cubic-bezier(.4,0,.2,1)">
           <div class="label" style="color:var(--primary)">Ответ Repa</div>
           <div class="content-text">Здравствуйте! Спасибо, что поделились впечатлением. Рады, что товар вам понравился. Сожалеем, что упаковка пришла в таком виде — обязательно учтём это. Спасибо за обратную связь!</div>
         </div>
       </div>
-      <div class="onb-anim-item" data-delay="500">
+      <div class="onb-anim-item" data-delay="400">
         <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(3)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Попробовать бесплатно</button>
       </div>
     </div>
 
-    <!-- Screen 3: Trial -->
+    <!-- Screen 3: TRIAL — спокойный, без давления -->
     <div class="onb-screen" id="onbScreen3" style="display:none">
       <div class="onb-anim-item" data-delay="0">
         <div class="onb-trial-card" style="margin-bottom:24px">
           <div style="text-align:center">
-            <div style="font-size:28px;font-weight:700;color:var(--text);line-height:1.2">3 дня бесплатно</div>
-            <div style="font-size:14px;color:var(--text-2);margin-top:10px;line-height:1.6">Этого достаточно, чтобы понять, подходит ли тебе формат.</div>
-            <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-              <span class="onb-badge">без карты</span>
-              <span class="onb-badge">пробуй спокойно</span>
-            </div>
+            <div style="font-size:26px;font-weight:700;color:var(--text);line-height:1.2">3 дня бесплатно</div>
+            <div style="font-size:14px;color:var(--text-2);margin-top:10px;line-height:1.5">Можно спокойно попробовать.</div>
           </div>
         </div>
       </div>
-      <div class="onb-anim-item" data-delay="250">
+      <div class="onb-anim-item" data-delay="200">
         <button id="trialBtn" class="btn btn-p btn-lg" onclick="activateTrial()" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Активировать</button>
       </div>
     </div>
 
-    <!-- Screen 4: First Review -->
+    <!-- Screen 4: FIRST REVIEW — одно действие -->
     <div class="onb-screen" id="onbScreen4" style="display:none">
-      <div style="text-align:center;margin-bottom:12px">
+      <div style="text-align:center;margin-bottom:14px">
         <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Кидай первый отзыв.</div>
-        <div class="onb-anim-item" data-delay="100" style="font-size:13px;color:var(--text-2);margin-top:6px">Вставь текст — и получишь готовый ответ.</div>
       </div>
-      <!-- Robot desk area -->
-      <div class="onb-anim-item" data-delay="180">
-        <div class="robot-desk">
-          <div class="robot-desk-surface"></div>
-        </div>
+      <div class="onb-anim-item" data-delay="150">
+        <textarea id="onbReviewInput" class="inp" placeholder="Вставь текст отзыва..." style="width:100%;min-height:120px;border-radius:var(--radius-sm);font-size:14px;padding:14px;margin-bottom:14px;resize:none;border:1.5px solid var(--border);transition:border-color .2s,box-shadow .2s" onfocus="this.style.borderColor='var(--primary)';this.style.boxShadow='0 0 0 3px var(--primary-soft)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'" oninput="const b=document.getElementById('onbSendBtn');b.disabled=this.value.trim().length<5;b.style.opacity=b.disabled?'.5':'1';b.style.cursor=b.disabled?'not-allowed':'pointer'"></textarea>
       </div>
-      <div class="onb-anim-item" data-delay="220">
-        <textarea id="onbReviewInput" class="inp" placeholder="Вставьте текст отзыва сюда..." style="width:100%;min-height:120px;border-radius:var(--radius-sm);font-size:14px;padding:14px;margin-bottom:16px;resize:none;border:1.5px solid var(--border);transition:border-color .2s,box-shadow .2s" onfocus="this.style.borderColor='var(--primary)';this.style.boxShadow='0 0 0 3px var(--primary-soft)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'" oninput="const b=document.getElementById('onbSendBtn');b.disabled=this.value.trim().length<5;b.style.opacity=b.disabled?'.5':'1';b.style.cursor=b.disabled?'not-allowed':'pointer';if(this.value.trim().length>=5){document.getElementById('robotCharacter').classList.add('pointing')}else{document.getElementById('robotCharacter').classList.remove('pointing')}"></textarea>
-      </div>
-      <div class="onb-anim-item" data-delay="350">
+      <div class="onb-anim-item" data-delay="250">
         <button id="onbSendBtn" class="btn btn-p btn-lg" onclick="sendOnboardingReview()" disabled style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta);opacity:.5;cursor:not-allowed">Отправить</button>
       </div>
     </div>
 
-    <!-- Screen 5: Wow Effect -->
+    <!-- Screen 5: WOW — эмоциональный пик -->
     <div class="onb-screen" id="onbScreen5" style="display:none">
       <div style="text-align:center;margin-bottom:12px">
         <div class="onb-anim-item" data-delay="0">
@@ -2231,38 +2218,36 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         </div>
         <div class="onb-anim-item" data-delay="100" style="font-size:18px;font-weight:700;color:var(--success)">Ответ готов</div>
       </div>
-      <div id="wowCard" class="onb-anim-item onb-card-glow onb-demo-card" data-delay="200" style="margin-bottom:14px;transform:scale(.94);transition:box-shadow .4s ease,transform .5s cubic-bezier(.34,1.56,.64,1)">
+      <div id="wowCard" class="onb-anim-item onb-card-glow onb-demo-card" data-delay="200" style="margin-bottom:12px;transform:scale(.96);transition:box-shadow .4s ease,transform .5s cubic-bezier(.34,1.56,.64,1)">
         <div style="margin-bottom:14px">
           <div class="label">Отзыв</div>
           <div id="wowReview" class="content-text"></div>
         </div>
         <div class="divider"></div>
-        <div id="wowResponseBlock" style="opacity:0;transform:translateY(8px);transition:all .7s cubic-bezier(.4,0,.2,1)">
+        <div id="wowResponseBlock" style="opacity:0;transform:translateY(6px);transition:all .6s cubic-bezier(.4,0,.2,1)">
           <div class="label" style="color:var(--primary)">Ответ Repa</div>
           <div id="wowResponse" class="content-text"></div>
         </div>
       </div>
-      <div class="onb-anim-item" data-delay="400" style="text-align:center;font-size:12px;color:var(--text-3);margin-bottom:10px">Можно отправлять сразу. Или подправить тон.</div>
-      <div class="onb-anim-item" data-delay="450" style="display:flex;gap:8px;justify-content:center;margin-bottom:16px">
+      <div class="onb-anim-item" data-delay="350" style="text-align:center;font-size:12px;color:var(--text-3);margin-bottom:8px">Можно отправлять сразу. Или подправить тон.</div>
+      <div class="onb-anim-item" data-delay="400" style="display:flex;gap:8px;justify-content:center;margin-bottom:16px">
         <button class="btn onb-tone-btn" onclick="adjustTone('softer')">Мягче</button>
         <button class="btn onb-tone-btn" onclick="adjustTone('shorter')">Короче</button>
         <button class="btn onb-tone-btn" onclick="adjustTone('stricter')">Строже</button>
       </div>
-      <div class="onb-anim-item" data-delay="550">
+      <div class="onb-anim-item" data-delay="500">
         <button class="btn btn-p btn-lg" onclick="goOnboardingScreen(6)" style="width:100%;max-width:280px;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Продолжить</button>
       </div>
     </div>
 
-    <!-- Screen 6: Final -->
+    <!-- Screen 6: FINAL — вход в рабочий режим -->
     <div class="onb-screen" id="onbScreen6" style="display:none">
       <div style="text-align:center;margin-bottom:28px">
         <div class="onb-anim-item" data-delay="0" style="font-size:22px;font-weight:700;color:var(--text)">Теперь Repa может делать это регулярно.</div>
-        <div class="onb-anim-item" data-delay="150" style="font-size:14px;color:var(--text-2);margin-top:10px;line-height:1.5">Подключи магазин и включи автопилот —<br>и Repa будет отвечать сама.</div>
       </div>
-      <div class="onb-anim-item" data-delay="300" style="width:100%;max-width:280px;margin:0 auto;display:flex;flex-direction:column;gap:12px">
+      <div class="onb-anim-item" data-delay="200" style="width:100%;max-width:280px;margin:0 auto;display:flex;flex-direction:column;gap:12px">
         <button class="btn btn-p btn-lg" onclick="finishOnboarding('store')" style="width:100%;border-radius:var(--radius);font-size:16px;padding:14px;box-shadow:var(--shadow-cta)">Подключить магазин</button>
         <button class="btn btn-lg" onclick="finishOnboarding('autopilot')" style="width:100%;border-radius:var(--radius);font-size:16px;padding:14px;border:1px solid var(--border);color:var(--text);background:var(--bg-card)">Включить автопилот</button>
-        <div style="text-align:center;font-size:12px;color:var(--text-3)">чтобы Repa отвечала сама</div>
       </div>
     </div>
 
@@ -4489,7 +4474,7 @@ function _triggerOnbAnimations(screenEl) {
   });
 }
 
-// ── Robot eye blink (random intervals, v2 — smoother) ──
+// ── Robot eye blink (random, soft) ──
 let robotIdleTimer = null;
 function startRobotBlink() {
   if (robotBlinkInterval) clearTimeout(robotBlinkInterval);
@@ -4499,46 +4484,41 @@ function startRobotBlink() {
     if (eyeL && eyeR) {
       eyeL.classList.add('blink');
       eyeR.classList.add('blink');
-      setTimeout(() => { eyeL.classList.remove('blink'); eyeR.classList.remove('blink'); }, 180);
+      setTimeout(() => { eyeL.classList.remove('blink'); eyeR.classList.remove('blink'); }, 160);
     }
   };
   const scheduleNext = () => {
-    const delay = 2500 + Math.random() * 3500;
+    const delay = 3000 + Math.random() * 4000;
     robotBlinkInterval = setTimeout(() => { doBlink(); scheduleNext(); }, delay);
   };
   scheduleNext();
   startRobotIdle();
 }
 
-// ── Robot idle behavior: occasional look around + smile ──
+// ── Robot idle: subtle look shifts ──
 function startRobotIdle() {
   if (robotIdleTimer) clearTimeout(robotIdleTimer);
   const robot = document.getElementById('robotCharacter');
-  const mouth = document.getElementById('robotMouth');
   if (!robot) return;
-
-  const looks = ['looking-left', 'looking-right', 'looking-down', ''];
+  const looks = ['look-cta', 'look-card', 'look-input', 'look-user', ''];
   const doIdle = () => {
-    // Random look direction
+    // Don't override if in a specific state
+    if (robot.classList.contains('typing') || robot.classList.contains('success')) {
+      robotIdleTimer = setTimeout(doIdle, 2000);
+      return;
+    }
     looks.forEach(l => robot.classList.remove(l));
     const look = looks[Math.floor(Math.random() * looks.length)];
     if (look) robot.classList.add(look);
-
-    // Occasional wider smile
-    if (mouth && Math.random() < 0.3) {
-      mouth.classList.add('smiling');
-      setTimeout(() => { if (mouth) mouth.classList.remove('smiling'); }, 1500);
+    // Occasional micro-smile
+    const mouth = document.getElementById('robotMouth');
+    if (mouth && Math.random() < 0.25) {
+      mouth.classList.add('smile');
+      setTimeout(() => { if (mouth) mouth.classList.remove('smile'); }, 2000);
     }
-
-    // Subtle head tilt sometimes
-    if (Math.random() < 0.4) {
-      robot.classList.add('idle-tilt');
-      setTimeout(() => { robot.classList.remove('idle-tilt'); }, 3000);
-    }
-
-    robotIdleTimer = setTimeout(doIdle, 2000 + Math.random() * 3000);
+    robotIdleTimer = setTimeout(doIdle, 3000 + Math.random() * 3000);
   };
-  robotIdleTimer = setTimeout(doIdle, 3000);
+  robotIdleTimer = setTimeout(doIdle, 4000);
 }
 
 function stopRobotIdle() {
@@ -4591,64 +4571,64 @@ function showScreenGlow() {
   setTimeout(() => { if (glow.parentNode) glow.parentNode.removeChild(glow); }, 1500);
 }
 
-// ── Robot state management per screen (v2 — with look + smile) ──
+// ── Robot state management per screen — 5 states: Idle / Guide / Attention / Success / CalmWin ──
 function setRobotState(screenNum) {
   const robot = document.getElementById('robotCharacter');
   const container = document.getElementById('robotContainer');
   const mouth = document.getElementById('robotMouth');
   if (!robot || !container) return;
 
-  // Remove all state classes
-  robot.classList.remove('pointing', 'typing', 'celebrating', 'waving', 'looking-left', 'looking-right', 'looking-down', 'looking-up', 'idle-tilt');
-  if (mouth) mouth.classList.remove('smiling', 'talking');
+  // Reset all state classes
+  robot.classList.remove('guide', 'attention', 'success', 'calm-win', 'wave', 'pointing', 'typing',
+    'look-cta', 'look-card', 'look-input', 'look-user');
+  if (mouth) mouth.classList.remove('smile', 'talk');
 
-  // Remove screen classes from container
+  // Remove screen classes
   for (let i = 1; i <= 6; i++) container.classList.remove('robot-screen-' + i);
-
-  // Add current screen class
   container.classList.add('robot-screen-' + screenNum);
 
-  // Jump transition animation
+  // Smooth transition — fade-scale, not jump
   robot.classList.add('robot-transition');
-  setTimeout(() => { robot.classList.remove('robot-transition'); }, 500);
+  setTimeout(() => { robot.classList.remove('robot-transition'); }, 350);
 
-  // Screen-specific robot behavior
+  // Screen → robot state mapping per ТЗ
   switch (screenNum) {
     case 1:
-      robot.classList.add('waving');
-      if (mouth) mouth.classList.add('smiling');
-      showRobotBubble('Привет! Я Repa', 2500);
+      // Idle + gentle wave
+      robot.classList.add('wave');
+      robot.classList.add('look-cta');
+      if (mouth) mouth.classList.add('smile');
       break;
     case 2:
-      // Look at the demo card (down)
-      robot.classList.add('looking-down');
-      if (mouth) mouth.classList.add('smiling');
-      hideRobotBubble();
-      setTimeout(() => { showRobotBubble('Смотри, как я работаю!', 2500); }, 400);
+      // Guide + look at card
+      robot.classList.add('guide');
+      robot.classList.add('look-card');
       break;
     case 3:
-      robot.classList.add('looking-down');
-      if (mouth) mouth.classList.add('smiling');
-      showRobotBubble('Попробуй бесплатно!', 2500);
+      // Calm + reassuring blink (just idle with smile)
+      robot.classList.add('look-user');
+      if (mouth) mouth.classList.add('smile');
       break;
     case 4:
-      // Look at the input field (down-left)
-      robot.classList.add('looking-left');
-      showRobotBubble('Вставь отзыв, я отвечу!', 2500);
+      // Attention + look at input
+      robot.classList.add('attention');
+      robot.classList.add('look-input');
       break;
     case 5:
-      robot.classList.add('celebrating');
-      if (mouth) mouth.classList.add('smiling');
-      spawnSparkles(container, 6);
-      hideRobotBubble();
-      setTimeout(() => { showRobotBubble('Готово! Классно, да?', 2500); }, 600);
+      // Success + slight celebration (calm win)
+      robot.classList.add('success');
+      setTimeout(() => {
+        robot.classList.remove('success');
+        robot.classList.add('calm-win');
+        robot.classList.add('look-card');
+        if (mouth) mouth.classList.add('smile');
+      }, 600);
       break;
     case 6:
-      robot.classList.add('pointing');
-      robot.classList.add('looking-down');
-      if (mouth) mouth.classList.add('smiling');
-      hideRobotBubble();
-      setTimeout(() => { showRobotBubble('Осталось немного!', 2500); }, 400);
+      // Calm win + ready state
+      robot.classList.add('calm-win');
+      robot.classList.add('look-cta');
+      if (mouth) mouth.classList.add('smile');
       break;
   }
 }
@@ -4695,9 +4675,6 @@ function showOnboarding() {
 function goOnboardingScreen(n) {
   haptic('light');
   localStorage.setItem('repa_onb_step', String(n));
-
-  // Show glow transition
-  showScreenGlow();
 
   for (let i = 1; i <= 6; i++) {
     const s = document.getElementById('onbScreen' + i);
@@ -4763,7 +4740,7 @@ function goOnboardingScreen(n) {
     }
   }
   if (n === 5) {
-    // Wow effect: fill review/response with typing animation, scale-in card, animate response
+    // Wow: fill review/response — no circus, just clean reveal
     const wr = document.getElementById('wowReview');
     const wresp = document.getElementById('wowResponse');
     const wb = document.getElementById('wowResponseBlock');
@@ -4771,9 +4748,9 @@ function goOnboardingScreen(n) {
 
     if (wr) wr.textContent = onbReviewText || 'Товар хороший, но упаковка пришла помятой.';
 
-    if (wc) { wc.style.transform = 'scale(.94)'; setTimeout(() => { wc.style.transform = 'scale(1)'; }, 300); }
+    if (wc) { wc.style.transform = 'scale(.96)'; setTimeout(() => { wc.style.transform = 'scale(1)'; }, 300); }
 
-    if (wb) { wb.style.opacity = '0'; wb.style.transform = 'translateY(8px)'; }
+    if (wb) { wb.style.opacity = '0'; wb.style.transform = 'translateY(6px)'; }
     setTimeout(() => {
       if (wb) { wb.style.opacity = '1'; wb.style.transform = 'translateY(0)'; }
 
@@ -4781,15 +4758,13 @@ function goOnboardingScreen(n) {
       if (robot) robot.classList.add('typing');
 
       const responseText = onbResponseText || 'Здравствуйте! Спасибо за обратную связь. Сожалеем о проблеме с упаковкой — обязательно улучшим.';
-      typeText(wresp, responseText, 15, () => {
+      typeText(wresp, responseText, 12, () => {
         if (robot) robot.classList.remove('typing');
       });
-    }, 600);
+    }, 500);
 
-    if (wc) { setTimeout(() => { wc.style.boxShadow = '0 0 28px rgba(123,143,212,.3), var(--shadow-card)'; }, 1800); setTimeout(() => { wc.style.boxShadow = 'var(--shadow-card)'; }, 2300); }
-
-    const container = document.getElementById('robotContainer');
-    setTimeout(() => { spawnSparkles(container, 4); }, 1000);
+    // Subtle card glow
+    if (wc) { setTimeout(() => { wc.style.boxShadow = '0 0 20px rgba(123,143,212,.15), var(--shadow-card)'; }, 2000); setTimeout(() => { wc.style.boxShadow = 'var(--shadow-card)'; }, 2800); }
   }
 }
 
@@ -4797,18 +4772,18 @@ function activateTrial() {
   const btn = document.getElementById('trialBtn');
   if (btn) { btn.textContent = 'Активируем...'; btn.disabled = true; }
 
+  // Robot: brief success nod, then move on
   const robot = document.getElementById('robotCharacter');
-  if (robot) robot.classList.add('celebrating');
-  spawnSparkles(document.getElementById('robotContainer'), 5);
+  if (robot) robot.classList.add('success');
 
   fetch(API_BASE + '/api/activate-trial', { method: 'POST', headers: _onbApiHeaders() })
     .then(r => r.json())
     .then(data => {
       haptic('success');
-      if (robot) robot.classList.remove('celebrating');
+      if (robot) robot.classList.remove('success');
       goOnboardingScreen(4);
     })
-    .catch(() => { haptic('success'); if (robot) robot.classList.remove('celebrating'); goOnboardingScreen(4); }); // Proceed anyway
+    .catch(() => { haptic('success'); if (robot) robot.classList.remove('success'); goOnboardingScreen(4); });
 }
 
 function sendOnboardingReview() {
@@ -4873,19 +4848,16 @@ function finishOnboarding(action) {
   localStorage.setItem('repa_onboarding_done', 'true');
   localStorage.removeItem('repa_onb_step');
 
-  // Stop robot blink
   stopRobotBlink();
 
-  // Final celebration
+  // Robot: calm success nod
   const robot = document.getElementById('robotCharacter');
-  if (robot) robot.classList.add('celebrating');
-  const container = document.getElementById('robotContainer');
-  spawnSparkles(container, 8);
+  if (robot) robot.classList.add('success');
 
-  // Notify backend that onboarding is complete
+  // Notify backend
   fetch(API_BASE + '/api/complete-onboarding', { method: 'POST', headers: _onbApiHeaders() }).catch(() => {});
 
-  // Short celebration delay before closing
+  // Brief pause then close
   setTimeout(() => {
     const overlay = document.getElementById('onboardingOverlay');
     if (overlay) overlay.style.display = 'none';
@@ -4901,7 +4873,7 @@ function finishOnboarding(action) {
     } else {
       openSettings('Marketplace');
     }
-  }, 600);
+  }, 500);
 }
 
 function switchHomeTab(tab) {
