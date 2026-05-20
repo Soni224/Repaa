@@ -88,7 +88,7 @@ input,textarea,select{font-family:inherit}
 .slider{width:100%;height:100dvh;overflow:hidden;position:relative}
 .slider-inner{display:flex;width:300%;height:100dvh;transition:transform .28s cubic-bezier(.25,.46,.45,.94);will-change:transform}
 .slider-page{flex:0 0 calc(100%/3);width:calc(100%/3);height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.slider-page .content{padding:14px 16px 0;padding-bottom:calc(var(--nav-h) + var(--safe-b) + 18px)}
+.slider-page .content{padding:8px 12px 0;padding-bottom:calc(var(--nav-h) + var(--safe-b) + 10px)}
 
 /* Override .screen for slider pages */
 .slider .screen{display:block!important;animation:none!important}
@@ -144,13 +144,13 @@ input,textarea,select{font-family:inherit}
 .ico-xl{width:40px;height:40px;flex-shrink:0}
 
 /* Card */
-.card{background:var(--bg-card);border-radius:var(--radius);padding:18px;border:1px solid var(--border-soft);box-shadow:var(--shadow-card);transition:all .2s cubic-bezier(.4,0,.2,1)}
-.card-prominent{background:var(--bg-card);border-radius:var(--radius);padding:22px;border:1.5px solid rgba(123,143,212,.2);box-shadow:var(--shadow-prominent);transition:all .2s cubic-bezier(.4,0,.2,1)}
-.card-quiet{background:var(--bg-card-milky);border-radius:var(--radius);padding:16px;border:1px solid var(--border-soft);box-shadow:var(--shadow);transition:all .2s cubic-bezier(.4,0,.2,1)}
+.card{background:var(--bg-card);border-radius:var(--radius);padding:12px;border:1px solid var(--border-soft);box-shadow:var(--shadow-card);transition:all .2s cubic-bezier(.4,0,.2,1)}
+.card-prominent{background:var(--bg-card);border-radius:var(--radius);padding:14px;border:1.5px solid rgba(123,143,212,.2);box-shadow:var(--shadow-prominent);transition:all .2s cubic-bezier(.4,0,.2,1)}
+.card-quiet{background:var(--bg-card-milky);border-radius:var(--radius);padding:10px;border:1px solid var(--border-soft);box-shadow:var(--shadow);transition:all .2s cubic-bezier(.4,0,.2,1)}
 
 /* Profile */
-.prof{padding:16px}
-.prof-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.prof{padding:10px}
+.prof-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .prof-av{width:44px;height:44px;border-radius:var(--radius-full);background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;flex-shrink:0}
 .prof-info{flex:1;min-width:0}
 .prof-name{font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -167,7 +167,7 @@ input,textarea,select{font-family:inherit}
 .xp-fill{height:100%;background:var(--primary);border-radius:var(--radius-full);width:82%}
 
 /* Status grid */
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
 .scard{padding:12px;display:flex;align-items:center;gap:10px}
 .scard-ico{width:32px;height:32px;border-radius:var(--radius-sm);background:var(--primary-light);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0}
 .scard-ico.warn{background:var(--warning-light);color:var(--warning)}
@@ -184,7 +184,7 @@ input,textarea,select{font-family:inherit}
 .sec-link{font-size:12px;font-weight:600;color:var(--primary)}
 
 /* Quick actions */
-.qact{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.qact{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
 .qact-btn{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 4px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);transition:transform .1s}
 .qact-btn:active{transform:scale(.97)}
 .qact-ico{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--bg-input);display:flex;align-items:center;justify-content:center;color:var(--primary)}
@@ -216,7 +216,7 @@ input,textarea,select{font-family:inherit}
 .tgl input:checked+.tgl-s::before{transform:translateX(20px)}
 
 /* Tabs */
-.tabs{display:flex;gap:2px;padding:3px;background:var(--bg-input);border-radius:var(--radius-sm);margin-bottom:14px}
+.tabs{display:flex;gap:2px;padding:3px;background:var(--bg-input);border-radius:var(--radius-sm);margin-bottom:8px}
 .tab{flex:1;padding:7px 2px;font-size:11px;font-weight:600;color:var(--text-2);border-radius:var(--radius-sm);text-align:center;transition:all .2s ease}
 .tab.active{background:var(--bg-card);color:var(--text);box-shadow:var(--shadow)}
 
@@ -236,7 +236,7 @@ input,textarea,select{font-family:inherit}
 .rv-text{font-size:13px;color:var(--text);line-height:1.55;margin-bottom:10px}
 
 /* Response */
-.resp-box{background:var(--primary-light);border-radius:var(--radius);padding:12px;margin-bottom:12px;border:1px solid rgba(13,124,102,.08)}
+.resp-box{background:var(--primary-light);border-radius:var(--radius);padding:8px;margin-bottom:6px;border:1px solid rgba(13,124,102,.08)}
 .resp-label{font-size:10px;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .resp-text{font-size:13px;color:var(--text);line-height:1.55}
 .resp-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
@@ -252,27 +252,27 @@ input,textarea,select{font-family:inherit}
 .lf-time{font-size:10px;color:var(--text-3);margin-left:auto;flex-shrink:0}
 
 /* Stat */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
 .stat-card{padding:12px;text-align:center}
 .stat-v{font-size:22px;font-weight:700;color:var(--text);margin-bottom:1px}
 .stat-l{font-size:10px;color:var(--text-3);font-weight:500}
 
 /* Chart */
-.chart{width:100%;height:160px;background:var(--bg-card);border-radius:var(--radius);display:flex;align-items:flex-end;justify-content:space-around;padding:14px 10px;margin-bottom:14px;border:1px solid var(--border)}
+.chart{width:100%;height:120px;background:var(--bg-card);border-radius:var(--radius);display:flex;align-items:flex-end;justify-content:space-around;padding:10px 8px;margin-bottom:8px;border:1px solid var(--border)}
 .chart-bar-g{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
 .chart-bar{width:20px;border-radius:6px 6px 0 0;background:var(--primary);transition:height .5s ease}
 .chart-bar.sec{background:var(--text-3);opacity:.3;width:10px}
 .chart-lbl{font-size:9px;color:var(--text-3);font-weight:500}
 
 /* Tariff */
-.tariff{padding:16px;margin-bottom:10px;position:relative}
+.tariff{padding:10px;margin-bottom:6px;position:relative}
 .tariff.pop{border-color:var(--primary);border-width:2px}
 .tariff-badge{position:absolute;top:0;right:0;background:var(--primary);color:#fff;font-size:9px;font-weight:700;padding:3px 10px;border-radius:0 0 0 var(--radius-sm)}
 .tariff-name{font-size:17px;font-weight:700;color:var(--text);margin-bottom:2px}
-.tariff-price{display:flex;align-items:baseline;gap:4px;margin-bottom:12px}
+.tariff-price{display:flex;align-items:baseline;gap:3px;margin-bottom:6px}
 .tariff-pv{font-size:24px;font-weight:700;color:var(--primary)}
 .tariff-pp{font-size:12px;color:var(--text-3)}
-.tariff-feat{list-style:none;margin-bottom:14px}
+.tariff-feat{list-style:none;margin-bottom:8px}
 .tariff-feat li{font-size:12px;color:var(--text-2);padding:4px 0;display:flex;align-items:center;gap:6px}
 .tariff-feat li::before{content:'';width:14px;height:14px;background:var(--success);border-radius:50%;flex-shrink:0;margin-right:2px;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat}
 
@@ -338,7 +338,7 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 /* Sub-screen */
 .sub{display:none;position:fixed;inset:0;background:var(--bg);z-index:35;max-width:430px;margin:0 auto;overflow-y:auto;animation:fadeIn .2s ease}
 .sub.active{display:block}
-.sub-c{padding:16px}
+.sub-c{padding:10px}
 .back-btn{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--primary);padding:6px 0}
 .back-btn svg{width:18px;height:18px}
 
@@ -355,19 +355,19 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
 
 /* Spacing */
-.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}
+.mt-8{margin-top:4px}.mt-12{margin-top:6px}.mt-16{margin-top:8px}.mb-8{margin-bottom:4px}.mb-12{margin-bottom:6px}.mb-16{margin-bottom:8px}
 
 /* Theme follows Telegram colorScheme via .dark class on <html> — no separate TG override needed */
 
 /* Settings — Redesigned (7-item product system) */
-.s-head{text-align:center;padding:7px 0 12px}
+.s-head{text-align:center;padding:14px 0 10px}
 .s-avatar{width:76px;height:76px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 10px;box-shadow:0 4px 16px rgba(107,127,215,.18)}
 .s-name{font-size:20px;font-weight:700;color:var(--text);line-height:1.2}
 .s-status{font-size:12px;color:var(--text-3);margin-top:3px;line-height:1.4}
 .s-hint{font-size:12px;color:var(--primary);font-weight:500;margin-top:2px}
 
-.s-card{background:var(--bg-card);border-radius:22px;padding:6px 0;box-shadow:0 1px 4px rgba(0,0,0,.04);border:1px solid var(--border);margin-bottom:16px;overflow:hidden}
-.s-row{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;text-align:left;background:none;border:none;cursor:pointer;transition:background .12s}
+.s-card{background:var(--bg-card);border-radius:16px;padding:4px 0;box-shadow:0 1px 4px rgba(0,0,0,.04);border:1px solid var(--border);margin-bottom:8px;overflow:hidden}
+.s-row{display:flex;align-items:center;gap:10px;width:100%;padding:10px 14px;text-align:left;background:none;border:none;cursor:pointer;transition:background .12s}
 .s-row:active{background:var(--bg-input)}
 .s-row+.s-row{border-top:1px solid var(--border)}
 .s-row-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -397,7 +397,7 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 .tg-sec-sub{font-size:12px;color:var(--text-3);margin-bottom:10px;line-height:1.4}
 
 /* Telegram-style card — clean white, rounded, light border */
-.tg-card{background:var(--bg-card);border-radius:16px;border:1px solid var(--border-soft);box-shadow:0 1px 3px rgba(0,0,0,.03);overflow:hidden;margin-bottom:14px}
+.tg-card{background:var(--bg-card);border-radius:14px;border:1px solid var(--border-soft);box-shadow:0 1px 3px rgba(0,0,0,.03);overflow:hidden;margin-bottom:8px}
 
 /* Telegram-style row — one row = one setting */
 .tg-row{display:flex;align-items:center;gap:14px;padding:13px 16px;width:100%;background:none;border:none;cursor:pointer;text-align:left;transition:background .1s}
@@ -425,7 +425,7 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 .tg-row .tgl{flex-shrink:0}
 
 /* Status block — hero inside a section (e.g. autopilot status) */
-.tg-status{background:var(--bg-card);border-radius:16px;border:1px solid var(--border-soft);box-shadow:0 1px 3px rgba(0,0,0,.03);padding:20px;text-align:center;margin-bottom:14px}
+.tg-status{background:var(--bg-card);border-radius:14px;border:1px solid var(--border-soft);box-shadow:0 1px 3px rgba(0,0,0,.03);padding:12px;text-align:center;margin-bottom:8px}
 .tg-status-ico{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
 .tg-status-ico svg{width:24px;height:24px}
 .tg-status-ico.ico-off{background:var(--bg-input);color:var(--text-3)}
@@ -458,12 +458,12 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 .tg-plat-action{flex-shrink:0}
 
 /* Danger zone at the bottom */
-.tg-danger{background:var(--bg-card);border-radius:16px;border:1px solid rgba(224,108,117,.15);overflow:hidden;margin-top:6px;margin-bottom:14px}
+.tg-danger{background:var(--bg-card);border-radius:14px;border:1px solid rgba(224,108,117,.15);overflow:hidden;margin-top:4px;margin-bottom:8px}
 .tg-danger .tg-row-title{color:var(--danger)}
 .tg-danger .tg-row:active{background:var(--danger-light)}
 
 /* Token buy grid */
-.tg-token-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.tg-token-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
 .tg-token-item{background:var(--bg-card);border:1px solid var(--border-soft);border-radius:14px;padding:14px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.03);transition:transform .1s}
 .tg-token-item:active{transform:scale(.97)}
 .tg-token-val{font-size:20px;font-weight:700;color:var(--text)}
@@ -471,20 +471,20 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 .tg-token-price{font-size:15px;font-weight:700;color:var(--primary);margin:6px 0 8px}
 
 /* Tariff card — redesigned calmer */
-.tg-tariff{background:var(--bg-card);border-radius:16px;border:1px solid var(--border-soft);box-shadow:0 1px 3px rgba(0,0,0,.03);padding:18px;margin-bottom:10px;position:relative;overflow:hidden}
+.tg-tariff{background:var(--bg-card);border-radius:14px;border:1px solid var(--border-soft);box-shadow:0 1px 3px rgba(0,0,0,.03);padding:12px;margin-bottom:6px;position:relative;overflow:hidden}
 .tg-tariff.pop{border-color:var(--primary);border-width:1.5px}
 .tg-tariff-badge{position:absolute;top:0;right:0;background:var(--primary);color:#fff;font-size:9px;font-weight:700;padding:3px 10px;border-radius:0 0 0 10px}
 .tg-tariff-name{font-size:17px;font-weight:700;color:var(--text);margin-bottom:2px}
-.tg-tariff-price{display:flex;align-items:baseline;gap:4px;margin-bottom:12px}
+.tg-tariff-price{display:flex;align-items:baseline;gap:3px;margin-bottom:6px}
 .tg-tariff-pv{font-size:24px;font-weight:700;color:var(--primary)}
 .tg-tariff-pp{font-size:12px;color:var(--text-3)}
-.tg-tariff-feat{list-style:none;margin-bottom:14px}
+.tg-tariff-feat{list-style:none;margin-bottom:8px}
 .tg-tariff-feat li{font-size:12px;color:var(--text-2);padding:4px 0;display:flex;align-items:center;gap:6px}
 .tg-tariff-feat li::before{content:'';width:14px;height:14px;background:var(--success);border-radius:50%;flex-shrink:0;margin-right:2px;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat}
 
 /* Subscription status block */
-.tg-sub-status{background:var(--bg-card);border-radius:16px;border:1px solid var(--border-soft);box-shadow:0 1px 3px rgba(0,0,0,.03);padding:18px;margin-bottom:14px}
-.tg-sub-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tg-sub-status{background:var(--bg-card);border-radius:14px;border:1px solid var(--border-soft);box-shadow:0 1px 3px rgba(0,0,0,.03);padding:12px;margin-bottom:8px}
+.tg-sub-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .tg-sub-tariff{font-size:15px;font-weight:700;color:var(--text)}
 .tg-sub-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:var(--radius-full);color:var(--primary);background:var(--primary-soft)}
 .tg-sub-bar{height:5px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:8px}
@@ -499,11 +499,11 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 .tg-example{background:var(--primary-soft);border-radius:12px;padding:12px 14px;margin-top:6px;font-size:12px;color:var(--text-2);line-height:1.5;border-left:3px solid var(--primary)}
 
 /* Section spacing inside detail views */
-.tg-section{margin-bottom:16px}
+.tg-section{margin-bottom:8px}
 .tg-section:last-child{margin-bottom:0}
 
 /* Subscription widget inside settings */
-.sub-widget{background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:14px}
+.sub-widget{background:var(--bg-card);border-radius:var(--radius);padding:10px;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:8px}
 .sub-widget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .sub-widget-tariff{font-size:14px;font-weight:700;color:var(--text)}
 .sub-widget-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:var(--radius-full);color:var(--primary);background:var(--primary-soft)}
@@ -542,16 +542,16 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 /* === PRODUCTION ADDITIONS === */
 
 /* Main CTA button */
-.main-cta{position:relative;font-size:16px;padding:18px 20px;font-weight:700;border-radius:var(--radius);min-height:100px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;border:none;box-shadow:var(--shadow-cta)}
+.main-cta{position:relative;font-size:15px;padding:12px 16px;font-weight:700;border-radius:var(--radius);min-height:60px;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--primary);color:#fff;border:none;box-shadow:var(--shadow-cta)}
 .main-cta:active{transform:scale(.97);background:var(--primary-hover)}
 .live-badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;background:#10b981;color:#fff;font-size:11px;font-weight:700;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(16,185,129,.4)}
 
 /* Breathing spacing */
-.content>.card:not(:last-child){margin-bottom:14px!important}
-.content>.card-prominent:not(:last-child){margin-bottom:16px!important}
-.content>.card-quiet:not(:last-child){margin-bottom:10px!important}
-.screen .sec-h{margin-bottom:14px!important}
-.screen .card{margin-bottom:14px!important}
+.content>.card:not(:last-child){margin-bottom:8px!important}
+.content>.card-prominent:not(:last-child){margin-bottom:8px!important}
+.content>.card-quiet:not(:last-child){margin-bottom:6px!important}
+.screen .sec-h{margin-bottom:8px!important}
+.screen .card{margin-bottom:8px!important}
 
 /* Premium hover/press */
 .card,.card-prominent,.card-quiet,.scard,.qact-btn{transition:all .15s cubic-bezier(.4,0,.2,1)}
@@ -565,7 +565,7 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 .sub.active .card:nth-child(3){animation:slideUpFade .4s ease forwards;animation-delay:.2s}
 
 /* Empty state */
-.empty-state{text-align:center;padding:40px 20px}
+.empty-state{text-align:center;padding:24px 12px}
 .empty-state-icon{font-size:40px;margin-bottom:12px;opacity:.3;line-height:1}
 
 /* Mobile iPhone SE (320px) */
@@ -599,7 +599,7 @@ body.has-main-btn{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 52px)}
 .prof-av{width:40px;height:40px;font-size:14px}
 
 /* Card padding refined */
-.card{padding:16px}
+.card{padding:12px}
 
 /* Live feed — secondary visual weight */
 .lf-item{border-left:2px solid var(--border);padding-left:10px;opacity:.7}
@@ -627,7 +627,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 /* === HOME REDESIGN: Calm, clear, controlled === */
 
 /* Top header — centered product identity */
-.home-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-top:4px}
+.home-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-top:2px}
 .home-header-left{display:flex;align-items:center;gap:10px}
 .home-avatar{transition:transform .15s}
 .home-avatar:active{transform:scale(.92)}
@@ -636,10 +636,10 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .home-header-right{display:flex;align-items:center;gap:8px}
 
 /* Hero status card — THE most prominent element */
-.hero-status{background:linear-gradient(135deg,var(--primary-light) 0%,var(--bg-card) 100%);border:1.5px solid rgba(123,143,212,.18);border-radius:var(--radius);padding:24px 22px;box-shadow:var(--shadow-prominent);position:relative;overflow:hidden;transition:all .2s ease}
+.hero-status{background:linear-gradient(135deg,var(--primary-light) 0%,var(--bg-card) 100%);border:1.5px solid rgba(123,143,212,.18);border-radius:var(--radius);padding:14px 14px;box-shadow:var(--shadow-prominent);position:relative;overflow:hidden;transition:all .2s ease}
 .hero-status::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:rgba(123,143,212,.06);pointer-events:none}
 .hero-status::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(123,191,138,.04);pointer-events:none}
-.hero-status-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:14px;line-height:1.2}
+.hero-status-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.2}
 .hero-status-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .hero-status-item{display:flex;align-items:center;gap:10px}
 .hero-status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -653,20 +653,20 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .cta-connect-icon{width:56px;height:56px;border-radius:16px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:var(--primary)}
 .cta-connect-icon svg{width:28px;height:28px}
 .cta-connect-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.2}
-.cta-connect-sub{font-size:13px;color:var(--text-3);margin-bottom:18px;line-height:1.5}
+.cta-connect-sub{font-size:13px;color:var(--text-3);margin-bottom:10px;line-height:1.5}
 .cta-connect-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:14px 28px;border-radius:var(--radius-sm);background:var(--primary);color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;box-shadow:var(--shadow-cta);transition:all .15s ease;width:100%}
 .cta-connect-btn:active{transform:scale(.97);background:var(--primary-hover)}
 
 /* Subscription bar — clear and honest */
-.sub-block{background:var(--bg-card);border-radius:var(--radius);padding:18px 20px;border:1px solid var(--border-soft);box-shadow:var(--shadow-card)}
+.sub-block{background:var(--bg-card);border-radius:var(--radius);padding:12px 14px;border:1px solid var(--border-soft);box-shadow:var(--shadow-card)}
 .sub-block-header{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px}
 .sub-block-bar{height:5px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:8px}
 .sub-block-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--lavender));border-radius:var(--radius-full);transition:width .5s ease}
-.sub-block-info{font-size:12px;color:var(--text-3);margin-bottom:12px}
+.sub-block-info{font-size:12px;color:var(--text-3);margin-bottom:6px}
 .sub-block-actions{display:flex;gap:8px}
 
 /* Autopilot card — calm and safe */
-.autopilot-card{background:var(--bg-card-milky);border-radius:var(--radius);padding:16px 18px;border:1px solid var(--border-soft);box-shadow:var(--shadow);cursor:pointer;transition:all .2s ease}
+.autopilot-card{background:var(--bg-card-milky);border-radius:var(--radius);padding:10px 12px;border:1px solid var(--border-soft);box-shadow:var(--shadow);cursor:pointer;transition:all .2s ease}
 .autopilot-card:active{transform:scale(.98)}
 .autopilot-card-row{display:flex;align-items:center;gap:12px;margin-bottom:6px}
 .autopilot-card-ico{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--mint-light);display:flex;align-items:center;justify-content:center;color:var(--mint);flex-shrink:0}
@@ -693,15 +693,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .home-balance-plus svg{width:13px;height:13px}
 
 /* Marketplace tabs — compact */
-.home-tabs-row{display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.home-tabs-row{display:flex;align-items:center;justify-content:center;margin-bottom:8px}
 .home-tabs{display:flex;gap:2px;padding:3px;background:var(--bg-input);border-radius:var(--radius-sm);width:fit-content}
 .home-tab{padding:6px 18px;font-size:12px;font-weight:600;color:var(--text-3);border-radius:8px;cursor:pointer;transition:all .2s}
 .home-tab.active{background:var(--bg-card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .home-tab:active{transform:scale(.96)}
 
 /* Onboarding — sequential, only current step prominent */
-.onboarding-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.onboarding-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.onboarding-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:10px;margin-bottom:6px}
+.onboarding-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .onboarding-title{font-size:14px;font-weight:700;color:var(--text)}
 .onboarding-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary)}
 .onboarding-steps{display:flex;flex-direction:column;gap:0}
@@ -739,7 +739,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .sub-bar-buy:active{transform:scale(.95)}
 
 /* Quick actions — 2-column compact grid */
-.home-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.home-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
 .home-action-pill{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);cursor:pointer;transition:all .15s;position:relative;text-align:center}
 .home-action-pill:active{transform:scale(.97)}
 .home-action-pill.locked{opacity:.4;pointer-events:none}
@@ -773,11 +773,11 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 .autopilot-text strong{color:var(--text);font-weight:600}
 
 /* Empty state CTA — compact */
-.empty-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;text-align:center;margin-bottom:12px}
+.empty-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 10px;text-align:center;margin-bottom:6px}
 .empty-cta-icon{width:44px;height:44px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:var(--primary)}
 .empty-cta-icon svg{width:22px;height:22px}
 .empty-cta-text{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
-.empty-cta-sub{font-size:12px;color:var(--text-3);margin-bottom:12px;line-height:1.4}
+.empty-cta-sub{font-size:12px;color:var(--text-3);margin-bottom:6px;line-height:1.4}
 .empty-cta-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:var(--radius-sm);background:var(--primary);color:#fff;font-size:13px;font-weight:600;transition:all .15s}
 .empty-cta-btn:active{transform:scale(.96)}
 
@@ -799,8 +799,8 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 /* Compact mode */
 .compact .card{padding:12px!important}
 .compact .content{padding:10px 12px 0!important}
-.compact .sec-h{margin-bottom:16px!important}
-.compact .home-header{margin-bottom:12px}
+.compact .sec-h{margin-bottom:8px!important}
+.compact .home-header{margin-bottom:6px}
 .compact .onboarding-card{padding:12px}
 .compact .onboarding-step{padding:8px 0}
 .compact .home-action-pill{padding:10px 12px}
@@ -993,7 +993,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- ===== BLOCK 5.2: Hero Status Card (MOST prominent) ===== -->
-  <div class="hero-status anim-onboard" id="statusCard" style="margin-bottom:16px">
+  <div class="hero-status anim-onboard" id="statusCard" style="margin-bottom:8px">
     <div style="position:relative;z-index:1">
       <div class="hero-status-title" id="statusMainTitle">Остался 1 шаг до запуска</div>
       <div class="hero-status-grid">
@@ -1022,7 +1022,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- ===== BLOCK 5.3: CTA Connect Store (second most important) ===== -->
-  <div id="emptyCta" class="cta-connect anim-card" style="margin-bottom:16px">
+  <div id="emptyCta" class="cta-connect anim-card" style="margin-bottom:8px">
     <div class="cta-connect-icon">
       <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
     </div>
@@ -1038,7 +1038,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </button>
 
   <!-- ===== BLOCK 5.4: Subscription & Tokens ===== -->
-  <div class="sub-block anim-card" style="margin-bottom:12px" id="subBar">
+  <div class="sub-block anim-card" style="margin-bottom:6px" id="subBar">
     <div class="sub-block-header" id="subBarTariff">Бесплатный план: 2 ответа для знакомства</div>
     <div class="sub-block-bar">
       <div class="sub-block-fill" id="subBarFill" style="width:0%"></div>
@@ -1052,7 +1052,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- ===== BLOCK 5.5: Autopilot (calm, safe) ===== -->
-  <div class="autopilot-card anim-card" style="margin-bottom:12px" onclick="openSettings('Autopilot')">
+  <div class="autopilot-card anim-card" style="margin-bottom:6px" onclick="openSettings('Autopilot')">
     <div class="autopilot-card-row">
       <div class="autopilot-card-ico">
         <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
@@ -1110,7 +1110,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="screen" id="screenReviews">
 <div class="content">
   <!-- Reviews header with styled card -->
-  <div class="home-header anim-rv-header" style="margin-bottom:16px">
+  <div class="home-header anim-rv-header" style="margin-bottom:8px">
     <div class="home-header-left">
       <div style="font-size:20px;font-weight:700;color:var(--text)">Отзывы</div>
       <div style="font-size:11px;color:var(--text-3);font-weight:500">Новые и обработанные</div>
@@ -1124,7 +1124,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </div>
 
   <!-- Summary stats row -->
-  <div class="stat-grid anim-stat" style="margin-bottom:14px">
+  <div class="stat-grid anim-stat" style="margin-bottom:7px">
     <div class="stat-card card" style="padding:10px">
       <div style="display:flex;align-items:center;gap:6px">
         <div style="width:28px;height:28px;border-radius:8px;background:var(--danger-light);display:flex;align-items:center;justify-content:center">
@@ -1178,7 +1178,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 <div class="screen" id="screenAnalytics">
 <div class="content">
   <!-- Analytics header -->
-  <div class="home-header" style="margin-bottom:16px">
+  <div class="home-header" style="margin-bottom:8px">
     <div class="home-header-left">
       <div style="font-size:20px;font-weight:700;color:var(--text)">Аналитика</div>
       <div style="font-size:11px;color:var(--text-3);font-weight:500">Статистика ответов</div>
@@ -1390,23 +1390,31 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
 
     <div class="tg-section">
-      <div class="tg-sec-header">Настройка внешнего вида</div>
+      <div class="tg-sec-header">Внешний вид</div>
       <div class="tg-card">
-        <button class="tg-row" onclick="setTheme('system')" id="themeRowSystem">
-          <div class="tg-row-ico ico-neutral"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
-          <div class="tg-row-body"><div class="tg-row-title">Системная</div><div class="tg-row-sub">Подстраивается под устройство</div></div>
-          <input type="radio" name="themeChoice" value="system" id="themeSystem" checked style="accent-color:var(--primary)">
-        </button>
-        <button class="tg-row" onclick="setTheme('light')" id="themeRowLight">
-          <div class="tg-row-ico ico-amber"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
-          <div class="tg-row-body"><div class="tg-row-title">Светлая</div><div class="tg-row-sub">Светлый фон, тёмный текст</div></div>
-          <input type="radio" name="themeChoice" value="light" id="themeLight" style="accent-color:var(--primary)">
-        </button>
-        <button class="tg-row" onclick="setTheme('dark')" id="themeRowDark">
-          <div class="tg-row-ico ico-gold"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
-          <div class="tg-row-body"><div class="tg-row-title">Тёмная</div><div class="tg-row-sub">Тёмный фон, удобнее для глаз</div></div>
-          <input type="radio" name="themeChoice" value="dark" id="themeDark" style="accent-color:var(--primary)">
-        </button>
+        <div style="display:flex;flex-direction:column;gap:6px;padding:10px 12px" id="themeCards">
+          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:12px;transition:all .15s" onclick="setTheme('system')">
+            <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#F5F5F9 50%,#121214 50%);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="14" height="14" fill="none" stroke="var(--text-2)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+            </div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:500">Системная</div><div style="font-size:11px;color:var(--text-3)">Подстраивается под устройство</div></div>
+            <input type="radio" name="themeChoice" value="system" id="themeSystem" checked style="accent-color:var(--primary)">
+          </label>
+          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:12px;transition:all .15s" onclick="setTheme('light')">
+            <div style="width:32px;height:32px;border-radius:8px;background:#F5F5F9;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="14" height="14" fill="none" stroke="#1A1A2E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+            </div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:500">Светлая</div><div style="font-size:11px;color:var(--text-3)">Светлый фон, тёмный текст</div></div>
+            <input type="radio" name="themeChoice" value="light" id="themeLight" style="accent-color:var(--primary)">
+          </label>
+          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:12px;transition:all .15s" onclick="setTheme('dark')">
+            <div style="width:32px;height:32px;border-radius:8px;background:#121214;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="14" height="14" fill="none" stroke="#EEEEF0" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:500">Тёмная</div><div style="font-size:11px;color:var(--text-3)">Тёмный фон, удобнее для глаз</div></div>
+            <input type="radio" name="themeChoice" value="dark" id="themeDark" style="accent-color:var(--primary)">
+          </label>
+        </div>
       </div>
     </div>
 
@@ -1438,27 +1446,44 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
     <div class="tg-section">
       <div class="tg-sec-header">Подключённые магазины</div>
+      <div class="tg-sec-sub">Подключите магазины, чтобы получать отзывы</div>
       <div class="tg-card">
-        <button class="tg-row" onclick="openSubPlatform('wb')">
-          <div class="tg-row-ico ico-primary" style="background:rgba(155,45,255,.1);color:#9B2DFF">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <div class="tg-plat">
+          <div class="tg-plat-logo wb">WB</div>
+          <div class="tg-plat-body">
+            <div class="tg-plat-name">Wildberries</div>
+            <div class="tg-plat-st" id="settingsWBStatus"><span class="dot dot-off"></span> Не подключён</div>
           </div>
-          <div class="tg-row-body">
-            <div class="tg-row-title">Wildberries</div>
-            <div class="tg-row-sub" id="settingsWBStatus"><span class="dot dot-off"></span> Не подключён</div>
+          <div class="tg-plat-action"><button class="btn btn-o btn-sm" id="wbConnectBtn" onclick="connectWB()">Подключить</button></div>
+        </div>
+        <div class="tg-plat">
+          <div class="tg-plat-logo ozon">OZ</div>
+          <div class="tg-plat-body">
+            <div class="tg-plat-name">Ozon</div>
+            <div class="tg-plat-st" id="settingsOzonStatus"><span class="dot dot-off"></span> Не подключён</div>
           </div>
-          <svg class="tg-row-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-        <button class="tg-row" onclick="openSubPlatform('ozon')">
-          <div class="tg-row-ico" style="background:rgba(0,91,255,.1);color:#005BFF">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          </div>
-          <div class="tg-row-body">
-            <div class="tg-row-title">Ozon</div>
-            <div class="tg-row-sub" id="settingsOzonStatus"><span class="dot dot-off"></span> Не подключён</div>
-          </div>
-          <svg class="tg-row-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
+          <div class="tg-plat-action"><button class="btn btn-o btn-sm" id="ozonConnectBtn" onclick="connectOzon()">Подключить</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tg-section">
+      <div class="tg-sec-header">API-ключ</div>
+      <div class="tg-card" style="padding:14px 16px">
+        <div style="margin-bottom:10px">
+          <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">Wildberries API-ключ</label>
+          <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="wbSaveBtn" onclick="saveWBKey()">OK</button></div>
+          <div id="wbKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">Ozon Client ID</label>
+          <div style="display:flex;gap:6px;margin-bottom:8px"><input type="text" class="inp" id="ozonClientId" placeholder="Client ID" style="flex:1"></div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">Ozon API-ключ</label>
+          <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="ozonSaveBtn" onclick="saveOzonKey()">OK</button></div>
+          <div id="ozonKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
+        </div>
       </div>
     </div>
 
@@ -1834,7 +1859,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
   </button>
 
   <!-- Header -->
-  <div class="home-header anim-rv-header" style="margin-bottom:16px">
+  <div class="home-header anim-rv-header" style="margin-bottom:8px">
     <div class="home-header-left">
       <div style="font-size:20px;font-weight:700;color:var(--text)">Новый ответ</div>
       <div style="font-size:11px;color:var(--text-3);font-weight:500">Генерация AI-ответа на отзыв</div>
@@ -1944,111 +1969,6 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     Назад
   </button>
   <div id="reviewEditorContent"></div>
-</div>
-</div>
-
-<!-- ========== SUB: Wildberries API ========== -->
-<div class="sub" id="subPlatformWB">
-<div class="sub-c">
-  <button class="back-btn mb-16" onclick="closeSub('subPlatformWB')">
-    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    Назад
-  </button>
-
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
-    <div style="width:44px;height:44px;border-radius:12px;background:rgba(155,45,255,.1);display:flex;align-items:center;justify-content:center">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9B2DFF" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-    </div>
-    <div>
-      <div style="font-size:17px;font-weight:700;color:var(--text)">Wildberries</div>
-      <div style="font-size:12px;color:var(--text-3)" id="subWBStatus"><span class="dot dot-off"></span> Не подключён</div>
-    </div>
-  </div>
-
-  <div class="tg-section">
-    <div class="tg-sec-header">API-ключ</div>
-    <div class="tg-sec-sub">Скопируйте API-ключ из кабинета Wildberries (раздел «Настройки» → «Доступ к API»)</div>
-    <div class="tg-card" style="padding:14px 16px">
-      <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Вставьте API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="wbSaveBtn" onclick="saveWBKey()">OK</button></div>
-      <div id="wbKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
-    </div>
-  </div>
-
-  <div class="tg-section">
-    <div class="tg-sec-header">Инструкция</div>
-    <div class="tg-card" style="padding:14px 16px">
-      <div style="font-size:12px;color:var(--text-2);line-height:1.6">
-        <div style="margin-bottom:6px"><b style="color:var(--text)">1.</b> Зайдите в кабинет WB → Настройки</div>
-        <div style="margin-bottom:6px"><b style="color:var(--text)">2.</b> Откройте «Доступ к API»</div>
-        <div style="margin-bottom:6px"><b style="color:var(--text)">3.</b> Создайте новый токен (только «Отзывы»)</div>
-        <div><b style="color:var(--text)">4.</b> Скопируйте и вставьте выше</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tg-section">
-    <div class="tg-card" style="padding:14px 16px;text-align:center">
-      <div style="font-size:11px;color:var(--text-3);line-height:1.6">API-ключ шифруется (AES-256). Мы видим только зашифрованный код. Ключ может только читать отзывы и писать ответы.</div>
-    </div>
-  </div>
-
-  <button class="btn btn-o btn-full" id="wbConnectBtn" onclick="connectWB()" style="margin-top:6px">Подключить</button>
-</div>
-</div>
-
-<!-- ========== SUB: Ozon API ========== -->
-<div class="sub" id="subPlatformOzon">
-<div class="sub-c">
-  <button class="back-btn mb-16" onclick="closeSub('subPlatformOzon')">
-    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    Назад
-  </button>
-
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
-    <div style="width:44px;height:44px;border-radius:12px;background:rgba(0,91,255,.1);display:flex;align-items:center;justify-content:center">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#005BFF" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-    </div>
-    <div>
-      <div style="font-size:17px;font-weight:700;color:var(--text)">Ozon</div>
-      <div style="font-size:12px;color:var(--text-3)" id="subOzonStatus"><span class="dot dot-off"></span> Не подключён</div>
-    </div>
-  </div>
-
-  <div class="tg-section">
-    <div class="tg-sec-header">Client ID</div>
-    <div class="tg-sec-sub">Найдите в кабинете Ozon → Настройки → API-ключи</div>
-    <div class="tg-card" style="padding:14px 16px">
-      <input type="text" class="inp" id="ozonClientId" placeholder="Вставьте Client ID" style="width:100%">
-    </div>
-  </div>
-
-  <div class="tg-section">
-    <div class="tg-sec-header">API-ключ</div>
-    <div class="tg-card" style="padding:14px 16px">
-      <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Вставьте API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="ozonSaveBtn" onclick="saveOzonKey()">OK</button></div>
-      <div id="ozonKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
-    </div>
-  </div>
-
-  <div class="tg-section">
-    <div class="tg-sec-header">Инструкция</div>
-    <div class="tg-card" style="padding:14px 16px">
-      <div style="font-size:12px;color:var(--text-2);line-height:1.6">
-        <div style="margin-bottom:6px"><b style="color:var(--text)">1.</b> Зайдите в кабинет Ozon → Настройки</div>
-        <div style="margin-bottom:6px"><b style="color:var(--text)">2.</b> Откройте «API-ключи»</div>
-        <div style="margin-bottom:6px"><b style="color:var(--text)">3.</b> Создайте новый ключ (тип «Продавец»)</div>
-        <div><b style="color:var(--text)">4.</b> Скопируйте Client ID и ключ, вставьте выше</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tg-section">
-    <div class="tg-card" style="padding:14px 16px;text-align:center">
-      <div style="font-size:11px;color:var(--text-3);line-height:1.6">API-ключ шифруется (AES-256). Ключ может только читать отзывы и писать ответы. Никаких других действий.</div>
-    </div>
-  </div>
-
-  <button class="btn btn-o btn-full" id="ozonConnectBtn" onclick="connectOzon()" style="margin-top:6px">Подключить</button>
 </div>
 </div>
 
@@ -2245,7 +2165,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <div class="onb-anim-item" data-delay="0" style="font-size:20px;font-weight:700;color:var(--text)">Отзыв → готовый ответ.</div>
       </div>
       <div id="demoCard" class="onb-anim-item onb-card-glow onb-demo-card" data-delay="150" style="margin-bottom:20px">
-        <div style="margin-bottom:14px">
+        <div style="margin-bottom:7px">
           <div class="label">Отзыв</div>
           <div class="content-text">Товар хороший, но упаковка пришла помятой.</div>
         </div>
@@ -2265,7 +2185,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       <div class="onb-anim-item" data-delay="0">
         <div class="onb-trial-card" style="margin-bottom:24px">
           <div style="text-align:center">
-            <div style="font-size:26px;font-weight:700;color:var(--text);line-height:1.2">7 дней бесплатно</div>
+            <div style="font-size:26px;font-weight:700;color:var(--text);line-height:1.2">3 дня бесплатно</div>
             <div style="font-size:14px;color:var(--text-2);margin-top:10px;line-height:1.5">Можно спокойно попробовать.</div>
           </div>
         </div>
@@ -2299,7 +2219,7 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
         <div class="onb-anim-item" data-delay="100" style="font-size:18px;font-weight:700;color:var(--success)">Ответ готов</div>
       </div>
       <div id="wowCard" class="onb-anim-item onb-card-glow onb-demo-card" data-delay="200" style="margin-bottom:12px;transform:scale(.96);transition:box-shadow .4s ease,transform .5s cubic-bezier(.34,1.56,.64,1)">
-        <div style="margin-bottom:14px">
+        <div style="margin-bottom:7px">
           <div class="label">Отзыв</div>
           <div id="wowReview" class="content-text"></div>
         </div>
@@ -2374,7 +2294,15 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
       </div>
       <span>Аналитика</span>
     </button>
-
+    <button class="bnav-i" id="bnavSettings" data-screen="subSettings" onclick="openSettings()">
+      <div class="bnav-i-ico">
+        <!-- Outline (inactive) -->
+        <svg class="ico-outline" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.604.852 1.004 1.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <!-- Filled (active) -->
+        <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1112 8.4a3.6 3.6 0 010 7.2z"/></svg>
+      </div>
+      <span>Настройки</span>
+    </button>
   </div>
 </nav>
 
@@ -3402,28 +3330,6 @@ function closeSub(id) {
   updateBackButton();
 }
 
-function openSubPlatform(platform) {
-  haptic('light');
-  const subId = platform === 'wb' ? 'subPlatformWB' : 'subPlatformOzon';
-  const el = document.getElementById(subId);
-  if (el) {
-    // Sync status from settings to sub-screen
-    if (platform === 'wb') {
-      const src = document.getElementById('settingsWBStatus');
-      const dst = document.getElementById('subWBStatus');
-      if (src && dst) dst.innerHTML = src.innerHTML;
-    } else {
-      const src = document.getElementById('settingsOzonStatus');
-      const dst = document.getElementById('subOzonStatus');
-      if (src && dst) dst.innerHTML = src.innerHTML;
-    }
-    el.classList.add('active');
-    activeSub = subId;
-    if (window.__hideNav) window.__hideNav();
-    updateBackButton();
-  }
-}
-
 function openSettings(section) {
   haptic('light');
   // Re-apply user data to settings elements
@@ -3484,8 +3390,10 @@ function openSettings(section) {
   // Hide bottom nav — settings has its own back navigation
   const nav = document.querySelector('.bnav');
   if (nav) nav.classList.add('nav-hidden');
-  // Deactivate all nav buttons (settings is no longer in nav)
+  // Highlight settings nav button
   document.querySelectorAll('.bnav-i').forEach(i => i.classList.remove('active'));
+  const settingsBtn = document.getElementById('bnavSettings');
+  if (settingsBtn) settingsBtn.classList.add('active');
   // If a section is specified, go directly to it; otherwise show list
   if (section) {
     openSettingsSection(section);
