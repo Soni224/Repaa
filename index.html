@@ -360,7 +360,7 @@ textarea.inp::placeholder,.inp::placeholder{color:var(--text-3)}
 /* Theme follows Telegram colorScheme via .dark class on <html> — no separate TG override needed */
 
 /* Settings — Redesigned (7-item product system) */
-.s-head{text-align:center;padding:24px 0 18px}
+.s-head{text-align:center;padding:14px 0 12px}
 .s-avatar{width:76px;height:76px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 10px;box-shadow:0 4px 16px rgba(107,127,215,.18)}
 .s-name{font-size:20px;font-weight:700;color:var(--text);line-height:1.2}
 .s-status{font-size:12px;color:var(--text-3);margin-top:3px;line-height:1.4}
@@ -1390,31 +1390,23 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     </div>
 
     <div class="tg-section">
-      <div class="tg-sec-header">Внешний вид</div>
+      <div class="tg-sec-header">Настройка внешнего вида</div>
       <div class="tg-card">
-        <div style="display:flex;flex-direction:column;gap:6px;padding:10px 12px" id="themeCards">
-          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:12px;transition:all .15s" onclick="setTheme('system')">
-            <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#F5F5F9 50%,#121214 50%);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-              <svg width="14" height="14" fill="none" stroke="var(--text-2)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
-            </div>
-            <div style="flex:1"><div style="font-size:13px;font-weight:500">Системная</div><div style="font-size:11px;color:var(--text-3)">Подстраивается под устройство</div></div>
-            <input type="radio" name="themeChoice" value="system" id="themeSystem" checked style="accent-color:var(--primary)">
-          </label>
-          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:12px;transition:all .15s" onclick="setTheme('light')">
-            <div style="width:32px;height:32px;border-radius:8px;background:#F5F5F9;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-              <svg width="14" height="14" fill="none" stroke="#1A1A2E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
-            </div>
-            <div style="flex:1"><div style="font-size:13px;font-weight:500">Светлая</div><div style="font-size:11px;color:var(--text-3)">Светлый фон, тёмный текст</div></div>
-            <input type="radio" name="themeChoice" value="light" id="themeLight" style="accent-color:var(--primary)">
-          </label>
-          <label style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:12px;transition:all .15s" onclick="setTheme('dark')">
-            <div style="width:32px;height:32px;border-radius:8px;background:#121214;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-              <svg width="14" height="14" fill="none" stroke="#EEEEF0" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-            </div>
-            <div style="flex:1"><div style="font-size:13px;font-weight:500">Тёмная</div><div style="font-size:11px;color:var(--text-3)">Тёмный фон, удобнее для глаз</div></div>
-            <input type="radio" name="themeChoice" value="dark" id="themeDark" style="accent-color:var(--primary)">
-          </label>
-        </div>
+        <button class="tg-row" onclick="setTheme('system')" id="themeRowSystem">
+          <div class="tg-row-ico ico-neutral"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+          <div class="tg-row-body"><div class="tg-row-title">Системная</div><div class="tg-row-sub">Подстраивается под устройство</div></div>
+          <input type="radio" name="themeChoice" value="system" id="themeSystem" checked style="accent-color:var(--primary)">
+        </button>
+        <button class="tg-row" onclick="setTheme('light')" id="themeRowLight">
+          <div class="tg-row-ico ico-amber"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+          <div class="tg-row-body"><div class="tg-row-title">Светлая</div><div class="tg-row-sub">Светлый фон, тёмный текст</div></div>
+          <input type="radio" name="themeChoice" value="light" id="themeLight" style="accent-color:var(--primary)">
+        </button>
+        <button class="tg-row" onclick="setTheme('dark')" id="themeRowDark">
+          <div class="tg-row-ico ico-gold"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
+          <div class="tg-row-body"><div class="tg-row-title">Тёмная</div><div class="tg-row-sub">Тёмный фон, удобнее для глаз</div></div>
+          <input type="radio" name="themeChoice" value="dark" id="themeDark" style="accent-color:var(--primary)">
+        </button>
       </div>
     </div>
 
