@@ -1438,41 +1438,27 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
     <div class="tg-section">
       <div class="tg-sec-header">Подключённые магазины</div>
-      <div class="tg-card" style="padding:0;overflow:visible">
-        <!-- Wildberries -->
-        <div style="padding:13px 16px;border-bottom:1px solid var(--border)">
-          <div style="display:flex;align-items:center;gap:12px">
-            <div class="tg-plat-logo wb">WB</div>
-            <div style="flex:1;min-width:0">
-              <div class="tg-plat-name">Wildberries</div>
-              <div class="tg-plat-st" id="settingsWBStatus"><span class="dot dot-off"></span> Не подключён</div>
-            </div>
-            <button class="btn btn-o btn-sm" id="wbConnectBtn" onclick="connectWB()">Подключить</button>
+      <div class="tg-card">
+        <button class="tg-row" onclick="openSubPlatform('wb')">
+          <div class="tg-row-ico ico-primary" style="background:rgba(155,45,255,.1);color:#9B2DFF">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           </div>
-          <div style="margin-top:10px">
-            <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">API-ключ</label>
-            <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Вставьте API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="wbSaveBtn" onclick="saveWBKey()">OK</button></div>
-            <div id="wbKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
+          <div class="tg-row-body">
+            <div class="tg-row-title">Wildberries</div>
+            <div class="tg-row-sub" id="settingsWBStatus"><span class="dot dot-off"></span> Не подключён</div>
           </div>
-        </div>
-        <!-- Ozon -->
-        <div style="padding:13px 16px">
-          <div style="display:flex;align-items:center;gap:12px">
-            <div class="tg-plat-logo ozon">OZ</div>
-            <div style="flex:1;min-width:0">
-              <div class="tg-plat-name">Ozon</div>
-              <div class="tg-plat-st" id="settingsOzonStatus"><span class="dot dot-off"></span> Не подключён</div>
-            </div>
-            <button class="btn btn-o btn-sm" id="ozonConnectBtn" onclick="connectOzon()">Подключить</button>
+          <svg class="tg-row-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <button class="tg-row" onclick="openSubPlatform('ozon')">
+          <div class="tg-row-ico" style="background:rgba(0,91,255,.1);color:#005BFF">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           </div>
-          <div style="margin-top:10px">
-            <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">Client ID</label>
-            <div style="display:flex;gap:6px;margin-bottom:8px"><input type="text" class="inp" id="ozonClientId" placeholder="Вставьте Client ID" style="flex:1"></div>
-            <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">API-ключ</label>
-            <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Вставьте API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="ozonSaveBtn" onclick="saveOzonKey()">OK</button></div>
-            <div id="ozonKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
+          <div class="tg-row-body">
+            <div class="tg-row-title">Ozon</div>
+            <div class="tg-row-sub" id="settingsOzonStatus"><span class="dot dot-off"></span> Не подключён</div>
           </div>
-        </div>
+          <svg class="tg-row-chev" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
     </div>
 
@@ -1958,6 +1944,111 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
     Назад
   </button>
   <div id="reviewEditorContent"></div>
+</div>
+</div>
+
+<!-- ========== SUB: Wildberries API ========== -->
+<div class="sub" id="subPlatformWB">
+<div class="sub-c">
+  <button class="back-btn mb-16" onclick="closeSub('subPlatformWB')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Назад
+  </button>
+
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+    <div style="width:44px;height:44px;border-radius:12px;background:rgba(155,45,255,.1);display:flex;align-items:center;justify-content:center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9B2DFF" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </div>
+    <div>
+      <div style="font-size:17px;font-weight:700;color:var(--text)">Wildberries</div>
+      <div style="font-size:12px;color:var(--text-3)" id="subWBStatus"><span class="dot dot-off"></span> Не подключён</div>
+    </div>
+  </div>
+
+  <div class="tg-section">
+    <div class="tg-sec-header">API-ключ</div>
+    <div class="tg-sec-sub">Скопируйте API-ключ из кабинета Wildberries (раздел «Настройки» → «Доступ к API»)</div>
+    <div class="tg-card" style="padding:14px 16px">
+      <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Вставьте API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="wbSaveBtn" onclick="saveWBKey()">OK</button></div>
+      <div id="wbKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
+    </div>
+  </div>
+
+  <div class="tg-section">
+    <div class="tg-sec-header">Инструкция</div>
+    <div class="tg-card" style="padding:14px 16px">
+      <div style="font-size:12px;color:var(--text-2);line-height:1.6">
+        <div style="margin-bottom:6px"><b style="color:var(--text)">1.</b> Зайдите в кабинет WB → Настройки</div>
+        <div style="margin-bottom:6px"><b style="color:var(--text)">2.</b> Откройте «Доступ к API»</div>
+        <div style="margin-bottom:6px"><b style="color:var(--text)">3.</b> Создайте новый токен (только «Отзывы»)</div>
+        <div><b style="color:var(--text)">4.</b> Скопируйте и вставьте выше</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tg-section">
+    <div class="tg-card" style="padding:14px 16px;text-align:center">
+      <div style="font-size:11px;color:var(--text-3);line-height:1.6">API-ключ шифруется (AES-256). Мы видим только зашифрованный код. Ключ может только читать отзывы и писать ответы.</div>
+    </div>
+  </div>
+
+  <button class="btn btn-o btn-full" id="wbConnectBtn" onclick="connectWB()" style="margin-top:6px">Подключить</button>
+</div>
+</div>
+
+<!-- ========== SUB: Ozon API ========== -->
+<div class="sub" id="subPlatformOzon">
+<div class="sub-c">
+  <button class="back-btn mb-16" onclick="closeSub('subPlatformOzon')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Назад
+  </button>
+
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+    <div style="width:44px;height:44px;border-radius:12px;background:rgba(0,91,255,.1);display:flex;align-items:center;justify-content:center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#005BFF" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </div>
+    <div>
+      <div style="font-size:17px;font-weight:700;color:var(--text)">Ozon</div>
+      <div style="font-size:12px;color:var(--text-3)" id="subOzonStatus"><span class="dot dot-off"></span> Не подключён</div>
+    </div>
+  </div>
+
+  <div class="tg-section">
+    <div class="tg-sec-header">Client ID</div>
+    <div class="tg-sec-sub">Найдите в кабинете Ozon → Настройки → API-ключи</div>
+    <div class="tg-card" style="padding:14px 16px">
+      <input type="text" class="inp" id="ozonClientId" placeholder="Вставьте Client ID" style="width:100%">
+    </div>
+  </div>
+
+  <div class="tg-section">
+    <div class="tg-sec-header">API-ключ</div>
+    <div class="tg-card" style="padding:14px 16px">
+      <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Вставьте API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="ozonSaveBtn" onclick="saveOzonKey()">OK</button></div>
+      <div id="ozonKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
+    </div>
+  </div>
+
+  <div class="tg-section">
+    <div class="tg-sec-header">Инструкция</div>
+    <div class="tg-card" style="padding:14px 16px">
+      <div style="font-size:12px;color:var(--text-2);line-height:1.6">
+        <div style="margin-bottom:6px"><b style="color:var(--text)">1.</b> Зайдите в кабинет Ozon → Настройки</div>
+        <div style="margin-bottom:6px"><b style="color:var(--text)">2.</b> Откройте «API-ключи»</div>
+        <div style="margin-bottom:6px"><b style="color:var(--text)">3.</b> Создайте новый ключ (тип «Продавец»)</div>
+        <div><b style="color:var(--text)">4.</b> Скопируйте Client ID и ключ, вставьте выше</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tg-section">
+    <div class="tg-card" style="padding:14px 16px;text-align:center">
+      <div style="font-size:11px;color:var(--text-3);line-height:1.6">API-ключ шифруется (AES-256). Ключ может только читать отзывы и писать ответы. Никаких других действий.</div>
+    </div>
+  </div>
+
+  <button class="btn btn-o btn-full" id="ozonConnectBtn" onclick="connectOzon()" style="margin-top:6px">Подключить</button>
 </div>
 </div>
 
@@ -3317,6 +3408,28 @@ function closeSub(id) {
   // Show bottom nav again + reset scroll tracker
   if (window.__resetNavScroll) window.__resetNavScroll();
   updateBackButton();
+}
+
+function openSubPlatform(platform) {
+  haptic('light');
+  const subId = platform === 'wb' ? 'subPlatformWB' : 'subPlatformOzon';
+  const el = document.getElementById(subId);
+  if (el) {
+    // Sync status from settings to sub-screen
+    if (platform === 'wb') {
+      const src = document.getElementById('settingsWBStatus');
+      const dst = document.getElementById('subWBStatus');
+      if (src && dst) dst.innerHTML = src.innerHTML;
+    } else {
+      const src = document.getElementById('settingsOzonStatus');
+      const dst = document.getElementById('subOzonStatus');
+      if (src && dst) dst.innerHTML = src.innerHTML;
+    }
+    el.classList.add('active');
+    activeSub = subId;
+    if (window.__hideNav) window.__hideNav();
+    updateBackButton();
+  }
 }
 
 function openSettings(section) {
