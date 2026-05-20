@@ -1438,43 +1438,40 @@ body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
 
     <div class="tg-section">
       <div class="tg-sec-header">Подключённые магазины</div>
-      <div class="tg-sec-sub">Подключите магазины, чтобы получать отзывы</div>
-      <div class="tg-card">
-        <div class="tg-plat">
-          <div class="tg-plat-logo wb">WB</div>
-          <div class="tg-plat-body">
-            <div class="tg-plat-name">Wildberries</div>
-            <div class="tg-plat-st" id="settingsWBStatus"><span class="dot dot-off"></span> Не подключён</div>
+      <div class="tg-card" style="padding:0;overflow:visible">
+        <!-- Wildberries -->
+        <div style="padding:13px 16px;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="tg-plat-logo wb">WB</div>
+            <div style="flex:1;min-width:0">
+              <div class="tg-plat-name">Wildberries</div>
+              <div class="tg-plat-st" id="settingsWBStatus"><span class="dot dot-off"></span> Не подключён</div>
+            </div>
+            <button class="btn btn-o btn-sm" id="wbConnectBtn" onclick="connectWB()">Подключить</button>
           </div>
-          <div class="tg-plat-action"><button class="btn btn-o btn-sm" id="wbConnectBtn" onclick="connectWB()">Подключить</button></div>
-        </div>
-        <div class="tg-plat">
-          <div class="tg-plat-logo ozon">OZ</div>
-          <div class="tg-plat-body">
-            <div class="tg-plat-name">Ozon</div>
-            <div class="tg-plat-st" id="settingsOzonStatus"><span class="dot dot-off"></span> Не подключён</div>
+          <div style="margin-top:10px">
+            <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">API-ключ</label>
+            <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Вставьте API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="wbSaveBtn" onclick="saveWBKey()">OK</button></div>
+            <div id="wbKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
           </div>
-          <div class="tg-plat-action"><button class="btn btn-o btn-sm" id="ozonConnectBtn" onclick="connectOzon()">Подключить</button></div>
         </div>
-      </div>
-    </div>
-
-    <div class="tg-section">
-      <div class="tg-sec-header">API-ключ</div>
-      <div class="tg-card" style="padding:14px 16px">
-        <div style="margin-bottom:10px">
-          <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">Wildberries API-ключ</label>
-          <div style="display:flex;gap:6px"><input type="password" class="inp" id="wbApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="wbSaveBtn" onclick="saveWBKey()">OK</button></div>
-          <div id="wbKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
-        </div>
-        <div>
-          <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">Ozon Client ID</label>
-          <div style="display:flex;gap:6px;margin-bottom:8px"><input type="text" class="inp" id="ozonClientId" placeholder="Client ID" style="flex:1"></div>
-        </div>
-        <div>
-          <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">Ozon API-ключ</label>
-          <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Введите API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="ozonSaveBtn" onclick="saveOzonKey()">OK</button></div>
-          <div id="ozonKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
+        <!-- Ozon -->
+        <div style="padding:13px 16px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="tg-plat-logo ozon">OZ</div>
+            <div style="flex:1;min-width:0">
+              <div class="tg-plat-name">Ozon</div>
+              <div class="tg-plat-st" id="settingsOzonStatus"><span class="dot dot-off"></span> Не подключён</div>
+            </div>
+            <button class="btn btn-o btn-sm" id="ozonConnectBtn" onclick="connectOzon()">Подключить</button>
+          </div>
+          <div style="margin-top:10px">
+            <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">Client ID</label>
+            <div style="display:flex;gap:6px;margin-bottom:8px"><input type="text" class="inp" id="ozonClientId" placeholder="Вставьте Client ID" style="flex:1"></div>
+            <label style="font-size:11px;font-weight:600;color:var(--text-3);display:block;margin-bottom:4px">API-ключ</label>
+            <div style="display:flex;gap:6px"><input type="password" class="inp" id="ozonApiKey" placeholder="Вставьте API-ключ" style="flex:1"><button class="btn btn-s btn-sm" id="ozonSaveBtn" onclick="saveOzonKey()">OK</button></div>
+            <div id="ozonKeyStatus" style="font-size:11px;margin-top:4px;display:none"></div>
+          </div>
         </div>
       </div>
     </div>
