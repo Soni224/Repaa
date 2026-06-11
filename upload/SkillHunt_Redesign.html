@@ -3742,6 +3742,122 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 /* ── Quick apply badge ── */
 .quick-apply-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:2px 6px;border-radius:var(--radius-full);background:var(--success-light);color:var(--success);font-family:var(--font-sans)}
 
+/* ── Early Access Badge ── */
+.early-access-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full);background:linear-gradient(135deg,#D4A03A,#E8B84A);color:#fff;font-family:var(--font-sans);box-shadow:0 2px 8px rgba(212,160,58,.3);animation:earlyAccessGlow 2s ease-in-out infinite}
+@keyframes earlyAccessGlow{0%,100%{box-shadow:0 2px 8px rgba(212,160,58,.3)}50%{box-shadow:0 2px 16px rgba(212,160,58,.5)}}
+
+/* ── Job Locked Overlay (Free users) ── */
+.job-locked-overlay{position:absolute;inset:0;background:rgba(245,246,250,.82);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;backdrop-filter:blur(3px);gap:8px;padding:16px;text-align:center}
+.dark .job-locked-overlay{background:rgba(19,22,31,.82)}
+.job-locked-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--lavender));display:flex;align-items:center;justify-content:center}
+.job-locked-icon svg{width:18px;height:18px;color:#fff}
+.job-locked-text{font-size:12px;font-weight:700;color:var(--text)}
+.job-locked-sub{font-size:10px;color:var(--text-2);line-height:1.4}
+.job-locked-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--primary);color:#fff;font-size:11px;font-weight:600;border-radius:var(--radius-full);border:none;cursor:pointer;transition:all .2s}
+.job-locked-btn:hover{background:var(--primary-hover)}
+
+/* ── Delayed Badge (Free users) ── */
+.delayed-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:600;padding:2px 7px;border-radius:var(--radius-full);background:var(--warning-light);color:var(--warning);font-family:var(--font-sans);white-space:nowrap}
+
+/* ── AI Strategy Overlay ── */
+.ai-strategy-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:215;display:none;align-items:flex-end;max-width:430px;margin:0 auto;backdrop-filter:blur(2px)}
+.ai-strategy-overlay.active{display:flex}
+.ai-strategy-sheet{width:100%;background:var(--bg-card);border-radius:20px 20px 0 0;max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:transform .45s cubic-bezier(.22,1,.36,1);padding:0 20px 24px}
+.ai-strategy-overlay.active .ai-strategy-sheet{transform:translateY(0)}
+.ai-strategy-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 16px}
+.ai-strategy-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ai-strategy-title{font-size:16px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}
+.ai-strategy-title svg{width:18px;height:18px;color:var(--primary)}
+.ai-strategy-close{width:32px;height:32px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;color:var(--text-2);transition:all .2s}
+.ai-strategy-close:hover{background:var(--bg-input);color:var(--text)}
+.ai-strategy-generating{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 0;text-align:center}
+.ai-strategy-gen-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--success),var(--mint));display:flex;align-items:center;justify-content:center;margin-bottom:16px;animation:aiPulse 1.5s ease-in-out infinite}
+.ai-strategy-gen-icon svg{width:28px;height:28px;color:#fff}
+.ai-strategy-gen-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+.ai-strategy-gen-sub{font-size:12px;color:var(--text-2);line-height:1.4}
+.ai-strategy-dots{display:flex;gap:4px;margin-top:12px}
+.ai-strategy-dots span{width:6px;height:6px;border-radius:50%;background:var(--success);animation:coverDot 1.2s ease-in-out infinite}
+.ai-strategy-dots span:nth-child(2){animation-delay:.2s}
+.ai-strategy-dots span:nth-child(3){animation-delay:.4s}
+.ai-strategy-result{display:none}
+.ai-strategy-result.visible{display:block;animation:fadeInUp .4s ease}
+.ai-strategy-probability{display:flex;align-items:center;gap:12px;padding:16px;background:linear-gradient(135deg,rgba(76,175,125,.08),rgba(91,191,143,.04));border:1px solid rgba(76,175,125,.15);border-radius:var(--radius);margin-bottom:12px}
+.ai-strategy-prob-ring{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--success);border:3px solid var(--success);flex-shrink:0;position:relative}
+.ai-strategy-prob-ring::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:3px solid var(--success);clip-path:polygon(0 0,100% 0,100% 100%,0 100%);opacity:.3}
+.ai-strategy-prob-body{flex:1;min-width:0}
+.ai-strategy-prob-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+.ai-strategy-prob-sub{font-size:11px;color:var(--text-2);line-height:1.4}
+.ai-strategy-bid{padding:14px;background:var(--primary-light);border:1px solid rgba(108,123,212,.12);border-radius:var(--radius);margin-bottom:12px;text-align:center}
+.ai-strategy-bid-label{font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:4px}
+.ai-strategy-bid-val{font-size:24px;font-weight:800;color:var(--primary);letter-spacing:-.3px}
+.ai-strategy-section{padding:14px;background:var(--bg);border-radius:var(--radius);margin-bottom:10px}
+.ai-strategy-section-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ai-strategy-section-title svg{width:14px;height:14px}
+.ai-strategy-arg{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-2);line-height:1.5;margin-bottom:6px}
+.ai-strategy-arg:last-child{margin-bottom:0}
+.ai-strategy-arg-dot{width:6px;height:6px;border-radius:50%;background:var(--primary);flex-shrink:0;margin-top:6px}
+.ai-strategy-risk{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-2);line-height:1.5;margin-bottom:6px}
+.ai-strategy-risk:last-child{margin-bottom:0}
+.ai-strategy-risk-dot{width:6px;height:6px;border-radius:50%;background:var(--warning);flex-shrink:0;margin-top:6px}
+.ai-strategy-tip{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-2);line-height:1.5;margin-bottom:6px}
+.ai-strategy-tip:last-child{margin-bottom:0}
+.ai-strategy-tip-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex-shrink:0;margin-top:6px}
+.ai-strategy-actions{display:flex;gap:8px;margin-top:14px}
+.ai-strategy-actions button{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+.ai-strategy-edit{background:var(--bg);color:var(--text);border:1px solid var(--border-soft)!important}
+.ai-strategy-edit:hover{background:var(--bg-input)}
+.ai-strategy-apply{background:linear-gradient(135deg,var(--success),var(--mint));color:#fff;box-shadow:0 4px 16px rgba(76,175,125,.25)}
+.ai-strategy-apply:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(76,175,125,.35)}
+
+/* ── Profile Views Widget ── */
+.profile-views-widget{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-soft);padding:14px;margin-bottom:12px;box-shadow:var(--shadow-card)}
+.profile-views-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.profile-views-title{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px}
+.profile-views-title svg{width:16px;height:16px;color:var(--primary)}
+.profile-views-count{font-size:11px;font-weight:600;color:var(--primary);padding:2px 8px;border-radius:var(--radius-full);background:var(--primary-soft)}
+.profile-views-list{display:flex;flex-direction:column;gap:8px}
+.profile-views-item{display:flex;align-items:center;gap:10px;padding:8px;background:var(--bg);border-radius:var(--radius-xs);transition:background .2s}
+.profile-views-item:hover{background:var(--bg-input)}
+.profile-views-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.profile-views-info{flex:1;min-width:0}
+.profile-views-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-views-detail{font-size:10px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-views-time{font-size:10px;color:var(--text-3);flex-shrink:0}
+.profile-views-gate{text-align:center;padding:12px}
+.profile-views-gate-count{font-size:20px;font-weight:800;color:var(--text);margin-bottom:4px}
+.profile-views-gate-text{font-size:11px;color:var(--text-2);margin-bottom:10px}
+.profile-views-gate-btn{display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:var(--primary);color:#fff;font-size:12px;font-weight:600;border-radius:var(--radius-sm);border:none;cursor:pointer;transition:all .2s}
+.profile-views-gate-btn:hover{background:var(--primary-hover)}
+
+/* ── Client Insight Row ── */
+.client-insight-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-soft);font-size:12px}
+.client-insight-row:last-child{border-bottom:none}
+.client-insight-label{color:var(--text-2);display:flex;align-items:center;gap:6px}
+.client-insight-label svg{width:14px;height:14px;color:var(--text-3)}
+.client-insight-value{font-weight:700;color:var(--text)}
+.client-insight-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full);background:var(--success-light);color:var(--success)}
+
+/* ── Competitor Analysis Card ── */
+.competitor-analysis{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-soft);padding:14px;margin-bottom:12px;box-shadow:var(--shadow-card)}
+.competitor-analysis-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.competitor-analysis-title{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px}
+.competitor-analysis-title svg{width:16px;height:16px;color:var(--coral)}
+.competitor-stat{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-soft);font-size:12px}
+.competitor-stat:last-child{border-bottom:none}
+.competitor-stat-label{color:var(--text-2)}
+.competitor-stat-val{font-weight:700;color:var(--text)}
+.competitor-stat-val.highlight{color:var(--primary)}
+.competitor-advantage{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-2);line-height:1.4;margin-top:8px;padding-top:8px;border-top:1px solid var(--border-soft)}
+.competitor-advantage-dot{width:6px;height:6px;border-radius:50%;background:var(--success);flex-shrink:0;margin-top:5px}
+.competitor-rank-bar{height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden;margin-top:4px}
+.competitor-rank-fill{height:100%;border-radius:3px;transition:width .7s cubic-bezier(.22,1,.36,1)}
+
+/* ── Updated trial welcome feature styles ── */
+.trial-welcome-feat-ico.ico-strategy{background:linear-gradient(135deg,var(--success),var(--mint))}
+.trial-welcome-feat-ico.ico-early{background:linear-gradient(135deg,var(--warning),#E8B84A)}
+.trial-welcome-feat-ico.ico-insight{background:linear-gradient(135deg,var(--sky),var(--primary))}
+.trial-welcome-feat-ico.ico-views{background:linear-gradient(135deg,var(--coral),var(--warning))}
+
 /* Respect reduced motion */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -3825,6 +3941,9 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 
           <!-- Pro Impact Card -->
           <div id="proImpactContainer"></div>
+
+          <!-- Profile Views Widget -->
+          <div id="profileViewsContainer"></div>
 
           <!-- Guided Steps — 1-2-3 Onboarding -->
           <div class="guided-steps animate-in">
@@ -4272,19 +4391,27 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
       <div class="trial-welcome-features">
         <div class="trial-welcome-feat">
           <div class="trial-welcome-feat-ico ico-ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div>
-          <div><div class="trial-welcome-feat-title">AI-сопроводительное письмо</div><div class="trial-welcome-feat-desc">AI напишет персонализированный отклик за 5 секунд</div></div>
+          <div><div class="trial-welcome-feat-title">AI-анализ конкурентов</div><div class="trial-welcome-feat-desc">Знайте своих соперников — сколько их и что предлагают</div></div>
+        </div>
+        <div class="trial-welcome-feat">
+          <div class="trial-welcome-feat-ico ico-strategy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div><div class="trial-welcome-feat-title">AI-стратегия проекта</div><div class="trial-welcome-feat-desc">Полный план победы: бюджет, аргументы, риски</div></div>
+        </div>
+        <div class="trial-welcome-feat">
+          <div class="trial-welcome-feat-ico ico-early"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div><div class="trial-welcome-feat-title">Ранний доступ</div><div class="trial-welcome-feat-desc">Первым видите новые заказы — на 2 часа раньше</div></div>
+        </div>
+        <div class="trial-welcome-feat">
+          <div class="trial-welcome-feat-ico ico-insight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div><div class="trial-welcome-feat-title">Инсайты клиентов</div><div class="trial-welcome-feat-desc">Узнайте, кто платит и как быстро</div></div>
+        </div>
+        <div class="trial-welcome-feat">
+          <div class="trial-welcome-feat-ico ico-views"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div><div class="trial-welcome-feat-title">Кто смотрел профиль</div><div class="trial-welcome-feat-desc">Не упускайте возможности — узнайте, кто вас ищет</div></div>
         </div>
         <div class="trial-welcome-feat">
           <div class="trial-welcome-feat-ico ico-unlim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
-          <div><div class="trial-welcome-feat-title">Безлимитные отклики</div><div class="trial-welcome-feat-desc">Отправляйте отклики без ограничений — на Free всего 5/мес</div></div>
-        </div>
-        <div class="trial-welcome-feat">
-          <div class="trial-welcome-feat-ico ico-priority"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-          <div><div class="trial-welcome-feat-title">Приоритет у клиентов</div><div class="trial-welcome-feat-desc">Ваши отклики отображаются первыми — шанс +40%</div></div>
-        </div>
-        <div class="trial-welcome-feat">
-          <div class="trial-welcome-feat-ico ico-analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
-          <div><div class="trial-welcome-feat-title">Аналитика профиля</div><div class="trial-welcome-feat-desc">Узнайте, кто смотрит ваш профиль и как вас находят</div></div>
+          <div><div class="trial-welcome-feat-title">Безлимитные отклики и сохранения</div><div class="trial-welcome-feat-desc">На Free всего 3 отклика и 3 сохранения в месяц</div></div>
         </div>
       </div>
       <button class="trial-welcome-btn" onclick="startTrial()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>Начать Pro-триал</button>
@@ -4343,6 +4470,24 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
       </div>
       <div class="ai-cover-saved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>AI сэкономил вам ~15 минут</div>
     </div>
+  </div>
+</div>
+
+<!-- ═══ AI Strategy Bottom Sheet ═══ -->
+<div class="ai-strategy-overlay" id="aiStrategyOverlay" onclick="if(event.target===this)closeAIStrategy()">
+  <div class="ai-strategy-sheet">
+    <div class="ai-strategy-handle"></div>
+    <div class="ai-strategy-header">
+      <div class="ai-strategy-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> AI-стратегия проекта <span class="ai-cover-pro-badge">PRO</span></div>
+      <button class="ai-strategy-close" onclick="closeAIStrategy()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ai-strategy-generating" id="aiStrategyGenerating">
+      <div class="ai-strategy-gen-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+      <div class="ai-strategy-gen-title">AI разрабатывает стратегию...</div>
+      <div class="ai-strategy-gen-sub" id="aiStrategyGenSub">Анализируем конкурентов и бюджет</div>
+      <div class="ai-strategy-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="ai-strategy-result" id="aiStrategyResult"></div>
   </div>
 </div>
 
@@ -4425,14 +4570,18 @@ let searchDebounceTimer = null;
 // ═══════════════════════════════════════════════════════════
 // ── Subscription State System ──
 // ═══════════════════════════════════════════════════════════
-const FREE_APP_LIMIT = 5; // Free: 5 applications per month
+const FREE_APP_LIMIT = 3; // Free: 3 applications per month
+const FREE_SAVE_LIMIT = 3; // Free: 3 saved jobs per month
+const FREE_VISIBLE_JOBS = 6; // Free: only 6 out of 15 jobs visible
+const EARLY_ACCESS_HOURS = 2; // Jobs posted within 2 hours are early access
+const DELAYED_HOURS = 24; // Free users see "Доступно через 24ч" for recent jobs
 const TRIAL_DAYS = 3;
 
 function getSubscription() {
   let sub = lsGetJSON('skillhunt_subscription', null);
   if (!sub) {
     // First-time user: default to free (trial offered on first load)
-    sub = { plan:'free', trialStartedAt:null, trialDaysTotal:TRIAL_DAYS, monthlyAppCount:0, monthlyAppResetDate:new Date().toISOString().slice(0,7), aiProposalCount:0, proViewsCount:0, trialSpecialPrice:4.99, trialOfferShown:false };
+    sub = { plan:'free', trialStartedAt:null, trialDaysTotal:TRIAL_DAYS, monthlyAppCount:0, monthlyAppResetDate:new Date().toISOString().slice(0,7), aiProposalCount:0, proViewsCount:0, trialSpecialPrice:4.99, trialOfferShown:false, savedCount:0 };
     lsSetJSON('skillhunt_subscription', sub);
   }
   // Check if trial has expired
@@ -4489,6 +4638,37 @@ function canApply() {
   if (isPro()) return { allowed:true, remaining:'∞' };
   const remaining = Math.max(0, FREE_APP_LIMIT - sub.monthlyAppCount);
   return { allowed: remaining > 0, remaining: remaining };
+}
+
+function canSave() {
+  const sub = getSubscription();
+  if (isPro()) return { allowed:true, remaining:'∞' };
+  const savedCount = sub.savedCount || 0;
+  const remaining = Math.max(0, FREE_SAVE_LIMIT - savedCount);
+  return { allowed: remaining > 0, remaining: remaining };
+}
+
+function incrementSavedCount() {
+  const sub = getSubscription();
+  sub.savedCount = (sub.savedCount || 0) + 1;
+  lsSetJSON('skillhunt_subscription', sub);
+}
+
+function decrementSavedCount() {
+  const sub = getSubscription();
+  sub.savedCount = Math.max(0, (sub.savedCount || 0) - 1);
+  lsSetJSON('skillhunt_subscription', sub);
+}
+
+// Check if a job was posted within N hours (uses mock "posted" field)
+function isJobEarlyAccess(job) {
+  const recentPatterns = ['только что','1 мин','5 мин','10 мин','15 мин','30 мин','1ч','2ч'];
+  return recentPatterns.some(p => job.posted.includes(p));
+}
+
+function isJobDelayed(job) {
+  const recentPatterns = ['только что','1 мин','5 мин','10 мин','15 мин','30 мин','1ч','2ч','3ч','4ч','5ч','6ч','7ч','8ч','9ч','10ч','11ч','12ч','15ч','18ч','20ч','23ч'];
+  return recentPatterns.some(p => job.posted.includes(p));
 }
 
 function incrementAppCount() {
@@ -4568,7 +4748,7 @@ function renderTrialBar() {
   const sub = getSubscription();
   
   if (sub.plan === 'pro') {
-    container.innerHTML = '<div class="trial-bar" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro активен <span class="trial-days">∞</span></div><div class="trial-bar-sub">Безлимитные отклики · AI-ассистент · Приоритет</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+    container.innerHTML = '<div class="trial-bar" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro активен <span class="trial-days">∞</span></div><div class="trial-bar-sub">Безлимит · AI-анализ · Стратегия · Ранний доступ</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
     return;
   }
   
@@ -4578,7 +4758,7 @@ function renderTrialBar() {
     const isEnding = daysLeft <= 1;
     const timeText = daysLeft > 1 ? daysLeft + ' дн.' : (hoursLeft > 0 ? hoursLeft + ' ч.' : '<1 ч.');
     const cls = isEnding ? 'trial-bar ending' : 'trial-bar';
-    const subText = isEnding ? 'Активируйте Pro со скидкой 50%!' : 'Безлимитные отклики · AI-письма · Приоритет';
+    const subText = isEnding ? 'Активируйте Pro со скидкой 50%!' : 'AI-анализ · Стратегия · Ранний доступ';
     
     container.innerHTML = '<div class="' + cls + '" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro-триал <span class="trial-days">' + timeText + '</span></div><div class="trial-bar-sub">' + subText + '</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
     return;
@@ -4589,7 +4769,7 @@ function renderTrialBar() {
   if (!canApp.allowed) {
     container.innerHTML = '<div class="trial-bar ending" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Лимит откликов <span class="trial-days">0/' + FREE_APP_LIMIT + '</span></div><div class="trial-bar-sub">Разблокируйте безлимит с Pro</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
   } else {
-    container.innerHTML = '<div class="trial-bar" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Попробуйте Pro <span class="trial-days">3 дня</span></div><div class="trial-bar-sub">Безлимитные отклики · AI-письма · Приоритет</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+    container.innerHTML = '<div class="trial-bar" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Попробуйте Pro <span class="trial-days">3 дня</span></div><div class="trial-bar-sub">AI-анализ · Стратегия · Ранний доступ · Инсайты</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
   }
 }
 
@@ -4618,7 +4798,7 @@ function renderProImpact() {
   const ctaAction = isTrial ? 'showProUpgrade()' : "openMoreSub('tariff')";
   const badgeText = isTrial ? 'ТРИАЛ' : 'PRO';
   
-  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Ваш Pro-результат</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенциал</div></div></div><div class="pro-impact-compare">На Free вы бы отправили <b>всего ' + FREE_APP_LIMIT + ' откликов/мес</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
+  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Ваш Pro-результат</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенциал</div></div></div><div class="pro-impact-compare">На Free вы бы отправили <b>всего ' + FREE_APP_LIMIT + ' откликов/мес</b> и видели <b>6 из 15 заказов</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
 }
 
 // ── AI Cover Letter Generator ──
@@ -4726,6 +4906,124 @@ function sendAICover() {
   renderProImpact();
 }
 
+// ── AI Project Strategy Generator (Pro-only) ──
+let aiStrategyJobId = null;
+
+function openAIStrategy(jobId) {
+  if (!isPro()) {
+    showProUpgrade();
+    return;
+  }
+  aiStrategyJobId = jobId;
+  const overlay = document.getElementById('aiStrategyOverlay');
+  const generating = document.getElementById('aiStrategyGenerating');
+  const result = document.getElementById('aiStrategyResult');
+  generating.style.display = 'flex';
+  result.classList.remove('visible');
+  result.innerHTML = '';
+  overlay.classList.add('active');
+  
+  const genSub = document.getElementById('aiStrategyGenSub');
+  setTimeout(() => { genSub.textContent = 'Оцениваем конкуренцию...'; }, 800);
+  setTimeout(() => { genSub.textContent = 'Формируем стратегию победы...'; }, 1600);
+  setTimeout(() => {
+    genSub.textContent = 'Анализируем конкурентов и бюджет';
+    generating.style.display = 'none';
+    result.classList.add('visible');
+    renderAIStrategyResult(jobId);
+  }, 2400);
+}
+
+function renderAIStrategyResult(jobId) {
+  const job = MOCK_JOBS.find(j => j.id === jobId);
+  if (!job) return;
+  
+  const winProb = 55 + Math.floor(Math.random() * 30); // 55-85
+  const bidMin = Math.round(job.budgetMin * 0.8 + job.budgetMax * 0.2);
+  const bidMax = Math.round(job.budgetMin * 0.3 + job.budgetMax * 0.7);
+  
+  const argumentsData = [
+    'Опыт в ' + job.skills[0] + ' — ключевой навык для этого проекта',
+    'Рейтинг ' + job.clientRating + '+ у клиента — ценит качество, готов платить',
+    'Сжатые сроки — предложите MVP за 2 недели для быстрого старта'
+  ];
+  const risks = [
+    'Высокая конкуренция — ' + (5 + Math.floor(Math.random() * 15)) + ' откликов за первый час',
+    'Бюджет может быть фиксированным — торг затруднён',
+    'Клиент впервые в платформе — может не знать процесс'
+  ];
+  const tips = [
+    'Начните с вопроса о деталях — покажите вовлечённость',
+    'Предложите видеозвонок 15 мин — ускоряет решение на 40%',
+    'Упомяните похожий кейс из портфолио в первом сообщении'
+  ];
+  
+  const result = document.getElementById('aiStrategyResult');
+  result.innerHTML = `
+    <div class="ai-strategy-probability">
+      <div class="ai-strategy-prob-ring">${winProb}%</div>
+      <div class="ai-strategy-prob-body">
+        <div class="ai-strategy-prob-title">Вероятность победы</div>
+        <div class="ai-strategy-prob-sub">${winProb > 70 ? 'Высокий шанс! Ваш профиль хорошо подходит.' : winProb > 55 ? 'Хорошие шансы. Следуйте стратегии ниже.' : 'Средний шанс. Потребуется сильный отклик.'}</div>
+      </div>
+    </div>
+    <div class="ai-strategy-bid">
+      <div class="ai-strategy-bid-label">Рекомендуемый бюджет</div>
+      <div class="ai-strategy-bid-val">$${bidMin.toLocaleString()} — $${bidMax.toLocaleString()}</div>
+    </div>
+    <div class="ai-strategy-section">
+      <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ключевые аргументы</div>
+      ${argumentsData.map(a => '<div class="ai-strategy-arg"><div class="ai-strategy-arg-dot"></div><span>' + esc(a) + '</span></div>').join('')}
+    </div>
+    <div class="ai-strategy-section">
+      <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Факторы риска</div>
+      ${risks.map(r => '<div class="ai-strategy-risk"><div class="ai-strategy-risk-dot"></div><span>' + esc(r) + '</span></div>').join('')}
+    </div>
+    <div class="ai-strategy-section">
+      <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Советы по переговорам</div>
+      ${tips.map(t => '<div class="ai-strategy-tip"><div class="ai-strategy-tip-dot"></div><span>' + esc(t) + '</span></div>').join('')}
+    </div>
+    <div class="ai-strategy-actions">
+      <button class="ai-strategy-apply" onclick="applyWithStrategy(${jobId})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Применить стратегию</button>
+    </div>
+  `;
+}
+
+function closeAIStrategy() {
+  const overlay = document.getElementById('aiStrategyOverlay');
+  overlay.classList.remove('active');
+  aiStrategyJobId = null;
+}
+
+function applyWithStrategy(jobId) {
+  closeAIStrategy();
+  openAICover(jobId);
+}
+
+// ── Profile Views Widget (Home Page) ──
+function renderProfileViews() {
+  const container = document.getElementById('profileViewsContainer');
+  if (!container) return;
+  
+  const pro = isPro();
+  
+  // Mock data for profile views
+  const mockViewers = [
+    { name: 'Дмитрий К.', initials: 'Д', color: '#6C7BD4', time: '15 мин', viewed: 'Ваш профиль' },
+    { name: 'Анна С.', initials: 'А', color: '#8E7FD4', time: '1ч', viewed: 'Портфолио' },
+    { name: 'Михаил В.', initials: 'М', color: '#5BBF8F', time: '3ч', viewed: 'Навыки' },
+    { name: 'Ольга П.', initials: 'О', color: '#E07C6C', time: '5ч', viewed: 'Отклик на AI' },
+    { name: 'Сергей Н.', initials: 'С', color: '#5A9FD4', time: 'вчера', viewed: 'Ваш профиль' }
+  ];
+  const viewCount = mockViewers.length;
+  
+  if (pro) {
+    container.innerHTML = '<div class="profile-views-widget animate-in"><div class="profile-views-header"><div class="profile-views-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Кто смотрел профиль</div><span class="profile-views-count">' + viewCount + '</span></div><div class="profile-views-list">' + mockViewers.map(v => '<div class="profile-views-item"><div class="profile-views-avatar" style="background:' + v.color + '">' + esc(v.initials) + '</div><div class="profile-views-info"><div class="profile-views-name">' + esc(v.name) + '</div><div class="profile-views-detail">' + esc(v.viewed) + '</div></div><div class="profile-views-time">' + esc(v.time) + '</div></div>').join('') + '</div></div>';
+  } else {
+    container.innerHTML = '<div class="profile-views-widget animate-in"><div class="profile-views-header"><div class="profile-views-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Кто смотрел профиль</div><span class="profile-views-count">' + viewCount + '</span></div><div class="profile-views-gate"><div class="profile-views-gate-count">' + viewCount + '</div><div class="profile-views-gate-text">клиентов просмотрели ваш профиль</div><button class="profile-views-gate-btn" onclick="showProUpgrade()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Узнать кто — с Pro</button></div></div>';
+  }
+}
+
 // ── Show Trial End Modal (called when trial expires) ──
 function checkTrialEnd() {
   const sub = getSubscription();
@@ -4821,6 +5119,7 @@ function init() {
   const sub = getSubscription();
   renderTrialBar();
   renderProImpact();
+  renderProfileViews();
   
   // Check if trial has ended — show conversion modal
   if (sub.trialStartedAt && sub.plan === 'free' && !sub.trialOfferShown) {
@@ -4979,6 +5278,15 @@ function renderJobCard(job, showSave = true, isSavedView = false) {
   const dotClass = 'cat-dot cat-dot-' + (job.category || 'ai');
   const enterClass = isSavedView ? 'card-enter' : 'animate-in';
 
+  // Early access & delayed badges
+  const pro = isPro();
+  const earlyAccess = isJobEarlyAccess(job);
+  const delayed = !pro && isJobDelayed(job);
+  const locked = !pro && earlyAccess; // Free users can't see early access jobs at all
+
+  const earlyAccessBadge = (pro && earlyAccess) ? '<span class="early-access-badge">⚡ Ранний доступ</span>' : '';
+  const delayedBadge = delayed ? '<span class="delayed-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Доступно через 24ч</span>' : '';
+
   if (isSavedView) {
     // Saved view: swipeable item with quick actions
     return `
@@ -5025,13 +5333,15 @@ function renderJobCard(job, showSave = true, isSavedView = false) {
 
   // Feed/Search view: standard card with shimmer + glow
   return `
-    <div class="card ${enterClass} mb-12 ${shimmerClass} ${glowClass} card-lift" onclick="openJobDetail(${job.id})" style="cursor:pointer" tabindex="0" role="article" aria-label="${esc(job.title)}">
+    <div class="card ${enterClass} mb-12 ${shimmerClass} ${glowClass} card-lift" onclick="${locked ? 'showProUpgrade()' : 'openJobDetail('+job.id+')'}" style="cursor:pointer;position:relative" tabindex="0" role="article" aria-label="${esc(job.title)}">
+      ${locked ? '<div class="job-locked-overlay"><div class="job-locked-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="job-locked-text">Ранний доступ</div><div class="job-locked-sub">Этот заказ доступен только с Pro</div><button class="job-locked-btn" onclick="event.stopPropagation();showProUpgrade()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Разблокировать Pro</button></div>' : ''}
       <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
         <div style="flex:1;min-width:0">
           <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px;font-family:var(--font-sans)">${esc(job.title)}</div>
           <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
             <span class="${dotClass}"></span><span class="tag ${catColors[job.category] || 'tag-primary'}">${catLabels[job.category] || esc(job.category)}</span>
             <span style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">$${job.budgetMin.toLocaleString()}-${job.budgetMax.toLocaleString()}</span>
+            ${earlyAccessBadge}${delayedBadge}
           </div>
         </div>
         ${showSave ? `
@@ -5078,13 +5388,24 @@ function renderFeed() {
     jobs = jobs.filter(j => j.category === feedCategory);
   }
   
+  // Free users see only limited jobs
+  if (!isPro()) {
+    // Show only first FREE_VISIBLE_JOBS (sorted by relevance/match)
+    jobs = jobs.slice(0, FREE_VISIBLE_JOBS);
+  }
+  
   if (jobs.length === 0) {
     list.innerHTML = '';
     empty.style.display = 'block';
     announce('Заказов не найдено');
   } else {
     empty.style.display = 'none';
-    list.innerHTML = jobs.map(j => renderJobCard(j, true)).join('');
+    let cardsHtml = jobs.map(j => renderJobCard(j, true)).join('');
+    // If Free, show "see more" gate
+    if (!isPro() && MOCK_JOBS.length > FREE_VISIBLE_JOBS) {
+      cardsHtml += '<div class="pro-gate-inline" onclick="showProUpgrade()" style="margin-top:8px"><div class="pro-gate-inline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="pro-gate-inline-text"><div class="pro-gate-inline-title">Ещё ' + (MOCK_JOBS.length - FREE_VISIBLE_JOBS) + ' заказов с Pro</div><div class="pro-gate-inline-desc">Разблокируйте все заказы и получите безлимит</div></div></div>';
+    }
+    list.innerHTML = cardsHtml;
   }
 }
 
@@ -5257,10 +5578,20 @@ function toggleSave(jobId) {
   const wasNew = idx === -1;
   if (idx > -1) {
     savedJobs.splice(idx, 1);
+    decrementSavedCount();
     showToast('Заказ убран из сохранённых');
     announce('Заказ убран из сохранённых');
   } else {
+    // Check save limit for Free users
+    if (!isPro()) {
+      const canSv = canSave();
+      if (!canSv.allowed) {
+        showProUpgrade();
+        return;
+      }
+    }
     savedJobs.push(jobId);
+    incrementSavedCount();
     showToast('Заказ сохранён ❤️');
     announce('Заказ сохранён');
   }
@@ -5407,6 +5738,34 @@ function setupSwipeDelete() {
   });
 }
 
+// ── Competitor Analysis (Pro feature in job detail) ──
+function renderCompetitorAnalysis(job) {
+  const applicantCount = 5 + Math.floor(Math.random() * 42); // 5-47
+  const avgBudget = Math.round((job.budgetMin + job.budgetMax) / 2 * (0.7 + Math.random() * 0.3));
+  const rank = Math.max(1, Math.min(applicantCount, Math.ceil(applicantCount * 0.3)));
+  const rankPct = Math.round((1 - rank / applicantCount) * 100);
+  const rankColor = rankPct > 70 ? 'var(--success)' : rankPct > 40 ? 'var(--primary)' : 'var(--warning)';
+  return '<div class="competitor-analysis"><div class="competitor-analysis-header"><div class="competitor-analysis-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Конкурентный анализ</div></div><div class="competitor-stat"><span class="competitor-stat-label">Заявки на заказ</span><span class="competitor-stat-val highlight">' + applicantCount + '</span></div><div class="competitor-stat"><span class="competitor-stat-label">Средний бюджет</span><span class="competitor-stat-val">$' + avgBudget.toLocaleString() + '</span></div><div class="competitor-stat"><span class="competitor-stat-label">Ваш ранг</span><span class="competitor-stat-val" style="color:' + rankColor + '">#' + rank + ' из ' + applicantCount + '</span></div><div class="competitor-rank-bar"><div class="competitor-rank-fill" style="width:' + rankPct + '%;background:' + rankColor + '"></div></div><div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>Ваше преимущество: опыт с ' + esc(job.skills[0]) + ' и рейтинг выше среднего</span></div><div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>AI-отклик увеличивает шанс на +35%</span></div></div>';
+}
+
+function renderCompetitorAnalysisLocked() {
+  return '<div class="pro-wall"><div class="pro-wall-content"><div class="competitor-analysis" style="margin-bottom:0"><div class="competitor-analysis-header"><div class="competitor-analysis-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Конкурентный анализ</div></div><div class="competitor-stat"><span class="competitor-stat-label">Заявки на заказ</span><span class="competitor-stat-val">--</span></div><div class="competitor-stat"><span class="competitor-stat-label">Средний бюджет</span><span class="competitor-stat-val">--</span></div><div class="competitor-stat"><span class="competitor-stat-label">Ваш ранг</span><span class="competitor-stat-val">--</span></div></div></div><div class="pro-wall-overlay"><div class="pro-wall-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO</div><div class="pro-wall-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="pro-wall-title">Конкурентный анализ</div><div class="pro-wall-desc">Узнайте, сколько конкурентов и какой бюджет они предлагают</div><button class="pro-wall-btn" onclick="showProUpgrade()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Разблокировать Pro</button></div></div>';
+}
+
+// ── Client Insights (Pro feature in job detail) ──
+function renderClientInsights(job) {
+  const totalSpending = (job.clientOrders * (job.budgetMin + job.budgetMax) / 2 * (0.6 + Math.random() * 0.4));
+  const avgPaySpeed = Math.floor(2 + Math.random() * 5); // 2-6 days
+  const hireRate = Math.floor(40 + Math.random() * 40); // 40-80%
+  const isRepeat = job.clientOrders > 15;
+  const lastActive = ['2 мин назад','15 мин назад','1ч назад','3ч назад','вчера'][Math.floor(Math.random() * 5)];
+  return '<div class="card mb-12" style="border-color:rgba(90,159,212,.15)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Инсайты клиента</span>' + (isRepeat ? '<span class="client-insight-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Постоянный</span>' : '') + '</div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Всего потратил</span><span class="client-insight-value">$' + Math.round(totalSpending).toLocaleString() + '</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Скорость оплаты</span><span class="client-insight-value">' + avgPaySpeed + ' дн.</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Нанимает</span><span class="client-insight-value">' + hireRate + '% откликов</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>Последний вход</span><span class="client-insight-value">' + esc(lastActive) + '</span></div></div>';
+}
+
+function renderClientInsightsLocked() {
+  return '<div class="pro-wall"><div class="pro-wall-content"><div class="card mb-12" style="border-color:rgba(90,159,212,.15);margin-bottom:0"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Инсайты клиента</span></div><div class="client-insight-row"><span class="client-insight-label">Всего потратил</span><span class="client-insight-value">--</span></div><div class="client-insight-row"><span class="client-insight-label">Скорость оплаты</span><span class="client-insight-value">--</span></div><div class="client-insight-row"><span class="client-insight-label">Нанимает</span><span class="client-insight-value">--</span></div></div></div><div class="pro-wall-overlay"><div class="pro-wall-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO</div><div class="pro-wall-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="pro-wall-title">Инсайты клиента</div><div class="pro-wall-desc">Узнайте, кто платит, как быстро и нанимает ли снова</div><button class="pro-wall-btn" onclick="showProUpgrade()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Разблокировать Pro</button></div></div>';
+}
+
 // ── Job Detail (XSS-safe) ──
 function openJobDetail(jobId) {
   const job = MOCK_JOBS.find(j => j.id === jobId);
@@ -5503,10 +5862,15 @@ function openJobDetail(jobId) {
       </div>
     </div>
     
+    ${isPro() ? renderCompetitorAnalysis(job) : renderCompetitorAnalysisLocked()}
+    
+    ${isPro() ? renderClientInsights(job) : renderClientInsightsLocked()}
+    
     <!-- Action Buttons -->
     <div style="display:flex;gap:8px;margin-top:16px">
       <button class="btn btn-p btn-lg btn-full ai-pulse-btn" onclick="openAICover(${job.id})" style="position:relative"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> AI-отклик</button>
     </div>
+    ${isPro() ? '<div style="margin-top:8px"><button class="btn btn-o btn-full" onclick="openAIStrategy('+job.id+')" style="border-color:var(--success);color:var(--success)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Создать стратегию</button></div>' : ''}
     <div style="margin-top:8px">
       <button class="btn btn-o btn-full" onclick="applyToJob(${job.id})">Откликнуться вручную</button>
     </div>
@@ -5516,7 +5880,7 @@ function openJobDetail(jobId) {
         ${isSaved ? 'Убрать из сохранённых' : 'Сохранить'}
       </button>
     </div>
-    ${!isPro() ? '<div class="app-counter" style="margin-top:8px"><span>Откликов: ' + canApply().remaining + '/' + FREE_APP_LIMIT + '</span><div class="app-counter-bar"><div class="app-counter-fill ' + (canApply().remaining <= 1 ? 'danger' : canApply().remaining <= 3 ? 'warn' : '') + '" style="width:' + (canApply().remaining / FREE_APP_LIMIT * 100) + '%"></div></div><span class="app-counter-pro" onclick="showProUpgrade()"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>' : ''}
+    ${!isPro() ? '<div class="app-counter" style="margin-top:8px"><span>Откликов: ' + canApply().remaining + '/' + FREE_APP_LIMIT + ' · Сохранений: ' + canSave().remaining + '/' + FREE_SAVE_LIMIT + '</span><div class="app-counter-bar"><div class="app-counter-fill ' + (canApply().remaining <= 1 ? 'danger' : canApply().remaining <= 2 ? 'warn' : '') + '" style="width:' + (canApply().remaining / FREE_APP_LIMIT * 100) + '%"></div></div><span class="app-counter-pro" onclick="showProUpgrade()"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>' : ''}
   `;
   
   const sub = document.getElementById('jobDetailSub');
@@ -5659,7 +6023,10 @@ function openMoreSub(type, event) {
       const planBadgeColor = isProUser ? 'var(--primary)' : 'var(--text-3)';
       const expiryText = isTrial ? 'Осталось ' + getTrialDaysLeft() + ' дн.' : (sub.plan === 'pro' ? 'Действует до следующего месяца' : '');
       const specialPrice = (sub.trialSpecialPrice || 4.99).toFixed(2);
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Тариф</div></div><div class="card mb-12" style="border-color:${isProUser ? 'rgba(108,123,212,.2)' : 'var(--border)'};position:relative;overflow:hidden"><div style="position:absolute;top:0;right:0;padding:4px 12px;background:${planBadgeColor};color:#fff;font-size:10px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">${planBadge}</div><div style="font-size:22px;font-weight:800;color:${isProUser ? 'var(--primary)' : 'var(--text)'};margin-bottom:4px;font-family:var(--font-sans)">${planName}</div>${expiryText ? '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">' + expiryText + '</div>' : '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">Бесплатный план</div>'}<div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isProUser ? 'var(--success)' : 'var(--text-3)'}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Отклики: ${isProUser ? 'Безлимит' : '5/мес'}</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isProUser ? 'var(--success)' : 'var(--text-3)'}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-сопроводительное письмо</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isProUser ? 'var(--success)' : 'var(--text-3)'}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Приоритет в поиске</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isProUser ? 'var(--success)' : 'var(--text-3)'}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>${isProUser ? '500' : '50'} токенов/мес</div></div></div>${!isProUser ? '<div class="card mb-12" style="background:linear-gradient(135deg,rgba(108,123,212,.06),rgba(155,143,212,.03));border-color:rgba(108,123,212,.15);text-align:center;padding:20px"><div style="font-size:10px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Специальное предложение</div><div style="font-size:28px;font-weight:800;color:var(--text);line-height:1"><span style="font-size:14px;color:var(--text-3);text-decoration:line-through;font-weight:600;margin-right:6px">$9.99</span>$' + specialPrice + '</div><div style="font-size:12px;color:var(--text-2);margin-top:4px">/месяц · Отмена в любой момент</div><div style="font-size:11px;font-weight:700;color:var(--success);margin-top:6px">Экономия 50%</div><button class="btn btn-p btn-full" style="margin-top:14px" onclick="subscribePro();closeMoreSub()">Подключить Pro</button></div>' : ''}<div class="sec-h"><div class="sec-t">Сравнение тарифов</div></div><div class="card mb-12" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:11px;font-family:var(--font-sans)"><thead><tr style="background:var(--bg-input)"><th style="padding:10px;text-align:left;font-weight:600;color:var(--text-2)"></th><th style="padding:10px;font-weight:600;color:var(--text-2)">Free</th><th style="padding:10px;font-weight:700;color:var(--primary);background:var(--primary-soft)">Pro</th></tr></thead><tbody><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Отклики</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">5/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-письма</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Приоритет</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Токены</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">50</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)">500</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Цена</td><td style="padding:8px 10px;text-align:center;color:var(--text-2);font-weight:700">Бесплатно</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:700;background:var(--primary-soft)">$9.99/мес</td></tr></tbody></table></div>${isProUser ? '<button class="btn btn-o btn-full" style="margin-top:12px" onclick="showToast(\'Управление подпиской будет доступно скоро\')">Управлять подпиской</button>' : ''}`; }
+      const checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+      const dashSvg = '<span style="color:var(--text-3)">--</span>';
+      const proBg = 'background:var(--primary-soft)';
+      html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Тариф</div></div><div class="card mb-12" style="border-color:' + (isProUser ? 'rgba(108,123,212,.2)' : 'var(--border)') + ';position:relative;overflow:hidden"><div style="position:absolute;top:0;right:0;padding:4px 12px;background:' + planBadgeColor + ';color:#fff;font-size:10px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">' + planBadge + '</div><div style="font-size:22px;font-weight:800;color:' + (isProUser ? 'var(--primary)' : 'var(--text)') + ';margin-bottom:4px;font-family:var(--font-sans)">' + planName + '</div>' + (expiryText ? '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">' + expiryText + '</div>' : '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">Бесплатный план</div>') + '<div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Отклики: ' + (isProUser ? 'Безлимит' : '3/мес') + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Сохранения: ' + (isProUser ? 'Безлимит' : '3/мес') + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Видимые заказы: ' + (isProUser ? 'Все 15' : '6 из 15') + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-анализ конкурентов</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-стратегия проекта</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ранний доступ к заказам</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Инсайты клиентов</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Кто смотрел профиль</div></div></div>' + (!isProUser ? '<div class="card mb-12" style="background:linear-gradient(135deg,rgba(108,123,212,.06),rgba(155,143,212,.03));border-color:rgba(108,123,212,.15);text-align:center;padding:20px"><div style="font-size:10px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Специальное предложение</div><div style="font-size:28px;font-weight:800;color:var(--text);line-height:1"><span style="font-size:14px;color:var(--text-3);text-decoration:line-through;font-weight:600;margin-right:6px">$9.99</span>$' + specialPrice + '</div><div style="font-size:12px;color:var(--text-2);margin-top:4px">/месяц · Отмена в любой момент</div><div style="font-size:11px;font-weight:700;color:var(--success);margin-top:6px">Экономия 50%</div><button class="btn btn-p btn-full" style="margin-top:14px" onclick="subscribePro();closeMoreSub()">Подключить Pro</button></div>' : '') + '<div class="sec-h"><div class="sec-t">Сравнение тарифов</div></div><div class="card mb-12" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:11px;font-family:var(--font-sans)"><thead><tr style="background:var(--bg-input)"><th style="padding:10px;text-align:left;font-weight:600;color:var(--text-2)"></th><th style="padding:10px;font-weight:600;color:var(--text-2)">Free</th><th style="padding:10px;font-weight:700;color:var(--primary);background:var(--primary-soft)">Pro</th></tr></thead><tbody><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Отклики</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">3/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Сохранения</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">3/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Видимые заказы</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">6 из 15</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Все 15</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-письма</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-анализ конкурентов</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-стратегия проекта</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Ранний доступ</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Инсайты клиентов</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Кто смотрел профиль</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">Только счётчик</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Полный список</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Цена</td><td style="padding:8px 10px;text-align:center;color:var(--text-2);font-weight:700">Бесплатно</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:700;' + proBg + '">$9.99/мес</td></tr></tbody></table></div>' + (isProUser ? '<button class="btn btn-o btn-full" style="margin-top:12px" onclick="showToast(\'Управление подпиской будет доступно скоро\')">Управлять подпиской</button>' : ''); }
       break;
     case 'payments':
       html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">История платежей</div></div><div style="display:flex;flex-direction:column;gap:8px"><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Pro подписка','15.06.2025','-$9.99','Ежемесячная подписка Pro','Списано')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Pro подписка</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">15.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--danger);font-family:var(--font-sans)">-$9.99</div></div></div><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Оплата за заказ ML-модель','10.06.2025','+$5,200','Получена оплата за выполнение заказа \"ML-модель для рекомендаций\"','Завершено')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Оплата за заказ "ML-модель"</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">10.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--success);font-family:var(--font-sans)">+$5,200</div></div></div><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Оплата за заказ Чат-бот','01.06.2025','+$2,800','Получена оплата за выполнение заказа \"Чат-бот на GPT\"','Завершено')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Оплата за заказ "Чат-бот"</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">01.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--success);font-family:var(--font-sans)">+$2,800</div></div></div></div>`;
@@ -6268,7 +6635,11 @@ document.addEventListener('keydown', e => {
     const jobDetail = document.getElementById('jobDetailSub');
     const moreSub = document.getElementById('moreSub');
     const moreOverlay = document.getElementById('moreOverlay');
-    if (jobDetail && jobDetail.classList.contains('active')) closeJobDetail();
+    const aiStrategy = document.getElementById('aiStrategyOverlay');
+    const aiCover = document.getElementById('aiCoverOverlay');
+    if (aiStrategy && aiStrategy.classList.contains('active')) closeAIStrategy();
+    else if (aiCover && aiCover.classList.contains('active')) closeAICover();
+    else if (jobDetail && jobDetail.classList.contains('active')) closeJobDetail();
     else if (moreSub && moreSub.classList.contains('active')) closeMoreSub();
     else if (moreOverlay && moreOverlay.classList.contains('active')) closeMorePanelDirect();
   }
