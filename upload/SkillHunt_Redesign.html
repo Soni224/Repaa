@@ -3431,14 +3431,14 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 .dark .roi-calc-compare-col.repa{background:rgba(107,191,138,.08);border-color:rgba(107,191,138,.12)}
 .dark .pricing-compare-table th.pro-highlight{background:rgba(108,123,212,.12)}
 
-/* ── Category-specific accent colors for card top line ── */
-.card-accent-ai::before{background:linear-gradient(90deg,#6C7BD4,#8E7FD4)!important}
-.card-accent-design::before{background:linear-gradient(90deg,#8E7FD4,#C084FC)!important}
-.card-accent-dev::before{background:linear-gradient(90deg,#5BBF8F,#34D399)!important}
-.card-accent-writing::before{background:linear-gradient(90deg,#E07C6C,#F59E0B)!important}
-.card-accent-marketing::before{background:linear-gradient(90deg,#5A9FD4,#38BDF8)!important}
-.card-accent-data::before{background:linear-gradient(90deg,#6C7BD4,#5A9FD4)!important}
-.card-accent-devops::before{background:linear-gradient(90deg,#D9534F,#EF4444)!important}
+/* ── Category left-border accent (cleaner than top line) ── */
+.card-accent-ai{border-left:3px solid #6C7BD4}
+.card-accent-design{border-left:3px solid #8E7FD4}
+.card-accent-dev{border-left:3px solid #5BBF8F}
+.card-accent-writing{border-left:3px solid #E07C6C}
+.card-accent-marketing{border-left:3px solid #5A9FD4}
+.card-accent-data{border-left:3px solid #6C7BD4}
+.card-accent-devops{border-left:3px solid #D9534F}
 
 /* ── Card hover glow by category ── */
 .card-glow-ai:hover{box-shadow:0 4px 20px rgba(108,123,212,.15),0 0 0 1px rgba(108,123,212,.1)}
@@ -3487,8 +3487,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 .tag{transition:all .2s cubic-bezier(.22,1,.36,1)}
 .tag:hover{transform:scale(1.05)}
 
-/* ── Dark mode card accent & glass overrides ── */
-.dark .card-accent-top::before{opacity:.7}
+/* ── Dark mode glass overrides ── */
 
 /* ═══════════════════════════════════════════════════════════════
    PREMIUM ANIMATIONS v2.0
@@ -4378,7 +4377,7 @@ function renderJobCard(job, showSave = true, isSavedView = false) {
   const budgetLeft = Math.round((job.budgetMin / maxBudget) * 100);
   const budgetWidth = Math.round(((job.budgetMax - job.budgetMin) / maxBudget) * 100);
 
-  const accentClass = 'card-accent-top card-accent-' + (job.category || 'ai');
+  const accentClass = 'card-accent-' + (job.category || 'ai');
   const glowClass = 'card-glow-' + (job.category || 'ai');
   const enterClass = isSavedView ? 'card-enter' : 'animate-in';
 
