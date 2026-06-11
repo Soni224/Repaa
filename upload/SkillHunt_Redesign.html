@@ -1660,6 +1660,152 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 .trial-timer-label{font-size:8px;opacity:.7;text-transform:uppercase;letter-spacing:.5px}
 
 
+/* ── Trial Welcome Overlay ── */
+.trial-welcome-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:250;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.trial-welcome-overlay.active{display:flex}
+.trial-welcome-card{background:var(--bg-card);border-radius:24px;padding:0;margin:20px;max-width:360px;width:100%;overflow:hidden;transform:scale(.85);opacity:0;transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .4s;box-shadow:0 24px 64px rgba(0,0,0,.3)}
+.trial-welcome-overlay.active .trial-welcome-card{transform:scale(1);opacity:1}
+.trial-welcome-hero{background:linear-gradient(135deg,#5C6FB0 0%,#7B8FD4 30%,#9B8FD4 60%,#6BBF8F 100%);padding:32px 24px 24px;text-align:center;position:relative;overflow:hidden}
+.trial-welcome-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.1)}
+.trial-welcome-hero::after{content:'';position:absolute;bottom:-30px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.08)}
+.trial-welcome-hero-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 14px;background:rgba(255,255,255,.2);border-radius:var(--radius-full);font-size:11px;font-weight:700;color:#fff;margin-bottom:14px;backdrop-filter:blur(4px)}
+.trial-welcome-hero-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:-.3px;position:relative;z-index:1}
+.trial-welcome-hero-sub{font-size:13px;color:rgba(255,255,255,.85);line-height:1.4;position:relative;z-index:1}
+.trial-welcome-body{padding:24px}
+.trial-welcome-features{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.trial-welcome-feat{display:flex;align-items:flex-start;gap:12px}
+.trial-welcome-feat-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.trial-welcome-feat-ico svg{width:18px;height:18px}
+.trial-welcome-feat-ico.ico-ai{background:rgba(108,123,212,.1);color:var(--primary)}
+.trial-welcome-feat-ico.ico-unlim{background:rgba(91,191,143,.1);color:var(--success)}
+.trial-welcome-feat-ico.ico-priority{background:rgba(142,127,212,.1);color:var(--lavender)}
+.trial-welcome-feat-ico.ico-analytics{background:rgba(90,159,212,.1);color:var(--sky)}
+.trial-welcome-feat-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.3}
+.trial-welcome-feat-desc{font-size:11px;color:var(--text-2);line-height:1.4;margin-top:2px}
+.trial-welcome-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;font-size:15px;font-weight:700;border-radius:14px;border:none;cursor:pointer;box-shadow:0 6px 24px rgba(123,143,212,.35);transition:all .2s}
+.trial-welcome-btn:hover{transform:translateY(-1px);box-shadow:0 8px 32px rgba(123,143,212,.45)}
+.trial-welcome-btn:active{transform:scale(.98)}
+.trial-welcome-footer{font-size:11px;color:var(--text-3);text-align:center;margin-top:12px}
+
+/* ── Trial Countdown Bar (home page) ── */
+.trial-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,rgba(108,123,212,.08),rgba(155,143,212,.05));border:1px solid rgba(108,123,212,.12);border-radius:var(--radius);margin-bottom:12px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.trial-bar:hover{background:linear-gradient(135deg,rgba(108,123,212,.12),rgba(155,143,212,.08));border-color:rgba(108,123,212,.2)}
+.trial-bar::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--primary),var(--lavender));border-radius:3px}
+.trial-bar-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--lavender));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.trial-bar-icon svg{width:16px;height:16px;color:#fff}
+.trial-bar-body{flex:1;min-width:0}
+.trial-bar-title{font-size:12px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px}
+.trial-bar-title .trial-days{font-size:10px;font-weight:700;padding:1px 7px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary)}
+.trial-bar-sub{font-size:11px;color:var(--text-2);margin-top:2px}
+.trial-bar-arrow{color:var(--text-3);flex-shrink:0}
+.trial-bar.ending{background:linear-gradient(135deg,rgba(224,124,108,.08),rgba(224,124,108,.04));border-color:rgba(224,124,108,.15)}
+.trial-bar.ending::before{background:linear-gradient(180deg,var(--coral),#E07C6C)}
+.trial-bar.ending .trial-days{background:rgba(224,124,108,.12);color:var(--coral)}
+.dark .trial-bar{background:linear-gradient(135deg,rgba(108,123,212,.1),rgba(155,143,212,.06));border-color:rgba(108,123,212,.15)}
+.dark .trial-bar.ending{background:linear-gradient(135deg,rgba(224,124,108,.1),rgba(224,124,108,.05));border-color:rgba(224,124,108,.18)}
+
+/* ── Pro Impact Card (home page) ── */
+.pro-impact{background:var(--bg-card);border:1px solid var(--border-soft);border-radius:var(--radius);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.pro-impact-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.pro-impact-title{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px}
+.pro-impact-title svg{width:14px;height:14px;color:var(--primary)}
+.pro-impact-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full);background:var(--primary-soft);color:var(--primary)}
+.pro-impact-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.pro-impact-stat{text-align:center;padding:8px 4px;background:var(--bg);border-radius:8px}
+.pro-impact-val{font-size:18px;font-weight:800;color:var(--text);line-height:1}
+.pro-impact-label{font-size:9px;color:var(--text-2);margin-top:4px;line-height:1.2}
+.pro-impact-compare{font-size:11px;color:var(--text-3);text-align:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border-soft);line-height:1.4}
+.pro-impact-compare b{color:var(--primary);font-weight:700}
+.pro-impact-cta{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;margin-top:10px;background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;font-size:13px;font-weight:600;border-radius:10px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(123,143,212,.25);transition:all .2s}
+.pro-impact-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(123,143,212,.35)}
+.pro-impact-cta:active{transform:scale(.98)}
+
+/* ── End-of-Trial Modal ── */
+.trial-end-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:250;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.trial-end-overlay.active{display:flex}
+.trial-end-card{background:var(--bg-card);border-radius:24px;padding:0;margin:20px;max-width:360px;width:100%;overflow:hidden;transform:scale(.85);opacity:0;transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .4s;box-shadow:0 24px 64px rgba(0,0,0,.3)}
+.trial-end-overlay.active .trial-end-card{transform:scale(1);opacity:1}
+.trial-end-hero{background:linear-gradient(135deg,#E07C6C 0%,#D48A6C 40%,#5C6FB0 100%);padding:28px 24px 20px;text-align:center;position:relative;overflow:hidden}
+.trial-end-hero::before{content:'';position:absolute;top:-40px;left:-40px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.08)}
+.trial-end-hero-icon{width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;backdrop-filter:blur(4px)}
+.trial-end-hero-icon svg{width:28px;height:28px;color:#fff}
+.trial-end-hero-title{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}
+.trial-end-hero-sub{font-size:12px;color:rgba(255,255,255,.8);line-height:1.4}
+.trial-end-body{padding:24px}
+.trial-end-summary{background:var(--bg);border-radius:12px;padding:14px;margin-bottom:16px}
+.trial-end-summary-title{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.trial-end-summary-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;font-size:13px}
+.trial-end-summary-row+.trial-end-summary-row{border-top:1px solid var(--border-soft)}
+.trial-end-summary-label{color:var(--text-2)}
+.trial-end-summary-val{font-weight:700;color:var(--text)}
+.trial-end-summary-val.highlight{color:var(--primary)}
+.trial-end-offer{background:linear-gradient(135deg,rgba(108,123,212,.08),rgba(155,143,212,.05));border:1.5px solid rgba(108,123,212,.15);border-radius:12px;padding:14px;text-align:center;margin-bottom:16px}
+.trial-end-offer-label{font-size:10px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.trial-end-offer-price{font-size:28px;font-weight:800;color:var(--text);line-height:1}
+.trial-end-offer-price .old{font-size:14px;color:var(--text-3);text-decoration:line-through;font-weight:600;margin-right:6px}
+.trial-end-offer-period{font-size:12px;color:var(--text-2);margin-top:2px}
+.trial-end-offer-save{font-size:11px;font-weight:700;color:var(--success);margin-top:4px}
+.trial-end-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;font-size:15px;font-weight:700;border-radius:14px;border:none;cursor:pointer;box-shadow:0 6px 24px rgba(123,143,212,.35);transition:all .2s}
+.trial-end-btn:hover{transform:translateY(-1px);box-shadow:0 8px 32px rgba(123,143,212,.45)}
+.trial-end-btn:active{transform:scale(.98)}
+.trial-end-skip{display:flex;align-items:center;justify-content:center;width:100%;padding:12px;background:none;border:none;font-size:13px;font-weight:600;color:var(--text-2);cursor:pointer;margin-top:8px;transition:color .2s}
+.trial-end-skip:hover{color:var(--text)}
+
+/* ── AI Cover Letter Modal ── */
+.ai-cover-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:210;display:none;align-items:flex-end;max-width:430px;margin:0 auto;backdrop-filter:blur(2px)}
+.ai-cover-overlay.active{display:flex}
+.ai-cover-sheet{width:100%;background:var(--bg-card);border-radius:20px 20px 0 0;max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:transform .45s cubic-bezier(.22,1,.36,1);padding:0 20px 24px}
+.ai-cover-overlay.active .ai-cover-sheet{transform:translateY(0)}
+.ai-cover-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 16px}
+.ai-cover-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ai-cover-title{font-size:16px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}
+.ai-cover-title svg{width:18px;height:18px;color:var(--primary)}
+.ai-cover-pro-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff}
+.ai-cover-close{width:32px;height:32px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;color:var(--text-2);transition:all .2s}
+.ai-cover-close:hover{background:var(--bg-input);color:var(--text)}
+.ai-cover-generating{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 0;text-align:center}
+.ai-cover-gen-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--lavender));display:flex;align-items:center;justify-content:center;margin-bottom:16px;animation:aiPulse 1.5s ease-in-out infinite}
+@keyframes aiPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(108,123,212,.3)}50%{transform:scale(1.05);box-shadow:0 0 20px 8px rgba(108,123,212,.15)}}
+.ai-cover-gen-icon svg{width:28px;height:28px;color:#fff}
+.ai-cover-gen-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+.ai-cover-gen-sub{font-size:12px;color:var(--text-2);line-height:1.4}
+.ai-cover-dots{display:flex;gap:4px;margin-top:12px}
+.ai-cover-dots span{width:6px;height:6px;border-radius:50%;background:var(--primary);animation:coverDot 1.2s ease-in-out infinite}
+.ai-cover-dots span:nth-child(2){animation-delay:.2s}
+.ai-cover-dots span:nth-child(3){animation-delay:.4s}
+@keyframes coverDot{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.ai-cover-result{display:none}
+.ai-cover-result.visible{display:block;animation:fadeInUp .4s ease}
+.ai-cover-text{background:var(--bg);border-radius:12px;padding:16px;font-size:13px;color:var(--text);line-height:1.6;border:1px solid var(--border-soft);margin-bottom:16px;position:relative;min-height:120px;white-space:pre-wrap;font-family:var(--font-sans)}
+.ai-cover-text-typing::after{content:'▊';animation:blink 1s step-end infinite;color:var(--primary)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.ai-cover-actions{display:flex;gap:8px}
+.ai-cover-actions button{flex:1;padding:12px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+.ai-cover-edit{background:var(--bg);color:var(--text);border:1px solid var(--border-soft)!important}
+.ai-cover-edit:hover{background:var(--bg-input)}
+.ai-cover-send{background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;box-shadow:0 4px 16px rgba(123,143,212,.25)}
+.ai-cover-send:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(123,143,212,.35)}
+.ai-cover-saved{font-size:11px;color:var(--text-3);text-align:center;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:4px}
+.ai-cover-saved svg{width:12px;height:12px}
+
+/* ── Free Tier App Counter ── */
+.app-counter{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg);border-radius:8px;margin-bottom:8px;font-size:11px;color:var(--text-2)}
+.app-counter-bar{flex:1;height:3px;background:var(--bg-input);border-radius:1.5px;overflow:hidden}
+.app-counter-fill{height:100%;background:var(--primary);border-radius:1.5px;transition:width .4s cubic-bezier(.22,1,.36,1)}
+.app-counter-fill.warn{background:var(--warning)}
+.app-counter-fill.danger{background:var(--danger)}
+.app-counter-val{font-weight:700;color:var(--text);white-space:nowrap}
+.app-counter-pro{color:var(--primary);font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px}
+
+/* ── Pro Gate Inline ── */
+.pro-gate-inline{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,rgba(108,123,212,.06),rgba(155,143,212,.03));border:1px dashed rgba(108,123,212,.2);border-radius:var(--radius);margin-bottom:8px;cursor:pointer;transition:all .2s}
+.pro-gate-inline:hover{background:linear-gradient(135deg,rgba(108,123,212,.1),rgba(155,143,212,.06));border-color:rgba(108,123,212,.3)}
+.pro-gate-inline-icon{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--primary),var(--lavender));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pro-gate-inline-icon svg{width:14px;height:14px;color:#fff}
+.pro-gate-inline-text{flex:1;min-width:0}
+.pro-gate-inline-title{font-size:12px;font-weight:600;color:var(--text)}
+.pro-gate-inline-desc{font-size:10px;color:var(--text-2);margin-top:1px}
+
 /* ── Settings section navigation ── */
 .settings-tabs { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 16px; padding-bottom: 4px; }
 .settings-tab { padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: var(--radius-full); border: 1px solid var(--border); color: var(--text-2); cursor: pointer; white-space: nowrap; transition: all .25s cubic-bezier(.22,1,.36,1); background: var(--bg-card); }
@@ -3674,6 +3820,12 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
             </div>
           </div>
 
+          <!-- Trial Countdown Bar -->
+          <div id="trialBarContainer"></div>
+
+          <!-- Pro Impact Card -->
+          <div id="proImpactContainer"></div>
+
           <!-- Guided Steps — 1-2-3 Onboarding -->
           <div class="guided-steps animate-in">
             <div class="guided-step" onclick="guidedStep1()" style="cursor:pointer">
@@ -4036,7 +4188,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
     <div class="more-menu-row" onclick="openMoreSub('tariff', event)">
       <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <div class="more-menu-row-text">Тариф</div>
-      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px">Pro</span>
+      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px" id="moreTariffBadge">Pro</span>
       <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>
     <div class="more-menu-row" onclick="openMoreSub('payments', event)">
@@ -4105,6 +4257,92 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
   <div class="onb2-card" id="onb2Card">
     <div class="onb2-dots" id="onb2Dots"></div>
     <div id="onb2Content"></div>
+  </div>
+</div>
+
+<!-- ═══ Trial Welcome Overlay ═══ -->
+<div class="trial-welcome-overlay" id="trialWelcomeOverlay">
+  <div class="trial-welcome-card">
+    <div class="trial-welcome-hero">
+      <div class="trial-welcome-hero-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO</div>
+      <div class="trial-welcome-hero-title">3 дня Pro бесплатно</div>
+      <div class="trial-welcome-hero-sub">Попробуйте все возможности Pro — без ограничений</div>
+    </div>
+    <div class="trial-welcome-body">
+      <div class="trial-welcome-features">
+        <div class="trial-welcome-feat">
+          <div class="trial-welcome-feat-ico ico-ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div>
+          <div><div class="trial-welcome-feat-title">AI-сопроводительное письмо</div><div class="trial-welcome-feat-desc">AI напишет персонализированный отклик за 5 секунд</div></div>
+        </div>
+        <div class="trial-welcome-feat">
+          <div class="trial-welcome-feat-ico ico-unlim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          <div><div class="trial-welcome-feat-title">Безлимитные отклики</div><div class="trial-welcome-feat-desc">Отправляйте отклики без ограничений — на Free всего 5/мес</div></div>
+        </div>
+        <div class="trial-welcome-feat">
+          <div class="trial-welcome-feat-ico ico-priority"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div><div class="trial-welcome-feat-title">Приоритет у клиентов</div><div class="trial-welcome-feat-desc">Ваши отклики отображаются первыми — шанс +40%</div></div>
+        </div>
+        <div class="trial-welcome-feat">
+          <div class="trial-welcome-feat-ico ico-analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+          <div><div class="trial-welcome-feat-title">Аналитика профиля</div><div class="trial-welcome-feat-desc">Узнайте, кто смотрит ваш профиль и как вас находят</div></div>
+        </div>
+      </div>
+      <button class="trial-welcome-btn" onclick="startTrial()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>Начать Pro-триал</button>
+      <div class="trial-welcome-footer">Отмена в любой момент · Без привязки карты</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ End-of-Trial Modal ═══ -->
+<div class="trial-end-overlay" id="trialEndOverlay">
+  <div class="trial-end-card">
+    <div class="trial-end-hero">
+      <div class="trial-end-hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div class="trial-end-hero-title" id="trialEndTitle">Триал завершается</div>
+      <div class="trial-end-hero-sub" id="trialEndSub">Не теряйте momentum — сохраните Pro</div>
+    </div>
+    <div class="trial-end-body">
+      <div class="trial-end-summary">
+        <div class="trial-end-summary-title">Ваш результат за триал</div>
+        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Откликов отправлено</span><span class="trial-end-summary-val highlight" id="trialEndApps">0</span></div>
+        <div class="trial-end-summary-row"><span class="trial-end-summary-label">AI-писем создано</span><span class="trial-end-summary-val highlight" id="trialEndAI">0</span></div>
+        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Время сэкономлено</span><span class="trial-end-summary-val" id="trialEndTime">0 мин</span></div>
+        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Потенциал заработка</span><span class="trial-end-summary-val highlight" id="trialEndEarnings">$0</span></div>
+      </div>
+      <div class="trial-end-offer">
+        <div class="trial-end-offer-label">Специальное предложение</div>
+        <div class="trial-end-offer-price"><span class="old">$9.99</span><span id="trialEndPrice">$4.99</span></div>
+        <div class="trial-end-offer-period">/месяц · Отмена в любой момент</div>
+        <div class="trial-end-offer-save">Вы экономите 50%</div>
+      </div>
+      <button class="trial-end-btn" onclick="subscribePro()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Сохранить Pro за $4.99/мес</button>
+      <button class="trial-end-skip" onclick="skipTrialEnd()">Продолжить с Free</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AI Cover Letter Bottom Sheet ═══ -->
+<div class="ai-cover-overlay" id="aiCoverOverlay" onclick="if(event.target===this)closeAICover()">
+  <div class="ai-cover-sheet">
+    <div class="ai-cover-handle"></div>
+    <div class="ai-cover-header">
+      <div class="ai-cover-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> AI-сопроводительное <span class="ai-cover-pro-badge">PRO</span></div>
+      <button class="ai-cover-close" onclick="closeAICover()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="ai-cover-generating" id="aiCoverGenerating">
+      <div class="ai-cover-gen-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div>
+      <div class="ai-cover-gen-title">AI создаёт ваше предложение...</div>
+      <div class="ai-cover-gen-sub" id="aiCoverGenSub">Анализируем заказ и ваш профиль</div>
+      <div class="ai-cover-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="ai-cover-result" id="aiCoverResult">
+      <div class="ai-cover-text" id="aiCoverText"></div>
+      <div class="ai-cover-actions">
+        <button class="ai-cover-edit" onclick="editAICover()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Изменить</button>
+        <button class="ai-cover-send" id="aiCoverSendBtn" onclick="sendAICover()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Отправить</button>
+      </div>
+      <div class="ai-cover-saved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>AI сэкономил вам ~15 минут</div>
+    </div>
   </div>
 </div>
 
@@ -4184,6 +4422,341 @@ let isDark = lsGet('skillhunt_dark') === 'true';
 let isLoading = true;
 let searchDebounceTimer = null;
 
+// ═══════════════════════════════════════════════════════════
+// ── Subscription State System ──
+// ═══════════════════════════════════════════════════════════
+const FREE_APP_LIMIT = 5; // Free: 5 applications per month
+const TRIAL_DAYS = 3;
+
+function getSubscription() {
+  let sub = lsGetJSON('skillhunt_subscription', null);
+  if (!sub) {
+    // First-time user: default to free (trial offered on first load)
+    sub = { plan:'free', trialStartedAt:null, trialDaysTotal:TRIAL_DAYS, monthlyAppCount:0, monthlyAppResetDate:new Date().toISOString().slice(0,7), aiProposalCount:0, proViewsCount:0, trialSpecialPrice:4.99, trialOfferShown:false };
+    lsSetJSON('skillhunt_subscription', sub);
+  }
+  // Check if trial has expired
+  if (sub.plan === 'trial' && sub.trialStartedAt) {
+    const start = new Date(sub.trialStartedAt);
+    const now = new Date();
+    const daysElapsed = (now - start) / (1000 * 60 * 60 * 24);
+    if (daysElapsed >= TRIAL_DAYS) {
+      sub.plan = 'free';
+      sub.trialEndedAt = now.toISOString();
+      lsSetJSON('skillhunt_subscription', sub);
+    }
+  }
+  // Reset monthly app count if new month
+  const currentMonth = new Date().toISOString().slice(0,7);
+  if (sub.monthlyAppResetDate !== currentMonth) {
+    sub.monthlyAppCount = 0;
+    sub.monthlyAppResetDate = currentMonth;
+    lsSetJSON('skillhunt_subscription', sub);
+  }
+  return sub;
+}
+
+function isPro() {
+  const sub = getSubscription();
+  return sub.plan === 'pro' || sub.plan === 'trial';
+}
+
+function isTrialActive() {
+  const sub = getSubscription();
+  return sub.plan === 'trial';
+}
+
+function getTrialDaysLeft() {
+  const sub = getSubscription();
+  if (sub.plan !== 'trial' || !sub.trialStartedAt) return 0;
+  const start = new Date(sub.trialStartedAt);
+  const now = new Date();
+  const daysElapsed = (now - start) / (1000 * 60 * 60 * 24);
+  return Math.max(0, Math.ceil(TRIAL_DAYS - daysElapsed));
+}
+
+function getTrialHoursLeft() {
+  const sub = getSubscription();
+  if (sub.plan !== 'trial' || !sub.trialStartedAt) return 0;
+  const start = new Date(sub.trialStartedAt);
+  const end = new Date(start.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+  const now = new Date();
+  return Math.max(0, Math.round((end - now) / (1000 * 60 * 60)));
+}
+
+function canApply() {
+  const sub = getSubscription();
+  if (isPro()) return { allowed:true, remaining:'∞' };
+  const remaining = Math.max(0, FREE_APP_LIMIT - sub.monthlyAppCount);
+  return { allowed: remaining > 0, remaining: remaining };
+}
+
+function incrementAppCount() {
+  const sub = getSubscription();
+  sub.monthlyAppCount = (sub.monthlyAppCount || 0) + 1;
+  lsSetJSON('skillhunt_subscription', sub);
+}
+
+function incrementAICount() {
+  const sub = getSubscription();
+  sub.aiProposalCount = (sub.aiProposalCount || 0) + 1;
+  lsSetJSON('skillhunt_subscription', sub);
+}
+
+function startTrial() {
+  const sub = getSubscription();
+  sub.plan = 'trial';
+  sub.trialStartedAt = new Date().toISOString();
+  sub.monthlyAppCount = 0;
+  sub.aiProposalCount = 0;
+  sub.proViewsCount = 0;
+  lsSetJSON('skillhunt_subscription', sub);
+  document.getElementById('trialWelcomeOverlay').classList.remove('active');
+  showToast('🎉 Pro-триал активирован на 3 дня!');
+  loadProfile();
+  renderTrialBar();
+  renderProImpact();
+}
+
+function subscribePro() {
+  const sub = getSubscription();
+  sub.plan = 'pro';
+  sub.trialStartedAt = null;
+  lsSetJSON('skillhunt_subscription', sub);
+  document.getElementById('trialEndOverlay').classList.remove('active');
+  showToast('✨ Pro подписка активирована!');
+  loadProfile();
+  renderTrialBar();
+  renderProImpact();
+}
+
+function skipTrialEnd() {
+  const sub = getSubscription();
+  sub.trialOfferShown = true;
+  lsSetJSON('skillhunt_subscription', sub);
+  document.getElementById('trialEndOverlay').classList.remove('active');
+  showToast('Вы используете Free-план');
+  loadProfile();
+  renderTrialBar();
+  renderProImpact();
+}
+
+function showProUpgrade() {
+  const overlay = document.getElementById('trialEndOverlay');
+  const sub = getSubscription();
+  const price = (sub.trialSpecialPrice || 4.99).toFixed(2);
+  document.getElementById('trialEndTitle').textContent = 'Разблокируйте Pro';
+  document.getElementById('trialEndSub').textContent = 'Получите безлимитные отклики, AI и приоритет';
+  document.getElementById('trialEndApps').textContent = sub.monthlyAppCount || 0;
+  document.getElementById('trialEndAI').textContent = sub.aiProposalCount || 0;
+  document.getElementById('trialEndTime').textContent = ((sub.aiProposalCount || 0) * 15) + ' мин';
+  const apps = lsGetJSON('skillhunt_applications', []);
+  const totalEarnings = apps.reduce((s, a) => {
+    const job = MOCK_JOBS.find(j => j.id === a.jobId);
+    return s + (job ? job.budgetMax : 0);
+  }, 0);
+  document.getElementById('trialEndEarnings').textContent = '$' + totalEarnings.toLocaleString();
+  document.getElementById('trialEndPrice').textContent = '$' + price;
+  overlay.querySelector('.trial-end-btn').innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Подключить Pro за $' + price + '/мес';
+  overlay.classList.add('active');
+}
+
+// ── Trial Countdown Bar ──
+function renderTrialBar() {
+  const container = document.getElementById('trialBarContainer');
+  if (!container) return;
+  const sub = getSubscription();
+  
+  if (sub.plan === 'pro') {
+    container.innerHTML = '<div class="trial-bar" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro активен <span class="trial-days">∞</span></div><div class="trial-bar-sub">Безлимитные отклики · AI-ассистент · Приоритет</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+    return;
+  }
+  
+  if (sub.plan === 'trial') {
+    const daysLeft = getTrialDaysLeft();
+    const hoursLeft = getTrialHoursLeft();
+    const isEnding = daysLeft <= 1;
+    const timeText = daysLeft > 1 ? daysLeft + ' дн.' : (hoursLeft > 0 ? hoursLeft + ' ч.' : '<1 ч.');
+    const cls = isEnding ? 'trial-bar ending' : 'trial-bar';
+    const subText = isEnding ? 'Активируйте Pro со скидкой 50%!' : 'Безлимитные отклики · AI-письма · Приоритет';
+    
+    container.innerHTML = '<div class="' + cls + '" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro-триал <span class="trial-days">' + timeText + '</span></div><div class="trial-bar-sub">' + subText + '</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+    return;
+  }
+  
+  // Free: show upgrade prompt
+  const canApp = canApply();
+  if (!canApp.allowed) {
+    container.innerHTML = '<div class="trial-bar ending" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Лимит откликов <span class="trial-days">0/' + FREE_APP_LIMIT + '</span></div><div class="trial-bar-sub">Разблокируйте безлимит с Pro</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+  } else {
+    container.innerHTML = '<div class="trial-bar" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Попробуйте Pro <span class="trial-days">3 дня</span></div><div class="trial-bar-sub">Безлимитные отклики · AI-письма · Приоритет</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+  }
+}
+
+// ── Pro Impact Card ──
+function renderProImpact() {
+  const container = document.getElementById('proImpactContainer');
+  if (!container) return;
+  const sub = getSubscription();
+  
+  if (sub.plan === 'free') {
+    container.innerHTML = '';
+    return;
+  }
+  
+  const apps = lsGetJSON('skillhunt_applications', []);
+  const appCount = apps.length;
+  const aiCount = sub.aiProposalCount || 0;
+  const timeSaved = aiCount * 15;
+  const totalEarnings = apps.reduce((s, a) => {
+    const job = MOCK_JOBS.find(j => j.id === a.jobId);
+    return s + (job ? job.budgetMax : 0);
+  }, 0);
+  
+  const isTrial = sub.plan === 'trial';
+  const ctaText = isTrial ? 'Сохранить Pro со скидкой' : 'Управлять подпиской';
+  const ctaAction = isTrial ? 'showProUpgrade()' : "openMoreSub('tariff')";
+  const badgeText = isTrial ? 'ТРИАЛ' : 'PRO';
+  
+  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Ваш Pro-результат</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенциал</div></div></div><div class="pro-impact-compare">На Free вы бы отправили <b>всего ' + FREE_APP_LIMIT + ' откликов/мес</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
+}
+
+// ── AI Cover Letter Generator ──
+let aiCoverJobId = null;
+
+function openAICover(jobId) {
+  if (!isPro()) {
+    showProUpgrade();
+    return;
+  }
+  aiCoverJobId = jobId;
+  const overlay = document.getElementById('aiCoverOverlay');
+  const generating = document.getElementById('aiCoverGenerating');
+  const result = document.getElementById('aiCoverResult');
+  generating.style.display = 'flex';
+  result.classList.remove('visible');
+  overlay.classList.add('active');
+  
+  // Simulate AI generation phases
+  const genSub = document.getElementById('aiCoverGenSub');
+  setTimeout(() => { genSub.textContent = 'Подбираем аргументы...'; }, 800);
+  setTimeout(() => { genSub.textContent = 'Формулируем отклик...'; }, 1600);
+  setTimeout(() => {
+    genSub.textContent = 'Анализируем заказ и ваш профиль';
+    generating.style.display = 'none';
+    result.classList.add('visible');
+    typeAICover(jobId);
+  }, 2400);
+}
+
+function typeAICover(jobId) {
+  const job = MOCK_JOBS.find(j => j.id === jobId);
+  if (!job) return;
+  const profile = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
+  const textEl = document.getElementById('aiCoverText');
+  
+  const coverLetters = {
+    ai: 'Здравствуйте! Меня заинтересовал ваш проект «' + job.title + '».\n\nИмею более 5 лет опыта в AI/ML разработке, включая работу с ' + job.skills.slice(0,3).join(', ') + '. Недавно завершил похожий проект с бюджетом $' + job.budgetMax.toLocaleString() + ', где реализовал аналогичный функционал.\n\nМогу приступить немедленно. Предлагаю обсудить детали в чате.\n\nС уважением,\n' + profile.name,
+    design: 'Добрый день! Ваш проект «' + job.title + '» отлично совпадает с моей экспертизой.\n\nСпециализируюсь на ' + job.skills.slice(0,2).join(' и ') + '. Понимаю, что для вас важны ' + job.skills[2] + ' — это мой ключевой навык.\n\nГотов показать релевантные кейсы. Когда удобно обсудить?\n\n' + profile.name,
+    dev: 'Приветствую! Готов взяться за «' + job.title + '».\n\nМой стек: ' + job.skills.slice(0,3).join(', ') + '. В последнем проекте реализовал похожую архитектуру — могу переиспользовать наработки и ускорить сдачу.\n\nОценка: $' + job.budgetMin.toLocaleString() + '-' + job.budgetMax.toLocaleString() + '. Срок: обсудим.\n\n' + profile.name,
+    writing: 'Здравствуйте! Проект «' + job.title + '» — именно то, в чём я силён.\n\nОпыт в ' + job.skills.slice(0,2).join(', ') + ' позволяет мне создавать контент, который вовлекает и конвертирует. Понимаю специфику вашей ниши.\n\nПредлагаю начать с тестового задания.\n\n' + profile.name,
+    marketing: 'Добрый день! С удовольствием помогу с «' + job.title + '».\n\nМой опыт в ' + job.skills.slice(0,2).join(' и ') + ' поможет достичь ваших KPI. В прошлом проекте увеличил конверсию на 34% за 2 месяца.\n\nДавайте обсудим стратегию!\n\n' + profile.name,
+    data: 'Здравствуйте! Готов выполнить «' + job.title + '».\n\nЭкспертиза в ' + job.skills.slice(0,3).join(', ') + '. Построю пайплайн от сбора данных до визуализации. Опыт с похожими задачами — могу показать демо.\n\n' + profile.name,
+    devops: 'Привет! Возьму «' + job.title + '».\n\n' + job.skills.slice(0,3).join(', ') + ' — мой ежедневный стек. Настрою CI/CD, мониторинг и масштабирование под нагрузку.\n\nМогу начать на этой неделе.\n\n' + profile.name
+  };
+  
+  const letter = coverLetters[job.category] || coverLetters.ai;
+  textEl.classList.add('ai-cover-text-typing');
+  
+  let i = 0;
+  textEl.textContent = '';
+  const typeInterval = setInterval(() => {
+    if (i < letter.length) {
+      textEl.textContent += letter[i];
+      i++;
+    } else {
+      clearInterval(typeInterval);
+      textEl.classList.remove('ai-cover-text-typing');
+    }
+  }, 20);
+  
+  // Store job id for send action
+  document.getElementById('aiCoverSendBtn').dataset.jobId = jobId;
+}
+
+function closeAICover() {
+  const overlay = document.getElementById('aiCoverOverlay');
+  overlay.classList.remove('active');
+  aiCoverJobId = null;
+}
+
+function editAICover() {
+  const textEl = document.getElementById('aiCoverText');
+  textEl.contentEditable = textEl.contentEditable === 'true' ? 'false' : 'true';
+  if (textEl.contentEditable === 'true') {
+    textEl.style.border = '1px solid var(--primary)';
+    textEl.focus();
+    showToast('Редактируйте текст прямо здесь');
+  } else {
+    textEl.style.border = '1px solid var(--border-soft)';
+    showToast('Текст сохранён');
+  }
+}
+
+function sendAICover() {
+  const jobId = parseInt(document.getElementById('aiCoverSendBtn').dataset.jobId);
+  closeAICover();
+  
+  const job = MOCK_JOBS.find(j => j.id === jobId);
+  if (!job) return;
+  const apps = lsGetJSON('skillhunt_applications', []);
+  if (apps.find(a => a.jobId === jobId)) {
+    showToast('Вы уже откликнулись на этот заказ');
+    closeJobDetail();
+    return;
+  }
+  apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'pending', aiGenerated: true });
+  lsSetJSON('skillhunt_applications', apps);
+  incrementAppCount();
+  incrementAICount();
+  updateAppCount();
+  showToast('✨ AI-отклик отправлен! Клиент получит уведомление.');
+  announce('Отклик отправлен');
+  closeJobDetail();
+  renderProImpact();
+}
+
+// ── Show Trial End Modal (called when trial expires) ──
+function checkTrialEnd() {
+  const sub = getSubscription();
+  // If trial just ended (has trialStartedAt but plan is now free), show conversion modal
+  if (sub.trialStartedAt && sub.plan === 'free' && !sub.trialOfferShown) {
+    const apps = lsGetJSON('skillhunt_applications', []);
+    const appCount = apps.length;
+    const aiCount = sub.aiProposalCount || 0;
+    const timeSaved = aiCount * 15;
+    const totalEarnings = apps.reduce((s, a) => {
+      const job = MOCK_JOBS.find(j => j.id === a.jobId);
+      return s + (job ? job.budgetMax : 0);
+    }, 0);
+    
+    document.getElementById('trialEndTitle').textContent = 'Триал завершён';
+    document.getElementById('trialEndSub').textContent = 'Ваш 3-дневный Pro-триал закончился';
+    document.getElementById('trialEndApps').textContent = appCount;
+    document.getElementById('trialEndAI').textContent = aiCount;
+    document.getElementById('trialEndTime').textContent = timeSaved + ' мин';
+    document.getElementById('trialEndEarnings').textContent = '$' + totalEarnings.toLocaleString();
+    
+    const price = (sub.trialSpecialPrice || 4.99).toFixed(2);
+    document.getElementById('trialEndPrice').textContent = '$' + price;
+    document.getElementById('trialEndOverlay').querySelector('.trial-end-btn').innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Сохранить Pro за $' + price + '/мес';
+    
+    setTimeout(() => {
+      document.getElementById('trialEndOverlay').classList.add('active');
+    }, 1000);
+  }
+}
+
 // ── Telegram WebApp Integration ──
 const tg = window.Telegram && window.Telegram.WebApp;
 if (tg) {
@@ -4244,9 +4817,24 @@ function init() {
   setupSwipe();
   animateStatStrip();
   
+  // ── Subscription system ──
+  const sub = getSubscription();
+  renderTrialBar();
+  renderProImpact();
+  
+  // Check if trial has ended — show conversion modal
+  if (sub.trialStartedAt && sub.plan === 'free' && !sub.trialOfferShown) {
+    setTimeout(() => checkTrialEnd(), 2000);
+  }
+  
   // Check onboarding
   if (!lsGet('skillhunt_onboarded')) {
     setTimeout(() => showOnboarding(), 800);
+  } else if (sub.plan === 'free' && !sub.trialStartedAt) {
+    // Show trial welcome for new users who completed onboarding but haven't started trial
+    setTimeout(() => {
+      document.getElementById('trialWelcomeOverlay').classList.add('active');
+    }, 1200);
   }
 }
 
@@ -4917,7 +5505,10 @@ function openJobDetail(jobId) {
     
     <!-- Action Buttons -->
     <div style="display:flex;gap:8px;margin-top:16px">
-      <button class="btn btn-p btn-lg btn-full" onclick="applyToJob(${job.id})">Откликнуться</button>
+      <button class="btn btn-p btn-lg btn-full ai-pulse-btn" onclick="openAICover(${job.id})" style="position:relative"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> AI-отклик</button>
+    </div>
+    <div style="margin-top:8px">
+      <button class="btn btn-o btn-full" onclick="applyToJob(${job.id})">Откликнуться вручную</button>
     </div>
     <div style="margin-top:8px">
       <button class="btn btn-o btn-full" onclick="toggleSave(${job.id});closeJobDetail()">
@@ -4925,6 +5516,7 @@ function openJobDetail(jobId) {
         ${isSaved ? 'Убрать из сохранённых' : 'Сохранить'}
       </button>
     </div>
+    ${!isPro() ? '<div class="app-counter" style="margin-top:8px"><span>Откликов: ' + canApply().remaining + '/' + FREE_APP_LIMIT + '</span><div class="app-counter-bar"><div class="app-counter-fill ' + (canApply().remaining <= 1 ? 'danger' : canApply().remaining <= 3 ? 'warn' : '') + '" style="width:' + (canApply().remaining / FREE_APP_LIMIT * 100) + '%"></div></div><span class="app-counter-pro" onclick="showProUpgrade()"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>' : ''}
   `;
   
   const sub = document.getElementById('jobDetailSub');
@@ -4959,9 +5551,19 @@ function applyToJob(jobId) {
     closeJobDetail();
     return;
   }
+  // Check application limits for Free users
+  const canApp = canApply();
+  if (!canApp.allowed) {
+    closeJobDetail();
+    showProUpgrade();
+    return;
+  }
   apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'pending' });
   lsSetJSON('skillhunt_applications', apps);
+  incrementAppCount();
   updateAppCount();
+  renderTrialBar();
+  renderProImpact();
   showToast('Отклик отправлен! Клиент получит уведомление.');
   announce('Отклик отправлен');
   closeJobDetail();
@@ -5049,7 +5651,15 @@ function openMoreSub(type, event) {
       html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Шаблоны откликов</div><div style="margin-left:auto"><button class="btn btn-sm btn-p" onclick="showCreateTemplateForm()">+ Создать</button></div></div><div class="card mb-12" style="cursor:pointer" onclick="copyBuiltinTemplate('Здравствуйте! Я AI/ML разработчик с опытом более 5 лет. Специализируюсь на разработке ML-моделей, NLP и рекомендательных системах...')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">AI/ML специалист</div></div><span class="tag tag-primary">По умолчанию</span></div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">Здравствуйте! Я AI/ML разработчик с опытом более 5 лет. Специализируюсь на разработке ML-моделей, NLP и рекомендательных системах...</div></div><div class="card mb-12" style="cursor:pointer" onclick="copyBuiltinTemplate('Привет! Я full-stack разработчик с фокусом на React/Node.js. Имею опыт создания высоконагруженных систем...')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--lavender-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--lavender)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Full-stack разработчик</div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">Использован 12 раз</span></div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">Привет! Я full-stack разработчик с фокусом на React/Node.js. Имею опыт создания высоконагруженных систем...</div></div><div class="card mb-12" style="cursor:pointer" onclick="copyBuiltinTemplate('Готов взяться за проект! Соответствую всем требованиям, есть релевантный опыт. Подробности в профиле.')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--mint-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Короткий отклик</div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">Использован 8 раз</span></div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">Готов взяться за проект! Соответствую всем требованиям, есть релевантный опыт. Подробности в профиле.</div></div>${savedTplsHtml}`; }
       break;
     case 'tariff':
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Тариф</div></div><div class="card mb-12" style="border-color:rgba(108,123,212,.2);position:relative;overflow:hidden"><div style="position:absolute;top:0;right:0;padding:4px 12px;background:var(--primary);color:#fff;font-size:10px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">АКТИВЕН</div><div style="font-size:22px;font-weight:800;color:var(--primary);margin-bottom:4px;font-family:var(--font-sans)">Pro</div><div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">Действует до 15.08.2025</div><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Неограниченные отклики</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-ассистент</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Приоритет в поиске</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>500 токенов/мес</div></div></div><div class="sec-h"><div class="sec-t">Сравнение тарифов</div></div><div class="card mb-12" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:11px;font-family:var(--font-sans)"><thead><tr style="background:var(--bg-input)"><th style="padding:10px;text-align:left;font-weight:600;color:var(--text-2)"></th><th style="padding:10px;font-weight:600;color:var(--text-2)">Free</th><th style="padding:10px;font-weight:700;color:var(--primary);background:var(--primary-soft)">Pro</th></tr></thead><tbody><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Отклики</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">5/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-ассистент</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Токены</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">50</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)">500</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Цена</td><td style="padding:8px 10px;text-align:center;color:var(--text-2);font-weight:700">Бесплатно</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:700;background:var(--primary-soft)">$9.99/мес</td></tr></tbody></table></div><button class="btn btn-o btn-full" style="margin-top:12px" onclick="showToast('Функция скоро будет доступна')">Сменить тариф</button>`;
+      { const sub = getSubscription();
+      const isProUser = isPro();
+      const isTrial = sub.plan === 'trial';
+      const planName = isProUser ? (isTrial ? 'Pro (Триал)' : 'Pro') : 'Free';
+      const planBadge = isProUser ? 'АКТИВЕН' : 'БАЗОВЫЙ';
+      const planBadgeColor = isProUser ? 'var(--primary)' : 'var(--text-3)';
+      const expiryText = isTrial ? 'Осталось ' + getTrialDaysLeft() + ' дн.' : (sub.plan === 'pro' ? 'Действует до следующего месяца' : '');
+      const specialPrice = (sub.trialSpecialPrice || 4.99).toFixed(2);
+      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Тариф</div></div><div class="card mb-12" style="border-color:${isProUser ? 'rgba(108,123,212,.2)' : 'var(--border)'};position:relative;overflow:hidden"><div style="position:absolute;top:0;right:0;padding:4px 12px;background:${planBadgeColor};color:#fff;font-size:10px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">${planBadge}</div><div style="font-size:22px;font-weight:800;color:${isProUser ? 'var(--primary)' : 'var(--text)'};margin-bottom:4px;font-family:var(--font-sans)">${planName}</div>${expiryText ? '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">' + expiryText + '</div>' : '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">Бесплатный план</div>'}<div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isProUser ? 'var(--success)' : 'var(--text-3)'}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Отклики: ${isProUser ? 'Безлимит' : '5/мес'}</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isProUser ? 'var(--success)' : 'var(--text-3)'}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-сопроводительное письмо</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isProUser ? 'var(--success)' : 'var(--text-3)'}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Приоритет в поиске</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isProUser ? 'var(--success)' : 'var(--text-3)'}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>${isProUser ? '500' : '50'} токенов/мес</div></div></div>${!isProUser ? '<div class="card mb-12" style="background:linear-gradient(135deg,rgba(108,123,212,.06),rgba(155,143,212,.03));border-color:rgba(108,123,212,.15);text-align:center;padding:20px"><div style="font-size:10px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Специальное предложение</div><div style="font-size:28px;font-weight:800;color:var(--text);line-height:1"><span style="font-size:14px;color:var(--text-3);text-decoration:line-through;font-weight:600;margin-right:6px">$9.99</span>$' + specialPrice + '</div><div style="font-size:12px;color:var(--text-2);margin-top:4px">/месяц · Отмена в любой момент</div><div style="font-size:11px;font-weight:700;color:var(--success);margin-top:6px">Экономия 50%</div><button class="btn btn-p btn-full" style="margin-top:14px" onclick="subscribePro();closeMoreSub()">Подключить Pro</button></div>' : ''}<div class="sec-h"><div class="sec-t">Сравнение тарифов</div></div><div class="card mb-12" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:11px;font-family:var(--font-sans)"><thead><tr style="background:var(--bg-input)"><th style="padding:10px;text-align:left;font-weight:600;color:var(--text-2)"></th><th style="padding:10px;font-weight:600;color:var(--text-2)">Free</th><th style="padding:10px;font-weight:700;color:var(--primary);background:var(--primary-soft)">Pro</th></tr></thead><tbody><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Отклики</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">5/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-письма</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Приоритет</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Токены</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">50</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)">500</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Цена</td><td style="padding:8px 10px;text-align:center;color:var(--text-2);font-weight:700">Бесплатно</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:700;background:var(--primary-soft)">$9.99/мес</td></tr></tbody></table></div>${isProUser ? '<button class="btn btn-o btn-full" style="margin-top:12px" onclick="showToast(\'Управление подпиской будет доступно скоро\')">Управлять подпиской</button>' : ''}`; }
       break;
     case 'payments':
       html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">История платежей</div></div><div style="display:flex;flex-direction:column;gap:8px"><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Pro подписка','15.06.2025','-$9.99','Ежемесячная подписка Pro','Списано')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Pro подписка</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">15.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--danger);font-family:var(--font-sans)">-$9.99</div></div></div><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Оплата за заказ ML-модель','10.06.2025','+$5,200','Получена оплата за выполнение заказа \"ML-модель для рекомендаций\"','Завершено')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Оплата за заказ "ML-модель"</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">10.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--success);font-family:var(--font-sans)">+$5,200</div></div></div><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Оплата за заказ Чат-бот','01.06.2025','+$2,800','Получена оплата за выполнение заказа \"Чат-бот на GPT\"','Завершено')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Оплата за заказ "Чат-бот"</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">01.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--success);font-family:var(--font-sans)">+$2,800</div></div></div></div>`;
@@ -5201,9 +5811,32 @@ function getDefaultProfile() {
 
 function loadProfile() {
   const profile = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
-  // Update greeting name
+  const sub = getSubscription();
+  // Update greeting name with plan badge
   const userNameEl = document.getElementById('userName');
-  if (userNameEl) userNameEl.innerHTML = esc(profile.name || 'Александр') + ' <span class="home-greeting-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro</span>';
+  let badgeHtml = '';
+  if (sub.plan === 'pro') {
+    badgeHtml = ' <span class="home-greeting-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro</span>';
+  } else if (sub.plan === 'trial') {
+    badgeHtml = ' <span class="home-greeting-badge" style="background:linear-gradient(135deg,rgba(108,123,212,.12),rgba(155,143,212,.12));color:var(--primary)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro <small style="font-size:7px;opacity:.7">' + getTrialDaysLeft() + 'д</small></span>';
+  }
+  if (userNameEl) userNameEl.innerHTML = esc(profile.name || 'Александр') + badgeHtml;
+  // Update tariff badge in More panel
+  const tariffBadge = document.getElementById('moreTariffBadge');
+  if (tariffBadge) {
+    if (sub.plan === 'pro') {
+      tariffBadge.textContent = 'Pro';
+      tariffBadge.className = 'tag tag-primary';
+    } else if (sub.plan === 'trial') {
+      tariffBadge.textContent = 'Pro ' + getTrialDaysLeft() + 'д';
+      tariffBadge.className = 'tag tag-lavender';
+    } else {
+      tariffBadge.textContent = 'Free';
+      tariffBadge.className = 'tag';
+      tariffBadge.style.background = 'var(--bg-input)';
+      tariffBadge.style.color = 'var(--text-3)';
+    }
+  }
   // Update avatar
   const avatarEl = document.getElementById('userAvatar');
   if (avatarEl) avatarEl.textContent = (profile.name || 'А').charAt(0).toUpperCase();

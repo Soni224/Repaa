@@ -1,0 +1,418 @@
+15:   REPA v3.0 — Premium CSS Design System
+55:  --shadow-prominent: 0 2px 6px rgba(23,27,45,.06);
+97:  --shadow-prominent: 0 2px 8px rgba(0,0,0,.25);
+113:.bnav,.bnav-i span,.btn,.tab,.chip,.tag,.sec-t,.sec-link,.more-title,.more-row-title,.more-row-desc,.inp-label,.tgl-t,.tgl-d,.empty-title,.empty-desc,.toast,.job-card-title,.job-card-budget,.job-card-meta,.seg-label,.seg-count,.filter-label,.s-row-title,.s-row-sub,.tg-row-title,.tg-row-sub,.tg-profile-name,.header-title{font-family:var(--font-sans)}
+150:@keyframes progressFill{from{width:0}to{width:var(--fill)}}
+160:@keyframes ringProgress{from{stroke-dashoffset:var(--ring-total)}to{stroke-dashoffset:var(--ring-offset)}}
+205:/* Circular progress ring */
+206:.progress-ring{position:relative;display:inline-flex;align-items:center;justify-content:center}
+207:.progress-ring svg{transform:rotate(-90deg)}
+208:.progress-ring-text{position:absolute;font-size:20px;font-weight:800;color:var(--text)}
+210:/* Product catalog mini-view */
+211:.product-mini{padding:12px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-soft);margin-bottom:8px;display:flex;align-items:center;gap:10px;transition:all .3s cubic-bezier(.22,1,.36,1);cursor:pointer}
+212:.product-mini:hover{border-color:var(--primary);background:var(--primary-soft)}
+213:.product-mini-name{font-size:12px;font-weight:600;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+214:.product-mini-stats{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text-3)}
+215:.product-mini-rating{color:#FFB800;font-weight:700}
+252:.card-prominent{background:var(--bg-card);border-radius:var(--radius);padding:20px;border:1.5px solid rgba(108,123,212,.15);box-shadow:var(--shadow-prominent);transition:all .3s cubic-bezier(.22,1,.36,1)}
+352:/* ── Progress bars ── */
+353:.prog{height:3px!important;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden}
+354:.prog-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--success));border-radius:var(--radius-full);transition:width .7s cubic-bezier(.22,1,.36,1)}
+355:.prog-lg{height:6px!important}
+374:.rv-product{font-size:12px;color:var(--text-3);margin-bottom:4px}
+423:/* Bulk process button */
+520:/* ── Profile Card (Home) ── */
+521:.prof{padding:16px}
+522:.prof-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+523:.prof-av{width:48px;height:48px;border-radius:var(--radius-full);background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0}
+524:.prof-info{flex:1;min-width:0}
+525:.prof-name{font-size:16px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
+526:.prof-tags{display:flex;gap:4px;margin-top:3px}
+527:.prof-bal{display:flex;align-items:center;justify-content:space-between}
+553:.stat-strip{display:flex;align-items:stretch;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-soft);box-shadow:var(--shadow-prominent);overflow:hidden;margin-bottom:14px;position:relative}
+586:.qact-pill:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-soft);box-shadow:var(--shadow-prominent),0 0 0 1px var(--primary-soft);transform:translateY(-1px)}
+660:/* ── PRO Paywall ── */
+661:.pro-wall{position:relative;overflow:hidden;border-radius:var(--radius);margin-bottom:14px}
+662:.pro-wall-content{filter:blur(6px);pointer-events:none;user-select:none;opacity:.55;transition:filter .3s,opacity .3s}
+663:.dark .pro-wall-content{opacity:.45}
+664:.pro-wall.pro-unlocked .pro-wall-content{filter:none!important;opacity:1!important;pointer-events:auto!important;user-select:auto!important}
+665:.pro-wall.pro-unlocked .pro-wall-overlay{display:none!important}
+666:.pro-wall-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;z-index:5;background:rgba(245,246,250,.65);border-radius:var(--radius);padding:8px 20px 24px;text-align:center;backdrop-filter:blur(2px)}
+667:.dark .pro-wall-overlay{background:rgba(19,22,31,.75)}
+668:/* ── Shared Gate Icon/Button (PRO walls, MP walls, etc.) ── */
+674:.pro-wall-icon,.mp-wall-icon,.rev-pro-gate-icon{width:44px;height:44px;border-radius:12px;background:var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+675:.pro-wall-icon svg,.mp-wall-icon svg,.rev-pro-gate-icon svg{width:22px;height:22px;color:#fff}
+676:.pred-pro-blur-icon{width:40px;height:40px;border-radius:12px;background:var(--primary);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+677:.pred-pro-blur-icon svg{width:20px;height:20px;color:#fff}
+680:.pro-wall-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-.1px}
+681:.pro-wall-desc{font-size:11px;color:var(--text-2);line-height:1.5;margin-bottom:10px;max-width:260px}
+682:.pro-wall-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;background:var(--primary);color:#fff;font-size:13px;font-weight:600;border-radius:var(--radius-sm);border:none;cursor:pointer;transition:all .2s}
+683:.pro-wall-btn:hover{background:var(--primary-hover)}
+684:.pro-wall-btn:active{transform:scale(.97)}
+685:.pro-wall-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--primary);background:var(--primary-soft);padding:3px 10px;border-radius:var(--radius-full);margin-bottom:8px}
+687:/* Marketplace wall overlay (shared with PRO wall style) */
+754:/* Profile inside Account */
+755:.tg-profile{display:flex;align-items:center;gap:14px;padding:4px 0 16px}
+756:.tg-profile-av{width:56px;height:56px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;flex-shrink:0}
+757:.tg-profile-info{flex:1;min-width:0}
+758:.tg-profile-name{font-size:17px;font-weight:700;color:var(--text)}
+759:.tg-profile-sub{font-size:12px;color:var(--text-3);margin-top:2px}
+760:.tg-profile-tags{display:flex;gap:4px;margin-top:4px}
+792:/* Subscription status */
+812:.ref-progress{margin:14px 0}
+983:/* ── Improved Toast ── */
+1048:.promo-input{display:flex;gap:8px;margin-bottom:14px}
+1049:.promo-input .inp{flex:1}
+1091:.onb-progress{display:flex;gap:4px;justify-content:center;margin-bottom:24px}
+1092:.onb-progress-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .3s}
+1093:.onb-progress-dot.active{width:24px;border-radius:4px;background:var(--primary)}
+1094:.onb-progress-dot.done{background:var(--success)}
+1106:.onb-plan-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0}
+1166:.loading-box{background:var(--bg-card);border-radius:var(--radius);padding:24px 32px;text-align:center;box-shadow:var(--shadow-prominent)}
+1184:.more-overlay .more-header,.more-overlay .more-profile-bar,.more-overlay .more-balance-card,.more-overlay .more-section-head,.more-overlay .more-menu-row,.more-overlay .more-plat-row,.more-overlay .more-bottom-section,.more-overlay .more-bottom-row{opacity:0;transform:translateY(10px);transition:opacity .4s cubic-bezier(.22,1,.36,1),transform .4s cubic-bezier(.22,1,.36,1)}
+1185:.more-overlay.active .more-header,.more-overlay.active .more-profile-bar,.more-overlay.active .more-balance-card,.more-overlay.active .more-section-head,.more-overlay.active .more-menu-row,.more-overlay.active .more-plat-row,.more-overlay.active .more-bottom-section,.more-overlay.active .more-bottom-row{opacity:1;transform:translateY(0)}
+1187:.more-overlay.active .more-profile-bar{transition-delay:.06s}
+1215:/* Profile bar (white, below header) */
+1216:.more-profile-bar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border-top:1px solid #f0f0f2}
+1217:.more-profile-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--lavender));display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;flex-shrink:0}
+1218:.more-profile-info{flex:1;min-width:0}
+1219:.more-profile-name{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+1220:.more-profile-plan{font-size:11px;color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:3px;margin-top:2px}
+1221:.more-profile-plan svg{width:10px;height:10px}
+1360:.dark .more-profile-bar{background:var(--bg-card);border-top-color:var(--border)}
+1379:.dark .more-profile-bar{border-top-color:#2a2a30}
+1437:/* ── Premium Status System v3.0 ── */
+1447:/* ── Premium Animations v3.0 ── */
+1457:/* Premium section divider */
+1489:.dark .glass-profile{background:linear-gradient(135deg,rgba(143,163,232,.12) 0%,rgba(169,159,212,.06) 40%,rgba(123,212,164,.04) 100%);border-color:rgba(143,163,232,.2);box-shadow:0 4px 24px rgba(143,163,232,.06),inset 0 1px 0 rgba(255,255,255,.08)}
+1506:.cookie-bar{display:none;position:fixed;bottom:calc(var(--nav-h) + var(--safe-b) + 8px);left:50%;transform:translateX(-50%);max-width:400px;width:calc(100% - 32px);background:var(--bg-card);border:1px solid var(--border);border-top:2px solid transparent;border-image:linear-gradient(90deg,var(--primary),var(--lavender),var(--primary)) 1;border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow-prominent);z-index:60;animation:fadeInUp .4s ease}
+1584:.auth-trial-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;border-radius:var(--radius-full);font-size:14px;font-weight:800;margin-bottom:20px;box-shadow:0 6px 20px rgba(123,143,212,.4);letter-spacing:.3px}
+1585:.auth-trial-badge i{font-size:16px}
+1586:/* ── Auth Progress Bar ── */
+1587:.auth-progress{width:100%;max-width:340px;margin-bottom:20px;text-align:left}
+1588:.auth-progress-bar-track{width:100%;height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px}
+1589:.auth-progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--lavender));border-radius:3px;transition:width .5s cubic-bezier(.22,1,.36,1);width:33.3%}
+1590:.auth-progress-bar-fill[data-step="1"]{width:33.3%}
+1591:.auth-progress-bar-fill[data-step="2"]{width:66.6%}
+1592:.auth-progress-bar-fill[data-step="3"]{width:100%}
+1593:.auth-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+1594:.auth-progress-label{font-size:13px;font-weight:700;color:var(--text)}
+1595:.auth-progress-step-num{font-size:12px;color:var(--text-3);font-weight:500}
+1596:.auth-progress-steps{display:flex;justify-content:space-between;margin-top:6px}
+1597:.auth-progress-step-name{font-size:11px;color:var(--text-3);transition:color .3s,font-weight .3s;flex:1;text-align:center}
+1598:.auth-progress-step-name.active{color:var(--primary);font-weight:700}
+1599:.auth-progress-step-name.done{color:var(--success)}
+1606:/* ── Social Proof Counter ── */
+1607:.auth-social-proof{margin-top:18px;font-size:12px;color:var(--text-3);line-height:1.5}
+1608:.auth-social-proof-count{font-weight:800;color:var(--primary);display:inline-block;min-width:30px}
+1610:.auth-social-proof-count.pulse{animation:socialPulse .6s ease}
+1641:.auth-mp-card.selected{border-color:var(--primary);background:var(--primary-light);box-shadow:var(--shadow-prominent)}
+1647:/* ── Trial Banner ── */
+1648:.trial-banner{background:linear-gradient(135deg,#5C6FB0 0%,#7B8FD4 25%,#9B8FD4 50%,#B8A8E8 75%,#8B9ED8 100%);border-radius:var(--radius);padding:20px;color:#fff;position:relative;overflow:hidden;margin-bottom:16px;cursor:pointer;transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s;border:1px solid rgba(255,255,255,.18);box-shadow:0 4px 20px rgba(107,127,215,.25),0 0 30px rgba(107,127,215,.1)}
+1649:.trial-banner:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(107,127,215,.35)}
+1650:.trial-banner:active{transform:scale(.98)}
+1651:.trial-banner::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.12)}
+1652:.trial-banner::after{content:'';position:absolute;bottom:-30px;left:-10px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.08)}
+1653:.trial-banner-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+1654:.trial-banner-title{font-size:15px;font-weight:700}
+1655:.trial-banner-badge{font-size:10px;font-weight:700;padding:3px 10px;background:rgba(255,255,255,.2);border-radius:var(--radius-full)}
+1656:.trial-banner-text{font-size:12px;opacity:.85;line-height:1.4}
+1657:.trial-banner-timer{display:flex;gap:8px;margin-top:10px}
+1658:.trial-timer-unit{display:flex;flex-direction:column;align-items:center;gap:1px}
+1659:.trial-timer-val{font-size:18px;font-weight:800;line-height:1}
+1660:.trial-timer-label{font-size:8px;opacity:.7;text-transform:uppercase;letter-spacing:.5px}
+1670:.plat-sel-card.selected { border-color: var(--primary); background: var(--primary-light); box-shadow: var(--shadow-prominent); }
+1691:.health-ring{animation:ringProgress 1.5s ease forwards;--ring-total:138.2;--ring-offset:18}
+1700:/* ── Prominent card shine effect ── */
+1701:.card-prominent::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(123,143,212,.3),transparent)}
+1704:   REPA v3.0 — Premium Additional Styles
+1726:/* ── Glassmorphism Profile Card ── */
+1727:.glass-profile{background:linear-gradient(135deg,rgba(123,143,212,.1) 0%,rgba(155,143,212,.06) 40%,rgba(107,191,138,.03) 100%);border:1px solid rgba(123,143,212,.18);border-radius:var(--radius);padding:16px;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(123,143,212,.08),inset 0 1px 0 rgba(255,255,255,.15)}
+1728:.glass-profile::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--primary),var(--lavender))}
+1729:.glass-profile::after{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(123,143,212,.12),transparent 70%)}
+1761:/* ── Improved Section Header with underline ── */
+1772:/* ── Responsive improvements ── */
+1773:@media(max-width:360px){.dash-strip{gap:6px}.dash-metric{min-width:95px;padding:8px 10px}.dash-metric-val{font-size:15px}.plat-compare{grid-template-columns:1fr}.quick-info-bar{gap:4px}.qi-btn{padding:5px 8px;font-size:10px}.sgrid{grid-template-columns:1fr 1fr}.qact{grid-template-columns:1fr 1fr 1fr;gap:4px}.qact-btn{padding:10px 4px}.qact-l{font-size:10px}.glass-profile{padding:12px}.bnav-i{min-width:0}.trial-banner{padding:14px}.trial-banner-timer{gap:4px}.trial-timer-val{font-size:15px}.hero-greeting-name{font-size:14px}.hero-ai-headline{font-size:13px}.hero-metric-val{font-size:15px}.hero-metric{padding:8px 10px}.hero-cta{padding:11px 16px;font-size:13px}.guided-steps{gap:4px;padding:7px 10px}.guided-step{font-size:10px}.guided-step-num{width:16px;height:16px;font-size:8px}}
+1802:  .trial-banner{padding:10px}
+1803:  .trial-banner-timer{gap:4px}
+1804:  .glass-profile{padding:10px}
+1811:/* ── REPA v3.0 — Premium Styles ── */
+1825:.daily-goals-progress{display:flex;flex-direction:column;gap:8px}
+1834:/* ── Payment Modal ── */
+1835:.payment-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0);z-index:80;max-width:430px;margin:0 auto;align-items:center;justify-content:center;transition:background .3s cubic-bezier(.22,1,.36,1)}
+1836:.payment-modal.active{display:flex;background:rgba(0,0,0,.5)}
+1837:.payment-modal.closing{display:flex;background:rgba(0,0,0,0)}
+1838:.payment-box{background:var(--bg-card);border-radius:var(--radius);padding:24px;margin:20px;max-width:340px;width:100%;box-shadow:var(--shadow-prominent);transform:scale(.9);opacity:0;transition:transform .4s cubic-bezier(.22,1,.36,1),opacity .35s cubic-bezier(.22,1,.36,1)}
+1839:.payment-modal.active .payment-box{transform:scale(1);opacity:1}
+1840:.payment-modal.closing .payment-box{transform:scale(.9);opacity:0}
+1841:.payment-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;text-align:center}
+1842:.payment-subtitle{font-size:12px;color:var(--text-3);text-align:center;margin-bottom:16px}
+1843:.payment-plan{background:var(--primary-soft);border-radius:var(--radius-sm);padding:12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+1844:.payment-plan-name{font-size:15px;font-weight:700;color:var(--primary)}
+1845:.payment-plan-price{font-size:18px;font-weight:800;color:var(--text)}
+1846:.payment-methods{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+1847:.payment-method{display:flex;align-items:center;gap:10px;padding:12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);cursor:pointer;transition:all .25s cubic-bezier(.22,1,.36,1)}
+1848:.payment-method:hover{border-color:var(--primary);background:var(--primary-soft)}
+1849:.payment-method.selected{border-color:var(--primary);background:var(--primary-soft);box-shadow:0 0 0 1px var(--primary-soft)}
+1850:.payment-method-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;color:#fff;flex-shrink:0}
+1851:.payment-method-body{flex:1}
+1852:.payment-method-name{font-size:13px;font-weight:600;color:var(--text)}
+1853:.payment-method-desc{font-size:10px;color:var(--text-3)}
+1854:.payment-secure{display:flex;align-items:center;justify-content:center;gap:4px;font-size:10px;color:var(--text-3);margin-top:12px}
+1868:/* ── Product Analytics Card ── */
+1869:.prod-analytics{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-soft);padding:14px;margin-bottom:10px;box-shadow:var(--shadow);transition:all .2s}
+1870:.prod-analytics:hover{transform:translateY(-2px);box-shadow:var(--shadow-card)}
+1871:.prod-analytics-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+1872:.prod-analytics-ico{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+1873:.prod-analytics-name{font-size:13px;font-weight:700;color:var(--text)}
+1874:.prod-analytics-sku{font-size:10px;color:var(--text-3)}
+1875:.prod-analytics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+1876:.prod-analytics-metric{text-align:center;padding:6px 4px;background:var(--bg-input);border-radius:8px}
+1877:.prod-analytics-val{font-size:14px;font-weight:800;color:var(--text);line-height:1}
+1878:.prod-analytics-lbl{font-size:8px;color:var(--text-3);margin-top:2px;font-weight:500}
+1906:/* ── Improved Section Divider v2 ── */
+1927:.home-profile{display:flex;align-items:center;gap:12px;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-soft);box-shadow:var(--shadow-card);margin-bottom:12px;position:relative;overflow:hidden}
+1928:.home-profile::before{display:none}
+1929:.home-profile-av{width:44px;height:44px;border-radius:var(--radius-full);background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0;box-shadow:0 2px 12px rgba(123,143,212,.3),0 0 20px rgba(123,143,212,.1)}
+1930:.home-profile-body{flex:1;min-width:0}
+1931:.home-profile-name{font-size:15px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px}
+1932:.home-profile-meta{display:flex;align-items:center;gap:4px;margin-top:3px;font-size:10px;color:var(--text-3);flex-wrap:wrap;line-height:1.2}
+1933:.home-profile-meta span{display:inline-flex;align-items:center;gap:2px}
+1934:.home-profile-right{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0}
+1935:.home-profile-sub{font-size:9px;color:var(--text-3);text-align:center}
+1948:.home-trial{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,#5C6FB0 0%,#7B8FD4 25%,#9B8FD4 50%,#B8A8E8 75%,#8B9ED8 100%);border-radius:var(--radius-sm);color:#fff;margin-bottom:12px;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(107,127,215,.2)}
+1949:.home-trial:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(107,127,215,.3)}
+1950:.home-trial:active{transform:scale(.98)}
+1951:.home-trial::before{content:'';position:absolute;top:-10px;right:-10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1)}
+1952:.home-trial-text{font-size:12px;font-weight:600;flex:1}
+1953:.home-trial-badge{font-size:9px;font-weight:700;padding:2px 8px;background:rgba(255,255,255,.2);border-radius:var(--radius-full)}
+1995:.dark .home-profile{background:var(--bg-card);border-color:var(--border)}
+2001:.dark .home-trial{box-shadow:0 4px 16px rgba(107,127,215,.15)}
+2008:.dark .home-profile-meta{color:var(--text-3)}
+2015:.home-greeting{padding:16px;background:linear-gradient(135deg,var(--bg-card) 0%,rgba(108,123,212,.04) 100%);border-radius:var(--radius);border:1px solid var(--border-soft);box-shadow:var(--shadow-prominent);margin-bottom:12px;position:relative;overflow:hidden}
+2076:.hero-metric:hover{border-color:rgba(108,123,212,.2);box-shadow:var(--shadow-prominent);transform:translateY(-1px)}
+2182:.home-autopilot-progress{height:4px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-top:8px}
+2183:.home-autopilot-progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--success));border-radius:var(--radius-full);transition:width .7s cubic-bezier(.22,1,.36,1)}
+2188:.home-autopilot-pro-badge{display:inline-flex;font-size:8px;font-weight:700;padding:1px 5px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;vertical-align:middle;margin-left:2px}
+2197:/* ── PRO Upgrade Bottom Sheet ── */
+2198:.pro-upgrade-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .4s cubic-bezier(.22,1,.36,1)}
+2199:.pro-upgrade-overlay.active{opacity:1;pointer-events:auto}
+2200:.pro-upgrade-sheet{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:430px;background:var(--bg-card);border-radius:20px 20px 0 0;z-index:201;padding:0 20px 24px;box-shadow:0 -8px 40px rgba(0,0,0,.15);transition:transform .45s cubic-bezier(.22,1,.36,1)}
+2201:.pro-upgrade-sheet.active{transform:translateX(-50%) translateY(0)}
+2202:.pro-upgrade-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:10px auto 16px}
+2203:.pro-upgrade-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px}
+2204:.pro-upgrade-desc{font-size:13px;color:var(--text-2);line-height:1.5;margin-bottom:16px}
+2205:.pro-upgrade-benefits{list-style:none;margin-bottom:20px}
+2206:.pro-upgrade-benefits li{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px;color:var(--text);border-bottom:1px solid var(--border-soft)}
+2207:.pro-upgrade-benefits li:last-child{border-bottom:none}
+2208:.pro-upgrade-benefits li svg{width:18px;height:18px;flex-shrink:0;color:var(--primary)}
+2209:.pro-upgrade-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;font-size:15px;font-weight:700;border-radius:var(--radius);border:none;cursor:pointer;box-shadow:0 6px 24px rgba(123,143,212,.35);transition:all .2s}
+2210:.pro-upgrade-btn:hover{transform:translateY(-1px);box-shadow:0 8px 32px rgba(123,143,212,.45)}
+2211:.pro-upgrade-btn:active{transform:scale(.98)}
+2212:.pro-upgrade-close{display:flex;align-items:center;justify-content:center;width:100%;padding:12px;background:none;border:none;font-size:13px;font-weight:600;color:var(--text-2);cursor:pointer;margin-top:8px;transition:color .2s}
+2213:.pro-upgrade-close:hover{color:var(--text)}
+2223:.autopilot-pro-badge-top{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full);background:rgba(255,255,255,.2);color:#fff;margin-bottom:8px}
+2224:.autopilot-pro-badge-top svg{width:10px;height:10px}
+2226:/* ── Subscription Comparison Table ── */
+2231:.sub-comparison th.pro-col{color:var(--primary);background:var(--primary-soft);border-radius:8px 8px 0 0}
+2234:.sub-comparison td.pro-cell{background:var(--primary-soft);font-weight:600;color:var(--primary)}
+2293:/* ── Pricing Cards (subPricing) ── */
+2294:.pricing-header{text-align:center;margin-bottom:20px;padding-top:4px}
+2295:.pricing-header-title{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.3px;background:linear-gradient(135deg,var(--primary),var(--lavender));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+2296:.pricing-header-sub{font-size:12px;color:var(--text-3);margin-top:4px}
+2298:.pricing-card{background:var(--bg-card);border-radius:var(--radius);padding:20px;border:1px solid var(--border-soft);box-shadow:var(--shadow);margin-bottom:12px;transition:all .25s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+2299:.pricing-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(23,27,45,.1)}
+2301:.pricing-card-ico{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:12px;transition:transform .2s}
+2302:.pricing-card:hover .pricing-card-ico{transform:scale(1.08)}
+2303:.pricing-card-ico svg{width:22px;height:22px}
+2305:.pricing-card-ico.ico-free{background:var(--bg-input);color:var(--text-3)}
+2306:.pricing-card-ico.ico-pro{background:var(--primary-light);color:var(--primary);box-shadow:0 2px 10px rgba(108,123,212,.18)}
+2307:.pricing-card-ico.ico-proplus{background:var(--lavender-light);color:var(--lavender);box-shadow:0 2px 10px rgba(142,127,212,.18)}
+2308:.pricing-card-ico.ico-biz{background:linear-gradient(135deg,#1a1d2e,#2a2d3e);color:#e8c56d;box-shadow:0 2px 10px rgba(30,30,50,.25)}
+2310:.pricing-card-badge{position:absolute;top:12px;right:12px;font-size:9px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full);letter-spacing:.3px}
+2311:.pricing-card-badge.badge-current{background:var(--bg-input);color:var(--text-3)}
+2312:.pricing-card-badge.badge-popular{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(108,123,212,.3)}
+2313:.pricing-card-badge.badge-recommended{background:var(--lavender);color:#fff;box-shadow:0 2px 8px rgba(142,127,212,.3)}
+2314:.pricing-card-badge.badge-max{background:linear-gradient(135deg,#1a1d2e,#2a2d3e);color:#e8c56d;box-shadow:0 2px 8px rgba(30,30,50,.3)}
+2316:.pricing-card-name{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+2317:.pricing-card-name.name-free{color:var(--text-3)}
+2318:.pricing-card-name.name-pro{color:var(--primary)}
+2319:.pricing-card-name.name-proplus{color:var(--lavender)}
+2320:.pricing-card-name.name-biz{color:#e8c56d}
+2322:.pricing-card-price{display:flex;align-items:baseline;gap:4px;margin-bottom:14px}
+2323:.pricing-card-price-val{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1}
+2324:.pricing-card-price-val.val-free{color:var(--text-3)}
+2325:.pricing-card-price-val.val-pro{color:var(--primary)}
+2326:.pricing-card-price-val.val-proplus{color:var(--lavender)}
+2327:.pricing-card-price-val.val-biz{color:var(--text)}
+2328:.pricing-card-price-per{font-size:12px;color:var(--text-3);font-weight:500}
+2330:.pricing-card-features{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+2331:.pricing-card-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-2);line-height:1.3}
+2332:.pricing-card-feat svg{width:14px;height:14px;flex-shrink:0;color:var(--success)}
+2333:.pricing-card-feat.feat-muted{color:var(--text-3)}
+2334:.pricing-card-feat.feat-muted svg{color:var(--text-3);opacity:.5}
+2336:.pricing-card-cta{width:100%;padding:12px;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);border:none;text-align:center}
+2337:.pricing-card-cta:active{transform:scale(.97)}
+2339:.pricing-card-cta.cta-current{background:var(--bg-input);color:var(--text-3);cursor:default;border:1px solid var(--border-soft)}
+2340:.pricing-card-cta.cta-pro{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(108,123,212,.3)}
+2341:.pricing-card-cta.cta-pro:hover{background:var(--primary-hover);box-shadow:0 6px 24px rgba(108,123,212,.4);transform:translateY(-1px)}
+2342:.pricing-card-cta.cta-proplus{background:var(--lavender);color:#fff;box-shadow:0 4px 16px rgba(142,127,212,.3)}
+2343:.pricing-card-cta.cta-proplus:hover{filter:brightness(1.1);box-shadow:0 6px 24px rgba(142,127,212,.4);transform:translateY(-1px)}
+2344:.pricing-card-cta.cta-biz{background:linear-gradient(135deg,#1a1d2e,#2a2d3e);color:#e8c56d;box-shadow:0 4px 16px rgba(30,30,50,.3)}
+2345:.pricing-card-cta.cta-biz:hover{filter:brightness(1.15);transform:translateY(-1px)}
+2347:.pricing-card-cta-sub{text-align:center;margin-top:6px;font-size:10px;color:var(--text-3)}
+2349:/* PRO+ card glow border */
+2350:.pricing-card.card-proplus{border-color:rgba(142,127,212,.25);box-shadow:0 2px 12px rgba(142,127,212,.08),0 0 0 1px rgba(142,127,212,.1)}
+2351:.pricing-card.card-proplus::before{content:'';position:absolute;inset:-1px;border-radius:var(--radius);padding:1px;background:linear-gradient(135deg,rgba(142,127,212,.3),rgba(142,127,212,.05),rgba(142,127,212,.3));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;animation:glow 3s ease-in-out infinite}
+2353:/* Business card premium feel */
+2354:.pricing-card.card-biz{border-color:rgba(30,30,50,.15);background:linear-gradient(180deg,var(--bg-card) 60%,rgba(30,30,50,.03))}
+2356:/* PRO card highlight */
+2357:.pricing-card.card-pro{border:2px solid var(--primary);box-shadow:0 4px 20px rgba(108,123,212,.12);transform:scale(1.02)}
+2359:/* Pricing ROI banner */
+2360:.pricing-roi{background:linear-gradient(135deg,var(--success-light),var(--primary-soft));border:1px solid rgba(107,191,138,.12);border-radius:var(--radius-sm);padding:10px 14px;text-align:center;margin-bottom:14px}
+2361:.pricing-roi-text{font-size:12px;color:var(--text-2)}
+2362:.pricing-roi-text b{color:var(--success)}
+2364:.dark .pricing-card.card-proplus::before{background:linear-gradient(135deg,rgba(158,143,212,.35),rgba(158,143,212,.08),rgba(158,143,212,.35))}
+2365:.dark .pricing-card.card-biz{border-color:rgba(255,255,255,.06);background:linear-gradient(180deg,var(--bg-card) 60%,rgba(255,255,255,.02))}
+2387:.rev-prod-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+2388:.rev-prod-card{background:var(--bg-card);border-radius:var(--radius-sm);padding:12px;border:1px solid var(--border-soft);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow)}
+2389:.rev-prod-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-card);border-color:var(--primary)}
+2390:.rev-prod-card:active{transform:scale(.98)}
+2391:.rev-prod-ico{width:36px;height:36px;border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+2392:.rev-prod-body{flex:1;min-width:0}
+2393:.rev-prod-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+2394:.rev-prod-meta{display:flex;align-items:center;gap:8px;margin-top:3px;font-size:10px;color:var(--text-3)}
+2395:.rev-prod-roi{font-size:13px;font-weight:800;flex-shrink:0}
+2396:.rev-prod-roi.positive{color:var(--success)}
+2397:.rev-prod-roi.negative{color:var(--danger)}
+2398:.rev-prod-impact{font-size:10px;color:var(--text-3);font-weight:600}
+2445:/* PRO blur for revenue section */
+2446:.rev-pro-gate{position:relative;border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
+2447:.rev-pro-gate-content{filter:blur(6px);pointer-events:none;user-select:none;opacity:.5;transition:filter .3s,opacity .3s}
+2448:.rev-pro-gate.unlocked .rev-pro-gate-content{filter:none!important;opacity:1!important;pointer-events:auto!important;user-select:auto!important}
+2449:.rev-pro-gate.unlocked .rev-pro-gate-overlay{display:none!important}
+2450:.rev-pro-gate-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;background:rgba(245,246,250,.7);border-radius:var(--radius);padding:24px 20px;text-align:center;backdrop-filter:blur(2px)}
+2451:.dark .rev-pro-gate-overlay{background:rgba(19,22,31,.8)}
+2452:.rev-pro-gate-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+2453:.rev-pro-gate-desc{font-size:11px;color:var(--text-2);line-height:1.5;margin-bottom:12px;max-width:240px}
+2454:.rev-pro-gate-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--primary);background:var(--primary-soft);padding:3px 10px;border-radius:var(--radius-full);margin-bottom:8px}
+2464:.pred-pro-badge{font-size:8px;font-weight:700;padding:2px 7px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;letter-spacing:.3px}
+2483:.pred-pro-blur{position:absolute;inset:0;background:rgba(245,246,250,.6);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;border-radius:var(--radius);transition:opacity .3s}
+2484:.dark .pred-pro-blur{background:rgba(19,22,31,.7)}
+2485:.pred-pro-blur.unlocked{opacity:0;pointer-events:none}
+2486:.pred-pro-blur-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+2553:.pred-action-plan{background:var(--bg-card);border:1px solid var(--border-soft);border-radius:var(--radius);padding:14px;margin-bottom:14px}
+2619:.ab-variant-approve{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--text-2);cursor:pointer;padding:4px 8px;border-radius:var(--radius-full);border:1px solid var(--border-soft);background:var(--bg-input);transition:all .2s}
+2620:.ab-variant-approve:hover{border-color:var(--success);color:var(--success)}
+2621:.ab-variant-approve.ab-variant-approved{background:var(--success-light);color:var(--success);border-color:var(--success)}
+2622:.ab-variant-approve svg{width:14px;height:14px}
+2628:.ab-progress{margin-bottom:16px}
+2629:.ab-progress-label{font-size:12px;color:var(--text-2);margin-bottom:6px;font-weight:500}
+2630:.ab-progress-bar{height:8px;background:var(--bg-input);border-radius:var(--radius-full);overflow:hidden;margin-bottom:4px}
+2631:.ab-progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--success));border-radius:var(--radius-full);transition:width .7s cubic-bezier(.22,1,.36,1)}
+2632:.ab-progress-detail{font-size:11px;color:var(--text-3)}
+2731:.ab-approve-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:var(--radius-full);font-size:11px;font-weight:600;border:1.5px solid var(--border-soft);background:var(--bg-input);color:var(--text-2);cursor:pointer;transition:all .2s}
+2732:.ab-approve-btn:hover{border-color:var(--success);color:var(--success)}
+2733:.ab-approve-btn:active{transform:scale(.96)}
+2734:.ab-approve-btn.ab-approved{background:var(--success-light);color:var(--success);border-color:var(--success)}
+2735:.ab-approve-btn svg{width:14px;height:14px}
+2738:.ab-variant-tone-chip.tone-professional{background:var(--primary-light);color:var(--primary)}
+2892:/* Profanity Filter Strictness Slider */
+2893:.profanity-slider-wrap{margin-bottom:14px}
+2894:.profanity-slider-labels{display:flex;justify-content:space-between;margin-top:4px;font-size:9px;color:var(--text-3)}
+2895:.profanity-indicator{display:flex;align-items:center;gap:6px;margin-top:6px}
+2896:.profanity-dot{width:8px;height:8px;border-radius:50%;transition:all .3s}
+2897:.profanity-dot.active{transform:scale(1.3)}
+2898:.profanity-label{font-size:11px;font-weight:600;transition:color .3s}
+2899:input[type=range].profanity-range{width:100%;height:6px;-webkit-appearance:none;appearance:none;background:linear-gradient(90deg,var(--success),var(--warning),var(--danger));border-radius:3px;outline:none}
+2900:input[type=range].profanity-range::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15);transition:all .2s}
+2901:input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.1)}
+2931:.vision-proplus-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:var(--radius-full);font-size:9px;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;margin-left:6px}
+2978:/* PRO+ gate overlay for Vision AI */
+2979:.vision-proplus-gate{position:relative;overflow:hidden;border-radius:var(--radius)}
+2980:.vision-proplus-gate .vision-gate-content{filter:blur(5px);pointer-events:none;user-select:none;opacity:.5}
+2981:.vision-proplus-gate.unlocked .vision-gate-content{filter:none;opacity:1;pointer-events:auto;user-select:auto}
+2982:.vision-proplus-gate.unlocked .vision-gate-overlay{display:none}
+3002:@keyframes progressBarDance{0%,100%{opacity:1}50%{opacity:.7}}
+3043:/* Progress bar dance when at 100% */
+3044:.progress-complete .prog-fill{animation:progressBarDance 1.5s ease infinite}
+3174:/* ═══ Module 3: Analytics Improvements ═══ */
+3256:.an-best-review-product{font-size:11px;color:var(--primary);font-weight:600;margin-bottom:4px}
+3272:/* Products table placeholder */
+3273:.an-products-table{width:100%;border-collapse:collapse;font-size:12px}
+3274:.an-products-table th{text-align:left;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border-soft)}
+3275:.an-products-table td{padding:8px 10px;border-bottom:1px solid var(--border-soft);color:var(--text-2)}
+3276:.an-products-table tr:last-child td{border-bottom:none}
+3277:.an-products-table .an-prod-name{font-weight:600;color:var(--text)}
+3345:.ref-social-proof{font-size:11px;color:var(--text-3);text-align:center;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:4px}
+3346:.ref-social-proof svg{width:12px;height:12px;color:var(--success)}
+3378:/* 9. Pricing Improvements */
+3379:.pricing-compare-table{width:100%;border-collapse:separate;border-spacing:0;font-size:11px;margin:12px 0;background:var(--bg-card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border-soft)}
+3380:.pricing-compare-table th{padding:10px 8px;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);background:var(--bg-input);border-bottom:1px solid var(--border-soft)}
+3381:.pricing-compare-table th.pro-highlight{color:var(--primary);background:var(--primary-soft)}
+3382:.pricing-compare-table td{padding:8px;text-align:center;border-bottom:1px solid var(--border-soft);color:var(--text-2)}
+3383:.pricing-compare-table td:first-child{text-align:left;font-weight:500;color:var(--text)}
+3384:.pricing-compare-table td.pro-highlight{background:rgba(108,123,212,.04);font-weight:600}
+3385:.pricing-compare-table .check-mark{color:var(--success)}
+3386:.pricing-compare-table .cross-mark{color:var(--text-3);opacity:.4}
+3387:.pricing-compare-table svg{width:14px;height:14px;vertical-align:-2px}
+3388:.pricing-card.current-plan{border-color:var(--primary);box-shadow:0 0 0 2px rgba(108,123,212,.15),var(--shadow)}
+3389:.pricing-annual-callout{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--radius-full);background:var(--success-light);color:var(--success);font-size:10px;font-weight:700;margin-top:6px}
+3438:.dark .pricing-compare-table th.pro-highlight{background:rgba(108,123,212,.12)}
+3490:/* ── Improved chip/tag hover ── */
+3502:   PREMIUM ANIMATIONS v2.0
+3535:/* ── Match ring progress animation ── */
+3594:.card-lift:hover{transform:translateY(-2px);box-shadow:var(--shadow-prominent)}
+3629:                <div class="hero-greeting-name" id="userName">Александр <span class="home-greeting-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>
+3955:    <!-- Profile -->
+3956:    <div class="more-profile-bar">
+3957:      <div class="more-profile-av" id="moreAvatar">А</div>
+3958:      <div class="more-profile-info">
+3959:        <div class="more-profile-name" id="moreName">Александр</div>
+3960:        <div class="more-profile-plan">
+3962:          AI Freelancer
+3971:        <div class="more-balance-link" onclick="openMoreSub('payments', event)">История</div>
+4001:    <div class="more-menu-row" onclick="openMoreSub('edit-profile', event)">
+4039:      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px">Pro</span>
+4042:    <div class="more-menu-row" onclick="openMoreSub('payments', event)">
+4116:// SkillHunt — AI Freelance Job Search — JavaScript v2.0
+4157:  { id:2, title:'UI/UX дизайн мобильного приложения', category:'design', budgetMin:1500, budgetMax:4000, clientName:'Елена М.', clientRating:4.9, clientOrders:56, posted:'3ч назад', match:87, level:'middle', type:'remote', skills:['Figma','Prototyping','User Research','Design Systems'], description:'Ищем UX/UI дизайнера для создания дизайна мобильного приложения в сфере финтех. Нужно разработать полный дизайн-систему и прототипы для iOS и Android.' },
+4216:  loadProfile();
+4277:        const progress = Math.min(elapsed / duration, 1);
+4278:        const eased = 1 - Math.pow(1 - progress, 3);
+4281:        if (progress < 1) requestAnimationFrame(tick);
+4398:        <div class="saved-item-delete" onclick="event.stopPropagation();deleteSavedItem(${job.id})">
+4403:            <button class="saved-action-btn" onclick="event.stopPropagation();applyToJob(${job.id})" aria-label="Откликнуться" title="Откликнуться">
+4406:            <button class="saved-action-btn" onclick="event.stopPropagation();toggleSave(${job.id})" aria-label="Убрать из сохранённых" title="Удалить" style="color:var(--danger)">
+4450:        <button class="btn btn-g ${isSaved ? 'save-pulse' : ''}" onclick="event.stopPropagation();toggleSave(${job.id})" style="padding:4px;flex-shrink:0" aria-label="${isSaved ? 'Убрать из сохранённых' : 'Сохранить'}" id="saveBtn${job.id}">
+4507:  // If btn is provided, activate it; otherwise find the matching one
+4920:      <button class="btn btn-p btn-lg btn-full" onclick="applyToJob(${job.id})">Откликнуться</button>
+4953:function applyToJob(jobId) {
+5007:  if (event) event.stopPropagation();
+5012:    case 'edit-profile':
+5013:      { const p = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
+5014:      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Редактировать профиль</div></div><div class="card mb-12" style="text-align:center;padding:24px"><div style="width:72px;height:72px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 12px;font-family:var(--font-sans)">${esc((p.name||'А').charAt(0))}</div><div style="font-size:11px;color:var(--primary);font-weight:600;cursor:pointer" onclick="handlePhotoClick()">Изменить фото</div></div><div class="inp-group"><label class="inp-label">Имя</label><input class="inp" value="${esc(p.name||'Александр')}" /></div><div class="inp-group"><label class="inp-label">Специализация</label><input class="inp" value="${esc(p.spec||'AI/ML Developer')}" /></div><div class="inp-group"><label class="inp-label">О себе</label><textarea class="inp" rows="3">${esc(p.about||'')}</textarea></div><div class="inp-group"><label class="inp-label">Часовой пояс</label><select class="inp"><option ${p.timezone==='UTC+3 (Москва)'?'selected':''}>UTC+3 (Москва)</option><option ${p.timezone==='UTC+5 (Екатеринбург)'?'selected':''}>UTC+5 (Екатеринбург)</option><option ${p.timezone==='UTC+7 (Новосибирск)'?'selected':''}>UTC+7 (Новосибирск)</option></select></div><div class="inp-group"><label class="inp-label">Ставка ($/час)</label><input class="inp" type="number" value="${p.rate||45}" /></div><button class="btn btn-p btn-full" onclick="saveProfile()">Сохранить</button>`; }
+5018:      let customSkillsHtml = cs.map(s => '<div style="display:flex;align-items:center;gap:8px"><span class="chip active">' + esc(s.name) + '</span><div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px;overflow:hidden"><div style="width:' + s.progress + '%;height:100%;background:var(--primary);border-radius:2px"></div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">' + s.progress + '%</span></div>').join('');
+5041:      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">AI-ассистент</div></div><div class="card mb-12" style="text-align:center;padding:24px;border-color:rgba(108,123,212,.15)"><div style="width:56px;height:56px;border-radius:16px;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;font-family:var(--font-sans)">Ваш AI-помощник</div><div style="font-size:12px;color:var(--text-3);margin-bottom:16px">Поможет найти заказы, составить отклик и улучшить профиль</div></div><div class="sec-h"><div class="sec-t">Быстрые команды</div></div><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"><div class="card" style="padding:14px;cursor:pointer" onclick="aiAction('find-jobs')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Подобрать заказы</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">AI найдёт лучшие совпадения</div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div><div class="card" style="padding:14px;cursor:pointer" onclick="aiAction('write-reply')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Написать отклик</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">Персональное сопроводительное</div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div><div class="card" style="padding:14px;cursor:pointer" onclick="aiAction('improve-profile')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--warning-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Улучшить профиль</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">Рекомендации по профилю</div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div><div class="card" style="padding:14px;cursor:pointer" onclick="aiAction('market-analysis')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--coral-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Анализ рынка</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">Тренды и средние ставки</div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div></div>`;
+5052:      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Тариф</div></div><div class="card mb-12" style="border-color:rgba(108,123,212,.2);position:relative;overflow:hidden"><div style="position:absolute;top:0;right:0;padding:4px 12px;background:var(--primary);color:#fff;font-size:10px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">АКТИВЕН</div><div style="font-size:22px;font-weight:800;color:var(--primary);margin-bottom:4px;font-family:var(--font-sans)">Pro</div><div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">Действует до 15.08.2025</div><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Неограниченные отклики</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-ассистент</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Приоритет в поиске</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>500 токенов/мес</div></div></div><div class="sec-h"><div class="sec-t">Сравнение тарифов</div></div><div class="card mb-12" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:11px;font-family:var(--font-sans)"><thead><tr style="background:var(--bg-input)"><th style="padding:10px;text-align:left;font-weight:600;color:var(--text-2)"></th><th style="padding:10px;font-weight:600;color:var(--text-2)">Free</th><th style="padding:10px;font-weight:700;color:var(--primary);background:var(--primary-soft)">Pro</th></tr></thead><tbody><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Отклики</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">5/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-ассистент</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Токены</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">50</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;background:var(--primary-soft)">500</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Цена</td><td style="padding:8px 10px;text-align:center;color:var(--text-2);font-weight:700">Бесплатно</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:700;background:var(--primary-soft)">$9.99/мес</td></tr></tbody></table></div><button class="btn btn-o btn-full" style="margin-top:12px" onclick="showToast('Функция скоро будет доступна')">Сменить тариф</button>`;
+5054:    case 'payments':
+5055:      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">История платежей</div></div><div style="display:flex;flex-direction:column;gap:8px"><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Pro подписка','15.06.2025','-$9.99','Ежемесячная подписка Pro','Списано')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Pro подписка</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">15.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--danger);font-family:var(--font-sans)">-$9.99</div></div></div><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Оплата за заказ ML-модель','10.06.2025','+$5,200','Получена оплата за выполнение заказа \"ML-модель для рекомендаций\"','Завершено')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Оплата за заказ "ML-модель"</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">10.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--success);font-family:var(--font-sans)">+$5,200</div></div></div><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Оплата за заказ Чат-бот','01.06.2025','+$2,800','Получена оплата за выполнение заказа \"Чат-бот на GPT\"','Завершено')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Оплата за заказ "Чат-бот"</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">01.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--success);font-family:var(--font-sans)">+$2,800</div></div></div></div>`;
+5063:      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">FAQ</div></div><div style="display:flex;flex-direction:column;gap:8px"><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Как работает AI-подбор заказов?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Анализируем ваши навыки, историю откликов и предпочтения. AI находит заказы с максимальным совпадением и ранжирует их для вас.</div></details><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Сколько стоит Pro?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Pro стоит $9.99/мес. Включает безлимитные отклики, AI-ассистент и 500 токенов ежемесячно.</div></details><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Как вывести заработок?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Вывод доступен через банковскую карту, PayPal или криптовалюту. Минимальная сумма вывода — $50.</div></details><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Зачем нужны токены?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Токены используются для работы AI-ассистента: генерация откликов, анализ профиля и подбор заказов.</div></details><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Как повысить рейтинг совпадения?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Заполните профиль полностью, добавьте навыки и портфолио. Чем подробнее профиль, тем точнее AI-подбор.</div></details></div>`;
+5197:// ── 2a. Profile Persistence ──
+5198:function getDefaultProfile() {
+5202:function loadProfile() {
+5203:  const profile = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
+5206:  if (userNameEl) userNameEl.innerHTML = esc(profile.name || 'Александр') + ' <span class="home-greeting-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro</span>';
+5209:  if (avatarEl) avatarEl.textContent = (profile.name || 'А').charAt(0).toUpperCase();
+5211:  if (moreAvatar) moreAvatar.textContent = (profile.name || 'А').charAt(0).toUpperCase();
+5213:  if (moreName) moreName.textContent = profile.name || 'Александр';
+5216:function saveProfile() {
+5220:  const profile = {
+5227:  lsSetJSON('skillhunt_profile', profile);
+5228:  loadProfile();
+5321:      case 'improve-profile':
+5353:  const progress = Math.floor(Math.random() * 41) + 50; // 50-90
+5354:  customSkills.push({ name, progress });
+5513:    if (greetingEl) greetingEl.textContent = 'Find your next project';
+5587:// 3e. Payment Detail
+5588:function showPaymentDetail(title, date, amount, description, status) {
