@@ -1,0 +1,502 @@
+  3000→/* Stagger reveal for lists */
+  3001→.stagger-reveal>*{opacity:0;animation:cardReveal .4s ease forwards}
+  3002→.stagger-reveal>*:nth-child(1){animation-delay:.05s}
+  3003→.stagger-reveal>*:nth-child(2){animation-delay:.1s}
+  3004→.stagger-reveal>*:nth-child(3){animation-delay:.15s}
+  3005→.stagger-reveal>*:nth-child(4){animation-delay:.2s}
+  3006→.stagger-reveal>*:nth-child(5){animation-delay:.25s}
+  3007→.stagger-reveal>*:nth-child(6){animation-delay:.3s}
+  3008→.stagger-reveal>*:nth-child(7){animation-delay:.35s}
+  3009→.stagger-reveal>*:nth-child(8){animation-delay:.4s}
+  3010→
+  3011→/* Number pop effect */
+  3012→.number-pop{animation:numberPop .3s ease}
+  3013→
+  3014→/* Success pulse on positive actions */
+  3015→.success-pulse{animation:successPulse .6s ease}
+  3016→
+  3017→/* Card press feedback */
+  3018→.card-press{transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s cubic-bezier(.22,1,.36,1)}
+  3019→.card-press:active{transform:scale(.97)!important;box-shadow:none!important}
+  3020→
+  3021→/* Smooth value transitions */
+  3022→.value-transition{transition:all .4s cubic-bezier(.4,0,.2,1)}
+  3023→
+  3024→/* Button press scale */
+  3025→.btn-press:active{transform:scale(.95);transition:transform .12s cubic-bezier(.4,0,.2,1)}
+  3026→
+  3027→/* Hover lift for all interactive cards */
+  3028→.hover-lift{transition:transform .2s ease,box-shadow .2s ease}
+  3029→.hover-lift:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(30,36,64,.1)}
+  3030→
+  3031→/* Repa Score ring animation */
+  3032→.repa-score-ring circle:last-child{animation:ringFill 1s ease forwards}
+  3033→
+  3034→/* Trophy spin on level up */
+  3035→.trophy-spin{animation:trophySpin .8s ease}
+  3036→
+  3037→/* Progress bar dance when at 100% */
+  3038→.progress-complete .prog-fill{animation:progressBarDance 1.5s ease infinite}
+  3039→
+  3040→/* Scroll indicator bounce */
+  3041→@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+  3042→.scroll-indicator{animation:scrollBounce 1.5s ease infinite}
+  3043→
+  3044→/* ═══ Module 2: Dashboard & Reviews ═══ */
+  3045→
+  3046→/* Color-coded rating badges */
+  3047→.rv-rating-badge{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:var(--radius-full);font-size:11px;font-weight:700}
+  3048→.rv-rating-badge svg{width:12px;height:12px}
+  3049→.rv-rating-badge.rv-rating-danger{background:var(--danger-light);color:var(--danger)}
+  3050→.rv-rating-badge.rv-rating-warning{background:var(--warning-light);color:var(--warning)}
+  3051→.rv-rating-badge.rv-rating-success{background:var(--success-light);color:var(--success)}
+  3052→.rv-rating-badge.rv-rating-danger svg{fill:var(--danger);stroke:var(--danger)}
+  3053→.rv-rating-badge.rv-rating-warning svg{fill:var(--warning);stroke:var(--warning)}
+  3054→.rv-rating-badge.rv-rating-success svg{fill:var(--success);stroke:var(--success)}
+  3055→
+  3056→/* Urgent attention card on home */
+  3057→.home-urgent-card{background:var(--danger-light);border:1px solid rgba(217,83,79,.2);border-left:4px solid var(--danger);border-radius:var(--radius);padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);animation:staggerFadeIn .4s ease forwards}
+  3058→.home-urgent-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(217,83,79,.15)}
+  3059→.home-urgent-card:active{transform:scale(.98)}
+  3060→.home-urgent-card-ico{width:36px;height:36px;border-radius:var(--radius-xs);background:rgba(217,83,79,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  3061→.home-urgent-card-ico svg{width:18px;height:18px;color:var(--danger)}
+  3062→.home-urgent-card-body{flex:1;min-width:0}
+  3063→.home-urgent-card-title{font-size:13px;font-weight:700;color:var(--danger);line-height:1.3}
+  3064→.home-urgent-card-sub{font-size:11px;color:var(--text-2);margin-top:2px;line-height:1.3}
+  3065→.home-urgent-card-arrow{color:var(--danger);flex-shrink:0;opacity:.5}
+  3066→
+  3067→/* Inline quick edit */
+  3068→.rv-response-editable{outline:none;background:var(--bg-input);border-radius:6px;padding:6px 8px;min-height:40px;border:2px solid var(--primary);transition:border-color .2s}
+  3069→.rv-response-editable:focus{border-color:var(--primary)}
+  3070→.rv-edit-toolbar{display:flex;gap:6px;margin-top:4px}
+  3071→.rv-edit-toolbar .btn{padding:4px 10px;font-size:11px;border-radius:var(--radius-full)}
+  3072→.rv-edit-toolbar .btn-save{background:var(--success);color:#fff}
+  3073→.rv-edit-toolbar .btn-cancel{background:var(--bg-input);color:var(--text-2);border:1px solid var(--border)}
+  3074→
+  3075→/* AI-generated indicator */
+  3076→.rv-ai-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:var(--radius-full);text-transform:uppercase;letter-spacing:.3px;margin-left:4px}
+  3077→.rv-ai-badge svg{width:10px;height:10px}
+  3078→.rv-ai-badge.rv-ai-generated{background:var(--primary-light);color:var(--primary)}
+  3079→.rv-ai-badge.rv-ai-edited{background:var(--warning-light);color:var(--warning)}
+  3080→
+  3081→/* Pinned review enhanced styles */
+  3082→.rv-card.rv-pinned-card{border-left:3px solid var(--warning);background:linear-gradient(135deg,var(--warning-light) 0%,var(--bg-card) 40%);position:relative}
+  3083→.rv-card.rv-pinned-card .rv-pin-indicator{position:absolute;top:10px;right:10px;width:20px;height:20px;color:var(--warning);z-index:3}
+  3084→.rv-card.rv-pinned-card .rv-pin-indicator svg{width:16px;height:16px}
+  3085→.dark .rv-card.rv-pinned-card{background:linear-gradient(135deg,rgba(212,165,74,.08) 0%,var(--bg-card) 40%)}
+  3086→
+  3087→/* Escalate button and tag */
+  3088→.rv-quick-btn.rv-quick-escalate{color:var(--coral)}
+  3089→.rv-quick-btn.rv-quick-escalate:hover{background:var(--coral-light);border-color:var(--coral);color:var(--coral)}
+  3090→.rv-quick-btn.rv-quick-escalate.escalated{background:var(--coral-light);color:var(--coral);border-color:var(--coral)}
+  3091→.rv-tag.escalated{background:var(--coral-light);color:var(--coral)}
+  3092→.rv-card.rv-escalated-card{border:1px solid rgba(224,124,108,.3);border-left:3px solid var(--coral)}
+  3093→
+  3094→/* Keyboard shortcut hints */
+  3095→.rv-key-hint{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--text-3);background:var(--bg-input);padding:1px 4px;border-radius:3px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;z-index:5;line-height:1.3}
+  3096→.rv-action:hover .rv-key-hint,.rv-quick-btn:hover .rv-key-hint{opacity:1}
+  3097→
+  3098→/* Selected review card */
+  3099→.rv-card.rv-selected{outline:2px solid var(--primary);outline-offset:1px;box-shadow:0 0 0 4px var(--primary-soft),var(--shadow-card)}
+  3100→
+  3101→/* Better empty states */
+  3102→.empty-ctx-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+  3103→.empty-ctx-icon svg{width:24px;height:24px}
+  3104→.empty-ctx-icon.icon-success{background:var(--success-light);color:var(--success)}
+  3105→.empty-ctx-icon.icon-primary{background:var(--primary-light);color:var(--primary)}
+  3106→.empty-ctx-icon.icon-warning{background:var(--warning-light);color:var(--warning)}
+  3107→.empty-ctx-icon.icon-danger{background:var(--danger-light);color:var(--danger)}
+  3108→
+  3109→/* Dark mode for Module 2 */
+  3110→.dark .home-urgent-card{border-color:rgba(217,83,79,.3);background:rgba(217,83,79,.08)}
+  3111→.dark .rv-card.rv-escalated-card{border-color:rgba(224,124,108,.3)}
+  3112→.dark .rv-rating-badge.rv-rating-danger{background:rgba(217,83,79,.15)}
+  3113→.dark .rv-rating-badge.rv-rating-warning{background:rgba(212,165,74,.15)}
+  3114→.dark .rv-rating-badge.rv-rating-success{background:rgba(76,175,125,.15)}
+  3115→.dark .rv-ai-badge.rv-ai-generated{background:rgba(108,123,212,.15)}
+  3116→
+  3117→/* ═══ Module 3: Analytics Improvements ═══ */
+  3118→
+  3119→/* AI Insight banners */
+  3120→.an-insight{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:linear-gradient(135deg,rgba(108,123,212,.08) 0%,rgba(142,127,212,.06) 50%,rgba(76,175,125,.04) 100%);border:1px solid rgba(108,123,212,.2);border-left:3px solid var(--primary);border-radius:var(--radius-sm);margin-bottom:12px;font-size:12px;color:var(--text-2);line-height:1.55;position:relative;overflow:hidden;transition:all .3s cubic-bezier(.22,1,.36,1);cursor:pointer}
+  3121→.an-insight:hover{box-shadow:0 2px 12px rgba(108,123,212,.12);border-left-color:var(--lavender);background:linear-gradient(135deg,rgba(108,123,212,.12) 0%,rgba(142,127,212,.08) 50%,rgba(76,175,125,.06) 100%)}
+  3122→.an-insight::after{content:'';position:absolute;top:0;right:0;width:40px;height:100%;background:linear-gradient(90deg,transparent,rgba(108,123,212,.04));pointer-events:none}
+  3123→.an-insight-ico{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--primary-light),rgba(108,123,212,.15));color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;box-shadow:0 2px 6px rgba(108,123,212,.1);transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  3124→.an-insight:hover .an-insight-ico{transform:scale(1.08) rotate(-5deg)}
+  3125→.an-insight-ico svg{width:14px;height:14px}
+  3126→.an-insight b{color:var(--primary);font-weight:700}
+  3127→.an-insight-action{display:inline-flex;align-items:center;gap:3px;margin-top:4px;font-size:10px;font-weight:700;color:var(--primary);opacity:.7;transition:opacity .2s}
+  3128→.an-insight:hover .an-insight-action{opacity:1}
+  3129→
+  3130→/* Trend arrows (period comparison) */
+  3131→.an-trend{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:1px 6px;border-radius:var(--radius-full);white-space:nowrap}
+  3132→.an-trend.up{color:var(--success);background:var(--success-light)}
+  3133→.an-trend.down{color:var(--danger);background:var(--danger-light)}
+  3134→.an-trend svg{width:10px;height:10px}
+  3135→
+  3136→/* Predictive warning card */
+  3137→.an-pred-warn{background:linear-gradient(135deg,rgba(212,165,74,.08),rgba(212,165,74,.03));border:1px solid rgba(212,165,74,.25);border-radius:var(--radius);padding:14px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px}
+  3138→.an-pred-warn-ico{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--warning-light);color:var(--warning);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  3139→.an-pred-warn-ico svg{width:18px;height:18px}
+  3140→.an-pred-warn-body{flex:1}
+  3141→.an-pred-warn-title{font-size:13px;font-weight:700;color:var(--warning);margin-bottom:3px}
+  3142→.an-pred-warn-text{font-size:12px;color:var(--text-2);line-height:1.5}
+  3143→.dark .an-pred-warn{background:linear-gradient(135deg,rgba(212,165,74,.1),rgba(212,165,74,.04));border-color:rgba(212,165,74,.3)}
+  3144→
+  3145→/* Widget hide/show toggle */
+  3146→.an-widget-toggle{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:6px;border:none;background:transparent;color:var(--text-3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:2;padding:0}
+  3147→.an-widget-toggle:hover{background:var(--bg-input);color:var(--text-2)}
+  3148→.an-widget-toggle svg{width:14px;height:14px}
+  3149→.an-widget-hidden{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;cursor:pointer;border:1px dashed var(--border-soft);border-radius:var(--radius);margin-bottom:14px;background:var(--bg-input);transition:all .2s}
+  3150→.an-widget-hidden:hover{border-color:var(--primary);background:var(--primary-soft)}
+  3151→.an-widget-hidden-ico{width:28px;height:28px;border-radius:8px;background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-3);margin-bottom:6px}
+  3152→.an-widget-hidden-ico svg{width:14px;height:14px}
+  3153→.an-widget-hidden-text{font-size:11px;color:var(--text-3);font-weight:500}
+  3154→
+  3155→/* Cost of silence card */
+  3156→.an-silence{background:linear-gradient(135deg,rgba(217,83,79,.06),rgba(217,83,79,.02));border:1px solid rgba(217,83,79,.2);border-radius:var(--radius);padding:14px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px}
+  3157→.an-silence-ico{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--danger-light);color:var(--danger);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  3158→.an-silence-ico svg{width:18px;height:18px}
+  3159→.an-silence-body{flex:1}
+  3160→.an-silence-title{font-size:13px;font-weight:700;color:var(--danger);margin-bottom:3px}
+  3161→.an-silence-text{font-size:12px;color:var(--text-2);line-height:1.5}
+  3162→.dark .an-silence{background:linear-gradient(135deg,rgba(217,83,79,.1),rgba(217,83,79,.04));border-color:rgba(217,83,79,.3)}
+  3163→
+  3164→/* CSS Tooltips for chart bars */
+  3165→[data-tooltip]{position:relative;cursor:pointer}
+  3166→[data-tooltip]::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) scale(.9);padding:4px 8px;background:var(--text);color:#fff;font-size:10px;font-weight:600;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:all .15s ease;z-index:10;line-height:1.3}
+  3167→[data-tooltip]:hover::after{opacity:1;transform:translateX(-50%) scale(1)}
+  3168→[data-tooltip]::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--text);opacity:0;pointer-events:none;transition:all .15s ease;z-index:10}
+  3169→[data-tooltip]:hover::before{opacity:1}
+  3170→
+  3171→/* Analytics sub-tabs */
+  3172→.an-tabs{display:flex;gap:3px;padding:3px;background:var(--bg-input);border-radius:var(--radius-sm);margin-bottom:10px}
+  3173→.an-tab{flex:1;text-align:center;padding:6px 4px;font-size:11px;font-weight:600;color:var(--text-3);border-radius:var(--radius-xs);cursor:pointer;transition:all .25s;border:none;background:none}
+  3174→.an-tab:hover{color:var(--text-2)}
+  3175→.an-tab.active{background:var(--bg-card);color:var(--text);box-shadow:var(--shadow)}
+  3176→.an-tab-panel{display:none}
+  3177→.an-tab-panel.active{display:block}
+  3178→
+  3179→/* Heatmap grid */
+  3180→.an-heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
+  3181→.an-heatmap-cell{aspect-ratio:1;border-radius:4px;min-height:28px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:transparent;transition:all .2s;cursor:default}
+  3182→.an-heatmap-cell:hover{transform:scale(1.1);z-index:1}
+  3183→.an-heatmap-cell:hover,.an-heatmap-cell:focus{color:var(--text)}
+  3184→.an-heatmap-cell.lv0{background:var(--bg-input)}
+  3185→.an-heatmap-cell.lv1{background:rgba(108,123,212,.15)}
+  3186→.an-heatmap-cell.lv2{background:rgba(108,123,212,.3)}
+  3187→.an-heatmap-cell.lv3{background:rgba(108,123,212,.5)}
+  3188→.an-heatmap-cell.lv4{background:rgba(108,123,212,.7)}
+  3189→.an-heatmap-cell.lv5{background:var(--primary);color:#fff}
+  3190→.an-heatmap-cell.lv5:hover{color:#fff}
+  3191→.an-heatmap-header{text-align:center;font-size:10px;font-weight:600;color:var(--text-3);padding-bottom:4px}
+  3192→
+  3193→/* Best review widget */
+  3194→.an-best-review{background:var(--bg-card);border:1px solid var(--border-soft);border-radius:var(--radius);padding:14px;margin-bottom:14px;box-shadow:var(--shadow)}
+  3195→.an-best-review-header{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+  3196→.an-best-review-badge{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  3197→.an-best-review-badge svg{width:12px;height:12px}
+  3198→.an-best-review-title{font-size:12px;font-weight:700;color:var(--text)}
+  3199→.an-best-review-product{font-size:11px;color:var(--primary);font-weight:600;margin-bottom:4px}
+  3200→.an-best-review-rating{display:flex;align-items:center;gap:2px;margin-bottom:6px}
+  3201→.an-best-review-rating svg{width:12px;height:12px}
+  3202→.an-best-review-snippet{font-size:11px;color:var(--text-2);line-height:1.5;font-style:italic;padding:8px;background:var(--bg-input);border-radius:var(--radius-xs);border-left:2px solid var(--primary)}
+  3203→.dark .an-best-review{border-color:var(--border-soft)}
+  3204→
+  3205→/* Export dropdown */
+  3206→.an-export-dropdown{position:relative;display:inline-block}
+  3207→.an-export-menu{position:absolute;top:calc(100% + 4px);right:0;background:var(--bg-card);border:1px solid var(--border-soft);border-radius:var(--radius-sm);box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:20;min-width:180px;opacity:0;transform:translateY(-4px);pointer-events:none;transition:all .2s ease}
+  3208→.an-export-menu.open{opacity:1;transform:translateY(0);pointer-events:auto}
+  3209→.an-export-menu-item{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:12px;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .15s;border:none;background:none;width:100%;text-align:left}
+  3210→.an-export-menu-item:hover{background:var(--bg-input);color:var(--text)}
+  3211→.an-export-menu-item svg{width:14px;height:14px;color:var(--text-3);flex-shrink:0}
+  3212→.an-export-menu-item:hover svg{color:var(--primary)}
+  3213→.dark .an-export-menu{box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  3214→
+  3215→/* Products table placeholder */
+  3216→.an-products-table{width:100%;border-collapse:collapse;font-size:12px}
+  3217→.an-products-table th{text-align:left;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border-soft)}
+  3218→.an-products-table td{padding:8px 10px;border-bottom:1px solid var(--border-soft);color:var(--text-2)}
+  3219→.an-products-table tr:last-child td{border-bottom:none}
+  3220→.an-products-table .an-prod-name{font-weight:600;color:var(--text)}
+  3221→
+  3222→/* Competitors placeholder */
+  3223→.an-comp-bar{height:8px;border-radius:4px;background:var(--bg-input);overflow:hidden;margin-top:4px}
+  3224→.an-comp-bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+  3225→
+  3226→/* Dark mode for Module 3 */
+  3227→.dark .an-insight{background:linear-gradient(135deg,rgba(108,123,212,.1),rgba(142,127,212,.06),rgba(76,175,125,.03));border-color:rgba(108,123,212,.2);border-left-color:var(--primary)}
+  3228→.dark .an-insight:hover{background:linear-gradient(135deg,rgba(108,123,212,.15),rgba(142,127,212,.1),rgba(76,175,125,.05))}
+  3229→.dark .an-insight-ico{background:linear-gradient(135deg,rgba(143,163,232,.15),rgba(143,163,232,.08));box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  3230→.dark .an-widget-hidden{border-color:rgba(255,255,255,.1)}
+  3231→.dark .an-widget-hidden:hover{border-color:var(--primary)}
+  3232→.dark .an-heatmap-cell.lv1{background:rgba(108,123,212,.2)}
+  3233→.dark .an-heatmap-cell.lv2{background:rgba(108,123,212,.35)}
+  3234→.dark .an-heatmap-cell.lv3{background:rgba(108,123,212,.55)}
+  3235→.dark .an-heatmap-cell.lv4{background:rgba(108,123,212,.75)}
+  3236→
+  3237→/* ═══ Module 5: Monetization & Loyalty ═══ */
+  3238→
+  3239→/* 1. Token Burn Rate Card */
+  3240→.burn-rate-card{background:linear-gradient(135deg,var(--primary-soft),var(--lavender-light));border:1px solid rgba(123,143,212,.15);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;animation:staggerFadeIn .4s ease forwards}
+  3241→.burn-rate-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  3242→.burn-rate-title{font-size:12px;font-weight:600;color:var(--text-2);display:flex;align-items:center;gap:5px}
+  3243→.burn-rate-title svg{width:14px;height:14px;color:var(--primary)}
+  3244→.burn-rate-forecast{font-size:10px;color:var(--text-3);font-weight:500}
+  3245→.burn-chart{display:flex;align-items:flex-end;gap:3px;height:40px;margin-bottom:8px}
+  3246→.burn-chart-bar{flex:1;border-radius:3px 3px 0 0;min-width:0;transition:height .5s cubic-bezier(.22,1,.36,1)}
+  3247→.burn-chart-bar.spend{background:linear-gradient(180deg,var(--danger),rgba(239,68,68,.5))}
+  3248→.burn-chart-bar.earn{background:linear-gradient(180deg,var(--success),rgba(107,191,138,.5))}
+  3249→.burn-chart-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--text-3)}
+  3250→.burn-rate-prediction{font-size:11px;color:var(--text-2);padding:6px 10px;background:rgba(255,255,255,.5);border-radius:var(--radius-xs);display:flex;align-items:center;gap:5px}
+  3251→.burn-rate-prediction svg{width:13px;height:13px;color:var(--warning);flex-shrink:0}
+  3252→
+  3253→/* 2. Transparent Token Log */
+  3254→.token-log-entry{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-soft)}
+  3255→.token-log-entry:last-child{border-bottom:none}
+  3256→.token-log-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  3257→.token-log-ico.spend{background:rgba(239,68,68,.1);color:var(--danger)}
+  3258→.token-log-ico.earn{background:rgba(107,191,138,.1);color:var(--success)}
+  3259→.token-log-ico svg{width:14px;height:14px}
+  3260→.token-log-body{flex:1;min-width:0}
+  3261→.token-log-action{font-size:12px;font-weight:600;color:var(--text)}
+  3262→.token-log-context{font-size:10px;color:var(--text-3);margin-top:1px}
+  3263→.token-log-right{text-align:right;flex-shrink:0}
+  3264→.token-log-amount{font-size:13px;font-weight:700}
+  3265→.token-log-amount.spend{color:var(--danger)}
+  3266→.token-log-amount.earn{color:var(--success)}
+  3267→.token-log-time{font-size:9px;color:var(--text-3);margin-top:1px}
+  3268→
+  3269→/* 3. Contextual Upgrade Banners */
+  3270→.ctx-upgrade-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius);border:1px solid rgba(123,143,212,.2);background:linear-gradient(135deg,var(--primary-soft),rgba(142,127,212,.08));margin:8px 0;animation:staggerFadeIn .4s ease forwards;position:relative}
+  3271→.ctx-upgrade-banner svg{width:16px;height:16px;color:var(--primary);flex-shrink:0}
+  3272→.ctx-upgrade-banner-text{flex:1;font-size:11px;color:var(--text-2);line-height:1.4}
+  3273→.ctx-upgrade-banner-text b{color:var(--primary);font-weight:700;cursor:pointer}
+  3274→.ctx-upgrade-banner-close{width:20px;height:20px;border:none;background:none;color:var(--text-3);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;border-radius:4px;transition:background .15s}
+  3275→.ctx-upgrade-banner-close:hover{background:var(--bg-input)}
+  3276→.ctx-upgrade-banner-close svg{width:12px;height:12px}
+  3277→.ctx-inline-lock{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:var(--bg-input);border-radius:var(--radius);font-size:11px;color:var(--text-3);margin:6px 0}
+  3278→.ctx-inline-lock svg{width:14px;height:14px}
+  3279→.ctx-inline-lock a{color:var(--primary);font-weight:600;cursor:pointer;text-decoration:none}
+  3280→
+  3281→/* 5. Referral QR + Copyable Link */
+  3282→.ref-link-box{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg-input);border-radius:var(--radius);margin-top:8px;border:1px solid var(--border-soft)}
+  3283→.ref-link-input{flex:1;background:none;border:none;font-size:12px;color:var(--text);outline:none;font-family:var(--font-sans);min-width:0}
+  3284→.ref-link-copy-btn{padding:5px 12px;border-radius:var(--radius-xs);background:var(--primary);color:#fff;font-size:11px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:all .2s}
+  3285→.ref-link-copy-btn:hover{opacity:.9}
+  3286→.ref-link-copy-btn:active{transform:scale(.96)}
+  3287→.ref-qr-area{display:flex;align-items:center;justify-content:center;padding:16px;margin-top:12px;background:#fff;border-radius:var(--radius);border:1px solid var(--border-soft)}
+  3288→.ref-social-proof{font-size:11px;color:var(--text-3);text-align:center;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:4px}
+  3289→.ref-social-proof svg{width:12px;height:12px;color:var(--success)}
+  3290→
+  3291→/* 6. Achievement Badges */
+  3292→.badge-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:12px 0}
+  3293→.badge-item{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative}
+  3294→.badge-ring{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+  3295→.badge-ring svg{width:22px;height:22px}
+  3296→.badge-ring.bronze{background:rgba(205,127,50,.12);border:2.5px solid #CD7F32;color:#CD7F32;box-shadow:0 2px 8px rgba(205,127,50,.2)}
+  3297→.badge-ring.silver{background:rgba(192,192,192,.12);border:2.5px solid #C0C0C0;color:#C0C0C0;box-shadow:0 2px 8px rgba(192,192,192,.2)}
+  3298→.badge-ring.gold{background:rgba(255,215,0,.12);border:2.5px solid #FFD700;color:#E6B800;box-shadow:0 2px 8px rgba(230,184,0,.25)}
+  3299→.badge-ring.locked{background:var(--bg-input);border:2.5px solid var(--border);color:var(--text-3);opacity:.45;filter:grayscale(1)}
+  3300→.badge-label{font-size:9px;font-weight:600;color:var(--text-3);text-align:center;line-height:1.2;max-width:64px}
+  3301→.badge-label.unlocked{color:var(--text-2)}
+  3302→
+  3303→/* 7. Token Balance Animation */
+  3304→.token-sparkle{position:absolute;pointer-events:none;animation:tokenSparkle .8s ease forwards}
+  3305→.token-sparkle svg{width:10px;height:10px;color:var(--success)}
+  3306→@keyframes tokenSparkle{0%{opacity:1;transform:translateY(0) scale(1)}50%{opacity:.8;transform:translateY(-12px) scale(1.2)}100%{opacity:0;transform:translateY(-24px) scale(.6)}}
+  3307→.token-count-anim{transition:transform .1s}
+  3308→.token-count-anim.bump{transform:scale(1.15)}
+  3309→.token-earn-flash{animation:earnFlash .5s ease}
+  3310→@keyframes earnFlash{0%{color:var(--success);transform:scale(1.1)}100%{color:var(--primary);transform:scale(1)}}
+  3311→
+  3312→/* 8. Low Balance Warning */
+  3313→.low-bal-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;padding:10px 16px;border-radius:var(--radius);font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;z-index:150;box-shadow:0 6px 20px rgba(146,64,14,.15);animation:toastIn .4s cubic-bezier(.22,1,.36,1) forwards;max-width:90vw}
+  3314→.low-bal-toast svg{width:16px;height:16px;flex-shrink:0;color:#D97706}
+  3315→.low-bal-toast-close{background:none;border:none;color:#92400E;cursor:pointer;padding:0;margin-left:4px;display:flex;align-items:center}
+  3316→.low-bal-toast-close svg{width:14px;height:14px}
+  3317→.dark .low-bal-toast{background:linear-gradient(135deg,#78350F,#92400E);color:#FDE68A;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+  3318→.dark .low-bal-toast svg{color:#FDE68A}
+  3319→.dark .low-bal-toast-close{color:#FDE68A}
+  3320→
+  3321→/* 9. Pricing Improvements */
+  3322→.pricing-compare-table{width:100%;border-collapse:separate;border-spacing:0;font-size:11px;margin:12px 0;background:var(--bg-card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border-soft)}
+  3323→.pricing-compare-table th{padding:10px 8px;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);background:var(--bg-input);border-bottom:1px solid var(--border-soft)}
+  3324→.pricing-compare-table th.pro-highlight{color:var(--primary);background:var(--primary-soft)}
+  3325→.pricing-compare-table td{padding:8px;text-align:center;border-bottom:1px solid var(--border-soft);color:var(--text-2)}
+  3326→.pricing-compare-table td:first-child{text-align:left;font-weight:500;color:var(--text)}
+  3327→.pricing-compare-table td.pro-highlight{background:rgba(108,123,212,.04);font-weight:600}
+  3328→.pricing-compare-table .check-mark{color:var(--success)}
+  3329→.pricing-compare-table .cross-mark{color:var(--text-3);opacity:.4}
+  3330→.pricing-compare-table svg{width:14px;height:14px;vertical-align:-2px}
+  3331→.pricing-card.current-plan{border-color:var(--primary);box-shadow:0 0 0 2px rgba(108,123,212,.15),var(--shadow)}
+  3332→.pricing-annual-callout{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--radius-full);background:var(--success-light);color:var(--success);font-size:10px;font-weight:700;margin-top:6px}
+  3333→
+  3334→/* 10. Time Saved Widget */
+  3335→.time-saved-card{background:linear-gradient(135deg,var(--success-light),var(--primary-soft));border:1px solid rgba(107,191,138,.15);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;animation:staggerFadeIn .4s ease forwards;cursor:pointer;transition:transform .2s}
+  3336→.time-saved-card:active{transform:scale(.98)}
+  3337→.time-saved-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  3338→.time-saved-header svg{width:18px;height:18px;color:var(--success)}
+  3339→.time-saved-title{font-size:12px;font-weight:600;color:var(--text-2)}
+  3340→.time-saved-value{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+  3341→.time-saved-value span{font-size:12px;font-weight:500;color:var(--text-3)}
+  3342→.time-saved-bar{height:5px;background:var(--bg-input);border-radius:3px;overflow:hidden;margin-top:8px}
+  3343→.time-saved-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--success),var(--primary));transition:width .8s cubic-bezier(.22,1,.36,1)}
+  3344→
+  3345→/* ROI Calculator */
+  3346→.roi-calc{background:var(--bg-card);border:1px solid var(--border-soft);border-radius:var(--radius);padding:16px;margin:14px 0}
+  3347→.roi-calc-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+  3348→.roi-calc-title svg{width:16px;height:16px;color:var(--primary)}
+  3349→.roi-calc-row{margin-bottom:12px}
+  3350→.roi-calc-label{font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
+  3351→.roi-calc-label span{color:var(--primary);font-weight:700;font-size:13px}
+  3352→.roi-calc-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:var(--bg-input);outline:none;cursor:pointer}
+  3353→.roi-calc-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--primary);box-shadow:0 2px 6px rgba(108,123,212,.3);cursor:pointer;transition:transform .15s}
+  3354→.roi-calc-slider::-webkit-slider-thumb:active{transform:scale(1.2)}
+  3355→.roi-calc-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--primary);border:none;box-shadow:0 2px 6px rgba(108,123,212,.3);cursor:pointer}
+  3356→.roi-calc-result{background:linear-gradient(135deg,var(--success-light),var(--primary-soft));border-radius:var(--radius);padding:12px 14px;margin-top:12px;text-align:center}
+  3357→.roi-calc-result-val{font-size:18px;font-weight:800;color:var(--success)}
+  3358→.roi-calc-result-sub{font-size:11px;color:var(--text-2);margin-top:2px}
+  3359→.roi-calc-compare{display:flex;gap:8px;margin-top:10px}
+  3360→.roi-calc-compare-col{flex:1;padding:10px;border-radius:var(--radius-xs);text-align:center}
+  3361→.roi-calc-compare-col.manual{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1)}
+  3362→.roi-calc-compare-col.repa{background:var(--success-light);border:1px solid rgba(107,191,138,.15)}
+  3363→.roi-calc-compare-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--text-3);margin-bottom:4px}
+  3364→.roi-calc-compare-val{font-size:15px;font-weight:800}
+  3365→.roi-calc-compare-col.manual .roi-calc-compare-val{color:var(--danger)}
+  3366→.roi-calc-compare-col.repa .roi-calc-compare-val{color:var(--success)}
+  3367→
+  3368→/* Dark mode for Module 5 */
+  3369→.dark .burn-rate-card{background:linear-gradient(135deg,rgba(108,123,212,.12),rgba(142,127,212,.08));border-color:rgba(108,123,212,.2)}
+  3370→.dark .burn-rate-prediction{background:rgba(255,255,255,.06)}
+  3371→.dark .ctx-upgrade-banner{background:linear-gradient(135deg,rgba(108,123,212,.1),rgba(142,127,212,.06));border-color:rgba(108,123,212,.15)}
+  3372→.dark .token-log-ico.spend{background:rgba(239,68,68,.15)}
+  3373→.dark .token-log-ico.earn{background:rgba(107,191,138,.15)}
+  3374→.dark .ref-qr-area{background:var(--bg-card)}
+  3375→.dark .badge-ring.locked{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)}
+  3376→.dark .time-saved-card{background:linear-gradient(135deg,rgba(107,191,138,.08),rgba(108,123,212,.08));border-color:rgba(107,191,138,.1)}
+  3377→.dark .roi-calc{background:var(--bg-card);border-color:var(--border-soft)}
+  3378→.dark .roi-calc-result{background:linear-gradient(135deg,rgba(107,191,138,.1),rgba(108,123,212,.08))}
+  3379→.dark .roi-calc-compare-col.manual{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.12)}
+  3380→.dark .roi-calc-compare-col.repa{background:rgba(107,191,138,.08);border-color:rgba(107,191,138,.12)}
+  3381→.dark .pricing-compare-table th.pro-highlight{background:rgba(108,123,212,.12)}
+  3382→
+  3383→/* Respect reduced motion */
+  3384→@media(prefers-reduced-motion:reduce){
+  3385→  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  3386→}
+  3387→</style>
+  3388→</head>
+  3389→<body>
+  3390→<a class="skip-link" href="#main-content">Перейти к контенту</a>
+  3391→<div class="aria-live" id="ariaLive" aria-live="polite"></div>
+  3392→
+  3393→<div class="shell" id="shell">
+  3394→  <div class="slider" id="slider">
+  3395→    <div class="slider-inner" id="sliderInner">
+  3396→
+  3397→      <!-- ═══ Page 1: Лента (Feed) ═══ -->
+  3398→      <div class="slider-page active-page" id="page0">
+  3399→        <div class="content" id="feedContent">
+  3400→
+  3401→          <!-- Pull to refresh -->
+  3402→          <div class="ptr" id="ptr">
+  3403→            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><polyline points="21 3 21 9 15 9"/></svg>
+  3404→            <span>Загрузка...</span>
+  3405→          </div>
+  3406→
+  3407→          <!-- Hero Greeting — Simplified -->
+  3408→          <div class="hero-greeting animate-in" id="feedGreeting">
+  3409→            <div class="hero-greeting-row">
+  3410→              <div class="hero-greeting-avatar" id="userAvatar">А</div>
+  3411→              <div class="hero-greeting-body">
+  3412→                <div class="hero-greeting-time" id="greetingTime">Добрый день,</div>
+  3413→                <div class="hero-greeting-name" id="userName">Александр <span class="home-greeting-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>
+  3414→              </div>
+  3415→              <div class="hero-online"><span class="hero-online-dot"></span>Онлайн</div>
+  3416→            </div>
+  3417→          </div>
+  3418→
+  3419→          <!-- AI Hero Card — One Clear Action -->
+  3420→          <div class="hero-ai-card animate-in">
+  3421→            <div class="hero-ai-match">
+  3422→              <div class="hero-ai-icon">
+  3423→                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+  3424→              </div>
+  3425→              <div class="hero-ai-text">
+  3426→                <div class="hero-ai-headline"><b>3 заказа</b> совпадают на 85%+</div>
+  3427→                <div class="hero-ai-reason">
+  3428→                  <span class="hero-ai-reason-tag">GPT API</span>
+  3429→                  <span class="hero-ai-reason-tag">React</span>
+  3430→                  <span class="hero-ai-reason-tag">Python</span>
+  3431→                  <span style="color:var(--text-3)">— по вашим навыкам</span>
+  3432→                </div>
+  3433→              </div>
+  3434→            </div>
+  3435→            <button class="hero-cta" onclick="filterFeedCategory('ai',null);showToast('Показаны релевантные заказы')">
+  3436→              <span class="hero-cta-shimmer"></span>
+  3437→              Посмотреть заказы
+  3438→              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+  3439→            </button>
+  3440→            <div class="hero-secondary">или <span onclick="switchTab(1)">настроить фильтры</span></div>
+  3441→          </div>
+  3442→
+  3443→          <!-- Minimal Metrics — Just 2 -->
+  3444→          <div class="hero-metrics animate-in">
+  3445→            <div class="hero-metric" onclick="showApplicationsView()">
+  3446→              <div class="hero-metric-dot" style="background:var(--primary);box-shadow:0 0 6px rgba(108,123,212,.4)"></div>
+  3447→              <div class="hero-metric-info">
+  3448→                <div class="hero-metric-val">12</div>
+  3449→                <div class="hero-metric-label">Заказы</div>
+  3450→              </div>
+  3451→            </div>
+  3452→            <div class="hero-metric" onclick="showApplicationsView()">
+  3453→              <div class="hero-metric-dot" style="background:var(--success);box-shadow:0 0 6px rgba(76,175,125,.4)"></div>
+  3454→              <div class="hero-metric-info">
+  3455→                <div class="hero-metric-val" id="heroAppCount">5</div>
+  3456→                <div class="hero-metric-label">Отклики</div>
+  3457→              </div>
+  3458→            </div>
+  3459→          </div>
+  3460→
+  3461→          <!-- Guided Steps — 1-2-3 Onboarding -->
+  3462→          <div class="guided-steps animate-in">
+  3463→            <div class="guided-step" onclick="guidedStep1()" style="cursor:pointer">
+  3464→              <span class="guided-step-num">1</span>
+  3465→              Откройте
+  3466→            </div>
+  3467→            <span class="guided-arrow">&#8594;</span>
+  3468→            <div class="guided-step" onclick="guidedStep2()" style="cursor:pointer">
+  3469→              <span class="guided-step-num">2</span>
+  3470→              Отфильтруйте
+  3471→            </div>
+  3472→            <span class="guided-arrow">&#8594;</span>
+  3473→            <div class="guided-step" onclick="guidedStep3()" style="cursor:pointer">
+  3474→              <span class="guided-step-num">3</span>
+  3475→              Откликнитесь
+  3476→            </div>
+  3477→          </div>
+  3478→
+  3479→          <!-- Category Filter Chips -->
+  3480→          <div class="tabs animate-in" id="feedCategoryTabs">
+  3481→            <button class="tab active" data-cat="all" onclick="filterFeedCategory('all',this)">Все</button>
+  3482→            <button class="tab" data-cat="ai" onclick="filterFeedCategory('ai',this)">AI/ML</button>
+  3483→            <button class="tab" data-cat="design" onclick="filterFeedCategory('design',this)">Design</button>
+  3484→            <button class="tab" data-cat="dev" onclick="filterFeedCategory('dev',this)">Development</button>
+  3485→            <button class="tab" data-cat="writing" onclick="filterFeedCategory('writing',this)">Writing</button>
+  3486→            <button class="tab" data-cat="marketing" onclick="filterFeedCategory('marketing',this)">Marketing</button>
+  3487→            <button class="tab" data-cat="data" onclick="filterFeedCategory('data',this)">Data</button>
+  3488→            <button class="tab" data-cat="devops" onclick="filterFeedCategory('devops',this)">DevOps</button>
+  3489→          </div>
+  3490→
+  3491→          <!-- Job Cards Feed -->
+  3492→          <div id="feedJobList"></div>
+  3493→
+  3494→          <!-- Loading Skeleton -->
+  3495→          <div id="feedSkeleton" style="display:none">
+  3496→            <div class="card mb-12" style="padding:16px"><div class="skel skel-text lg"></div><div class="skel skel-text"></div><div class="skel skel-text sm"></div><div class="skel skel-card" style="height:40px;margin-top:8px"></div></div>
+  3497→            <div class="card mb-12" style="padding:16px"><div class="skel skel-text lg"></div><div class="skel skel-text"></div><div class="skel skel-text sm"></div><div class="skel skel-card" style="height:40px;margin-top:8px"></div></div>
+  3498→            <div class="card mb-12" style="padding:16px"><div class="skel skel-text lg"></div><div class="skel skel-text"></div><div class="skel skel-text sm"></div><div class="skel skel-card" style="height:40px;margin-top:8px"></div></div>
+  3499→          </div>
+
+[showing lines 3000-3499 of 5172; use offset=3500 with limit to continue reading]
