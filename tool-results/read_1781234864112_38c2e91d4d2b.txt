@@ -3,13 +3,13 @@
      3→     3→<head>
      4→     4→<meta charset="UTF-8">
      5→     5→<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-     6→     6→<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src * https://api.telegram.org; img-src * data: blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
+     6→     6→<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.telegram.org; img-src 'self' data: blob: https:; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
      7→     7→<title>SkillHunt — AI-фриланс в одном клике</title>
      8→     8→<script src="https://telegram.org/js/telegram-web-app.js"></script>
      9→     9→<link rel="preconnect" href="https://fonts.googleapis.com">
     10→    10→<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     11→    11→<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet">
-    12→    12→<link href="https://unpkg.com/lucide-static@latest/font/lucide.css" rel="stylesheet">
+    12→    12→<link href="https://unpkg.com/lucide-static@0.460.0/font/lucide.css" rel="stylesheet">
     13→    13→<style>
     14→    14→/* ═══════════════════════════════════════════════════════════════
     15→    15→   REPA v3.0 — Premium CSS Design System
@@ -215,22 +215,22 @@
    215→   215→.product-mini-rating{color:#FFB800;font-weight:700}
    216→   216→
    217→   217→/* ── Bottom Nav (5 tabs, floating rounded) ── */
-   218→   218→.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:410px;z-index:50;background:var(--bg-card);border:1px solid var(--border-soft);border-radius:20px 20px 16px 16px;padding:4px 0;padding-bottom:calc(4px + var(--safe-b));margin-bottom:6px;box-shadow:0 -1px 8px rgba(23,27,45,.04);transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .35s ease}
+   218→   218→.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:410px;z-index:50;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(255,255,255,.85);border:1px solid var(--border-soft);border-radius:20px 20px 16px 16px;padding:4px 0;padding-bottom:calc(4px + var(--safe-b));margin-bottom:6px;box-shadow:0 -1px 8px rgba(23,27,45,.04);transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .35s ease}
    219→   219→.bnav.nav-hidden{transform:translateX(-50%) translateY(calc(100% + 16px));opacity:0;pointer-events:none}
    220→   220→.bnav-in{display:flex;align-items:center;justify-content:space-around;padding:0 6px;position:relative}
    221→   221→
    222→   222→/* Sliding pill indicator */
    223→   223→.bnav-pill{position:absolute;top:2px;left:0;height:calc(100% - 4px);border-radius:16px;background:var(--primary-soft);border:1px solid rgba(123,143,212,.1);transition:left .5s cubic-bezier(.22,1,.36,1),width .5s cubic-bezier(.22,1,.36,1);z-index:0;pointer-events:none}
    224→   224→
-   225→   225→.bnav-i{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0 4px;min-width:0;flex:1;color:var(--text-3);position:relative;cursor:pointer;transition:color .35s cubic-bezier(.22,1,.36,1);z-index:1}
+   225→   225→.bnav-i{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0 4px;min-width:0;flex:1;color:var(--text-3);position:relative;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);z-index:1}
    226→   226→.bnav-i-ico{position:relative;width:24px;height:24px;flex-shrink:0;margin-bottom:3px;transition:transform .4s cubic-bezier(.22,1,.36,1),color .35s ease}
    227→   227→.bnav-i-ico svg{position:absolute;inset:0;width:24px;height:24px;transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .4s cubic-bezier(.22,1,.36,1)}
    228→   228→.bnav-i-ico .ico-outline{opacity:1;transform:scale(1)}
    229→   229→.bnav-i-ico .ico-filled{opacity:0;transform:scale(.6)}
    230→   230→.bnav-i.active .bnav-i-ico .ico-outline{opacity:0;transform:scale(.6)}
    231→   231→.bnav-i.active .bnav-i-ico .ico-filled{opacity:1;transform:scale(1)}
-   232→   232→.bnav-i.active .bnav-i-ico{color:var(--primary)}
-   233→   233→.bnav-i:active .bnav-i-ico{transform:scale(.82);transition:transform .12s cubic-bezier(.4,0,.2,1)}
+   232→   232→.bnav-i.active .bnav-i-ico{color:var(--primary);transform:scale(1.1);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+   233→   233→.bnav-i:active .bnav-i-ico{transform:scale(.88);transition:transform .12s cubic-bezier(.4,0,.2,1)}
    234→   234→.bnav-i span{font-size:10px;font-weight:500;transition:color .35s cubic-bezier(.22,1,.36,1),opacity .35s ease,font-weight .35s ease;opacity:.5;line-height:1}
    235→   235→.bnav-i.active span{font-weight:600;color:var(--primary);opacity:1}
    236→   236→.bnav-i.active{color:var(--primary)}
@@ -255,9 +255,9 @@
    255→   255→
    256→   256→/* ── Buttons ── */
    257→   257→.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;transition:all .25s cubic-bezier(.22,1,.36,1);white-space:nowrap;position:relative;overflow:hidden}
-   258→   258→.btn:active{transform:scale(.97);transition:transform .12s cubic-bezier(.4,0,.2,1)}
-   259→   259→.btn-p{background:var(--primary);color:#fff;font-weight:700}
-   260→   260→.btn-p:hover{background:var(--primary-hover)}
+   258→   258→.btn:active{transform:scale(.96);transition:transform .12s cubic-bezier(.4,0,.2,1)}
+   259→   259→.btn-p{background:var(--primary);color:#fff;font-weight:700;transition:all .2s cubic-bezier(.22,1,.36,1)}
+   260→   260→.btn-p:hover{background:var(--primary-hover);box-shadow:var(--shadow-cta);transform:translateY(-1px)}
    261→   261→.btn-s{background:var(--bg-input);color:var(--text)}
    262→   262→.btn-s:hover{background:var(--border)}
    263→   263→.btn-o{border:1px solid var(--border);color:var(--text);background:transparent}
@@ -304,7 +304,7 @@
    304→   304→
    305→   305→/* ── Inputs ── */
    306→   306→.inp{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;color:var(--text);background:var(--bg-card);transition:border-color .25s ease,box-shadow .25s ease}
-   307→   307→.inp:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft),0 2px 8px rgba(123,143,212,.1)}
+   307→   307→.inp:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-glow),0 2px 8px rgba(123,143,212,.1)}
    308→   308→.inp::placeholder{color:var(--text-3)}
    309→   309→textarea.inp{min-height:80px;resize:vertical;line-height:1.5}
    310→   310→.inp-group{margin-bottom:14px}
