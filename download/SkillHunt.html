@@ -1572,7 +1572,7 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 /* ── Trial Countdown Bar (home page) ── */
 .trial-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,rgba(108,123,212,.08),rgba(155,143,212,.05));border:1px solid rgba(108,123,212,.12);border-radius:var(--radius);margin-bottom:12px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
 .trial-bar:hover{background:linear-gradient(135deg,rgba(108,123,212,.12),rgba(155,143,212,.08));border-color:rgba(108,123,212,.2)}
-.trial-bar::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--primary),var(--lavender));border-radius:3px}
+/* trial-bar::before removed — no side line per user request */
 .trial-bar-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--lavender));display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .trial-bar-icon svg{width:16px;height:16px;color:#fff}
 .trial-bar-body{flex:1;min-width:0}
@@ -1581,7 +1581,7 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 .trial-bar-sub{font-size:11px;color:var(--text-2);margin-top:2px}
 .trial-bar-arrow{color:var(--text-3);flex-shrink:0}
 .trial-bar.ending{background:linear-gradient(135deg,rgba(224,124,108,.08),rgba(224,124,108,.04));border-color:rgba(224,124,108,.15)}
-.trial-bar.ending::before{background:linear-gradient(180deg,var(--coral),#E07C6C)}
+/* trial-bar.ending::before removed */
 .trial-bar.ending .trial-days{background:rgba(224,124,108,.12);color:var(--coral)}
 .dark .trial-bar{background:linear-gradient(135deg,rgba(108,123,212,.1),rgba(155,143,212,.06));border-color:rgba(108,123,212,.15)}
 .dark .trial-bar.ending{background:linear-gradient(135deg,rgba(224,124,108,.1),rgba(224,124,108,.05));border-color:rgba(224,124,108,.18)}
@@ -3990,6 +3990,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
           </div>
 
         </div>
+      </div>
 
       <!-- ═══ Page 4: Отклики (Responses) ═══ -->
       <div class="slider-page" id="page3" role="region" aria-label="Отклики">
@@ -4122,7 +4123,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
       </div>
       <div style="text-align:center;padding:8px;background:var(--warning-light);border-radius:var(--radius-xs)">
         <div style="font-size:18px;font-weight:800;color:var(--warning)">4.9</div>
-        <div style="font-size:10px;color:var(--text-3);font-weight:600">Рейтинг</div>
+        <div style="font-size:10px;color:var(--text-3);font-weight:600">Средний балл</div>
       </div>
       <div style="text-align:center;padding:8px;background:var(--success-light);border-radius:var(--radius-xs)">
         <div style="font-size:18px;font-weight:800;color:var(--success)">$8.4K</div>
@@ -4189,11 +4190,6 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
       <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
       <div class="more-menu-row-text">Язык</div>
       <span style="margin-left:auto;margin-right:4px;font-size:12px;color:var(--text-3)">Русский</span>
-      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
-    </div>
-    <div class="more-menu-row" onclick="openMoreSub('notifications', event)">
-      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-      <div class="more-menu-row-text">Уведомления</div>
       <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>
     <div class="more-menu-row" onclick="openMoreSub('faq', event)">
@@ -4293,7 +4289,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
     <div class="trial-end-hero">
       <div class="trial-end-hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
       <div class="trial-end-hero-title" id="trialEndTitle">Триал завершается</div>
-      <div class="trial-end-hero-sub" id="trialEndSub">Не теряйте momentum — сохраните Pro</div>
+      <div class="trial-end-hero-sub" id="trialEndSub">Не теряйте доступ — сохраните Pro</div>
     </div>
     <div class="trial-end-body">
       <div class="trial-end-summary">
@@ -4301,7 +4297,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
         <div class="trial-end-summary-row"><span class="trial-end-summary-label">Откликов отправлено</span><span class="trial-end-summary-val highlight" id="trialEndApps">0</span></div>
         <div class="trial-end-summary-row"><span class="trial-end-summary-label">AI-писем создано</span><span class="trial-end-summary-val highlight" id="trialEndAI">0</span></div>
         <div class="trial-end-summary-row"><span class="trial-end-summary-label">Время сэкономлено</span><span class="trial-end-summary-val" id="trialEndTime">0 мин</span></div>
-        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Потенц. заработок заработка</span><span class="trial-end-summary-val highlight" id="trialEndEarnings">$0</span></div>
+        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Потенциальный заработок</span><span class="trial-end-summary-val highlight" id="trialEndEarnings">$0</span></div>
       </div>
       <div class="trial-end-offer">
         <div class="trial-end-offer-label">Специальное предложение</div>
@@ -4759,7 +4755,7 @@ function sendAICover() {
     closeJobDetail();
     return;
   }
-  apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'pending', aiGenerated: true });
+  apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'sent', aiGenerated: true });
   lsSetJSON('skillhunt_applications', apps);
   incrementAppCount();
   incrementAICount();
@@ -4933,27 +4929,29 @@ function filterResponses(status, btn) {
 }
 
 function renderResponses() {
-  const apps = lsGetJSON('skillhunt_applications', []);
+  let apps = lsGetJSON('skillhunt_applications', []);
   const container = document.getElementById('responsesList');
   const emptyEl = document.getElementById('responsesEmpty');
   const summaryEl = document.getElementById('responseSummary');
   if (!container) return;
   
-  const now = Date.now();
+  // Migrate old 'pending' status to 'sent' for consistency
+  let needsSave = false;
   apps.forEach(app => {
-    if (!app.status) app.status = 'sent';
+    if (!app.status || app.status === 'pending') { app.status = 'sent'; needsSave = true; }
     if (app.status === 'sent') {
       const sentTime = new Date(app.date).getTime();
-      const hoursPassed = (now - sentTime) / (1000 * 60 * 60);
-      if (hoursPassed > 48) app.status = 'viewed';
+      const hoursPassed = (Date.now() - sentTime) / (1000 * 60 * 60);
+      if (hoursPassed > 48) { app.status = 'viewed'; needsSave = true; }
     }
     if (app.status === 'viewed') {
       const sentTime = new Date(app.date).getTime();
-      const hoursPassed = (now - sentTime) / (1000 * 60 * 60);
-      if (hoursPassed > 96 && Math.random() > 0.5) app.status = 'replied';
+      const hoursPassed = (Date.now() - sentTime) / (1000 * 60 * 60);
+      // Deterministic: use jobId parity instead of Math.random() to avoid flickering on every render
+      if (hoursPassed > 96 && (app.jobId % 2 === 0)) { app.status = 'replied'; needsSave = true; }
     }
   });
-  lsSetJSON('skillhunt_applications', apps);
+  if (needsSave) lsSetJSON('skillhunt_applications', apps);
   
   const filtered = responseFilter === 'all' ? apps : apps.filter(a => a.status === responseFilter);
   
@@ -4986,7 +4984,7 @@ function renderResponses() {
     const st = statusConfig[app.status] || statusConfig.sent;
     const dateStr = formatDate(app.date);
     const aiBadge = app.aiGenerated ? '<span style="font-size:9px;font-weight:700;color:var(--lavender);background:var(--lavender-light);padding:2px 6px;border-radius:var(--radius-full)">AI</span>' : '';
-    return '<div class="card animate-in" style="padding:14px;margin-bottom:8px;cursor:pointer" onclick="openJobDetail(' + job.id + ')"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="display:flex;align-items:center;gap:6px"><span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--radius-full);font-size:10px;font-weight:600;color:' + st.color + ';background:' + st.bg + '">' + st.icon + ' ' + st.label + '</span>' + aiBadge + '</div><span style="font-size:10px;color:var(--text-3)">' + dateStr + '</span></div><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3">' + esc(job.title) + '</div><div style="font-size:12px;color:var(--text-2)">$' + job.budgetMin.toLocaleString() + ' — $' + job.budgetMax.toLocaleString() + '</div></div>';
+    return '<div class="card animate-in" style="padding:14px;margin-bottom:8px;cursor:pointer" onclick="openJobDetail(' + job.id + ')"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="display:flex;align-items:center;gap:6px"><span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--radius-full);font-size:10px;font-weight:600;color:' + st.color + ';background:' + st.bg + '">' + st.icon + ' ' + st.label + '</span>' + aiBadge + '</div><span style="font-size:10px;color:var(--text-3)">' + dateStr + '</span></div><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3;font-family:var(--font-sans)">' + esc(job.title) + '</div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:12px;color:var(--text-2);font-family:var(--font-sans)">$' + job.budgetMin.toLocaleString() + ' — $' + job.budgetMax.toLocaleString() + '</span><span style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">' + esc(job.clientName) + '</span></div></div>';
   }).join('');
 }
 
@@ -5027,6 +5025,23 @@ function updateProfileCompleteness() {
   if (text) text.textContent = percent + '%';
 }
 
+// ── Seed demo responses so the Responses screen isn't blank ──
+function seedDemoResponses() {
+  const existing = lsGetJSON('skillhunt_applications', []);
+  if (existing.length > 0) return; // Already has data, don't overwrite
+  
+  const now = Date.now();
+  const demoApps = [
+    { jobId: 1, jobTitle: 'Разработка ML-модели для рекомендаций', date: new Date(now - 2 * 60 * 60 * 1000).toISOString(), status: 'sent', aiGenerated: true },
+    { jobId: 7, jobTitle: 'Разработка чат-бота на GPT API', date: new Date(now - 3 * 24 * 60 * 60 * 1000).toISOString(), status: 'viewed', aiGenerated: false },
+    { jobId: 3, jobTitle: 'Backend разработка на Node.js', date: new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString(), status: 'replied', aiGenerated: true },
+    { jobId: 10, jobTitle: 'React Native мобильное приложение', date: new Date(now - 5 * 60 * 60 * 1000).toISOString(), status: 'sent', aiGenerated: false },
+    { jobId: 6, jobTitle: 'Анализ данных клиентов с ML', date: new Date(now - 5 * 24 * 60 * 60 * 1000).toISOString(), status: 'replied', aiGenerated: true }
+  ];
+  lsSetJSON('skillhunt_applications', demoApps);
+  updateAppCount();
+}
+
 function init() {
   if (isDark) document.documentElement.classList.add('dark');
   updateNavPill();
@@ -5036,6 +5051,9 @@ function init() {
   loadNotifSettings();
   updateProfileCompleteness();
   updateAppCount();
+  
+  // Seed demo responses if empty (so the Responses screen isn't blank)
+  seedDemoResponses();
   
   // Load saved language
   const savedLang = lsGet('skillhunt_language', 'ru');
@@ -5878,7 +5896,7 @@ function applyToJob(jobId) {
     showProUpgrade();
     return;
   }
-  apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'pending' });
+  apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'sent', aiGenerated: false });
   lsSetJSON('skillhunt_applications', apps);
   incrementAppCount();
   updateAppCount();
