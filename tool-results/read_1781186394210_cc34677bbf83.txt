@@ -1,0 +1,502 @@
+  3700→                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+  3701→              </div>
+  3702→              <div>
+  3703→                <div class="scard-v" id="savedTotalStat">0</div>
+  3704→                <div class="scard-l">Сохранено</div>
+  3705→              </div>
+  3706→            </div>
+  3707→            <div class="scard" onclick="filterSavedHighMatch()">
+  3708→              <div class="scard-ico ok">
+  3709→                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+  3710→              </div>
+  3711→              <div>
+  3712→                <div class="scard-v" id="savedHighMatchStat">0</div>
+  3713→                <div class="scard-l">Высокое совпадение</div>
+  3714→              </div>
+  3715→            </div>
+  3716→          </div>
+  3717→
+  3718→          <!-- Saved Sort Tabs -->
+  3719→          <div class="tabs animate-in" id="savedSortTabs" style="margin-bottom:12px">
+  3720→            <button class="tab active" onclick="sortSaved('date',this)">По дате</button>
+  3721→            <button class="tab" onclick="sortSaved('match',this)">По совпадению</button>
+  3722→            <button class="tab" onclick="sortSaved('budget',this)">По бюджету</button>
+  3723→          </div>
+  3724→
+  3725→          <!-- Saved Job List -->
+  3726→          <div id="savedJobList"></div>
+  3727→
+  3728→          <!-- Saved Empty -->
+  3729→          <div id="savedEmpty" class="empty animate-in">
+  3730→            <div class="empty-illust">
+  3731→              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+  3732→            </div>
+  3733→            <div class="empty-title">Пока пусто</div>
+  3734→            <div class="empty-desc">Сохраняйте интересные заказы, чтобы вернуться к ним позже</div>
+  3735→            <button class="btn btn-p" onclick="switchTab(1)">Найти заказы</button>
+  3736→          </div>
+  3737→
+  3738→        </div>
+  3739→      </div>
+  3740→
+  3741→    </div>
+  3742→  </div>
+  3743→
+  3744→  <!-- ═══ Bottom Navigation ═══ -->
+  3745→  <nav class="bnav" id="bnav" role="navigation" aria-label="Основная навигация">
+  3746→    <div class="bnav-in">
+  3747→      <div class="bnav-pill" id="navPill"></div>
+  3748→      <button class="bnav-i active" data-tab="0" onclick="switchTab(0)" aria-label="Лента">
+  3749→        <div class="bnav-i-ico">
+  3750→          <svg class="ico-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  3751→          <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><rect x="9" y="12" width="6" height="10"/></svg>
+  3752→        </div>
+  3753→        <span>Лента</span>
+  3754→      </button>
+  3755→      <button class="bnav-i" data-tab="1" onclick="switchTab(1)" aria-label="Поиск">
+  3756→        <div class="bnav-i-ico">
+  3757→          <svg class="ico-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  3758→          <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2.5"/></svg>
+  3759→        </div>
+  3760→        <span>Поиск</span>
+  3761→      </button>
+  3762→      <button class="bnav-i" data-tab="2" onclick="switchTab(2)" aria-label="Сохранённые">
+  3763→        <div class="bnav-i-ico">
+  3764→          <svg class="ico-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+  3765→          <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+  3766→        </div>
+  3767→        <span>Сохранённые</span>
+  3768→      </button>
+  3769→      <button class="bnav-i" data-tab="more" onclick="openMorePanel()" aria-label="Ещё">
+  3770→        <div class="bnav-i-ico">
+  3771→          <svg class="ico-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+  3772→          <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/><circle cx="5" cy="12" r="2.5"/></svg>
+  3773→        </div>
+  3774→        <span>Ещё</span>
+  3775→      </button>
+  3776→    </div>
+  3777→  </nav>
+  3778→
+  3779→</div><!-- /shell -->
+  3780→
+  3781→<!-- ═══ More Panel Overlay ═══ -->
+  3782→<div class="more-overlay" id="moreOverlay" onclick="closeMorePanel(event)" role="dialog" aria-label="Меню ещё" aria-modal="true">
+  3783→  <div class="more-panel" id="morePanel">
+  3784→    <div class="more-handle"></div>
+  3785→    <div class="more-header">
+  3786→      <div class="more-title">Ещё</div>
+  3787→      <button class="more-close-btn" onclick="closeMorePanelDirect()">
+  3788→        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  3789→      </button>
+  3790→    </div>
+  3791→
+  3792→    <!-- Profile -->
+  3793→    <div class="more-profile-bar">
+  3794→      <div class="more-profile-av" id="moreAvatar">А</div>
+  3795→      <div class="more-profile-info">
+  3796→        <div class="more-profile-name" id="moreName">Александр</div>
+  3797→        <div class="more-profile-plan">
+  3798→          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+  3799→          AI Freelancer
+  3800→        </div>
+  3801→      </div>
+  3802→    </div>
+  3803→
+  3804→    <!-- Balance Card -->
+  3805→    <div class="more-balance-card">
+  3806→      <div class="more-balance-top">
+  3807→        <div class="more-balance-label">Баланс токенов</div>
+  3808→        <div class="more-balance-link" onclick="openMoreSub('payments', event)">История</div>
+  3809→      </div>
+  3810→      <div class="more-balance-value">847</div>
+  3811→      <div class="more-balance-row" onclick="showToast('Потрачено сегодня: 23 токена')">
+  3812→        <div class="more-balance-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+  3813→        <div class="more-balance-row-text">Потрачено сегодня: 23</div>
+  3814→        <div class="more-balance-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3815→      </div>
+  3816→      <button class="more-balance-action" onclick="openMoreSub('buy-tokens')">Купить токены</button>
+  3817→    </div>
+  3818→
+  3819→    <!-- Stats Row -->
+  3820→    <div class="more-section-head">Статистика</div>
+  3821→    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px 10px">
+  3822→      <div style="text-align:center;padding:8px;background:var(--primary-light);border-radius:var(--radius-xs)">
+  3823→        <div style="font-size:18px;font-weight:800;color:var(--primary)">28</div>
+  3824→        <div style="font-size:10px;color:var(--text-3);font-weight:600">Заказов</div>
+  3825→      </div>
+  3826→      <div style="text-align:center;padding:8px;background:var(--warning-light);border-radius:var(--radius-xs)">
+  3827→        <div style="font-size:18px;font-weight:800;color:var(--warning)">4.9</div>
+  3828→        <div style="font-size:10px;color:var(--text-3);font-weight:600">Рейтинг</div>
+  3829→      </div>
+  3830→      <div style="text-align:center;padding:8px;background:var(--success-light);border-radius:var(--radius-xs)">
+  3831→        <div style="font-size:18px;font-weight:800;color:var(--success)">$8.4K</div>
+  3832→        <div style="font-size:10px;color:var(--text-3);font-weight:600">Заработано</div>
+  3833→      </div>
+  3834→    </div>
+  3835→
+  3836→    <!-- Menu Sections -->
+  3837→    <div class="more-section-head">Профиль</div>
+  3838→    <div class="more-menu-row" onclick="openMoreSub('edit-profile', event)">
+  3839→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+  3840→      <div class="more-menu-row-text">Редактировать профиль</div>
+  3841→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3842→    </div>
+  3843→    <div class="more-menu-row" onclick="openMoreSub('skills', event)">
+  3844→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+  3845→      <div class="more-menu-row-text">Навыки</div>
+  3846→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3847→    </div>
+  3848→    <div class="more-menu-row" onclick="openMoreSub('portfolio', event)">
+  3849→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+  3850→      <div class="more-menu-row-text">Портфолио</div>
+  3851→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3852→    </div>
+  3853→
+  3854→    <div class="more-section-head">Инструменты</div>
+  3855→    <div class="more-menu-row" onclick="openMoreSub('ai-assistant', event)">
+  3856→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+  3857→      <div class="more-menu-row-text">AI-ассистент</div>
+  3858→      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px">NEW</span>
+  3859→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3860→    </div>
+  3861→    <div class="more-menu-row" onclick="openMoreSub('notifications', event)">
+  3862→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+  3863→      <div class="more-menu-row-text">Уведомления</div>
+  3864→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3865→    </div>
+  3866→    <div class="more-menu-row" onclick="openMoreSub('templates', event)">
+  3867→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+  3868→      <div class="more-menu-row-text">Шаблоны откликов</div>
+  3869→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3870→    </div>
+  3871→
+  3872→    <div class="more-section-head">Подписка</div>
+  3873→    <div class="more-menu-row" onclick="openMoreSub('tariff', event)">
+  3874→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+  3875→      <div class="more-menu-row-text">Тариф</div>
+  3876→      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px">Pro</span>
+  3877→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3878→    </div>
+  3879→    <div class="more-menu-row" onclick="openMoreSub('payments', event)">
+  3880→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+  3881→      <div class="more-menu-row-text">История платежей</div>
+  3882→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3883→    </div>
+  3884→
+  3885→    <div class="more-section-head">Настройки</div>
+  3886→    <div class="more-menu-row" id="darkModeRow" onclick="toggleDarkMode()">
+  3887→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+  3888→      <div class="more-menu-row-text">Тёмная тема</div>
+  3889→      <div class="tgl" style="margin-left:auto"><input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()"><span class="tgl-s"></span></div>
+  3890→    </div>
+  3891→    <div class="more-menu-row" onclick="openMoreSub('language', event)">
+  3892→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+  3893→      <div class="more-menu-row-text">Язык</div>
+  3894→      <span style="margin-left:auto;margin-right:4px;font-size:12px;color:var(--text-3)">Русский</span>
+  3895→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3896→    </div>
+  3897→    <div class="more-menu-row" onclick="openMoreSub('notifications', event)">
+  3898→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+  3899→      <div class="more-menu-row-text">Уведомления</div>
+  3900→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3901→    </div>
+  3902→    <div class="more-menu-row" onclick="openMoreSub('faq', event)">
+  3903→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+  3904→      <div class="more-menu-row-text">FAQ</div>
+  3905→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3906→    </div>
+  3907→    <div class="more-menu-row" onclick="openMoreSub('support', event)">
+  3908→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+  3909→      <div class="more-menu-row-text">Поддержка</div>
+  3910→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3911→    </div>
+  3912→    <div class="more-menu-row" onclick="openMoreSub('about', event)">
+  3913→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+  3914→      <div class="more-menu-row-text">О приложении</div>
+  3915→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  3916→    </div>
+  3917→
+  3918→    <div class="more-version">SkillHunt v1.0.0</div>
+  3919→  </div>
+  3920→</div>
+  3921→
+  3922→<!-- ═══ Job Detail Sub-screen ═══ -->
+  3923→<div class="sub" id="jobDetailSub" role="dialog" aria-label="Детали заказа" aria-modal="true">
+  3924→  <div class="sub-c">
+  3925→    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+  3926→      <button class="back-btn" onclick="closeJobDetail()">
+  3927→        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+  3928→      </button>
+  3929→      <div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Детали заказа</div>
+  3930→    </div>
+  3931→    <div id="jobDetailContent"></div>
+  3932→  </div>
+  3933→</div>
+  3934→
+  3935→<!-- ═══ More Sub-screen ═══ -->
+  3936→<div class="sub" id="moreSub" role="dialog" aria-label="Подменю" aria-modal="true">
+  3937→  <div class="sub-c" id="moreSubContent"></div>
+  3938→</div>
+  3939→
+  3940→<!-- ═══ New User Onboarding Overlay ═══ -->
+  3941→<div class="onb2-overlay" id="onb2Overlay">
+  3942→  <div class="onb2-card" id="onb2Card">
+  3943→    <div class="onb2-dots" id="onb2Dots"></div>
+  3944→    <div id="onb2Content"></div>
+  3945→  </div>
+  3946→</div>
+  3947→
+  3948→<!-- ═══ Toast ═══ -->
+  3949→<div class="toast" id="toast"></div>
+  3950→
+  3951→<script>
+  3952→// ═══════════════════════════════════════════════════════════
+  3953→// SkillHunt — AI Freelance Job Search — JavaScript v2.0
+  3954→// ═══════════════════════════════════════════════════════════
+  3955→
+  3956→// ── Utility: HTML Escaping (XSS Prevention) ──
+  3957→function esc(str) {
+  3958→  if (str == null) return '';
+  3959→  return String(str)
+  3960→    .replace(/&/g, '&amp;')
+  3961→    .replace(/</g, '&lt;')
+  3962→    .replace(/>/g, '&gt;')
+  3963→    .replace(/"/g, '&quot;')
+  3964→    .replace(/'/g, '&#39;');
+  3965→}
+  3966→
+  3967→// ── Utility: Safe localStorage Wrappers ──
+  3968→function lsGet(key, fallback) {
+  3969→  try { return localStorage.getItem(key); }
+  3970→  catch(e) { return fallback !== undefined ? fallback : null; }
+  3971→}
+  3972→function lsSet(key, value) {
+  3973→  try { localStorage.setItem(key, value); return true; }
+  3974→  catch(e) { console.warn('localStorage write failed:', e); return false; }
+  3975→}
+  3976→function lsGetJSON(key, fallback) {
+  3977→  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+  3978→  catch(e) { return fallback !== undefined ? fallback : null; }
+  3979→}
+  3980→function lsSetJSON(key, value) {
+  3981→  try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+  3982→  catch(e) { console.warn('localStorage write failed:', e); return false; }
+  3983→}
+  3984→
+  3985→// ── Utility: ARIA Live Announcer ──
+  3986→function announce(message) {
+  3987→  const el = document.getElementById('ariaLive');
+  3988→  if (el) { el.textContent = ''; requestAnimationFrame(() => { el.textContent = message; }); }
+  3989→}
+  3990→
+  3991→// ── Mock Data ──
+  3992→const MOCK_JOBS = [
+  3993→  { id:1, title:'Разработка ML-модели для рекомендаций', category:'ai', budgetMin:3000, budgetMax:8000, clientName:'Дмитрий К.', clientRating:4.8, clientOrders:34, posted:'2ч назад', match:94, level:'senior', type:'remote', skills:['Python','TensorFlow','PyTorch','NLP'], description:'Необходима разработка ML-модели рекомендательной системы для e-commerce платформы. Требуется опыт с collaborative filtering, content-based рекомендациями и A/B тестированием. Проект на 2-3 месяца.' },
+  3994→  { id:2, title:'UI/UX дизайн мобильного приложения', category:'design', budgetMin:1500, budgetMax:4000, clientName:'Елена М.', clientRating:4.9, clientOrders:56, posted:'3ч назад', match:87, level:'middle', type:'remote', skills:['Figma','Prototyping','User Research','Design Systems'], description:'Ищем UX/UI дизайнера для создания дизайна мобильного приложения в сфере финтех. Нужно разработать полный дизайн-систему и прототипы для iOS и Android.' },
+  3995→  { id:3, title:'Backend разработка на Node.js', category:'dev', budgetMin:2000, budgetMax:5000, clientName:'Артём В.', clientRating:4.5, clientOrders:22, posted:'5ч назад', match:82, level:'middle', type:'remote', skills:['Node.js','PostgreSQL','Redis','Docker'], description:'Разработка высоконагруженного backend-сервиса для обработки платежей. Требуется опыт с микросервисной архитектурой, очередями сообщений и CI/CD.' },
+  3996→  { id:4, title:'Написание SEO-статей для блога', category:'writing', budgetMin:200, budgetMax:500, clientName:'Мария С.', clientRating:4.7, clientOrders:89, posted:'1ч назад', match:73, level:'junior', type:'remote', skills:['SEO','Copywriting','Content Marketing','Research'], description:'Необходимы 10 SEO-оптимизированных статей для корпоративного блога. Тематика — искусственный интеллект в бизнесе. Объём каждой статьи 2000-3000 слов.' },
+  3997→  { id:5, title:'Настройка CI/CD пайплайна', category:'devops', budgetMin:800, budgetMax:2000, clientName:'Игорь Л.', clientRating:4.6, clientOrders:15, posted:'4ч назад', match:68, level:'senior', type:'remote', skills:['Docker','Kubernetes','GitHub Actions','Terraform'], description:'Настроить полный CI/CD пайплайн для микросервисного проекта. Включая автоматическое тестирование, сборку Docker-образов и деплой в Kubernetes кластер.' },
+  3998→  { id:6, title:'Анализ данных клиентов с ML', category:'data', budgetMin:5000, budgetMax:12000, clientName:'Ольга П.', clientRating:5.0, clientOrders:41, posted:'6ч назад', match:91, level:'senior', type:'hybrid', skills:['Python','Pandas','Scikit-learn','SQL','Visualization'], description:'Провести комплексный анализ клиентской базы с использованием ML-методов. Сегментация клиентов, прогноз оттока, LTV-моделирование. Результаты в интерактивном дашборде.' },
+  3999→  { id:7, title:'Разработка чат-бота на GPT API', category:'ai', budgetMin:1000, budgetMax:3000, clientName:'Андрей Б.', clientRating:4.3, clientOrders:18, posted:'8ч назад', match:89, level:'middle', type:'remote', skills:['OpenAI API','Python','NLP','Telegram API'], description:'Разработка интеллектуального чат-бота для клиентской поддержки с использованием GPT API. Интеграция с Telegram и веб-сайтом. Обучение на базе документации компании.' },
+  4000→  { id:8, title:'SMM-стратегия для стартапа', category:'marketing', budgetMin:500, budgetMax:1500, clientName:'Наталья К.', clientRating:4.4, clientOrders:27, posted:'3ч назад', match:56, level:'middle', type:'remote', skills:['Social Media','Content Strategy','Analytics','Branding'], description:'Разработка полной SMM-стратегии для IT-стартапа. Включая контент-план, визуальную стратегию и KPI. Платформы: Telegram, Instagram, LinkedIn.' },
+  4001→  { id:9, title:'Дизайн лендинга для SaaS-продукта', category:'design', budgetMin:800, budgetMax:2500, clientName:'Сергей Д.', clientRating:4.7, clientOrders:63, posted:'7ч назад', match:78, level:'middle', type:'remote', skills:['Figma','Web Design','Animation','Conversion Optimization'], description:'Разработка дизайна лендинга для B2B SaaS-продукта. Фокус на конверсии, с анимациями и интерактивными элементами. Mobile-first подход.' },
+  4002→  { id:10, title:'React Native мобильное приложение', category:'dev', budgetMin:5000, budgetMax:15000, clientName:'Виктория Р.', clientRating:4.9, clientOrders:45, posted:'12ч назад', match:85, level:'senior', type:'remote', skills:['React Native','TypeScript','Firebase','Redux'], description:'Разработка кроссплатформенного мобильного приложения для заказа услуг. Интеграция с платежными системами, геолокацией и push-уведомлениями. Срок — 3 месяца.' },
+  4003→  { id:11, title:'Fine-tuning LLM для юридических текстов', category:'ai', budgetMin:8000, budgetMax:15000, clientName:'Алексей Т.', clientRating:4.8, clientOrders:12, posted:'1д назад', match:96, level:'lead', type:'remote', skills:['LLM','Fine-tuning','RAG','Legal Tech'], description:'Необходим fine-tuning большой языковой модели для работы с юридическими документами. Опыт с RAG, vector databases и evaluation LLM. Проект для юридической компании.' },
+  4004→  { id:12, title:'Техническая документация API', category:'writing', budgetMin:300, budgetMax:800, clientName:'Павел Н.', clientRating:4.2, clientOrders:31, posted:'9ч назад', match:62, level:'middle', type:'remote', skills:['Technical Writing','API Documentation','Markdown','Swagger'], description:'Написание полной технической документации для REST API. Включая примеры запросов, описание эндпоинтов и схемы данных. Формат — Markdown с Swagger.' },
+  4005→  { id:13, title:'Миграция инфраструктуры в облако', category:'devops', budgetMin:3000, budgetMax:7000, clientName:'Роман Ш.', clientRating:4.6, clientOrders:19, posted:'1д назад', match:71, level:'senior', type:'hybrid', skills:['AWS','Terraform','Ansible','Docker','Monitoring'], description:'Миграция существующей on-premise инфраструктуры в AWS. Включая настройку VPC, миграцию баз данных, настройку мониторинга и автоматическое масштабирование.' },
+  4006→  { id:14, title:'Анализ конкурентов рынка EdTech', category:'marketing', budgetMin:1000, budgetMax:3000, clientName:'Юлия Г.', clientRating:4.5, clientOrders:38, posted:'2д назад', match:53, level:'middle', type:'office', skills:['Market Research','Competitive Analysis','Data Analysis','Presentation'], description:'Комплексный анализ конкурентов на рынке EdTech в России и СНГ. Карта конкурентного ландшафта, SWOT-анализ, рекомендации по позиционированию.' },
+  4007→  { id:15, title:'Computer Vision для контроля качества', category:'ai', budgetMin:10000, budgetMax:15000, clientName:'Михаил Ф.', clientRating:4.9, clientOrders:8, posted:'5ч назад', match:88, level:'lead', type:'hybrid', skills:['Computer Vision','OpenCV','PyTorch','Edge AI','YOLO'], description:'Разработка системы компьютерного зрения для автоматического контроля качества на производстве. Обнаружение дефектов в реальном времени, интеграция с камерами и PLC.' }
+  4008→];
+  4009→
+  4010→// ── State ──
+  4011→let currentTab = 0;
+  4012→let savedJobs = lsGetJSON('skillhunt_saved', []);
+  4013→let feedCategory = 'all';
+  4014→let searchQuery = '';
+  4015→let filterCategory = 'all';
+  4016→let filterLevel = 'any';
+  4017→let filterType = 'all';
+  4018→let filterBudget = 'any';
+  4019→let filterSort = 'relevance';
+  4020→let isDark = lsGet('skillhunt_dark') === 'true';
+  4021→let isLoading = true;
+  4022→let searchDebounceTimer = null;
+  4023→
+  4024→// ── Telegram WebApp Integration ──
+  4025→const tg = window.Telegram && window.Telegram.WebApp;
+  4026→if (tg) {
+  4027→  tg.ready();
+  4028→  tg.expand();
+  4029→  tg.enableClosingConfirmation();
+  4030→  if (tg.themeParams && tg.themeParams.bg_color) {
+  4031→    // Use Telegram theme if available
+  4032→  }
+  4033→}
+  4034→
+  4035→// ── Initialize ──
+  4036→function updateGreetingTime() {
+  4037→  const el = document.getElementById('greetingTime');
+  4038→  if (!el) return;
+  4039→  const h = new Date().getHours();
+  4040→  let greeting = 'Добрый день,';
+  4041→  if (h >= 5 && h < 12) greeting = 'Доброе утро,';
+  4042→  else if (h >= 12 && h < 17) greeting = 'Добрый день,';
+  4043→  else if (h >= 17 && h < 22) greeting = 'Добрый вечер,';
+  4044→  else greeting = 'Доброй ночи,';
+  4045→  el.textContent = greeting;
+  4046→}
+  4047→
+  4048→function init() {
+  4049→  if (isDark) document.documentElement.classList.add('dark');
+  4050→  updateNavPill();
+  4051→  updateSavedCount();
+  4052→  updateGreetingTime();
+  4053→  loadProfile();
+  4054→  loadNotifSettings();
+  4055→  updateAppCount();
+  4056→  
+  4057→  // Load saved language
+  4058→  const savedLang = lsGet('skillhunt_language', 'ru');
+  4059→  if (savedLang === 'en') applyLanguage('en');
+  4060→  
+  4061→  // Load saved balance
+  4062→  const savedBalance = lsGet('skillhunt_balance');
+  4063→  if (savedBalance) {
+  4064→    const moreBalanceEl = document.querySelector('.more-balance-value');
+  4065→    if (moreBalanceEl) moreBalanceEl.textContent = savedBalance;
+  4066→  }
+  4067→  
+  4068→  // Show skeleton for 1.5s
+  4069→  document.getElementById('feedSkeleton').style.display = 'block';
+  4070→  document.getElementById('feedJobList').style.display = 'none';
+  4071→  
+  4072→  setTimeout(() => {
+  4073→    isLoading = false;
+  4074→    document.getElementById('feedSkeleton').style.display = 'none';
+  4075→    document.getElementById('feedJobList').style.display = 'block';
+  4076→    renderFeed();
+  4077→    renderSearchResults();
+  4078→    renderSavedJobs();
+  4079→  }, 1500);
+  4080→  
+  4081→  setupSwipe();
+  4082→  animateStatStrip();
+  4083→  
+  4084→  // Check onboarding
+  4085→  if (!lsGet('skillhunt_onboarded')) {
+  4086→    setTimeout(() => showOnboarding(), 800);
+  4087→  }
+  4088→}
+  4089→
+  4090→// ── Hero Metrics Count-up Animation ──
+  4091→function animateStatStrip() {
+  4092→  const items = document.querySelectorAll('.hero-metric');
+  4093→  items.forEach((item, i) => {
+  4094→    const valEl = item.querySelector('.hero-metric-val');
+  4095→    if (!valEl) return;
+  4096→    const finalText = valEl.textContent.trim();
+  4097→    const finalNum = parseFloat(finalText.replace(/[^0-9.]/g, ''));
+  4098→    if (isNaN(finalNum)) return;
+  4099→    
+  4100→    const duration = 800;
+  4101→    const delay = i * 150;
+  4102→    
+  4103→    valEl.style.opacity = '0';
+  4104→    valEl.style.transform = 'translateY(8px)';
+  4105→    
+  4106→    setTimeout(() => {
+  4107→      valEl.style.transition = 'opacity .4s ease, transform .4s cubic-bezier(.22,1,.36,1)';
+  4108→      valEl.style.opacity = '1';
+  4109→      valEl.style.transform = 'translateY(0)';
+  4110→      
+  4111→      const startTime = performance.now();
+  4112→      function tick(now) {
+  4113→        const elapsed = now - startTime;
+  4114→        const progress = Math.min(elapsed / duration, 1);
+  4115→        const eased = 1 - Math.pow(1 - progress, 3);
+  4116→        const current = Math.round(finalNum * eased);
+  4117→        valEl.textContent = current;
+  4118→        if (progress < 1) requestAnimationFrame(tick);
+  4119→        else valEl.textContent = finalText;
+  4120→      }
+  4121→      requestAnimationFrame(tick);
+  4122→    }, delay);
+  4123→  });
+  4124→}
+  4125→
+  4126→// ── Tab Switching ──
+  4127→function switchTab(index) {
+  4128→  if (index === currentTab) return;
+  4129→  currentTab = index;
+  4130→  
+  4131→  const inner = document.getElementById('sliderInner');
+  4132→  inner.style.transform = `translateX(-${index * 33.333}%)`;
+  4133→  
+  4134→  // Update pages
+  4135→  document.querySelectorAll('.slider-page').forEach((p, i) => {
+  4136→    p.classList.remove('active-page');
+  4137→    if (i === index) {
+  4138→      p.classList.add('active-page');
+  4139→      const content = p.querySelector('.content');
+  4140→      content.classList.add('page-entered');
+  4141→    }
+  4142→  });
+  4143→  
+  4144→  // Update nav
+  4145→  document.querySelectorAll('.bnav-i').forEach(btn => btn.classList.remove('active'));
+  4146→  const navBtn = document.querySelector(`.bnav-i[data-tab="${index}"]`);
+  4147→  if (navBtn) navBtn.classList.add('active');
+  4148→  
+  4149→  updateNavPill();
+  4150→  
+  4151→  // Haptic feedback
+  4152→  if (tg && tg.HapticFeedback) {
+  4153→    try { tg.HapticFeedback.impactOccurred('light'); } catch(e) {}
+  4154→  }
+  4155→  
+  4156→  // Refresh content when switching tabs
+  4157→  if (index === 2) renderSavedJobs();
+  4158→  if (index === 1) renderSearchResults();
+  4159→  
+  4160→  // Announce for screen readers
+  4161→  const tabNames = ['Лента', 'Поиск', 'Сохранённые'];
+  4162→  if (tabNames[index]) announce('Переключено на: ' + tabNames[index]);
+  4163→}
+  4164→
+  4165→function updateNavPill() {
+  4166→  const pill = document.getElementById('navPill');
+  4167→  const activeBtn = document.querySelector('.bnav-i.active');
+  4168→  if (!activeBtn || !pill) return;
+  4169→  const navIn = activeBtn.parentElement;
+  4170→  const navRect = navIn.getBoundingClientRect();
+  4171→  const btnRect = activeBtn.getBoundingClientRect();
+  4172→  pill.style.left = (btnRect.left - navRect.left) + 'px';
+  4173→  pill.style.width = btnRect.width + 'px';
+  4174→}
+  4175→
+  4176→// ── Swipe Gesture (with pull-to-refresh conflict fix) ──
+  4177→function setupSwipe() {
+  4178→  const slider = document.getElementById('slider');
+  4179→  let startX = 0, startY = 0, isDragging = false, isSwipe = false;
+  4180→  
+  4181→  slider.addEventListener('touchstart', e => {
+  4182→    startX = e.touches[0].clientX;
+  4183→    startY = e.touches[0].clientY;
+  4184→    isDragging = true;
+  4185→    isSwipe = false;
+  4186→  }, { passive: true });
+  4187→  
+  4188→  slider.addEventListener('touchmove', e => {
+  4189→    if (!isDragging) return;
+  4190→    const diffX = Math.abs(startX - e.touches[0].clientX);
+  4191→    const diffY = Math.abs(startY - e.touches[0].clientY);
+  4192→    // Determine intent: horizontal swipe vs vertical scroll
+  4193→    if (diffX > 10 && diffX > diffY) isSwipe = true;
+  4194→  }, { passive: true });
+  4195→  
+  4196→  slider.addEventListener('touchend', e => {
+  4197→    if (!isDragging) return;
+  4198→    isDragging = false;
+  4199→    if (!isSwipe) return; // Not a horizontal swipe — let pull-to-refresh handle it
+
+[showing lines 3700-4199 of 5319; use offset=4200 with limit to continue reading]

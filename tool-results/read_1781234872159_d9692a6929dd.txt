@@ -1,0 +1,502 @@
+  4550→  { id:12, title:'Техническая документация API', category:'writing', budgetMin:300, budgetMax:800, clientName:'Павел Н.', clientRating:4.2, clientOrders:31, posted:'9ч назад', match:62, level:'middle', type:'remote', skills:['Technical Writing','API Documentation','Markdown','Swagger'], description:'Написание полной технической документации для REST API. Включая примеры запросов, описание эндпоинтов и схемы данных. Формат — Markdown с Swagger.' },
+  4551→  { id:13, title:'Миграция инфраструктуры в облако', category:'devops', budgetMin:3000, budgetMax:7000, clientName:'Роман Ш.', clientRating:4.6, clientOrders:19, posted:'1д назад', match:71, level:'senior', type:'hybrid', skills:['AWS','Terraform','Ansible','Docker','Monitoring'], description:'Миграция существующей on-premise инфраструктуры в AWS. Включая настройку VPC, миграцию баз данных, настройку мониторинга и автоматическое масштабирование.' },
+  4552→  { id:14, title:'Анализ конкурентов рынка EdTech', category:'marketing', budgetMin:1000, budgetMax:3000, clientName:'Юлия Г.', clientRating:4.5, clientOrders:38, posted:'2д назад', match:53, level:'middle', type:'office', skills:['Market Research','Competitive Analysis','Data Analysis','Presentation'], description:'Комплексный анализ конкурентов на рынке EdTech в России и СНГ. Карта конкурентного ландшафта, SWOT-анализ, рекомендации по позиционированию.' },
+  4553→  { id:15, title:'Computer Vision для контроля качества', category:'ai', budgetMin:10000, budgetMax:15000, clientName:'Михаил Ф.', clientRating:4.9, clientOrders:8, posted:'5ч назад', match:88, level:'lead', type:'hybrid', skills:['Computer Vision','OpenCV','PyTorch','Edge AI','YOLO'], description:'Разработка системы компьютерного зрения для автоматического контроля качества на производстве. Обнаружение дефектов в реальном времени, интеграция с камерами и PLC.' }
+  4554→];
+  4555→
+  4556→// ── State ──
+  4557→let currentTab = 0;
+  4558→let savedJobs = lsGetJSON('skillhunt_saved', []);
+  4559→let feedCategory = 'all';
+  4560→let searchQuery = '';
+  4561→let filterCategory = 'all';
+  4562→let filterLevel = 'any';
+  4563→let filterType = 'all';
+  4564→let filterBudget = 'any';
+  4565→let filterSort = 'relevance';
+  4566→let isDark = lsGet('skillhunt_dark') === 'true';
+  4567→let isLoading = true;
+  4568→let searchDebounceTimer = null;
+  4569→
+  4570→// ═══════════════════════════════════════════════════════════
+  4571→// ── Subscription State System ──
+  4572→// ═══════════════════════════════════════════════════════════
+  4573→const FREE_APP_LIMIT = 3; // Free: 3 applications per month
+  4574→const FREE_SAVE_LIMIT = 3; // Free: 3 saved jobs per month
+  4575→const FREE_VISIBLE_JOBS = 6; // Free: only 6 out of 15 jobs visible
+  4576→const EARLY_ACCESS_HOURS = 2; // Jobs posted within 2 hours are early access
+  4577→const DELAYED_HOURS = 24; // Free users see "Доступно через 24ч" for recent jobs
+  4578→const TRIAL_DAYS = 3;
+  4579→
+  4580→function getSubscription() {
+  4581→  let sub = lsGetJSON('skillhunt_subscription', null);
+  4582→  if (!sub) {
+  4583→    // First-time user: default to free (trial offered on first load)
+  4584→    sub = { plan:'free', trialStartedAt:null, trialDaysTotal:TRIAL_DAYS, monthlyAppCount:0, monthlyAppResetDate:new Date().toISOString().slice(0,7), aiProposalCount:0, proViewsCount:0, trialSpecialPrice:4.99, trialOfferShown:false, savedCount:0 };
+  4585→    lsSetJSON('skillhunt_subscription', sub);
+  4586→  }
+  4587→  // Check if trial has expired
+  4588→  if (sub.plan === 'trial' && sub.trialStartedAt) {
+  4589→    const start = new Date(sub.trialStartedAt);
+  4590→    const now = new Date();
+  4591→    const daysElapsed = (now - start) / (1000 * 60 * 60 * 24);
+  4592→    if (daysElapsed >= TRIAL_DAYS) {
+  4593→      sub.plan = 'free';
+  4594→      sub.trialEndedAt = now.toISOString();
+  4595→      lsSetJSON('skillhunt_subscription', sub);
+  4596→    }
+  4597→  }
+  4598→  // Reset monthly app count if new month
+  4599→  const currentMonth = new Date().toISOString().slice(0,7);
+  4600→  if (sub.monthlyAppResetDate !== currentMonth) {
+  4601→    sub.monthlyAppCount = 0;
+  4602→    sub.monthlyAppResetDate = currentMonth;
+  4603→    lsSetJSON('skillhunt_subscription', sub);
+  4604→  }
+  4605→  return sub;
+  4606→}
+  4607→
+  4608→function isPro() {
+  4609→  const sub = getSubscription();
+  4610→  return sub.plan === 'pro' || sub.plan === 'trial';
+  4611→}
+  4612→
+  4613→function isTrialActive() {
+  4614→  const sub = getSubscription();
+  4615→  return sub.plan === 'trial';
+  4616→}
+  4617→
+  4618→function getTrialDaysLeft() {
+  4619→  const sub = getSubscription();
+  4620→  if (sub.plan !== 'trial' || !sub.trialStartedAt) return 0;
+  4621→  const start = new Date(sub.trialStartedAt);
+  4622→  const now = new Date();
+  4623→  const daysElapsed = (now - start) / (1000 * 60 * 60 * 24);
+  4624→  return Math.max(0, Math.ceil(TRIAL_DAYS - daysElapsed));
+  4625→}
+  4626→
+  4627→function getTrialHoursLeft() {
+  4628→  const sub = getSubscription();
+  4629→  if (sub.plan !== 'trial' || !sub.trialStartedAt) return 0;
+  4630→  const start = new Date(sub.trialStartedAt);
+  4631→  const end = new Date(start.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+  4632→  const now = new Date();
+  4633→  return Math.max(0, Math.round((end - now) / (1000 * 60 * 60)));
+  4634→}
+  4635→
+  4636→function canApply() {
+  4637→  const sub = getSubscription();
+  4638→  if (isPro()) return { allowed:true, remaining:'∞' };
+  4639→  const remaining = Math.max(0, FREE_APP_LIMIT - sub.monthlyAppCount);
+  4640→  return { allowed: remaining > 0, remaining: remaining };
+  4641→}
+  4642→
+  4643→function canSave() {
+  4644→  const sub = getSubscription();
+  4645→  if (isPro()) return { allowed:true, remaining:'∞' };
+  4646→  const savedCount = sub.savedCount || 0;
+  4647→  const remaining = Math.max(0, FREE_SAVE_LIMIT - savedCount);
+  4648→  return { allowed: remaining > 0, remaining: remaining };
+  4649→}
+  4650→
+  4651→function incrementSavedCount() {
+  4652→  const sub = getSubscription();
+  4653→  sub.savedCount = (sub.savedCount || 0) + 1;
+  4654→  lsSetJSON('skillhunt_subscription', sub);
+  4655→}
+  4656→
+  4657→function decrementSavedCount() {
+  4658→  const sub = getSubscription();
+  4659→  sub.savedCount = Math.max(0, (sub.savedCount || 0) - 1);
+  4660→  lsSetJSON('skillhunt_subscription', sub);
+  4661→}
+  4662→
+  4663→// Check if a job was posted within N hours (uses mock "posted" field)
+  4664→function isJobEarlyAccess(job) {
+  4665→  const recentPatterns = ['только что','1 мин','5 мин','10 мин','15 мин','30 мин','1ч','2ч'];
+  4666→  return recentPatterns.some(p => job.posted.includes(p));
+  4667→}
+  4668→
+  4669→function isJobDelayed(job) {
+  4670→  const recentPatterns = ['только что','1 мин','5 мин','10 мин','15 мин','30 мин','1ч','2ч','3ч','4ч','5ч','6ч','7ч','8ч','9ч','10ч','11ч','12ч','15ч','18ч','20ч','23ч'];
+  4671→  return recentPatterns.some(p => job.posted.includes(p));
+  4672→}
+  4673→
+  4674→function incrementAppCount() {
+  4675→  const sub = getSubscription();
+  4676→  sub.monthlyAppCount = (sub.monthlyAppCount || 0) + 1;
+  4677→  lsSetJSON('skillhunt_subscription', sub);
+  4678→}
+  4679→
+  4680→function incrementAICount() {
+  4681→  const sub = getSubscription();
+  4682→  sub.aiProposalCount = (sub.aiProposalCount || 0) + 1;
+  4683→  lsSetJSON('skillhunt_subscription', sub);
+  4684→}
+  4685→
+  4686→function startTrial() {
+  4687→  const sub = getSubscription();
+  4688→  sub.plan = 'trial';
+  4689→  sub.trialStartedAt = new Date().toISOString();
+  4690→  sub.monthlyAppCount = 0;
+  4691→  sub.aiProposalCount = 0;
+  4692→  sub.proViewsCount = 0;
+  4693→  lsSetJSON('skillhunt_subscription', sub);
+  4694→  document.getElementById('trialWelcomeOverlay').classList.remove('active');
+  4695→  showToast('🎉 Pro-триал активирован на 3 дня!');
+  4696→  loadProfile();
+  4697→  renderTrialBar();
+  4698→  renderProImpact();
+  4699→}
+  4700→
+  4701→function subscribePro() {
+  4702→  const sub = getSubscription();
+  4703→  sub.plan = 'pro';
+  4704→  sub.trialStartedAt = null;
+  4705→  lsSetJSON('skillhunt_subscription', sub);
+  4706→  document.getElementById('trialEndOverlay').classList.remove('active');
+  4707→  showToast('✨ Pro подписка активирована!');
+  4708→  loadProfile();
+  4709→  renderTrialBar();
+  4710→  renderProImpact();
+  4711→}
+  4712→
+  4713→function skipTrialEnd() {
+  4714→  const sub = getSubscription();
+  4715→  sub.trialOfferShown = true;
+  4716→  lsSetJSON('skillhunt_subscription', sub);
+  4717→  document.getElementById('trialEndOverlay').classList.remove('active');
+  4718→  showToast('Вы используете Free-план');
+  4719→  loadProfile();
+  4720→  renderTrialBar();
+  4721→  renderProImpact();
+  4722→}
+  4723→
+  4724→function showProUpgrade() {
+  4725→  const overlay = document.getElementById('trialEndOverlay');
+  4726→  const sub = getSubscription();
+  4727→  const price = (sub.trialSpecialPrice || 4.99).toFixed(2);
+  4728→  document.getElementById('trialEndTitle').textContent = 'Разблокируйте Pro';
+  4729→  document.getElementById('trialEndSub').textContent = 'Получите безлимитные отклики, AI и приоритет';
+  4730→  document.getElementById('trialEndApps').textContent = sub.monthlyAppCount || 0;
+  4731→  document.getElementById('trialEndAI').textContent = sub.aiProposalCount || 0;
+  4732→  document.getElementById('trialEndTime').textContent = ((sub.aiProposalCount || 0) * 15) + ' мин';
+  4733→  const apps = lsGetJSON('skillhunt_applications', []);
+  4734→  const totalEarnings = apps.reduce((s, a) => {
+  4735→    const job = MOCK_JOBS.find(j => j.id === a.jobId);
+  4736→    return s + (job ? job.budgetMax : 0);
+  4737→  }, 0);
+  4738→  document.getElementById('trialEndEarnings').textContent = '$' + totalEarnings.toLocaleString();
+  4739→  document.getElementById('trialEndPrice').textContent = '$' + price;
+  4740→  overlay.querySelector('.trial-end-btn').innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Подключить Pro за $' + price + '/мес';
+  4741→  overlay.classList.add('active');
+  4742→}
+  4743→
+  4744→// ── Trial Countdown Bar ──
+  4745→function renderTrialBar() {
+  4746→  const container = document.getElementById('trialBarContainer');
+  4747→  if (!container) return;
+  4748→  const sub = getSubscription();
+  4749→  
+  4750→  if (sub.plan === 'pro') {
+  4751→    container.innerHTML = '<div class="trial-bar" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro активен <span class="trial-days">∞</span></div><div class="trial-bar-sub">Безлимит · AI-анализ · Стратегия · Ранний доступ</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+  4752→    return;
+  4753→  }
+  4754→  
+  4755→  if (sub.plan === 'trial') {
+  4756→    const daysLeft = getTrialDaysLeft();
+  4757→    const hoursLeft = getTrialHoursLeft();
+  4758→    const isEnding = daysLeft <= 1;
+  4759→    const timeText = daysLeft > 1 ? daysLeft + ' дн.' : (hoursLeft > 0 ? hoursLeft + ' ч.' : '<1 ч.');
+  4760→    const cls = isEnding ? 'trial-bar ending' : 'trial-bar';
+  4761→    const subText = isEnding ? 'Активируйте Pro со скидкой 50%!' : 'AI-анализ · Стратегия · Ранний доступ';
+  4762→    
+  4763→    container.innerHTML = '<div class="' + cls + '" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro-триал <span class="trial-days">' + timeText + '</span></div><div class="trial-bar-sub">' + subText + '</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+  4764→    return;
+  4765→  }
+  4766→  
+  4767→  // Free: show upgrade prompt
+  4768→  const canApp = canApply();
+  4769→  if (!canApp.allowed) {
+  4770→    container.innerHTML = '<div class="trial-bar ending" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Лимит откликов <span class="trial-days">0/' + FREE_APP_LIMIT + '</span></div><div class="trial-bar-sub">Разблокируйте безлимит с Pro</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+  4771→  } else {
+  4772→    container.innerHTML = '<div class="trial-bar" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Попробуйте Pro <span class="trial-days">3 дня</span></div><div class="trial-bar-sub">AI-анализ · Стратегия · Ранний доступ · Инсайты</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+  4773→  }
+  4774→}
+  4775→
+  4776→// ── Pro Impact Card ──
+  4777→function renderProImpact() {
+  4778→  const container = document.getElementById('proImpactContainer');
+  4779→  if (!container) return;
+  4780→  const sub = getSubscription();
+  4781→  
+  4782→  if (sub.plan === 'free') {
+  4783→    container.innerHTML = '';
+  4784→    return;
+  4785→  }
+  4786→  
+  4787→  const apps = lsGetJSON('skillhunt_applications', []);
+  4788→  const appCount = apps.length;
+  4789→  const aiCount = sub.aiProposalCount || 0;
+  4790→  const timeSaved = aiCount * 15;
+  4791→  const totalEarnings = apps.reduce((s, a) => {
+  4792→    const job = MOCK_JOBS.find(j => j.id === a.jobId);
+  4793→    return s + (job ? job.budgetMax : 0);
+  4794→  }, 0);
+  4795→  
+  4796→  const isTrial = sub.plan === 'trial';
+  4797→  const ctaText = isTrial ? 'Сохранить Pro со скидкой' : 'Управлять подпиской';
+  4798→  const ctaAction = isTrial ? 'showProUpgrade()' : "openMoreSub('tariff')";
+  4799→  const badgeText = isTrial ? 'ТРИАЛ' : 'PRO';
+  4800→  
+  4801→  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Ваш Pro-результат</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенциал</div></div></div><div class="pro-impact-compare">На Free вы бы отправили <b>всего ' + FREE_APP_LIMIT + ' откликов/мес</b> и видели <b>6 из 15 заказов</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
+  4802→}
+  4803→
+  4804→// ── AI Cover Letter Generator ──
+  4805→let aiCoverJobId = null;
+  4806→
+  4807→function openAICover(jobId) {
+  4808→  if (!isPro()) {
+  4809→    showProUpgrade();
+  4810→    return;
+  4811→  }
+  4812→  aiCoverJobId = jobId;
+  4813→  const overlay = document.getElementById('aiCoverOverlay');
+  4814→  const generating = document.getElementById('aiCoverGenerating');
+  4815→  const result = document.getElementById('aiCoverResult');
+  4816→  generating.style.display = 'flex';
+  4817→  result.classList.remove('visible');
+  4818→  overlay.classList.add('active');
+  4819→  
+  4820→  // Simulate AI generation phases
+  4821→  const genSub = document.getElementById('aiCoverGenSub');
+  4822→  setTimeout(() => { genSub.textContent = 'Подбираем аргументы...'; }, 800);
+  4823→  setTimeout(() => { genSub.textContent = 'Формулируем отклик...'; }, 1600);
+  4824→  setTimeout(() => {
+  4825→    genSub.textContent = 'Анализируем заказ и ваш профиль';
+  4826→    generating.style.display = 'none';
+  4827→    result.classList.add('visible');
+  4828→    typeAICover(jobId);
+  4829→  }, 2400);
+  4830→}
+  4831→
+  4832→function typeAICover(jobId) {
+  4833→  const job = MOCK_JOBS.find(j => j.id === jobId);
+  4834→  if (!job) return;
+  4835→  const profile = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
+  4836→  const textEl = document.getElementById('aiCoverText');
+  4837→  
+  4838→  const coverLetters = {
+  4839→    ai: 'Здравствуйте! Меня заинтересовал ваш проект «' + job.title + '».\n\nИмею более 5 лет опыта в AI/ML разработке, включая работу с ' + job.skills.slice(0,3).join(', ') + '. Недавно завершил похожий проект с бюджетом $' + job.budgetMax.toLocaleString() + ', где реализовал аналогичный функционал.\n\nМогу приступить немедленно. Предлагаю обсудить детали в чате.\n\nС уважением,\n' + profile.name,
+  4840→    design: 'Добрый день! Ваш проект «' + job.title + '» отлично совпадает с моей экспертизой.\n\nСпециализируюсь на ' + job.skills.slice(0,2).join(' и ') + '. Понимаю, что для вас важны ' + job.skills[2] + ' — это мой ключевой навык.\n\nГотов показать релевантные кейсы. Когда удобно обсудить?\n\n' + profile.name,
+  4841→    dev: 'Приветствую! Готов взяться за «' + job.title + '».\n\nМой стек: ' + job.skills.slice(0,3).join(', ') + '. В последнем проекте реализовал похожую архитектуру — могу переиспользовать наработки и ускорить сдачу.\n\nОценка: $' + job.budgetMin.toLocaleString() + '-' + job.budgetMax.toLocaleString() + '. Срок: обсудим.\n\n' + profile.name,
+  4842→    writing: 'Здравствуйте! Проект «' + job.title + '» — именно то, в чём я силён.\n\nОпыт в ' + job.skills.slice(0,2).join(', ') + ' позволяет мне создавать контент, который вовлекает и конвертирует. Понимаю специфику вашей ниши.\n\nПредлагаю начать с тестового задания.\n\n' + profile.name,
+  4843→    marketing: 'Добрый день! С удовольствием помогу с «' + job.title + '».\n\nМой опыт в ' + job.skills.slice(0,2).join(' и ') + ' поможет достичь ваших KPI. В прошлом проекте увеличил конверсию на 34% за 2 месяца.\n\nДавайте обсудим стратегию!\n\n' + profile.name,
+  4844→    data: 'Здравствуйте! Готов выполнить «' + job.title + '».\n\nЭкспертиза в ' + job.skills.slice(0,3).join(', ') + '. Построю пайплайн от сбора данных до визуализации. Опыт с похожими задачами — могу показать демо.\n\n' + profile.name,
+  4845→    devops: 'Привет! Возьму «' + job.title + '».\n\n' + job.skills.slice(0,3).join(', ') + ' — мой ежедневный стек. Настрою CI/CD, мониторинг и масштабирование под нагрузку.\n\nМогу начать на этой неделе.\n\n' + profile.name
+  4846→  };
+  4847→  
+  4848→  const letter = coverLetters[job.category] || coverLetters.ai;
+  4849→  textEl.classList.add('ai-cover-text-typing');
+  4850→  
+  4851→  let i = 0;
+  4852→  textEl.textContent = '';
+  4853→  const typeInterval = setInterval(() => {
+  4854→    if (i < letter.length) {
+  4855→      textEl.textContent += letter[i];
+  4856→      i++;
+  4857→    } else {
+  4858→      clearInterval(typeInterval);
+  4859→      textEl.classList.remove('ai-cover-text-typing');
+  4860→    }
+  4861→  }, 20);
+  4862→  
+  4863→  // Store job id for send action
+  4864→  document.getElementById('aiCoverSendBtn').dataset.jobId = jobId;
+  4865→}
+  4866→
+  4867→function closeAICover() {
+  4868→  const overlay = document.getElementById('aiCoverOverlay');
+  4869→  overlay.classList.remove('active');
+  4870→  aiCoverJobId = null;
+  4871→}
+  4872→
+  4873→function editAICover() {
+  4874→  const textEl = document.getElementById('aiCoverText');
+  4875→  textEl.contentEditable = textEl.contentEditable === 'true' ? 'false' : 'true';
+  4876→  if (textEl.contentEditable === 'true') {
+  4877→    textEl.style.border = '1px solid var(--primary)';
+  4878→    textEl.focus();
+  4879→    showToast('Редактируйте текст прямо здесь');
+  4880→  } else {
+  4881→    textEl.style.border = '1px solid var(--border-soft)';
+  4882→    showToast('Текст сохранён');
+  4883→  }
+  4884→}
+  4885→
+  4886→function sendAICover() {
+  4887→  const jobId = parseInt(document.getElementById('aiCoverSendBtn').dataset.jobId);
+  4888→  closeAICover();
+  4889→  
+  4890→  const job = MOCK_JOBS.find(j => j.id === jobId);
+  4891→  if (!job) return;
+  4892→  const apps = lsGetJSON('skillhunt_applications', []);
+  4893→  if (apps.find(a => a.jobId === jobId)) {
+  4894→    showToast('Вы уже откликнулись на этот заказ');
+  4895→    closeJobDetail();
+  4896→    return;
+  4897→  }
+  4898→  apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'pending', aiGenerated: true });
+  4899→  lsSetJSON('skillhunt_applications', apps);
+  4900→  incrementAppCount();
+  4901→  incrementAICount();
+  4902→  updateAppCount();
+  4903→  showToast('✨ AI-отклик отправлен! Клиент получит уведомление.');
+  4904→  announce('Отклик отправлен');
+  4905→  closeJobDetail();
+  4906→  renderProImpact();
+  4907→}
+  4908→
+  4909→// ── AI Project Strategy Generator (Pro-only) ──
+  4910→let aiStrategyJobId = null;
+  4911→
+  4912→function openAIStrategy(jobId) {
+  4913→  if (!isPro()) {
+  4914→    showProUpgrade();
+  4915→    return;
+  4916→  }
+  4917→  aiStrategyJobId = jobId;
+  4918→  const overlay = document.getElementById('aiStrategyOverlay');
+  4919→  const generating = document.getElementById('aiStrategyGenerating');
+  4920→  const result = document.getElementById('aiStrategyResult');
+  4921→  generating.style.display = 'flex';
+  4922→  result.classList.remove('visible');
+  4923→  result.innerHTML = '';
+  4924→  overlay.classList.add('active');
+  4925→  
+  4926→  const genSub = document.getElementById('aiStrategyGenSub');
+  4927→  setTimeout(() => { genSub.textContent = 'Оцениваем конкуренцию...'; }, 800);
+  4928→  setTimeout(() => { genSub.textContent = 'Формируем стратегию победы...'; }, 1600);
+  4929→  setTimeout(() => {
+  4930→    genSub.textContent = 'Анализируем конкурентов и бюджет';
+  4931→    generating.style.display = 'none';
+  4932→    result.classList.add('visible');
+  4933→    renderAIStrategyResult(jobId);
+  4934→  }, 2400);
+  4935→}
+  4936→
+  4937→function renderAIStrategyResult(jobId) {
+  4938→  const job = MOCK_JOBS.find(j => j.id === jobId);
+  4939→  if (!job) return;
+  4940→  
+  4941→  const winProb = 55 + Math.floor(Math.random() * 30); // 55-85
+  4942→  const bidMin = Math.round(job.budgetMin * 0.8 + job.budgetMax * 0.2);
+  4943→  const bidMax = Math.round(job.budgetMin * 0.3 + job.budgetMax * 0.7);
+  4944→  
+  4945→  const argumentsData = [
+  4946→    'Опыт в ' + job.skills[0] + ' — ключевой навык для этого проекта',
+  4947→    'Рейтинг ' + job.clientRating + '+ у клиента — ценит качество, готов платить',
+  4948→    'Сжатые сроки — предложите MVP за 2 недели для быстрого старта'
+  4949→  ];
+  4950→  const risks = [
+  4951→    'Высокая конкуренция — ' + (5 + Math.floor(Math.random() * 15)) + ' откликов за первый час',
+  4952→    'Бюджет может быть фиксированным — торг затруднён',
+  4953→    'Клиент впервые в платформе — может не знать процесс'
+  4954→  ];
+  4955→  const tips = [
+  4956→    'Начните с вопроса о деталях — покажите вовлечённость',
+  4957→    'Предложите видеозвонок 15 мин — ускоряет решение на 40%',
+  4958→    'Упомяните похожий кейс из портфолио в первом сообщении'
+  4959→  ];
+  4960→  
+  4961→  const result = document.getElementById('aiStrategyResult');
+  4962→  result.innerHTML = `
+  4963→    <div class="ai-strategy-probability">
+  4964→      <div class="ai-strategy-prob-ring">${winProb}%</div>
+  4965→      <div class="ai-strategy-prob-body">
+  4966→        <div class="ai-strategy-prob-title">Вероятность победы</div>
+  4967→        <div class="ai-strategy-prob-sub">${winProb > 70 ? 'Высокий шанс! Ваш профиль хорошо подходит.' : winProb > 55 ? 'Хорошие шансы. Следуйте стратегии ниже.' : 'Средний шанс. Потребуется сильный отклик.'}</div>
+  4968→      </div>
+  4969→    </div>
+  4970→    <div class="ai-strategy-bid">
+  4971→      <div class="ai-strategy-bid-label">Рекомендуемый бюджет</div>
+  4972→      <div class="ai-strategy-bid-val">$${bidMin.toLocaleString()} — $${bidMax.toLocaleString()}</div>
+  4973→    </div>
+  4974→    <div class="ai-strategy-section">
+  4975→      <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ключевые аргументы</div>
+  4976→      ${argumentsData.map(a => '<div class="ai-strategy-arg"><div class="ai-strategy-arg-dot"></div><span>' + esc(a) + '</span></div>').join('')}
+  4977→    </div>
+  4978→    <div class="ai-strategy-section">
+  4979→      <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Факторы риска</div>
+  4980→      ${risks.map(r => '<div class="ai-strategy-risk"><div class="ai-strategy-risk-dot"></div><span>' + esc(r) + '</span></div>').join('')}
+  4981→    </div>
+  4982→    <div class="ai-strategy-section">
+  4983→      <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Советы по переговорам</div>
+  4984→      ${tips.map(t => '<div class="ai-strategy-tip"><div class="ai-strategy-tip-dot"></div><span>' + esc(t) + '</span></div>').join('')}
+  4985→    </div>
+  4986→    <div class="ai-strategy-actions">
+  4987→      <button class="ai-strategy-apply" onclick="applyWithStrategy(${jobId})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Применить стратегию</button>
+  4988→    </div>
+  4989→  `;
+  4990→}
+  4991→
+  4992→function closeAIStrategy() {
+  4993→  const overlay = document.getElementById('aiStrategyOverlay');
+  4994→  overlay.classList.remove('active');
+  4995→  aiStrategyJobId = null;
+  4996→}
+  4997→
+  4998→function applyWithStrategy(jobId) {
+  4999→  closeAIStrategy();
+  5000→  openAICover(jobId);
+  5001→}
+  5002→
+  5003→// ── Profile Views Widget (Home Page) ──
+  5004→function renderProfileViews() {
+  5005→  const container = document.getElementById('profileViewsContainer');
+  5006→  if (!container) return;
+  5007→  
+  5008→  const pro = isPro();
+  5009→  
+  5010→  // Mock data for profile views
+  5011→  const mockViewers = [
+  5012→    { name: 'Дмитрий К.', initials: 'Д', color: '#6C7BD4', time: '15 мин', viewed: 'Ваш профиль' },
+  5013→    { name: 'Анна С.', initials: 'А', color: '#8E7FD4', time: '1ч', viewed: 'Портфолио' },
+  5014→    { name: 'Михаил В.', initials: 'М', color: '#5BBF8F', time: '3ч', viewed: 'Навыки' },
+  5015→    { name: 'Ольга П.', initials: 'О', color: '#E07C6C', time: '5ч', viewed: 'Отклик на AI' },
+  5016→    { name: 'Сергей Н.', initials: 'С', color: '#5A9FD4', time: 'вчера', viewed: 'Ваш профиль' }
+  5017→  ];
+  5018→  const viewCount = mockViewers.length;
+  5019→  
+  5020→  if (pro) {
+  5021→    container.innerHTML = '<div class="profile-views-widget animate-in"><div class="profile-views-header"><div class="profile-views-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Кто смотрел профиль</div><span class="profile-views-count">' + viewCount + '</span></div><div class="profile-views-list">' + mockViewers.map(v => '<div class="profile-views-item"><div class="profile-views-avatar" style="background:' + v.color + '">' + esc(v.initials) + '</div><div class="profile-views-info"><div class="profile-views-name">' + esc(v.name) + '</div><div class="profile-views-detail">' + esc(v.viewed) + '</div></div><div class="profile-views-time">' + esc(v.time) + '</div></div>').join('') + '</div></div>';
+  5022→  } else {
+  5023→    container.innerHTML = '<div class="profile-views-widget animate-in"><div class="profile-views-header"><div class="profile-views-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Кто смотрел профиль</div><span class="profile-views-count">' + viewCount + '</span></div><div class="profile-views-gate"><div class="profile-views-gate-count">' + viewCount + '</div><div class="profile-views-gate-text">клиентов просмотрели ваш профиль</div><button class="profile-views-gate-btn" onclick="showProUpgrade()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Узнать кто — с Pro</button></div></div>';
+  5024→  }
+  5025→}
+  5026→
+  5027→// ── Show Trial End Modal (called when trial expires) ──
+  5028→function checkTrialEnd() {
+  5029→  const sub = getSubscription();
+  5030→  // If trial just ended (has trialStartedAt but plan is now free), show conversion modal
+  5031→  if (sub.trialStartedAt && sub.plan === 'free' && !sub.trialOfferShown) {
+  5032→    const apps = lsGetJSON('skillhunt_applications', []);
+  5033→    const appCount = apps.length;
+  5034→    const aiCount = sub.aiProposalCount || 0;
+  5035→    const timeSaved = aiCount * 15;
+  5036→    const totalEarnings = apps.reduce((s, a) => {
+  5037→      const job = MOCK_JOBS.find(j => j.id === a.jobId);
+  5038→      return s + (job ? job.budgetMax : 0);
+  5039→    }, 0);
+  5040→    
+  5041→    document.getElementById('trialEndTitle').textContent = 'Триал завершён';
+  5042→    document.getElementById('trialEndSub').textContent = 'Ваш 3-дневный Pro-триал закончился';
+  5043→    document.getElementById('trialEndApps').textContent = appCount;
+  5044→    document.getElementById('trialEndAI').textContent = aiCount;
+  5045→    document.getElementById('trialEndTime').textContent = timeSaved + ' мин';
+  5046→    document.getElementById('trialEndEarnings').textContent = '$' + totalEarnings.toLocaleString();
+  5047→    
+  5048→    const price = (sub.trialSpecialPrice || 4.99).toFixed(2);
+  5049→    document.getElementById('trialEndPrice').textContent = '$' + price;
+
+[showing lines 4550-5049 of 6650; use offset=5050 with limit to continue reading]

@@ -1,0 +1,502 @@
+  3200→.an-widget-hidden{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;cursor:pointer;border:1px dashed var(--border-soft);border-radius:var(--radius);margin-bottom:14px;background:var(--bg-input);transition:all .2s}
+  3201→.an-widget-hidden:hover{border-color:var(--primary);background:var(--primary-soft)}
+  3202→.an-widget-hidden-ico{width:28px;height:28px;border-radius:8px;background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-3);margin-bottom:6px}
+  3203→.an-widget-hidden-ico svg{width:14px;height:14px}
+  3204→.an-widget-hidden-text{font-size:11px;color:var(--text-3);font-weight:500}
+  3205→
+  3206→/* Cost of silence card */
+  3207→.an-silence{background:linear-gradient(135deg,rgba(217,83,79,.06),rgba(217,83,79,.02));border:1px solid rgba(217,83,79,.2);border-radius:var(--radius);padding:14px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px}
+  3208→.an-silence-ico{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--danger-light);color:var(--danger);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  3209→.an-silence-ico svg{width:18px;height:18px}
+  3210→.an-silence-body{flex:1}
+  3211→.an-silence-title{font-size:13px;font-weight:700;color:var(--danger);margin-bottom:3px}
+  3212→.an-silence-text{font-size:12px;color:var(--text-2);line-height:1.5}
+  3213→.dark .an-silence{background:linear-gradient(135deg,rgba(217,83,79,.1),rgba(217,83,79,.04));border-color:rgba(217,83,79,.3)}
+  3214→
+  3215→/* CSS Tooltips for chart bars */
+  3216→[data-tooltip]{position:relative;cursor:pointer}
+  3217→[data-tooltip]::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) scale(.9);padding:4px 8px;background:var(--text);color:#fff;font-size:10px;font-weight:600;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:all .15s ease;z-index:10;line-height:1.3}
+  3218→[data-tooltip]:hover::after{opacity:1;transform:translateX(-50%) scale(1)}
+  3219→[data-tooltip]::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--text);opacity:0;pointer-events:none;transition:all .15s ease;z-index:10}
+  3220→[data-tooltip]:hover::before{opacity:1}
+  3221→
+  3222→/* Analytics sub-tabs */
+  3223→.an-tabs{display:flex;gap:3px;padding:3px;background:var(--bg-input);border-radius:var(--radius-sm);margin-bottom:10px}
+  3224→.an-tab{flex:1;text-align:center;padding:6px 4px;font-size:11px;font-weight:600;color:var(--text-3);border-radius:var(--radius-xs);cursor:pointer;transition:all .25s;border:none;background:none}
+  3225→.an-tab:hover{color:var(--text-2)}
+  3226→.an-tab.active{background:var(--bg-card);color:var(--text);box-shadow:var(--shadow)}
+  3227→.an-tab-panel{display:none}
+  3228→.an-tab-panel.active{display:block}
+  3229→
+  3230→/* Heatmap grid */
+  3231→.an-heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
+  3232→.an-heatmap-cell{aspect-ratio:1;border-radius:4px;min-height:28px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:transparent;transition:all .2s;cursor:default}
+  3233→.an-heatmap-cell:hover{transform:scale(1.1);z-index:1}
+  3234→.an-heatmap-cell:hover,.an-heatmap-cell:focus{color:var(--text)}
+  3235→.an-heatmap-cell.lv0{background:var(--bg-input)}
+  3236→.an-heatmap-cell.lv1{background:rgba(108,123,212,.15)}
+  3237→.an-heatmap-cell.lv2{background:rgba(108,123,212,.3)}
+  3238→.an-heatmap-cell.lv3{background:rgba(108,123,212,.5)}
+  3239→.an-heatmap-cell.lv4{background:rgba(108,123,212,.7)}
+  3240→.an-heatmap-cell.lv5{background:var(--primary);color:#fff}
+  3241→.an-heatmap-cell.lv5:hover{color:#fff}
+  3242→.an-heatmap-header{text-align:center;font-size:10px;font-weight:600;color:var(--text-3);padding-bottom:4px}
+  3243→
+  3244→/* Best review widget */
+  3245→.an-best-review{background:var(--bg-card);border:1px solid var(--border-soft);border-radius:var(--radius);padding:14px;margin-bottom:14px;box-shadow:var(--shadow)}
+  3246→.an-best-review-header{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+  3247→.an-best-review-badge{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  3248→.an-best-review-badge svg{width:12px;height:12px}
+  3249→.an-best-review-title{font-size:12px;font-weight:700;color:var(--text)}
+  3250→.an-best-review-product{font-size:11px;color:var(--primary);font-weight:600;margin-bottom:4px}
+  3251→.an-best-review-rating{display:flex;align-items:center;gap:2px;margin-bottom:6px}
+  3252→.an-best-review-rating svg{width:12px;height:12px}
+  3253→.an-best-review-snippet{font-size:11px;color:var(--text-2);line-height:1.5;font-style:italic;padding:8px;background:var(--bg-input);border-radius:var(--radius-xs);border-left:2px solid var(--primary)}
+  3254→.dark .an-best-review{border-color:var(--border-soft)}
+  3255→
+  3256→/* Export dropdown */
+  3257→.an-export-dropdown{position:relative;display:inline-block}
+  3258→.an-export-menu{position:absolute;top:calc(100% + 4px);right:0;background:var(--bg-card);border:1px solid var(--border-soft);border-radius:var(--radius-sm);box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:20;min-width:180px;opacity:0;transform:translateY(-4px);pointer-events:none;transition:all .2s ease}
+  3259→.an-export-menu.open{opacity:1;transform:translateY(0);pointer-events:auto}
+  3260→.an-export-menu-item{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:12px;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .15s;border:none;background:none;width:100%;text-align:left}
+  3261→.an-export-menu-item:hover{background:var(--bg-input);color:var(--text)}
+  3262→.an-export-menu-item svg{width:14px;height:14px;color:var(--text-3);flex-shrink:0}
+  3263→.an-export-menu-item:hover svg{color:var(--primary)}
+  3264→.dark .an-export-menu{box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  3265→
+  3266→/* Products table placeholder */
+  3267→.an-products-table{width:100%;border-collapse:collapse;font-size:12px}
+  3268→.an-products-table th{text-align:left;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border-soft)}
+  3269→.an-products-table td{padding:8px 10px;border-bottom:1px solid var(--border-soft);color:var(--text-2)}
+  3270→.an-products-table tr:last-child td{border-bottom:none}
+  3271→.an-products-table .an-prod-name{font-weight:600;color:var(--text)}
+  3272→
+  3273→/* Competitors placeholder */
+  3274→.an-comp-bar{height:8px;border-radius:4px;background:var(--bg-input);overflow:hidden;margin-top:4px}
+  3275→.an-comp-bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+  3276→
+  3277→/* Dark mode for Module 3 */
+  3278→.dark .an-insight{background:linear-gradient(135deg,rgba(108,123,212,.1),rgba(142,127,212,.06),rgba(76,175,125,.03));border-color:rgba(108,123,212,.2);border-left-color:var(--primary)}
+  3279→.dark .an-insight:hover{background:linear-gradient(135deg,rgba(108,123,212,.15),rgba(142,127,212,.1),rgba(76,175,125,.05))}
+  3280→.dark .an-insight-ico{background:linear-gradient(135deg,rgba(143,163,232,.15),rgba(143,163,232,.08));box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  3281→.dark .an-widget-hidden{border-color:rgba(255,255,255,.1)}
+  3282→.dark .an-widget-hidden:hover{border-color:var(--primary)}
+  3283→.dark .an-heatmap-cell.lv1{background:rgba(108,123,212,.2)}
+  3284→.dark .an-heatmap-cell.lv2{background:rgba(108,123,212,.35)}
+  3285→.dark .an-heatmap-cell.lv3{background:rgba(108,123,212,.55)}
+  3286→.dark .an-heatmap-cell.lv4{background:rgba(108,123,212,.75)}
+  3287→
+  3288→/* ═══ Module 5: Monetization & Loyalty ═══ */
+  3289→
+  3290→/* 1. Token Burn Rate Card */
+  3291→.burn-rate-card{background:linear-gradient(135deg,var(--primary-soft),var(--lavender-light));border:1px solid rgba(123,143,212,.15);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;animation:staggerFadeIn .4s ease forwards}
+  3292→.burn-rate-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  3293→.burn-rate-title{font-size:12px;font-weight:600;color:var(--text-2);display:flex;align-items:center;gap:5px}
+  3294→.burn-rate-title svg{width:14px;height:14px;color:var(--primary)}
+  3295→.burn-rate-forecast{font-size:10px;color:var(--text-3);font-weight:500}
+  3296→.burn-chart{display:flex;align-items:flex-end;gap:3px;height:40px;margin-bottom:8px}
+  3297→.burn-chart-bar{flex:1;border-radius:3px 3px 0 0;min-width:0;transition:height .5s cubic-bezier(.22,1,.36,1)}
+  3298→.burn-chart-bar.spend{background:linear-gradient(180deg,var(--danger),rgba(239,68,68,.5))}
+  3299→.burn-chart-bar.earn{background:linear-gradient(180deg,var(--success),rgba(107,191,138,.5))}
+  3300→.burn-chart-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--text-3)}
+  3301→.burn-rate-prediction{font-size:11px;color:var(--text-2);padding:6px 10px;background:rgba(255,255,255,.5);border-radius:var(--radius-xs);display:flex;align-items:center;gap:5px}
+  3302→.burn-rate-prediction svg{width:13px;height:13px;color:var(--warning);flex-shrink:0}
+  3303→
+  3304→/* 2. Transparent Token Log */
+  3305→.token-log-entry{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-soft)}
+  3306→.token-log-entry:last-child{border-bottom:none}
+  3307→.token-log-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  3308→.token-log-ico.spend{background:rgba(239,68,68,.1);color:var(--danger)}
+  3309→.token-log-ico.earn{background:rgba(107,191,138,.1);color:var(--success)}
+  3310→.token-log-ico svg{width:14px;height:14px}
+  3311→.token-log-body{flex:1;min-width:0}
+  3312→.token-log-action{font-size:12px;font-weight:600;color:var(--text)}
+  3313→.token-log-context{font-size:10px;color:var(--text-3);margin-top:1px}
+  3314→.token-log-right{text-align:right;flex-shrink:0}
+  3315→.token-log-amount{font-size:13px;font-weight:700}
+  3316→.token-log-amount.spend{color:var(--danger)}
+  3317→.token-log-amount.earn{color:var(--success)}
+  3318→.token-log-time{font-size:9px;color:var(--text-3);margin-top:1px}
+  3319→
+  3320→/* 3. Contextual Upgrade Banners */
+  3321→.ctx-upgrade-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius);border:1px solid rgba(123,143,212,.2);background:linear-gradient(135deg,var(--primary-soft),rgba(142,127,212,.08));margin:8px 0;animation:staggerFadeIn .4s ease forwards;position:relative}
+  3322→.ctx-upgrade-banner svg{width:16px;height:16px;color:var(--primary);flex-shrink:0}
+  3323→.ctx-upgrade-banner-text{flex:1;font-size:11px;color:var(--text-2);line-height:1.4}
+  3324→.ctx-upgrade-banner-text b{color:var(--primary);font-weight:700;cursor:pointer}
+  3325→.ctx-upgrade-banner-close{width:20px;height:20px;border:none;background:none;color:var(--text-3);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;border-radius:4px;transition:background .15s}
+  3326→.ctx-upgrade-banner-close:hover{background:var(--bg-input)}
+  3327→.ctx-upgrade-banner-close svg{width:12px;height:12px}
+  3328→.ctx-inline-lock{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:var(--bg-input);border-radius:var(--radius);font-size:11px;color:var(--text-3);margin:6px 0}
+  3329→.ctx-inline-lock svg{width:14px;height:14px}
+  3330→.ctx-inline-lock a{color:var(--primary);font-weight:600;cursor:pointer;text-decoration:none}
+  3331→
+  3332→/* 5. Referral QR + Copyable Link */
+  3333→.ref-link-box{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg-input);border-radius:var(--radius);margin-top:8px;border:1px solid var(--border-soft)}
+  3334→.ref-link-input{flex:1;background:none;border:none;font-size:12px;color:var(--text);outline:none;font-family:var(--font-sans);min-width:0}
+  3335→.ref-link-copy-btn{padding:5px 12px;border-radius:var(--radius-xs);background:var(--primary);color:#fff;font-size:11px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:all .2s}
+  3336→.ref-link-copy-btn:hover{opacity:.9}
+  3337→.ref-link-copy-btn:active{transform:scale(.96)}
+  3338→.ref-qr-area{display:flex;align-items:center;justify-content:center;padding:16px;margin-top:12px;background:#fff;border-radius:var(--radius);border:1px solid var(--border-soft)}
+  3339→.ref-social-proof{font-size:11px;color:var(--text-3);text-align:center;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:4px}
+  3340→.ref-social-proof svg{width:12px;height:12px;color:var(--success)}
+  3341→
+  3342→/* 6. Achievement Badges */
+  3343→.badge-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:12px 0}
+  3344→.badge-item{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative}
+  3345→.badge-ring{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+  3346→.badge-ring svg{width:22px;height:22px}
+  3347→.badge-ring.bronze{background:rgba(205,127,50,.12);border:2.5px solid #CD7F32;color:#CD7F32;box-shadow:0 2px 8px rgba(205,127,50,.2)}
+  3348→.badge-ring.silver{background:rgba(192,192,192,.12);border:2.5px solid #C0C0C0;color:#C0C0C0;box-shadow:0 2px 8px rgba(192,192,192,.2)}
+  3349→.badge-ring.gold{background:rgba(255,215,0,.12);border:2.5px solid #FFD700;color:#E6B800;box-shadow:0 2px 8px rgba(230,184,0,.25)}
+  3350→.badge-ring.locked{background:var(--bg-input);border:2.5px solid var(--border);color:var(--text-3);opacity:.45;filter:grayscale(1)}
+  3351→.badge-label{font-size:9px;font-weight:600;color:var(--text-3);text-align:center;line-height:1.2;max-width:64px}
+  3352→.badge-label.unlocked{color:var(--text-2)}
+  3353→
+  3354→/* 7. Token Balance Animation */
+  3355→.token-sparkle{position:absolute;pointer-events:none;animation:tokenSparkle .8s ease forwards}
+  3356→.token-sparkle svg{width:10px;height:10px;color:var(--success)}
+  3357→@keyframes tokenSparkle{0%{opacity:1;transform:translateY(0) scale(1)}50%{opacity:.8;transform:translateY(-12px) scale(1.2)}100%{opacity:0;transform:translateY(-24px) scale(.6)}}
+  3358→.token-count-anim{transition:transform .1s}
+  3359→.token-count-anim.bump{transform:scale(1.15)}
+  3360→.token-earn-flash{animation:earnFlash .5s ease}
+  3361→@keyframes earnFlash{0%{color:var(--success);transform:scale(1.1)}100%{color:var(--primary);transform:scale(1)}}
+  3362→
+  3363→/* 8. Low Balance Warning */
+  3364→.low-bal-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;padding:10px 16px;border-radius:var(--radius);font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;z-index:150;box-shadow:0 6px 20px rgba(146,64,14,.15);animation:toastIn .4s cubic-bezier(.22,1,.36,1) forwards;max-width:90vw}
+  3365→.low-bal-toast svg{width:16px;height:16px;flex-shrink:0;color:#D97706}
+  3366→.low-bal-toast-close{background:none;border:none;color:#92400E;cursor:pointer;padding:0;margin-left:4px;display:flex;align-items:center}
+  3367→.low-bal-toast-close svg{width:14px;height:14px}
+  3368→.dark .low-bal-toast{background:linear-gradient(135deg,#78350F,#92400E);color:#FDE68A;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+  3369→.dark .low-bal-toast svg{color:#FDE68A}
+  3370→.dark .low-bal-toast-close{color:#FDE68A}
+  3371→
+  3372→/* 9. Pricing Improvements */
+  3373→.pricing-compare-table{width:100%;border-collapse:separate;border-spacing:0;font-size:11px;margin:12px 0;background:var(--bg-card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border-soft)}
+  3374→.pricing-compare-table th{padding:10px 8px;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-3);background:var(--bg-input);border-bottom:1px solid var(--border-soft)}
+  3375→.pricing-compare-table th.pro-highlight{color:var(--primary);background:var(--primary-soft)}
+  3376→.pricing-compare-table td{padding:8px;text-align:center;border-bottom:1px solid var(--border-soft);color:var(--text-2)}
+  3377→.pricing-compare-table td:first-child{text-align:left;font-weight:500;color:var(--text)}
+  3378→.pricing-compare-table td.pro-highlight{background:rgba(108,123,212,.04);font-weight:600}
+  3379→.pricing-compare-table .check-mark{color:var(--success)}
+  3380→.pricing-compare-table .cross-mark{color:var(--text-3);opacity:.4}
+  3381→.pricing-compare-table svg{width:14px;height:14px;vertical-align:-2px}
+  3382→.pricing-card.current-plan{border-color:var(--primary);box-shadow:0 0 0 2px rgba(108,123,212,.15),var(--shadow)}
+  3383→.pricing-annual-callout{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--radius-full);background:var(--success-light);color:var(--success);font-size:10px;font-weight:700;margin-top:6px}
+  3384→
+  3385→/* 10. Time Saved Widget */
+  3386→.time-saved-card{background:linear-gradient(135deg,var(--success-light),var(--primary-soft));border:1px solid rgba(107,191,138,.15);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;animation:staggerFadeIn .4s ease forwards;cursor:pointer;transition:transform .2s}
+  3387→.time-saved-card:active{transform:scale(.98)}
+  3388→.time-saved-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  3389→.time-saved-header svg{width:18px;height:18px;color:var(--success)}
+  3390→.time-saved-title{font-size:12px;font-weight:600;color:var(--text-2)}
+  3391→.time-saved-value{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+  3392→.time-saved-value span{font-size:12px;font-weight:500;color:var(--text-3)}
+  3393→.time-saved-bar{height:5px;background:var(--bg-input);border-radius:3px;overflow:hidden;margin-top:8px}
+  3394→.time-saved-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--success),var(--primary));transition:width .8s cubic-bezier(.22,1,.36,1)}
+  3395→
+  3396→/* ROI Calculator */
+  3397→.roi-calc{background:var(--bg-card);border:1px solid var(--border-soft);border-radius:var(--radius);padding:16px;margin:14px 0}
+  3398→.roi-calc-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+  3399→.roi-calc-title svg{width:16px;height:16px;color:var(--primary)}
+  3400→.roi-calc-row{margin-bottom:12px}
+  3401→.roi-calc-label{font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
+  3402→.roi-calc-label span{color:var(--primary);font-weight:700;font-size:13px}
+  3403→.roi-calc-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:var(--bg-input);outline:none;cursor:pointer}
+  3404→.roi-calc-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--primary);box-shadow:0 2px 6px rgba(108,123,212,.3);cursor:pointer;transition:transform .15s}
+  3405→.roi-calc-slider::-webkit-slider-thumb:active{transform:scale(1.2)}
+  3406→.roi-calc-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--primary);border:none;box-shadow:0 2px 6px rgba(108,123,212,.3);cursor:pointer}
+  3407→.roi-calc-result{background:linear-gradient(135deg,var(--success-light),var(--primary-soft));border-radius:var(--radius);padding:12px 14px;margin-top:12px;text-align:center}
+  3408→.roi-calc-result-val{font-size:18px;font-weight:800;color:var(--success)}
+  3409→.roi-calc-result-sub{font-size:11px;color:var(--text-2);margin-top:2px}
+  3410→.roi-calc-compare{display:flex;gap:8px;margin-top:10px}
+  3411→.roi-calc-compare-col{flex:1;padding:10px;border-radius:var(--radius-xs);text-align:center}
+  3412→.roi-calc-compare-col.manual{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1)}
+  3413→.roi-calc-compare-col.repa{background:var(--success-light);border:1px solid rgba(107,191,138,.15)}
+  3414→.roi-calc-compare-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--text-3);margin-bottom:4px}
+  3415→.roi-calc-compare-val{font-size:15px;font-weight:800}
+  3416→.roi-calc-compare-col.manual .roi-calc-compare-val{color:var(--danger)}
+  3417→.roi-calc-compare-col.repa .roi-calc-compare-val{color:var(--success)}
+  3418→
+  3419→/* Dark mode for Module 5 */
+  3420→.dark .burn-rate-card{background:linear-gradient(135deg,rgba(108,123,212,.12),rgba(142,127,212,.08));border-color:rgba(108,123,212,.2)}
+  3421→.dark .burn-rate-prediction{background:rgba(255,255,255,.06)}
+  3422→.dark .ctx-upgrade-banner{background:linear-gradient(135deg,rgba(108,123,212,.1),rgba(142,127,212,.06));border-color:rgba(108,123,212,.15)}
+  3423→.dark .token-log-ico.spend{background:rgba(239,68,68,.15)}
+  3424→.dark .token-log-ico.earn{background:rgba(107,191,138,.15)}
+  3425→.dark .ref-qr-area{background:var(--bg-card)}
+  3426→.dark .badge-ring.locked{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)}
+  3427→.dark .time-saved-card{background:linear-gradient(135deg,rgba(107,191,138,.08),rgba(108,123,212,.08));border-color:rgba(107,191,138,.1)}
+  3428→.dark .roi-calc{background:var(--bg-card);border-color:var(--border-soft)}
+  3429→.dark .roi-calc-result{background:linear-gradient(135deg,rgba(107,191,138,.1),rgba(108,123,212,.08))}
+  3430→.dark .roi-calc-compare-col.manual{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.12)}
+  3431→.dark .roi-calc-compare-col.repa{background:rgba(107,191,138,.08);border-color:rgba(107,191,138,.12)}
+  3432→.dark .pricing-compare-table th.pro-highlight{background:rgba(108,123,212,.12)}
+  3433→
+  3434→/* Respect reduced motion */
+  3435→@media(prefers-reduced-motion:reduce){
+  3436→  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  3437→}
+  3438→</style>
+  3439→</head>
+  3440→<body>
+  3441→<a class="skip-link" href="#main-content">Перейти к контенту</a>
+  3442→<div class="aria-live" id="ariaLive" aria-live="polite"></div>
+  3443→
+  3444→<div class="shell" id="shell">
+  3445→  <div class="slider" id="slider">
+  3446→    <div class="slider-inner" id="sliderInner">
+  3447→
+  3448→      <!-- ═══ Page 1: Лента (Feed) ═══ -->
+  3449→      <div class="slider-page active-page" id="page0" role="region" aria-label="Лента заказов">
+  3450→        <div class="content" id="feedContent">
+  3451→
+  3452→          <!-- Pull to refresh -->
+  3453→          <div class="ptr" id="ptr">
+  3454→            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><polyline points="21 3 21 9 15 9"/></svg>
+  3455→            <span>Загрузка...</span>
+  3456→          </div>
+  3457→
+  3458→          <!-- Hero Greeting — Simplified -->
+  3459→          <div class="hero-greeting animate-in" id="feedGreeting">
+  3460→            <div class="hero-greeting-row">
+  3461→              <div class="hero-greeting-avatar" id="userAvatar">А</div>
+  3462→              <div class="hero-greeting-body">
+  3463→                <div class="hero-greeting-time" id="greetingTime">Добрый день,</div>
+  3464→                <div class="hero-greeting-name" id="userName">Александр <span class="home-greeting-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>
+  3465→              </div>
+  3466→              <div class="hero-online"><span class="hero-online-dot"></span>Онлайн</div>
+  3467→            </div>
+  3468→          </div>
+  3469→
+  3470→          <!-- AI Hero Card — One Clear Action -->
+  3471→          <div class="hero-ai-card animate-in">
+  3472→            <div class="hero-ai-match">
+  3473→              <div class="hero-ai-icon">
+  3474→                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+  3475→              </div>
+  3476→              <div class="hero-ai-text">
+  3477→                <div class="hero-ai-headline"><b>3 заказа</b> совпадают на 85%+</div>
+  3478→                <div class="hero-ai-reason">
+  3479→                  <span class="hero-ai-reason-tag">GPT API</span>
+  3480→                  <span class="hero-ai-reason-tag">React</span>
+  3481→                  <span class="hero-ai-reason-tag">Python</span>
+  3482→                  <span style="color:var(--text-3)">— по вашим навыкам</span>
+  3483→                </div>
+  3484→              </div>
+  3485→            </div>
+  3486→            <button class="hero-cta" onclick="filterFeedCategory('ai');showToast('Показаны релевантные заказы')">
+  3487→              <span class="hero-cta-shimmer"></span>
+  3488→              Посмотреть заказы
+  3489→              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+  3490→            </button>
+  3491→            <div class="hero-secondary">или <span onclick="switchTab(1)">настроить фильтры</span></div>
+  3492→          </div>
+  3493→
+  3494→          <!-- Minimal Metrics — Just 2 -->
+  3495→          <div class="hero-metrics animate-in">
+  3496→            <div class="hero-metric" onclick="showApplicationsView()">
+  3497→              <div class="hero-metric-dot" style="background:var(--primary);box-shadow:0 0 6px rgba(108,123,212,.4)"></div>
+  3498→              <div class="hero-metric-info">
+  3499→                <div class="hero-metric-val">12</div>
+  3500→                <div class="hero-metric-label">Заказы</div>
+  3501→              </div>
+  3502→            </div>
+  3503→            <div class="hero-metric" onclick="showApplicationsView()">
+  3504→              <div class="hero-metric-dot" style="background:var(--success);box-shadow:0 0 6px rgba(76,175,125,.4)"></div>
+  3505→              <div class="hero-metric-info">
+  3506→                <div class="hero-metric-val" id="heroAppCount">5</div>
+  3507→                <div class="hero-metric-label">Отклики</div>
+  3508→              </div>
+  3509→            </div>
+  3510→          </div>
+  3511→
+  3512→          <!-- Guided Steps — 1-2-3 Onboarding -->
+  3513→          <div class="guided-steps animate-in">
+  3514→            <div class="guided-step" onclick="guidedStep1()" style="cursor:pointer">
+  3515→              <span class="guided-step-num">1</span>
+  3516→              Откройте
+  3517→            </div>
+  3518→            <span class="guided-arrow">&#8594;</span>
+  3519→            <div class="guided-step" onclick="guidedStep2()" style="cursor:pointer">
+  3520→              <span class="guided-step-num">2</span>
+  3521→              Отфильтруйте
+  3522→            </div>
+  3523→            <span class="guided-arrow">&#8594;</span>
+  3524→            <div class="guided-step" onclick="guidedStep3()" style="cursor:pointer">
+  3525→              <span class="guided-step-num">3</span>
+  3526→              Откликнитесь
+  3527→            </div>
+  3528→          </div>
+  3529→
+  3530→          <!-- Category Filter Chips -->
+  3531→          <div class="tabs animate-in" id="feedCategoryTabs">
+  3532→            <button class="tab active" data-cat="all" onclick="filterFeedCategory('all',this)">Все</button>
+  3533→            <button class="tab" data-cat="ai" onclick="filterFeedCategory('ai',this)">AI/ML</button>
+  3534→            <button class="tab" data-cat="design" onclick="filterFeedCategory('design',this)">Design</button>
+  3535→            <button class="tab" data-cat="dev" onclick="filterFeedCategory('dev',this)">Development</button>
+  3536→            <button class="tab" data-cat="writing" onclick="filterFeedCategory('writing',this)">Writing</button>
+  3537→            <button class="tab" data-cat="marketing" onclick="filterFeedCategory('marketing',this)">Marketing</button>
+  3538→            <button class="tab" data-cat="data" onclick="filterFeedCategory('data',this)">Data</button>
+  3539→            <button class="tab" data-cat="devops" onclick="filterFeedCategory('devops',this)">DevOps</button>
+  3540→          </div>
+  3541→
+  3542→          <!-- Job Cards Feed -->
+  3543→          <div id="feedJobList"></div>
+  3544→
+  3545→          <!-- Loading Skeleton -->
+  3546→          <div id="feedSkeleton" style="display:none">
+  3547→            <div class="card mb-12" style="padding:16px"><div class="skel skel-text lg"></div><div class="skel skel-text"></div><div class="skel skel-text sm"></div><div class="skel skel-card" style="height:40px;margin-top:8px"></div></div>
+  3548→            <div class="card mb-12" style="padding:16px"><div class="skel skel-text lg"></div><div class="skel skel-text"></div><div class="skel skel-text sm"></div><div class="skel skel-card" style="height:40px;margin-top:8px"></div></div>
+  3549→            <div class="card mb-12" style="padding:16px"><div class="skel skel-text lg"></div><div class="skel skel-text"></div><div class="skel skel-text sm"></div><div class="skel skel-card" style="height:40px;margin-top:8px"></div></div>
+  3550→          </div>
+  3551→
+  3552→          <!-- Empty State -->
+  3553→          <div id="feedEmpty" style="display:none" class="empty">
+  3554→            <div class="empty-illust">
+  3555→              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
+  3556→            </div>
+  3557→            <div class="empty-title">Заказов не найдено</div>
+  3558→            <div class="empty-desc">Попробуйте изменить фильтры или поисковый запрос</div>
+  3559→            <button class="btn btn-p" onclick="switchTab(1)">Найти заказы</button>
+  3560→          </div>
+  3561→
+  3562→        </div>
+  3563→      </div>
+  3564→
+  3565→      <!-- ═══ Page 2: Поиск (Search) ═══ -->
+  3566→      <div class="slider-page" id="page1" role="region" aria-label="Поиск заказов">
+  3567→        <div class="content" id="searchContent">
+  3568→
+  3569→          <!-- Search Header -->
+  3570→          <div class="animate-in">
+  3571→            <div class="page-header">
+  3572→              <div class="page-header-ico ico-primary">
+  3573→                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  3574→              </div>
+  3575→              <div>
+  3576→                <div class="page-header-title">Поиск</div>
+  3577→                <div class="page-header-sub">Найдите идеальный заказ</div>
+  3578→              </div>
+  3579→            </div>
+  3580→          </div>
+  3581→
+  3582→          <!-- Search Input -->
+  3583→          <div class="animate-in mb-12" style="position:relative">
+  3584→            <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text-3)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  3585→            <input type="text" class="inp" id="searchInput" placeholder="Поиск по названию, навыкам..." style="padding-left:36px" oninput="debouncedSearch()" aria-label="Поиск по названию и навыкам">
+  3586→          </div>
+  3587→
+  3588→          <!-- Filter Toggle -->
+  3589→          <div class="animate-in mb-12">
+  3590→            <button class="btn btn-s btn-full" id="filterToggleBtn" onclick="toggleFilterPanel()" aria-expanded="false" aria-controls="filterPanel">
+  3591→              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+  3592→              Фильтры
+  3593→              <span id="activeFilterCount" style="display:none" class="tag tag-primary" >0</span>
+  3594→            </button>
+  3595→          </div>
+  3596→
+  3597→          <!-- Filter Panel -->
+  3598→          <div id="filterPanel" style="display:none" class="animate-in" role="region" aria-label="Панель фильтров">
+  3599→            <div class="card mb-12">
+  3600→              <div class="inp-group">
+  3601→                <label class="inp-label">Категория</label>
+  3602→                <div class="tabs" id="filterCategoryTabs" style="flex-wrap:wrap">
+  3603→                  <button class="tab active" data-cat="all" onclick="setFilterCategory('all',this)">Все</button>
+  3604→                  <button class="tab" data-cat="ai" onclick="setFilterCategory('ai',this)">AI/ML</button>
+  3605→                  <button class="tab" data-cat="design" onclick="setFilterCategory('design',this)">Design</button>
+  3606→                  <button class="tab" data-cat="dev" onclick="setFilterCategory('dev',this)">Development</button>
+  3607→                  <button class="tab" data-cat="writing" onclick="setFilterCategory('writing',this)">Writing</button>
+  3608→                  <button class="tab" data-cat="marketing" onclick="setFilterCategory('marketing',this)">Marketing</button>
+  3609→                  <button class="tab" data-cat="data" onclick="setFilterCategory('data',this)">Data</button>
+  3610→                  <button class="tab" data-cat="devops" onclick="setFilterCategory('devops',this)">DevOps</button>
+  3611→                </div>
+  3612→              </div>
+  3613→              <div class="inp-group">
+  3614→                <label class="inp-label">Бюджет</label>
+  3615→                <select class="inp" id="filterBudget" onchange="applyFilters()">
+  3616→                  <option value="any">Любой</option>
+  3617→                  <option value="0-100">до $100</option>
+  3618→                  <option value="100-500">$100-500</option>
+  3619→                  <option value="500-1000">$500-1000</option>
+  3620→                  <option value="1000-5000">$1000-5000</option>
+  3621→                  <option value="5000+">от $5000</option>
+  3622→                </select>
+  3623→              </div>
+  3624→              <div class="inp-group">
+  3625→                <label class="inp-label">Уровень</label>
+  3626→                <div class="tabs" id="filterLevelTabs" style="flex-wrap:wrap">
+  3627→                  <button class="tab active" data-level="any" onclick="setFilterLevel('any',this)">Любой</button>
+  3628→                  <button class="tab" data-level="junior" onclick="setFilterLevel('junior',this)">Junior</button>
+  3629→                  <button class="tab" data-level="middle" onclick="setFilterLevel('middle',this)">Middle</button>
+  3630→                  <button class="tab" data-level="senior" onclick="setFilterLevel('senior',this)">Senior</button>
+  3631→                  <button class="tab" data-level="lead" onclick="setFilterLevel('lead',this)">Lead</button>
+  3632→                </div>
+  3633→              </div>
+  3634→              <div class="inp-group">
+  3635→                <label class="inp-label">Тип работы</label>
+  3636→                <div class="tabs" id="filterTypeTabs" style="flex-wrap:wrap">
+  3637→                  <button class="tab active" data-type="all" onclick="setFilterType('all',this)">Все</button>
+  3638→                  <button class="tab" data-type="remote" onclick="setFilterType('remote',this)">Удалённо</button>
+  3639→                  <button class="tab" data-type="hybrid" onclick="setFilterType('hybrid',this)">Гибрид</button>
+  3640→                  <button class="tab" data-type="office" onclick="setFilterType('office',this)">Офис</button>
+  3641→                </div>
+  3642→              </div>
+  3643→              <div class="inp-group">
+  3644→                <label class="inp-label">Сортировка</label>
+  3645→                <select class="inp" id="filterSort" onchange="applyFilters()">
+  3646→                  <option value="relevance">По релевантности</option>
+  3647→                  <option value="date">По дате</option>
+  3648→                  <option value="budget">По бюджету</option>
+  3649→                </select>
+  3650→              </div>
+  3651→              <button class="btn btn-o btn-full" onclick="resetFilters()">Сбросить фильтры</button>
+  3652→            </div>
+  3653→          </div>
+  3654→
+  3655→          <!-- Active Filters -->
+  3656→          <div id="activeFiltersBar" class="mb-12" style="display:none;flex-wrap:wrap;gap:6px"></div>
+  3657→
+  3658→          <!-- Search Results -->
+  3659→          <div id="searchResults"></div>
+  3660→
+  3661→          <!-- Search Loading -->
+  3662→          <div id="searchLoading" style="display:none;text-align:center;padding:24px">
+  3663→            <div class="spinner"></div>
+  3664→            <div style="margin-top:8px;font-size:12px;color:var(--text-3)">Поиск...</div>
+  3665→          </div>
+  3666→
+  3667→          <!-- Search Empty -->
+  3668→          <div id="searchEmpty" style="display:none" class="empty">
+  3669→            <div class="empty-illust">
+  3670→              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+  3671→            </div>
+  3672→            <div class="empty-title">Ничего не найдено</div>
+  3673→            <div class="empty-desc">Попробуйте изменить поисковый запрос или фильтры</div>
+  3674→            <button class="btn btn-p" onclick="resetFilters()">Сбросить фильтры</button>
+  3675→          </div>
+  3676→
+  3677→        </div>
+  3678→      </div>
+  3679→
+  3680→      <!-- ═══ Page 3: Сохранённые (Saved) ═══ -->
+  3681→      <div class="slider-page" id="page2" role="region" aria-label="Сохранённые заказы">
+  3682→        <div class="content" id="savedContent">
+  3683→
+  3684→          <div class="animate-in">
+  3685→            <div class="page-header">
+  3686→              <div class="page-header-ico ico-coral">
+  3687→                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+  3688→              </div>
+  3689→              <div>
+  3690→                <div class="page-header-title">Сохранённые</div>
+  3691→                <div class="page-header-sub" id="savedCount">0 заказов</div>
+  3692→              </div>
+  3693→            </div>
+  3694→          </div>
+  3695→
+  3696→          <!-- Saved Stats -->
+  3697→          <div class="sgrid animate-in" id="savedStats" style="margin-bottom:12px">
+  3698→            <div class="scard" onclick="scrollToSavedList()">
+  3699→              <div class="scard-ico coral">
+
+[showing lines 3200-3699 of 5319; use offset=3700 with limit to continue reading]

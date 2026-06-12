@@ -1,0 +1,502 @@
+  6050→      break;
+  6051→    case 'privacy':
+  6052→      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="openMoreSub('about')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Политика конфиденциальности</div></div><div class="card mb-12" style="padding:16px"><div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;font-family:var(--font-sans)">1. Сбор данных</div><div style="font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:12px">Мы собираем данные, необходимые для работы платформы: имя, email, навыки, портфолио и финансовую информацию. Данные собираются только с вашего согласия при регистрации и использовании сервиса.</div><div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;font-family:var(--font-sans)">2. Использование данных</div><div style="font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:12px">Ваши данные используются для подбора заказов, улучшения сервиса и коммуникации. AI-алгоритмы обрабатывают данные о навыках для повышения точности рекомендаций.</div><div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;font-family:var(--font-sans)">3. Защита данных</div><div style="font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:12px">Мы используем шифрование TLS 1.3 для передачи данных и AES-256 для хранения. Доступ к персональным данным имеют только авторизованные сотрудники.</div><div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;font-family:var(--font-sans)">4. Передача третьим лицам</div><div style="font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:12px">Мы не передаём ваши персональные данные третьим лицам без вашего согласия, за исключением случаев, предусмотренных законодательством РФ.</div><div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;font-family:var(--font-sans)">5. Ваши права</div><div style="font-size:12px;color:var(--text-2);line-height:1.6">Вы имеете право на доступ, исправление и удаление своих данных. Для этого обратитесь в поддержку через раздел \"Поддержка\" или напишите на privacy@skillhunt.app.</div></div>`;
+  6053→      break;
+  6054→    case 'buy-tokens':
+  6055→      { const currentBalance = parseInt(lsGet('skillhunt_balance', '847'));
+  6056→      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Купить токены</div></div><div class="card mb-12" style="text-align:center;padding:20px;border-color:rgba(108,123,212,.15)"><div style="font-size:12px;color:var(--text-3);margin-bottom:4px;font-family:var(--font-sans)">Текущий баланс</div><div style="font-size:28px;font-weight:800;color:var(--primary);font-family:var(--font-sans)" id="tokenBuyBalance">${currentBalance}</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">токенов</div></div><div style="display:flex;flex-direction:column;gap:10px"><div class="card" style="padding:16px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor=''"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans)">100 токенов</div><div style="font-size:18px;font-weight:800;color:var(--primary);font-family:var(--font-sans)">$5</div></div><div style="font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-sans)">0.05 $ за токен</div><button class="btn btn-p btn-full btn-sm" onclick="purchaseTokens(100,5)">Купить</button></div><div class="card" style="padding:16px;cursor:pointer;border-color:rgba(108,123,212,.2);position:relative;transition:all .2s" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='rgba(108,123,212,.2)'"><div style="position:absolute;top:0;right:0;padding:3px 10px;background:var(--primary);color:#fff;font-size:9px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">ПОПУЛЯРНЫЙ</div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans)">500 токенов</div><div style="font-size:18px;font-weight:800;color:var(--primary);font-family:var(--font-sans)">$20</div></div><div style="font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-sans)">0.04 $ за токен -- Экономия 20%</div><button class="btn btn-p btn-full btn-sm" onclick="purchaseTokens(500,20)">Купить</button></div><div class="card" style="padding:16px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor=''"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans)">2000 токенов</div><div style="font-size:18px;font-weight:800;color:var(--primary);font-family:var(--font-sans)">$60</div></div><div style="font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-sans)">0.03 $ за токен -- Экономия 40%</div><button class="btn btn-p btn-full btn-sm" onclick="purchaseTokens(2000,60)">Купить</button></div></div>`; }
+  6057→      break;
+  6058→  }
+  6059→  
+  6060→  content.innerHTML = html;
+  6061→  
+  6062→  // Apply saved notification settings if opening notifications page
+  6063→  if (type === 'notifications') applyNotifSettings();
+  6064→  
+  6065→  // Close more panel first
+  6066→  closeMorePanelDirect();
+  6067→  
+  6068→  // Then open sub after a short delay
+  6069→  setTimeout(() => {
+  6070→    const sub = document.getElementById('moreSub');
+  6071→    sub.classList.add('active');
+  6072→    sub.classList.remove('closing');
+  6073→    document.getElementById('bnav').classList.add('nav-hidden');
+  6074→  }, 100);
+  6075→}
+  6076→
+  6077→function closeMoreSub() {
+  6078→  const sub = document.getElementById('moreSub');
+  6079→  sub.classList.add('closing');
+  6080→  sub.classList.remove('active');
+  6081→  document.getElementById('bnav').classList.remove('nav-hidden');
+  6082→  setTimeout(() => sub.classList.remove('closing'), 400);
+  6083→}
+  6084→
+  6085→// ── Dark Mode ──
+  6086→function toggleDarkMode() {
+  6087→  isDark = !isDark;
+  6088→  document.documentElement.classList.toggle('dark', isDark);
+  6089→  lsSet('skillhunt_dark', isDark);
+  6090→  const toggle = document.getElementById('darkModeToggle');
+  6091→  if (toggle) toggle.checked = isDark;
+  6092→}
+  6093→
+  6094→// ── Toast (with spring animation) ──
+  6095→let toastTimer;
+  6096→function showToast(message) {
+  6097→  const toast = document.getElementById('toast');
+  6098→  toast.textContent = message;
+  6099→  toast.classList.remove('visible', 'toast-spring');
+  6100→  void toast.offsetWidth; // force reflow
+  6101→  toast.classList.add('visible', 'toast-spring');
+  6102→  clearTimeout(toastTimer);
+  6103→  toastTimer = setTimeout(() => { toast.classList.remove('visible', 'toast-spring'); }, 2500);
+  6104→}
+  6105→
+  6106→// ═══════════════════════════════════════════════════════════
+  6107→// SkillHunt — Enhanced JS Functionality
+  6108→// ═══════════════════════════════════════════════════════════
+  6109→
+  6110→// ── 1. Onboarding Modal ──
+  6111→const ONB_STEPS = [
+  6112→  { icon:'ico1', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>', title:'Находите заказы', desc:'AI подбирает заказы по вашим навыкам, совпадение 85%+' },
+  6113→  { icon:'ico2', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>', title:'Откликайтесь', desc:'Используйте AI-шаблоны для быстрых откликов' },
+  6114→  { icon:'ico3', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>', title:'Зарабатывайте', desc:'Получайте оплату безопасно через платформу' },
+  6115→  { icon:'ico4', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>', title:'Начните сейчас', desc:'', cta:'Начать работу' }
+  6116→];
+  6117→let onb2Step = 0;
+  6118→
+  6119→function showOnboarding() {
+  6120→  onb2Step = 0;
+  6121→  const overlay = document.getElementById('onb2Overlay');
+  6122→  overlay.classList.add('active');
+  6123→  renderOnb2Step();
+  6124→}
+  6125→
+  6126→function renderOnb2Step() {
+  6127→  const s = ONB_STEPS[onb2Step];
+  6128→  const dotsHtml = ONB_STEPS.map((_, i) => {
+  6129→    let cls = 'onb2-dot';
+  6130→    if (i < onb2Step) cls += ' done';
+  6131→    else if (i === onb2Step) cls += ' active';
+  6132→    return '<span class="' + cls + '"></span>';
+  6133→  }).join('');
+  6134→  document.getElementById('onb2Dots').innerHTML = dotsHtml;
+  6135→
+  6136→  const isLast = onb2Step === ONB_STEPS.length - 1;
+  6137→  const btnHtml = isLast
+  6138→    ? '<button class="onb2-btn onb2-btn-p" onclick="closeOnboarding()">' + (s.cta || 'Начать работу') + '</button>'
+  6139→    : '<button class="onb2-btn onb2-btn-p" onclick="onb2Next()">Далее</button>';
+  6140→  const skipHtml = !isLast ? '<div class="onb2-skip" onclick="closeOnboarding()">Пропустить</div>' : '';
+  6141→
+  6142→  document.getElementById('onb2Content').innerHTML =
+  6143→    '<div class="onb2-icon ' + s.icon + '">' + s.svg + '</div>' +
+  6144→    '<div class="onb2-title">' + s.title + '</div>' +
+  6145→    (s.desc ? '<div class="onb2-desc">' + s.desc + '</div>' : '<div style="margin-bottom:20px"></div>') +
+  6146→    btnHtml + skipHtml;
+  6147→}
+  6148→
+  6149→function onb2Next() {
+  6150→  const card = document.getElementById('onb2Card');
+  6151→  card.classList.add('onb2-slide-out');
+  6152→  setTimeout(() => {
+  6153→    onb2Step++;
+  6154→    renderOnb2Step();
+  6155→    card.classList.remove('onb2-slide-out');
+  6156→    card.classList.add('onb2-slide-in');
+  6157→    setTimeout(() => card.classList.remove('onb2-slide-in'), 400);
+  6158→  }, 300);
+  6159→}
+  6160→
+  6161→function closeOnboarding() {
+  6162→  lsSet('skillhunt_onboarded', 'true');
+  6163→  const overlay = document.getElementById('onb2Overlay');
+  6164→  const card = document.getElementById('onb2Card');
+  6165→  card.style.transform = 'scale(.9)';
+  6166→  card.style.opacity = '0';
+  6167→  setTimeout(() => {
+  6168→    overlay.classList.remove('active');
+  6169→    card.style.transform = '';
+  6170→    card.style.opacity = '';
+  6171→  }, 300);
+  6172→}
+  6173→
+  6174→// ── 2a. Profile Persistence ──
+  6175→function getDefaultProfile() {
+  6176→  return { name:'Александр', spec:'AI/ML Developer', about:'Full-stack разработчик с фокусом на AI/ML решения. 5+ лет опыта в разработке интеллектуальных систем.', timezone:'UTC+3 (Москва)', rate:45 };
+  6177→}
+  6178→
+  6179→function loadProfile() {
+  6180→  const profile = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
+  6181→  const sub = getSubscription();
+  6182→  // Update greeting name with plan badge
+  6183→  const userNameEl = document.getElementById('userName');
+  6184→  let badgeHtml = '';
+  6185→  if (sub.plan === 'pro') {
+  6186→    badgeHtml = ' <span class="home-greeting-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro</span>';
+  6187→  } else if (sub.plan === 'trial') {
+  6188→    badgeHtml = ' <span class="home-greeting-badge" style="background:linear-gradient(135deg,rgba(108,123,212,.12),rgba(155,143,212,.12));color:var(--primary)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro <small style="font-size:7px;opacity:.7">' + getTrialDaysLeft() + 'д</small></span>';
+  6189→  }
+  6190→  if (userNameEl) userNameEl.innerHTML = esc(profile.name || 'Александр') + badgeHtml;
+  6191→  // Update tariff badge in More panel
+  6192→  const tariffBadge = document.getElementById('moreTariffBadge');
+  6193→  if (tariffBadge) {
+  6194→    if (sub.plan === 'pro') {
+  6195→      tariffBadge.textContent = 'Pro';
+  6196→      tariffBadge.className = 'tag tag-primary';
+  6197→    } else if (sub.plan === 'trial') {
+  6198→      tariffBadge.textContent = 'Pro ' + getTrialDaysLeft() + 'д';
+  6199→      tariffBadge.className = 'tag tag-lavender';
+  6200→    } else {
+  6201→      tariffBadge.textContent = 'Free';
+  6202→      tariffBadge.className = 'tag';
+  6203→      tariffBadge.style.background = 'var(--bg-input)';
+  6204→      tariffBadge.style.color = 'var(--text-3)';
+  6205→    }
+  6206→  }
+  6207→  // Update avatar
+  6208→  const avatarEl = document.getElementById('userAvatar');
+  6209→  if (avatarEl) avatarEl.textContent = (profile.name || 'А').charAt(0).toUpperCase();
+  6210→  const moreAvatar = document.getElementById('moreAvatar');
+  6211→  if (moreAvatar) moreAvatar.textContent = (profile.name || 'А').charAt(0).toUpperCase();
+  6212→  const moreName = document.getElementById('moreName');
+  6213→  if (moreName) moreName.textContent = profile.name || 'Александр';
+  6214→}
+  6215→
+  6216→function saveProfile() {
+  6217→  const subContent = document.getElementById('moreSubContent');
+  6218→  const inputs = subContent.querySelectorAll('.inp');
+  6219→  if (inputs.length < 5) return;
+  6220→  const profile = {
+  6221→    name: inputs[0].value,
+  6222→    spec: inputs[1].value,
+  6223→    about: inputs[2].value,
+  6224→    timezone: inputs[3].value,
+  6225→    rate: inputs[4].value
+  6226→  };
+  6227→  lsSetJSON('skillhunt_profile', profile);
+  6228→  loadProfile();
+  6229→  showToast('Профиль сохранён');
+  6230→  closeMoreSub();
+  6231→}
+  6232→
+  6233→function handlePhotoClick() {
+  6234→  showToast('Для изменения фото обратитесь в поддержку через раздел "Поддержка"');
+  6235→}
+  6236→
+  6237→// ── 2b. Job Application Tracking ──
+  6238→function updateAppCount() {
+  6239→  const apps = lsGetJSON('skillhunt_applications', []);
+  6240→  const el = document.getElementById('heroAppCount');
+  6241→  if (el) el.textContent = apps.length || 5;
+  6242→}
+  6243→
+  6244→function showApplicationsView() {
+  6245→  const apps = lsGetJSON('skillhunt_applications', []);
+  6246→  if (apps.length === 0) {
+  6247→    showToast('Пока нет откликов. Откликнитесь на заказ!');
+  6248→    return;
+  6249→  }
+  6250→  const content = document.getElementById('moreSubContent');
+  6251→  let html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Мои отклики</div></div>';
+  6252→  apps.forEach(a => {
+  6253→    const d = new Date(a.date);
+  6254→    const dateStr = d.toLocaleDateString('ru-RU') + ' ' + d.toLocaleTimeString('ru-RU', {hour:'2-digit',minute:'2-digit'});
+  6255→    const statusLabel = a.status === 'pending' ? 'Ожидает' : a.status === 'viewed' ? 'Просмотрен' : 'Принят';
+  6256→    const statusCls = a.status === 'pending' ? 'tag-accent' : a.status === 'viewed' ? 'tag-primary' : 'tag-success';
+  6257→    html += '<div class="card mb-12" style="cursor:pointer" onclick="closeMoreSub();setTimeout(function(){openJobDetail(' + a.jobId + ')},200)"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans);flex:1;min-width:0">' + esc(a.jobTitle) + '</div><span class="tag ' + statusCls + '">' + statusLabel + '</span></div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">' + esc(dateStr) + '</div><div style="font-size:11px;color:var(--primary);margin-top:4px;font-family:var(--font-sans)">Нажмите, чтобы открыть заказ</div></div>';
+  6258→  });
+  6259→  content.innerHTML = html;
+  6260→  closeMorePanelDirect();
+  6261→  setTimeout(() => {
+  6262→    const sub = document.getElementById('moreSub');
+  6263→    sub.classList.add('active');
+  6264→    sub.classList.remove('closing');
+  6265→    document.getElementById('bnav').classList.add('nav-hidden');
+  6266→  }, 100);
+  6267→}
+  6268→
+  6269→// ── 2c. Notification Toggle Persistence ──
+  6270→function loadNotifSettings() {
+  6271→  const settings = lsGetJSON('skillhunt_notif_settings', null);
+  6272→}
+  6273→
+  6274→function saveNotifSettings() {
+  6275→  const subContent = document.getElementById('moreSubContent');
+  6276→  const toggles = subContent.querySelectorAll('.tgl input[type="checkbox"]');
+  6277→  if (toggles.length === 0) return;
+  6278→  const settings = [];
+  6279→  toggles.forEach(t => settings.push(t.checked));
+  6280→  lsSetJSON('skillhunt_notif_settings', settings);
+  6281→}
+  6282→
+  6283→function applyNotifSettings() {
+  6284→  const settings = lsGetJSON('skillhunt_notif_settings', null);
+  6285→  if (!settings) return;
+  6286→  setTimeout(() => {
+  6287→    const subContent = document.getElementById('moreSubContent');
+  6288→    const toggles = subContent.querySelectorAll('.tgl input[type="checkbox"]');
+  6289→    toggles.forEach((t, i) => { if (settings[i] !== undefined) t.checked = settings[i]; });
+  6290→  }, 150);
+  6291→}
+  6292→
+  6293→// ── 2d. AI Assistant Simulated Responses ──
+  6294→let aiResponseTimer = null;
+  6295→
+  6296→function aiAction(action) {
+  6297→  const subContent = document.getElementById('moreSubContent');
+  6298→  const responseAreaId = 'aiResponseArea';
+  6299→  let existingArea = document.getElementById(responseAreaId);
+  6300→  if (!existingArea) {
+  6301→    existingArea = document.createElement('div');
+  6302→    existingArea.id = responseAreaId;
+  6303→    existingArea.style.marginTop = '12px';
+  6304→    subContent.appendChild(existingArea);
+  6305→  }
+  6306→  // Show loading
+  6307→  existingArea.innerHTML = '<div class="card" style="padding:14px;text-align:center;border-color:rgba(108,123,212,.15)"><div style="display:flex;align-items:center;justify-content:center;gap:6px"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse .8s ease-in-out infinite"></span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse .8s ease-in-out .2s infinite"></span><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse .8s ease-in-out .4s infinite"></span></div><div style="font-size:12px;color:var(--text-3);margin-top:8px;font-family:var(--font-sans)">AI думает...</div></div>';
+  6308→  
+  6309→  clearTimeout(aiResponseTimer);
+  6310→  aiResponseTimer = setTimeout(() => {
+  6311→    let responseText = '';
+  6312→    let afterAction = null;
+  6313→    switch(action) {
+  6314→      case 'find-jobs':
+  6315→        responseText = 'Найдено 5 заказов с совпадением 90%+. Переключаю на ленту...';
+  6316→        afterAction = () => { closeMoreSub(); switchTab(0); };
+  6317→        break;
+  6318→      case 'write-reply':
+  6319→        responseText = 'Отклик создан для заказа "ML-модель для рекомендаций". Шаблон сохранён.';
+  6320→        break;
+  6321→      case 'improve-profile':
+  6322→        responseText = 'Добавьте навык Kubernetes — спрос вырос на 34% за месяц. Заполните портфолио — +45% к доверию клиентов.';
+  6323→        break;
+  6324→      case 'market-analysis':
+  6325→        responseText = 'Спрос на AI/ML: +42% за месяц. Средняя ставка: $65/час. Рекомендую повысить ставку до $70.';
+  6326→        break;
+  6327→    }
+  6328→    existingArea.innerHTML = '<div class="card" style="padding:14px;border-color:rgba(108,123,212,.15);animation:fadeInUp .3s ease"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:28px;height:28px;border-radius:8px;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><span style="font-size:12px;font-weight:700;color:var(--primary);font-family:var(--font-sans)">AI-ассистент</span></div><div style="font-size:13px;color:var(--text);line-height:1.5;font-family:var(--font-sans)">' + responseText + '</div></div>';
+  6329→    if (afterAction) setTimeout(afterAction, 1500);
+  6330→  }, 2000);
+  6331→}
+  6332→
+  6333→// ── 2e. Skills Add ──
+  6334→let customSkills = lsGetJSON('skillhunt_custom_skills', []);
+  6335→
+  6336→function showAddSkillInput() {
+  6337→  const subContent = document.getElementById('moreSubContent');
+  6338→  const addArea = subContent.querySelector('#skillAddArea');
+  6339→  if (addArea) { addArea.remove(); return; }
+  6340→  const div = document.createElement('div');
+  6341→  div.id = 'skillAddArea';
+  6342→  div.innerHTML = '<div style="display:flex;gap:8px;margin-bottom:12px"><input class="inp" id="newSkillInput" placeholder="Название навыка" style="flex:1" onkeydown="if(event.key===\'Enter\')addNewSkill()" /><button class="btn btn-p btn-sm" onclick="addNewSkill()">Добавить</button></div>';
+  6343→  const secLink = subContent.querySelector('.sec-link');
+  6344→  if (secLink && secLink.parentElement) secLink.parentElement.insertAdjacentElement('afterend', div);
+  6345→  else subContent.appendChild(div);
+  6346→  setTimeout(() => { const inp = document.getElementById('newSkillInput'); if (inp) inp.focus(); }, 100);
+  6347→}
+  6348→
+  6349→function addNewSkill() {
+  6350→  const inp = document.getElementById('newSkillInput');
+  6351→  if (!inp || !inp.value.trim()) return;
+  6352→  const name = inp.value.trim();
+  6353→  const progress = Math.floor(Math.random() * 41) + 50; // 50-90
+  6354→  customSkills.push({ name, progress });
+  6355→  lsSetJSON('skillhunt_custom_skills', customSkills);
+  6356→  openMoreSub('skills'); // re-render
+  6357→  showToast('Навык "' + name + '" добавлен');
+  6358→}
+  6359→
+  6360→// ── 2f. Templates Create & Apply ──
+  6361→function getTemplates() {
+  6362→  return lsGetJSON('skillhunt_templates', []);
+  6363→}
+  6364→
+  6365→function saveTemplates(templates) {
+  6366→  lsSetJSON('skillhunt_templates', templates);
+  6367→}
+  6368→
+  6369→function showCreateTemplateForm() {
+  6370→  const subContent = document.getElementById('moreSubContent');
+  6371→  const formArea = subContent.querySelector('#templateFormArea');
+  6372→  if (formArea) { formArea.remove(); return; }
+  6373→  const div = document.createElement('div');
+  6374→  div.id = 'templateFormArea';
+  6375→  div.innerHTML = '<div class="card mb-12" style="border-color:rgba(108,123,212,.15)"><div class="inp-group"><label class="inp-label">Название шаблона</label><input class="inp" id="newTplTitle" placeholder="Например: AI/ML специалист" /></div><div class="inp-group"><label class="inp-label">Текст шаблона</label><textarea class="inp" id="newTplText" rows="4" placeholder="Введите текст отклика..."></textarea></div><button class="btn btn-p btn-full" onclick="createTemplate()">Сохранить шаблон</button></div>';
+  6376→  subContent.appendChild(div);
+  6377→  setTimeout(() => { const inp = document.getElementById('newTplTitle'); if (inp) inp.focus(); }, 100);
+  6378→}
+  6379→
+  6380→function createTemplate() {
+  6381→  const title = document.getElementById('newTplTitle');
+  6382→  const text = document.getElementById('newTplText');
+  6383→  if (!title || !text || !title.value.trim() || !text.value.trim()) {
+  6384→    showToast('Заполните название и текст шаблона');
+  6385→    return;
+  6386→  }
+  6387→  const templates = getTemplates();
+  6388→  templates.push({ title: title.value.trim(), text: text.value.trim(), id: Date.now() });
+  6389→  saveTemplates(templates);
+  6390→  openMoreSub('templates');
+  6391→  showToast('Шаблон создан');
+  6392→}
+  6393→
+  6394→function copyTemplate(id) {
+  6395→  const templates = getTemplates();
+  6396→  const tpl = templates.find(t => t.id === id);
+  6397→  if (tpl && navigator.clipboard) {
+  6398→    navigator.clipboard.writeText(tpl.text).then(() => showToast('Шаблон скопирован в буфер обмена'));
+  6399→  } else {
+  6400→    showToast('Шаблон скопирован в буфер обмена');
+  6401→  }
+  6402→}
+  6403→
+  6404→function copyBuiltinTemplate(text) {
+  6405→  if (navigator.clipboard) {
+  6406→    navigator.clipboard.writeText(text).then(() => showToast('Шаблон скопирован в буфер обмена'));
+  6407→  } else {
+  6408→    showToast('Шаблон скопирован в буфер обмена');
+  6409→  }
+  6410→}
+  6411→
+  6412→// ── 2g. Guided Steps Interactivity ──
+  6413→function guidedStep1() {
+  6414→  // Scroll to and highlight the CTA button
+  6415→  const cta = document.querySelector('.hero-cta');
+  6416→  if (cta) {
+  6417→    cta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  6418→    cta.style.boxShadow = '0 0 0 4px rgba(108,123,212,.4), 0 6px 24px rgba(108,123,212,.3)';
+  6419→    setTimeout(() => { cta.style.boxShadow = ''; }, 2000);
+  6420→  }
+  6421→  showToast('Нажмите "Посмотреть заказы" для начала');
+  6422→}
+  6423→
+  6424→function guidedStep2() {
+  6425→  switchTab(1);
+  6426→  showToast('Настройте фильтры для поиска');
+  6427→}
+  6428→
+  6429→function guidedStep3() {
+  6430→  // Open first job card
+  6431→  if (MOCK_JOBS.length > 0) openJobDetail(MOCK_JOBS[0].id);
+  6432→}
+  6433→
+  6434→// ── 2h. Support Form ──
+  6435→function submitSupport() {
+  6436→  const subContent = document.getElementById('moreSubContent');
+  6437→  const inputs = subContent.querySelectorAll('.inp');
+  6438→  if (inputs.length < 2 || !inputs[1].value.trim()) {
+  6439→    showToast('Опишите вашу проблему');
+  6440→    return;
+  6441→  }
+  6442→  const tickets = lsGetJSON('skillhunt_support_tickets', []);
+  6443→  const ticketNum = 'SH-' + (1000 + tickets.length);
+  6444→  tickets.push({
+  6445→    id: ticketNum,
+  6446→    topic: inputs[0].value,
+  6447→    description: inputs[1].value,
+  6448→    date: new Date().toISOString(),
+  6449→    status: 'open'
+  6450→  });
+  6451→  lsSetJSON('skillhunt_support_tickets', tickets);
+  6452→  showToast('Тикет ' + ticketNum + ' создан! Ответим в течение 2 часов');
+  6453→  closeMoreSub();
+  6454→}
+  6455→
+  6456→// ── 3. New Feature Functions ──
+  6457→
+  6458→// 3a. Portfolio Functions
+  6459→function togglePortfolioForm() {
+  6460→  const form = document.getElementById('portfolioAddForm');
+  6461→  if (form) {
+  6462→    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  6463→  }
+  6464→}
+  6465→
+  6466→function addPortfolioItem() {
+  6467→  const name = document.getElementById('portfolioName').value.trim();
+  6468→  const desc = document.getElementById('portfolioDesc').value.trim();
+  6469→  const skills = document.getElementById('portfolioSkills').value.trim();
+  6470→  if (!name) { showToast('Введите название проекта'); return; }
+  6471→  if (!desc) { showToast('Введите описание проекта'); return; }
+  6472→  const items = lsGetJSON('skillhunt_portfolio', []);
+  6473→  const colors = ['primary','lavender','mint','coral','sky'];
+  6474→  items.push({ id: 'p' + Date.now(), name: name, desc: desc, skills: skills || 'Не указаны', color: colors[items.length % 5] });
+  6475→  lsSetJSON('skillhunt_portfolio', items);
+  6476→  showToast('Проект "' + name + '" добавлен в портфолио');
+  6477→  openMoreSub('portfolio');
+  6478→}
+  6479→
+  6480→function deletePortfolioItem(id) {
+  6481→  const items = lsGetJSON('skillhunt_portfolio', []);
+  6482→  const filtered = items.filter(i => i.id !== id);
+  6483→  lsSetJSON('skillhunt_portfolio', filtered);
+  6484→  showToast('Проект удалён из портфолио');
+  6485→  openMoreSub('portfolio');
+  6486→}
+  6487→
+  6488→// 3b. Token Purchase Function
+  6489→function purchaseTokens(amount, price) {
+  6490→  let balance = parseInt(lsGet('skillhunt_balance', '847'));
+  6491→  balance += amount;
+  6492→  lsSet('skillhunt_balance', String(balance));
+  6493→  const balanceEl = document.getElementById('tokenBuyBalance');
+  6494→  if (balanceEl) balanceEl.textContent = balance;
+  6495→  // Also update the More panel balance display
+  6496→  const moreBalanceEl = document.querySelector('.more-balance-value');
+  6497→  if (moreBalanceEl) moreBalanceEl.textContent = balance;
+  6498→  showToast('+' + amount + ' токенов куплено за $' + price + '! Баланс: ' + balance);
+  6499→}
+  6500→
+  6501→// 3c. Language Switching
+  6502→function setLanguage(lang) {
+  6503→  lsSet('skillhunt_language', lang);
+  6504→  applyLanguage(lang);
+  6505→  openMoreSub('language');
+  6506→  showToast(lang === 'ru' ? 'Язык: Русский' : 'Language: English');
+  6507→}
+  6508→
+  6509→function applyLanguage(lang) {
+  6510→  if (lang === 'en') {
+  6511→    // Update key UI elements to English
+  6512→    const greetingEl = document.querySelector('.hero-title');
+  6513→    if (greetingEl) greetingEl.textContent = 'Find your next project';
+  6514→    const greetingSub = document.querySelector('.hero-secondary');
+  6515→    if (greetingSub) greetingSub.innerHTML = 'or <span onclick="switchTab(1)">set filters</span>';
+  6516→    // Tab labels
+  6517→    const tabs = document.querySelectorAll('.bnav-i span');
+  6518→    if (tabs[0]) tabs[0].textContent = 'Feed';
+  6519→    if (tabs[1]) tabs[1].textContent = 'Search';
+  6520→    if (tabs[2]) tabs[2].textContent = 'Saved';
+  6521→    // CTA buttons
+  6522→    document.querySelectorAll('.btn-p').forEach(b => {
+  6523→      if (b.textContent.trim() === 'Найти заказы') b.textContent = 'Find jobs';
+  6524→      if (b.textContent.trim() === 'Откликнуться') b.textContent = 'Apply';
+  6525→    });
+  6526→    // Hero metrics
+  6527→    const metricLabels = document.querySelectorAll('.hero-metric-label');
+  6528→    metricLabels.forEach(l => {
+  6529→      if (l.textContent === 'Заказы') l.textContent = 'Jobs';
+  6530→      if (l.textContent === 'Отклики') l.textContent = 'Applications';
+  6531→    });
+  6532→    // Saved page
+  6533→    const savedLabel = document.getElementById('savedCount');
+  6534→    if (savedLabel && savedLabel.textContent.includes('заказ')) {
+  6535→      const cnt = savedJobs.length;
+  6536→      savedLabel.textContent = cnt + (cnt === 1 ? ' job' : ' jobs');
+  6537→    }
+  6538→    // Language indicator in More panel
+  6539→    const langSpan = document.querySelector('.more-menu-row-text');
+  6540→    // Update language row indicator
+  6541→  } else {
+  6542→    // Restore Russian
+  6543→    const greetingEl = document.querySelector('.hero-title');
+  6544→    if (greetingEl) greetingEl.textContent = 'Найдите свой заказ';
+  6545→    const greetingSub = document.querySelector('.hero-secondary');
+  6546→    if (greetingSub) greetingSub.innerHTML = 'или <span onclick="switchTab(1)">настроить фильтры</span>';
+  6547→    const tabs = document.querySelectorAll('.bnav-i span');
+  6548→    if (tabs[0]) tabs[0].textContent = 'Лента';
+  6549→    if (tabs[1]) tabs[1].textContent = 'Поиск';
+
+[showing lines 6050-6549 of 6650; use offset=6550 with limit to continue reading]

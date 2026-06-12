@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#F5F6FA">
+<title>SkillHunt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/lucide-static@0.460.0/font/lucide.css" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --primary:#6C7BD4;--primary-hover:#5B6AC3;--primary-light:#EEF0FA;
+  --primary-soft:rgba(108,123,212,.06);--primary-glow:rgba(108,123,212,.15);
+  --bg:#F5F6FA;--bg-card:#FFFFFF;--bg-input:#ECEEF4;
+  --text:#171B2D;--text-2:#5E6882;--text-3:#939DAD;
+  --border:#E2E6EE;--border-soft:#ECF0F6;
+  --success:#4CAF7D;--success-light:#EDFAF2;
+  --danger:#D9534F;--danger-light:#FDF0EF;
+  --warning:#D4A03A;--warning-light:#FBF5E6;
+  --coral:#E07C6C;--sky:#5A9FD4;--lavender:#8E7FD4;--mint:#5BBF8F;
+  --accent:#8A9BE8;
+  --radius:16px;--radius-sm:12px;--radius-xs:8px;--radius-full:999px;
+  --shadow:0 1px 2px rgba(23,27,45,.03);
+  --shadow-card:0 1px 3px rgba(23,27,45,.04);
+  --shadow-elevated:0 4px 16px rgba(23,27,45,.08);
+  --font-serif:'Lora',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --nav-h:64px;--status-h:0px;
+  --early-gold:rgba(212,175,55,.35);
+}
+.dark{
+  --primary:#8A9BE8;--primary-hover:#7A8BD8;--primary-light:#1E2240;
+  --primary-soft:rgba(138,155,232,.08);--primary-glow:rgba(138,155,232,.2);
+  --bg:#0F1120;--bg-card:#181B2E;--bg-input:#1E2240;
+  --text:#E8EAF0;--text-2:#939DAD;--text-3:#5E6882;
+  --border:#282D42;--border-soft:#1E2240;
+  --success-light:#132A1E;--danger-light:#2A1313;--warning-light:#2A2413;
+  --shadow:0 1px 2px rgba(0,0,0,.2);--shadow-card:0 1px 3px rgba(0,0,0,.25);
+  --shadow-elevated:0 4px 16px rgba(0,0,0,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);color:var(--text);background:var(--bg);
+  line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;
+  height:100vh;height:100dvh;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;color:inherit}
+a{text-decoration:none;color:inherit}
+.app-shell{
+  max-width:430px;margin:0 auto;height:100vh;height:100dvh;
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+  background:var(--bg);
+}
+/* Scrollbar */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+/* ===== SLIDER ===== */
+.slider-container{
+  flex:1;overflow:hidden;position:relative;
+}
+.slider-track{
+  display:flex;height:100%;
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+.slider-page{
+  min-width:100%;height:100%;overflow-y:auto;overflow-x:hidden;
+  padding:0 16px 24px;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{
+  display:flex;align-items:center;justify-content:space-around;
+  height:var(--nav-h);background:var(--bg-card);
+  border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom);
+  flex-shrink:0;z-index:100;
+}
+.nav-item{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:6px 12px;border-radius:var(--radius-xs);
+  transition:color .2s;color:var(--text-3);min-width:48px;
+}
+.nav-item.active{color:var(--primary)}
+.nav-item i{font-size:20px;line-height:1}
+.nav-label{font-size:10px;font-weight:500;letter-spacing:.02em}
+
+/* ===== BOTTOM SHEET ===== */
+.sheet-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.sheet-overlay.open{opacity:1;pointer-events:auto}
+.bottom-sheet{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
+  width:100%;max-width:430px;max-height:80vh;
+  background:var(--bg-card);border-radius:var(--radius) var(--radius) 0 0;
+  z-index:201;transition:transform .35s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;padding-bottom:env(safe-area-inset-bottom);
+}
+.bottom-sheet.open{transform:translateX(-50%) translateY(0)}
+.sheet-handle{
+  width:36px;height:4px;border-radius:2px;background:var(--border);
+  margin:8px auto 4px;
+}
+
+/* ===== OVERLAY PANEL ===== */
+.overlay-panel{
+  position:fixed;inset:0;z-index:300;background:var(--bg);
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  max-width:430px;margin:0 auto;overflow-y:auto;
+  padding-bottom:calc(24px + env(safe-area-inset-bottom));
+}
+.overlay-panel.open{transform:translateY(0)}
+.panel-header{
+  display:flex;align-items:center;gap:8px;padding:12px 16px;
+  position:sticky;top:0;background:var(--bg);z-index:10;
+  border-bottom:1px solid var(--border-soft);
+}
+.panel-back{
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  border-radius:var(--radius-xs);transition:background .15s;
+}
+.panel-back:active{background:var(--primary-soft)}
+.panel-title{font-size:17px;font-weight:600;font-family:var(--font-sans)}
+.panel-body{padding:16px}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--bg-card);border:1px solid var(--border-soft);
+  border-radius:var(--radius-sm);padding:14px;
+  box-shadow:var(--shadow-card);transition:transform .15s,box-shadow .15s;
+}
+.card:active{transform:scale(0.985)}
+.card-early-pro{
+  border-color:var(--early-gold);
+  box-shadow:0 0 0 1px var(--early-gold),var(--shadow-card);
+}
+.card-early-free{position:relative;overflow:hidden}
+.card-early-free::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.6);backdrop-filter:blur(2px);
+  border-radius:var(--radius-sm);
+}
+.dark .card-early-free::after{background:rgba(15,17,32,.65)}
+
+/* ===== BUTTONS ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  font-weight:600;border-radius:var(--radius-xs);
+  transition:transform .1s,background .15s,opacity .15s;
+  cursor:pointer;white-space:nowrap;
+}
+.btn:active{transform:scale(0.96)}
+.btn-primary{
+  background:var(--primary);color:#fff;padding:10px 20px;
+  font-size:14px;
+}
+.btn-primary:hover{background:var(--primary-hover)}
+.btn-secondary{
+  background:var(--primary-light);color:var(--primary);
+  padding:8px 16px;font-size:13px;
+}
+.btn-ghost{
+  color:var(--text-2);padding:8px 12px;font-size:13px;
+}
+.btn-ghost:hover{background:var(--primary-soft)}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:var(--radius-xs)}
+.btn-icon{
+  width:36px;height:36px;border-radius:var(--radius-xs);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .15s,transform .1s;
+}
+.btn-icon:active{transform:scale(0.96)}
+.btn-icon:hover{background:var(--primary-soft)}
+
+/* ===== CHIPS / TAGS ===== */
+.chip{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 10px;border-radius:var(--radius-full);
+  font-size:12px;font-weight:500;white-space:nowrap;
+  background:var(--primary-light);color:var(--primary);
+}
+.chip-outline{
+  background:transparent;border:1px solid var(--border);color:var(--text-2);
+}
+.chip-sm{padding:2px 8px;font-size:11px}
+.chip-active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.cat-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+}
+
+/* ===== INPUTS ===== */
+.input-wrap{
+  display:flex;align-items:center;gap:8px;
+  background:var(--bg-input);border:1px solid var(--border-soft);
+  border-radius:var(--radius-sm);padding:0 12px;
+  transition:border-color .15s;
+}
+.input-wrap:focus-within{border-color:var(--primary)}
+.input-wrap i{color:var(--text-3);font-size:18px}
+.input-wrap input{
+  flex:1;border:none;background:transparent;padding:10px 0;
+  font-size:14px;outline:none;
+}
+.textarea{
+  width:100%;border:1px solid var(--border-soft);border-radius:var(--radius-sm);
+  padding:12px;font-size:14px;background:var(--bg-input);
+  resize:vertical;min-height:120px;outline:none;
+  transition:border-color .15s;
+}
+.textarea:focus{border-color:var(--primary)}
+.select-wrap{
+  position:relative;display:inline-flex;
+}
+.select-wrap select{
+  appearance:none;background:var(--bg-input);border:1px solid var(--border-soft);
+  border-radius:var(--radius-xs);padding:8px 32px 8px 12px;
+  font-size:13px;outline:none;cursor:pointer;
+}
+.select-wrap::after{
+  content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;
+  border-top:5px solid var(--text-3);pointer-events:none;
+}
+
+/* ===== SEGMENTED CONTROL ===== */
+.seg-control{
+  display:flex;background:var(--bg-input);border-radius:var(--radius-xs);
+  padding:3px;gap:2px;overflow-x:auto;
+}
+.seg-item{
+  flex:1;min-width:0;padding:7px 8px;text-align:center;
+  font-size:12px;font-weight:500;border-radius:6px;
+  transition:background .15s,color .15s;color:var(--text-2);
+  white-space:nowrap;cursor:pointer;
+}
+.seg-item.active{background:var(--bg-card);color:var(--text);box-shadow:var(--shadow)}
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar{
+  height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden;
+}
+.progress-fill{
+  height:100%;border-radius:3px;background:var(--primary);
+  transition:width .4s ease;
+}
+
+/* ===== BADGE ===== */
+.badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;
+  letter-spacing:.03em;
+}
+.badge-pro{background:var(--primary-light);color:var(--primary)}
+.badge-match{
+  background:var(--success-light);color:var(--success);
+  padding:2px 7px;border-radius:var(--radius-full);font-size:11px;font-weight:600;
+}
+
+/* ===== SKELETON ===== */
+.skeleton{
+  background:linear-gradient(90deg,var(--bg-input) 25%,var(--border-soft) 50%,var(--bg-input) 75%);
+  background-size:200% 100%;animation:shimmer 1.5s infinite;
+  border-radius:var(--radius-xs);
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ===== SECTION HEADERS ===== */
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:20px 0 10px;
+}
+.section-title{font-size:15px;font-weight:600;font-family:var(--font-sans)}
+.section-link{font-size:13px;color:var(--primary);font-weight:500}
+
+/* ===== TOGGLE ===== */
+.toggle{
+  width:44px;height:24px;border-radius:12px;background:var(--border);
+  position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;
+}
+.toggle.on{background:var(--primary)}
+.toggle::after{
+  content:'';position:absolute;top:2px;left:2px;
+  width:20px;height:20px;border-radius:50%;background:#fff;
+  transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.15);
+}
+.toggle.on::after{transform:translateX(20px)}
+
+/* ===== LIST ITEM ===== */
+.list-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--border-soft);
+}
+.list-item:last-child{border-bottom:none}
+.list-icon{
+  width:36px;height:36px;border-radius:var(--radius-xs);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--primary-light);color:var(--primary);flex-shrink:0;
+}
+.list-icon i{font-size:18px}
+.list-content{flex:1;min-width:0}
+.list-label{font-size:14px;font-weight:500}
+.list-sub{font-size:12px;color:var(--text-3)}
+.list-arrow{color:var(--text-3)}
+.list-arrow i{font-size:16px}
+
+/* ===== TOAST ===== */
+.toast{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-100px);
+  max-width:380px;width:calc(100% - 32px);padding:12px 16px;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);box-shadow:var(--shadow-elevated);
+  font-size:13px;font-weight:500;z-index:500;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+  display:flex;align-items:center;gap:8px;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast i{font-size:18px}
+
+/* ===== LOCK OVERLAY ===== */
+.lock-badge{
+  position:absolute;top:8px;right:8px;z-index:2;
+  display:flex;align-items:center;gap:4px;
+  background:var(--bg-card);padding:3px 8px;border-radius:var(--radius-full);
+  font-size:10px;font-weight:600;color:var(--text-3);
+  box-shadow:var(--shadow);
+}
+.lock-badge i{font-size:12px}
+
+/* ===== FILTER PANEL ===== */
+.filter-panel{
+  max-height:0;overflow:hidden;
+  transition:max-height .3s ease,opacity .2s;opacity:0;
+}
+.filter-panel.open{max-height:500px;opacity:1}
+.filter-section{margin-bottom:14px}
+.filter-label{font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.filter-chips{display:flex;flex-wrap:wrap;gap:6px}
+
+/* ===== AI TYPING ===== */
+.ai-text{font-family:var(--font-serif);line-height:1.7;color:var(--text)}
+.ai-cursor{
+  display:inline-block;width:2px;height:1em;background:var(--primary);
+  margin-left:1px;animation:blink .8s infinite;vertical-align:text-bottom;
+}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+/* ===== ACCORDION ===== */
+.accordion-item{border-bottom:1px solid var(--border-soft)}
+.accordion-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;cursor:pointer;font-size:14px;font-weight:500;
+}
+.accordion-head i{transition:transform .2s;color:var(--text-3);font-size:18px}
+.accordion-head.open i{transform:rotate(180deg)}
+.accordion-body{
+  max-height:0;overflow:hidden;transition:max-height .25s ease;
+}
+.accordion-body.open{max-height:500px}
+.accordion-body-inner{padding:0 0 14px;font-size:13px;color:var(--text-2);line-height:1.6}
+
+/* ===== CHAT ===== */
+.chat-bubble{
+  max-width:80%;padding:10px 14px;border-radius:var(--radius-sm);
+  font-size:13px;line-height:1.5;margin-bottom:8px;
+}
+.chat-in{background:var(--bg-input);align-self:flex-start;border-bottom-left-radius:4px}
+.chat-out{background:var(--primary);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-time{font-size:10px;color:var(--text-3);margin-bottom:12px}
+
+/* ===== MISC ===== */
+.gap-8{gap:8px}.gap-10{gap:10px}.gap-12{gap:12px}.gap-14{gap:14px}.gap-16{gap:16px}
+.flex{display:flex}.items-center{align-items:center}.justify-between{justify-content:space-between}
+.flex-1{flex:1;min-width:0}.flex-wrap{flex-wrap:wrap}
+.text-2{color:var(--text-2)}.text-3{color:var(--text-3)}
+.text-sm{font-size:13px}.text-xs{font-size:11px}.text-lg{font-size:17px}
+.font-medium{font-weight:500}.font-semibold{font-weight:600}.font-bold{font-weight:700}
+.mt-2{margin-top:8px}.mt-3{margin-top:12px}.mt-4{margin-top:16px}.mt-6{margin-top:24px}
+.mb-2{margin-bottom:8px}.mb-3{margin-bottom:12px}.mb-4{margin-bottom:16px}
+.p-4{padding:16px}.py-2{padding-top:8px;padding-bottom:8px}
+.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.w-full{width:100%}
+.rounded-full{border-radius:var(--radius-full)}
+.serif{font-family:var(--font-serif)}
+.hidden{display:none!important}
+.relative{position:relative}
+.opacity-60{opacity:.6}
+.h-scroll{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.h-scroll::-webkit-scrollbar{display:none}
+.stat-value{font-size:24px;font-weight:700;font-family:var(--font-sans);color:var(--text)}
+.stat-label{font-size:12px;color:var(--text-3);margin-top:2px}
+.divider{height:1px;background:var(--border-soft);margin:12px 0}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-3)}
+.empty-state i{font-size:40px;margin-bottom:12px;opacity:.4}
+.empty-state p{font-size:14px}
+.response-card{border-left:3px solid transparent}
+.response-card.status-draft{border-left-color:var(--warning)}
+.response-card.status-sent{border-left-color:var(--primary)}
+.response-card.status-viewed{border-left-color:var(--success)}
+.response-card.status-replied{border-left-color:var(--accent)}
+.profile-avatar{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:700;font-family:var(--font-sans);flex-shrink:0;
+}
+.profile-avatar-sm{width:36px;height:36px;font-size:14px}
+.strategy-section{
+  background:var(--bg-card);border:1px solid var(--border-soft);
+  border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;
+}
+.strategy-section h4{font-size:13px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.strategy-section h4 i{color:var(--primary);font-size:16px}
+.strategy-section p{font-size:13px;color:var(--text-2);line-height:1.6}
+.tariff-card{
+  border:1px solid var(--border-soft);border-radius:var(--radius-sm);
+  padding:20px;text-align:center;
+}
+.tariff-card.current{border-color:var(--primary);background:var(--primary-light)}
+.tariff-name{font-size:18px;font-weight:700;margin-bottom:4px}
+.tariff-price{font-size:14px;color:var(--text-2);margin-bottom:12px}
+.tariff-features{text-align:left;font-size:13px;color:var(--text-2);line-height:2}
+.tariff-features li{display:flex;align-items:center;gap:8px}
+.tariff-features li i{color:var(--success);font-size:14px}
+.tariff-features li.disabled{opacity:.4}
+.tariff-features li.disabled i{color:var(--text-3)}
+</style>
+</head>
+<body>
+<div class="app-shell" id="app">
+  <!-- TOAST -->
+  <div class="toast" id="toast"><i class="icon-check-circle" style="color:var(--success)"></i><span id="toast-msg"></span></div>
+
+  <!-- ===== SLIDER ===== -->
+  <div class="slider-container">
+    <div class="slider-track" id="sliderTrack">
+
+      <!-- ===== PAGE 1: ГЛАВНАЯ ===== -->
+      <div class="slider-page" id="pageHome">
+        <div style="padding-top:16px">
+          <!-- Greeting -->
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <div class="flex items-center gap-10">
+                <h1 class="text-lg font-semibold" id="greeting"></h1>
+                <span class="badge badge-pro">PRO</span>
+              </div>
+              <p class="text-sm text-2 mt-2" id="dateLine"></p>
+            </div>
+            <button class="btn-icon" onclick="openNotifications()"><i class="icon-bell" style="font-size:20px;color:var(--text-2)"></i></button>
+          </div>
+
+          <!-- AI Hint Card -->
+          <div class="card" style="background:var(--primary-light);border-color:transparent;margin-bottom:16px">
+            <div class="flex items-center gap-8 mb-2">
+              <i class="icon-sparkles" style="color:var(--primary);font-size:18px"></i>
+              <span class="text-sm font-medium" style="color:var(--primary)">Подборка для вас</span>
+            </div>
+            <p class="text-sm serif" style="color:var(--text)">3 заказа совпадают на 85%+ с вашими навыками</p>
+            <div class="flex gap-6 mt-3">
+              <span class="chip chip-sm">Python</span>
+              <span class="chip chip-sm">ML</span>
+              <span class="chip chip-sm">NLP</span>
+            </div>
+            <button class="btn btn-primary btn-sm mt-3 w-full" onclick="switchTab(1)">Посмотреть заказы</button>
+          </div>
+
+          <!-- Metrics -->
+          <div class="flex gap-8 mb-4">
+            <div class="card flex-1" style="padding:12px">
+              <div class="stat-value" style="font-size:20px">24</div>
+              <div class="stat-label">Заказы</div>
+            </div>
+            <div class="card flex-1" style="padding:12px">
+              <div class="stat-value" style="font-size:20px">7</div>
+              <div class="stat-label">Отклики</div>
+            </div>
+          </div>
+
+          <!-- Category Chips -->
+          <div class="h-scroll mb-3" id="homeCats"></div>
+
+          <!-- Job Cards -->
+          <div id="homeFeed"></div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE 2: ПОИСК ===== -->
+      <div class="slider-page" id="pageSearch">
+        <div style="padding-top:16px">
+          <h2 class="text-lg font-semibold mb-3">Поиск заказов</h2>
+          <div class="input-wrap mb-3">
+            <i class="icon-search"></i>
+            <input type="text" placeholder="Найти заказ..." id="searchInput" oninput="renderSearch()">
+          </div>
+          <button class="btn btn-secondary btn-sm mb-3" onclick="toggleFilter()" id="filterToggle">
+            <i class="icon-sliders-horizontal" style="font-size:14px"></i> Фильтры
+          </button>
+
+          <!-- Filter Panel -->
+          <div class="filter-panel" id="filterPanel">
+            <div class="card" style="padding:14px;margin-bottom:12px">
+              <div class="filter-section">
+                <div class="filter-label">Категория</div>
+                <div class="filter-chips" id="filterCats"></div>
+              </div>
+              <div class="filter-section">
+                <div class="filter-label">Бюджет</div>
+                <div class="select-wrap w-full">
+                  <select id="filterBudget" onchange="renderSearch()" style="width:100%">
+                    <option value="">Любой</option>
+                    <option value="low">до 30 000 ₽</option>
+                    <option value="mid">30 000 — 100 000 ₽</option>
+                    <option value="high">от 100 000 ₽</option>
+                  </select>
+                </div>
+              </div>
+              <div class="filter-section">
+                <div class="filter-label">Уровень</div>
+                <div class="filter-chips">
+                  <button class="chip chip-outline filter-level active" data-level="" onclick="setFilterLevel(this)">Все</button>
+                  <button class="chip chip-outline filter-level" data-level="junior" onclick="setFilterLevel(this)">Junior</button>
+                  <button class="chip chip-outline filter-level" data-level="middle" onclick="setFilterLevel(this)">Middle</button>
+                  <button class="chip chip-outline filter-level" data-level="senior" onclick="setFilterLevel(this)">Senior</button>
+                </div>
+              </div>
+              <div class="filter-section">
+                <div class="filter-label">Тип работы</div>
+                <div class="filter-chips">
+                  <button class="chip chip-outline filter-type active" data-type="" onclick="setFilterType(this)">Все</button>
+                  <button class="chip chip-outline filter-type" data-type="remote" onclick="setFilterType(this)">Удалённо</button>
+                  <button class="chip chip-outline filter-type" data-type="hybrid" onclick="setFilterType(this)">Гибрид</button>
+                  <button class="chip chip-outline filter-type" data-type="onsite" onclick="setFilterType(this)">Офис</button>
+                </div>
+              </div>
+              <div class="filter-section">
+                <div class="filter-label">Сортировка</div>
+                <div class="select-wrap w-full">
+                  <select id="filterSort" onchange="renderSearch()" style="width:100%">
+                    <option value="new">Новые</option>
+                    <option value="match">По совпадению</option>
+                    <option value="budget_high">Бюджет ↓</option>
+                    <option value="budget_low">Бюджет ↑</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search Results -->
+          <div id="searchResults"></div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE 3: ОТКЛИКИ ===== -->
+      <div class="slider-page" id="pageResponses">
+        <div style="padding-top:16px">
+          <h2 class="text-lg font-semibold mb-3">Отклики</h2>
+          <div class="seg-control mb-3" id="respSegControl">
+            <div class="seg-item active" data-status="draft" onclick="setRespStatus(this)">Черновики</div>
+            <div class="seg-item" data-status="sent" onclick="setRespStatus(this)">Отправленные</div>
+            <div class="seg-item" data-status="viewed" onclick="setRespStatus(this)">Просмотренные</div>
+            <div class="seg-item" data-status="replied" onclick="setRespStatus(this)">Ответы</div>
+          </div>
+          <div id="respList"></div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE 4: ПРОФИЛЬ ===== -->
+      <div class="slider-page" id="pageProfile">
+        <div style="padding-top:16px">
+          <div class="flex items-center gap-12 mb-4">
+            <div class="profile-avatar">А</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-8">
+                <h2 class="text-lg font-semibold">Александр</h2>
+                <span class="badge badge-pro">PRO</span>
+              </div>
+              <p class="text-sm text-2 mt-2">AI/ML разработчик</p>
+            </div>
+            <button class="btn-icon" onclick="openPanel('editProfile')"><i class="icon-settings" style="font-size:18px;color:var(--text-2)"></i></button>
+          </div>
+
+          <!-- Profile Completeness -->
+          <div class="card mb-3" style="padding:12px">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium">Заполнение профиля</span>
+              <span class="text-sm font-semibold" style="color:var(--primary)">70%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+          </div>
+
+          <!-- Skills -->
+          <div class="section-head"><span class="section-title">Навыки</span><button class="btn btn-ghost btn-sm" onclick="openPanel('skills')">Управлять</button></div>
+          <div class="flex flex-wrap gap-6 mb-4" id="profileSkills"></div>
+
+          <!-- Portfolio -->
+          <div class="section-head"><span class="section-title">Портфолио</span><button class="btn btn-ghost btn-sm" onclick="openPanel('portfolio')">Все</button></div>
+          <div id="profilePortfolio" class="mb-4"></div>
+
+          <!-- Statistics -->
+          <div class="section-head"><span class="section-title">Статистика</span></div>
+          <div class="flex gap-8 mb-4">
+            <div class="card flex-1" style="padding:12px;text-align:center">
+              <div class="stat-value" style="font-size:20px">34</div>
+              <div class="stat-label">Выполнено</div>
+            </div>
+            <div class="card flex-1" style="padding:12px;text-align:center">
+              <div class="stat-value" style="font-size:20px">4.9</div>
+              <div class="stat-label">Рейтинг</div>
+            </div>
+            <div class="card flex-1" style="padding:12px;text-align:center">
+              <div class="stat-value" style="font-size:20px">820k</div>
+              <div class="stat-label">Заработано</div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-full" onclick="openPanel('editProfile')">Редактировать профиль</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-item active" data-tab="0" onclick="switchTab(0)">
+      <i class="icon-house"></i><span class="nav-label">Главная</span>
+    </button>
+    <button class="nav-item" data-tab="1" onclick="switchTab(1)">
+      <i class="icon-search"></i><span class="nav-label">Поиск</span>
+    </button>
+    <button class="nav-item" data-tab="2" onclick="switchTab(2)">
+      <i class="icon-send"></i><span class="nav-label">Отклики</span>
+    </button>
+    <button class="nav-item" data-tab="3" onclick="switchTab(3)">
+      <i class="icon-user"></i><span class="nav-label">Профиль</span>
+    </button>
+    <button class="nav-item" data-tab="4" onclick="openMore()">
+      <i class="icon-ellipsis"></i><span class="nav-label">Ещё</span>
+    </button>
+  </nav>
+
+  <!-- ===== BOTTOM SHEET: MORE ===== -->
+  <div class="sheet-overlay" id="sheetOverlay" onclick="closeMore()"></div>
+  <div class="bottom-sheet" id="moreSheet">
+    <div class="sheet-handle"></div>
+    <div style="padding:8px 16px 16px">
+      <!-- Profile Bar -->
+      <div class="flex items-center gap-12 mb-4 p-4" style="background:var(--primary-light);border-radius:var(--radius-sm)">
+        <div class="profile-avatar profile-avatar-sm">А</div>
+        <div class="flex-1">
+          <div class="font-semibold text-sm">Александр</div>
+          <div class="text-xs text-2">PRO до 15.04.2026</div>
+        </div>
+        <span class="badge badge-pro">PRO</span>
+      </div>
+
+      <!-- Subscription -->
+      <div class="text-xs font-semibold text-2 mb-2" style="text-transform:uppercase;letter-spacing:.04em">Подписка</div>
+      <div class="list-item" onclick="openPanel('tariff');closeMore()">
+        <div class="list-icon"><i class="icon-credit-card"></i></div>
+        <div class="list-content"><div class="list-label">Тариф</div><div class="list-sub">PRO — активен</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+      <div class="list-item" onclick="showToast('История платежей скоро');closeMore()">
+        <div class="list-icon"><i class="icon-receipt"></i></div>
+        <div class="list-content"><div class="list-label">История платежей</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Tools -->
+      <div class="text-xs font-semibold text-2 mb-2" style="text-transform:uppercase;letter-spacing:.04em">Инструменты</div>
+      <div class="list-item" onclick="openPanel('aiAssist');closeMore()">
+        <div class="list-icon"><i class="icon-sparkles"></i></div>
+        <div class="list-content"><div class="list-label">AI-ассистент</div><div class="list-sub">Генерация откликов и стратегии</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+      <div class="list-item" onclick="openPanel('templates');closeMore()">
+        <div class="list-icon"><i class="icon-file-text"></i></div>
+        <div class="list-content"><div class="list-label">Шаблоны откликов</div><div class="list-sub">6 шаблонов</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Settings -->
+      <div class="text-xs font-semibold text-2 mb-2" style="text-transform:uppercase;letter-spacing:.04em">Настройки</div>
+      <div class="list-item" onclick="toggleDarkMode()">
+        <div class="list-icon"><i class="icon-moon"></i></div>
+        <div class="list-content"><div class="list-label">Тёмная тема</div></div>
+        <div class="toggle" id="darkToggle"></div>
+      </div>
+      <div class="list-item" onclick="showToast('Язык: Русский');closeMore()">
+        <div class="list-icon"><i class="icon-globe"></i></div>
+        <div class="list-content"><div class="list-label">Язык</div><div class="list-sub">Русский</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+      <div class="list-item" onclick="openPanel('notifications');closeMore()">
+        <div class="list-icon"><i class="icon-bell"></i></div>
+        <div class="list-content"><div class="list-label">Уведомления</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+      <div class="list-item" onclick="openPanel('faq');closeMore()">
+        <div class="list-icon"><i class="icon-help-circle"></i></div>
+        <div class="list-content"><div class="list-label">FAQ</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+      <div class="list-item" onclick="openPanel('support');closeMore()">
+        <div class="list-icon"><i class="icon-message-circle"></i></div>
+        <div class="list-content"><div class="list-label">Поддержка</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+      <div class="list-item" onclick="openPanel('about');closeMore()">
+        <div class="list-icon"><i class="icon-info"></i></div>
+        <div class="list-content"><div class="list-label">О приложении</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+
+      <div class="text-xs text-3 text-center mt-4">SkillHunt v2.0.1</div>
+    </div>
+  </div>
+
+  <!-- ===== OVERLAY PANELS ===== -->
+
+  <!-- Job Detail -->
+  <div class="overlay-panel" id="panel-jobDetail">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('jobDetail')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Заказ</div>
+    </div>
+    <div class="panel-body" id="jobDetailBody"></div>
+  </div>
+
+  <!-- AI Cover Letter -->
+  <div class="overlay-panel" id="panel-aiLetter">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('aiLetter')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">AI-отклик</div>
+    </div>
+    <div class="panel-body" id="aiLetterBody"></div>
+  </div>
+
+  <!-- AI Strategy -->
+  <div class="overlay-panel" id="panel-aiStrategy">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('aiStrategy')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">AI-стратегия</div>
+    </div>
+    <div class="panel-body" id="aiStrategyBody"></div>
+  </div>
+
+  <!-- Edit Profile -->
+  <div class="overlay-panel" id="panel-editProfile">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('editProfile')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Редактирование</div>
+    </div>
+    <div class="panel-body">
+      <div class="mb-3">
+        <label class="text-sm font-medium mb-2" style="display:block">Имя</label>
+        <div class="input-wrap"><input type="text" value="Александр" id="editName"></div>
+      </div>
+      <div class="mb-3">
+        <label class="text-sm font-medium mb-2" style="display:block">Специализация</label>
+        <div class="input-wrap"><input type="text" value="AI/ML разработчик" id="editSpec"></div>
+      </div>
+      <div class="mb-3">
+        <label class="text-sm font-medium mb-2" style="display:block">О себе</label>
+        <textarea class="textarea" id="editBio">Разработчик с 5-летним опытом в области машинного обучения и обработки естественного языка. Специализируюсь на создании production-ready ML-пайплайнов.</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="text-sm font-medium mb-2" style="display:block">Навыки</label>
+        <div class="flex flex-wrap gap-6" id="editSkills"></div>
+        <div class="input-wrap mt-2">
+          <input type="text" placeholder="Добавить навык..." id="newSkillInput" onkeydown="if(event.key==='Enter')addSkill()">
+          <button class="btn btn-secondary btn-sm" onclick="addSkill()">Добавить</button>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="text-sm font-medium mb-2" style="display:block">Портфолио (ссылки)</label>
+        <div id="editPortfolioLinks"></div>
+        <div class="input-wrap mt-2">
+          <input type="text" placeholder="https://..." id="newPortfolioInput" onkeydown="if(event.key==='Enter')addPortfolioLink()">
+          <button class="btn btn-secondary btn-sm" onclick="addPortfolioLink()">Добавить</button>
+        </div>
+      </div>
+      <button class="btn btn-primary w-full mt-4" onclick="saveProfile()">Сохранить</button>
+    </div>
+  </div>
+
+  <!-- Tariff -->
+  <div class="overlay-panel" id="panel-tariff">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('tariff')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Тариф</div>
+    </div>
+    <div class="panel-body">
+      <div class="flex gap-10 mb-4">
+        <div class="tariff-card flex-1">
+          <div class="tariff-name">Free</div>
+          <div class="tariff-price">Бесплатно</div>
+          <ul class="tariff-features" style="list-style:none;padding:0">
+            <li><i class="icon-check"></i>3 отклика/мес</li>
+            <li><i class="icon-check"></i>3 сохранения/мес</li>
+            <li class="disabled"><i class="icon-x"></i>6 из 15 заказов видны</li>
+            <li class="disabled"><i class="icon-x"></i>Без AI-функций</li>
+          </ul>
+        </div>
+        <div class="tariff-card flex-1 current">
+          <div class="tariff-name">PRO</div>
+          <div class="tariff-price">990 ₽/мес</div>
+          <ul class="tariff-features" style="list-style:none;padding:0">
+            <li><i class="icon-check"></i>Безлимит откликов</li>
+            <li><i class="icon-check"></i>Безлимит сохранений</li>
+            <li><i class="icon-check"></i>Все заказы видны</li>
+            <li><i class="icon-check"></i>AI-отклики</li>
+            <li><i class="icon-check"></i>AI-стратегия</li>
+            <li><i class="icon-check"></i>Доступ на 2ч раньше</li>
+            <li><i class="icon-check"></i>Инсайты о клиенте</li>
+          </ul>
+          <button class="btn btn-primary btn-sm mt-3 w-full">Активен</button>
+        </div>
+      </div>
+      <div class="card" style="padding:14px;background:var(--primary-light);border-color:transparent">
+        <div class="flex items-center gap-8 mb-2">
+          <i class="icon-gift" style="color:var(--primary);font-size:18px"></i>
+          <span class="text-sm font-medium">Пробный период</span>
+        </div>
+        <p class="text-sm text-2">Новые пользователи получают 3 дня PRO бесплатно. Отмена в любой момент.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="overlay-panel" id="panel-settings">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('settings')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Настройки</div>
+    </div>
+    <div class="panel-body">
+      <div class="list-item" onclick="toggleDarkMode()">
+        <div class="list-icon"><i class="icon-moon"></i></div>
+        <div class="list-content"><div class="list-label">Тёмная тема</div></div>
+        <div class="toggle" id="darkToggle2"></div>
+      </div>
+      <div class="list-item">
+        <div class="list-icon"><i class="icon-globe"></i></div>
+        <div class="list-content"><div class="list-label">Язык</div><div class="list-sub">Русский</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+      <div class="list-item">
+        <div class="list-icon"><i class="icon-bell"></i></div>
+        <div class="list-content"><div class="list-label">Уведомления</div></div>
+        <div class="list-arrow"><i class="icon-chevron-right"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div class="overlay-panel" id="panel-skills">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('skills')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Навыки</div>
+    </div>
+    <div class="panel-body">
+      <div class="flex flex-wrap gap-6 mb-4" id="skillsList"></div>
+      <div class="input-wrap">
+        <input type="text" placeholder="Добавить навык..." id="skillAddInput" onkeydown="if(event.key==='Enter')addSkillFromPanel()">
+        <button class="btn btn-secondary btn-sm" onclick="addSkillFromPanel()">Добавить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio -->
+  <div class="overlay-panel" id="panel-portfolio">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('portfolio')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Портфолио</div>
+    </div>
+    <div class="panel-body" id="portfolioList"></div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="overlay-panel" id="panel-notifications">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('notifications')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Уведомления</div>
+    </div>
+    <div class="panel-body" id="notifList"></div>
+  </div>
+
+  <!-- Templates -->
+  <div class="overlay-panel" id="panel-templates">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('templates')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Шаблоны откликов</div>
+    </div>
+    <div class="panel-body" id="templateList"></div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="overlay-panel" id="panel-faq">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('faq')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">FAQ</div>
+    </div>
+    <div class="panel-body" id="faqList"></div>
+  </div>
+
+  <!-- Support -->
+  <div class="overlay-panel" id="panel-support">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('support')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">Поддержка</div>
+    </div>
+    <div class="panel-body">
+      <div class="flex flex-col gap-8 mb-4" id="chatMessages" style="min-height:300px"></div>
+      <div class="flex gap-8">
+        <div class="input-wrap flex-1">
+          <input type="text" placeholder="Сообщение..." id="supportInput" onkeydown="if(event.key==='Enter')sendSupport()">
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="sendSupport()"><i class="icon-send" style="font-size:14px"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="overlay-panel" id="panel-about">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('about')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">О приложении</div>
+    </div>
+    <div class="panel-body" style="text-align:center;padding-top:40px">
+      <div style="font-size:32px;font-weight:700;color:var(--primary);margin-bottom:4px">SkillHunt</div>
+      <p class="text-sm text-2 mb-4">AI-платформа для фрилансеров</p>
+      <div class="divider"></div>
+      <div class="text-sm text-2" style="line-height:2">
+        <div>Версия: 2.0.1</div>
+        <div>Telegram Mini App</div>
+        <div>Разработано с помощью AI</div>
+      </div>
+      <div class="divider"></div>
+      <p class="text-xs text-3">SkillHunt помогает фрилансерам находить заказы, создавать отклики с помощью AI и управлять карьерой.</p>
+    </div>
+  </div>
+
+  <!-- AI Assist (chooser) -->
+  <div class="overlay-panel" id="panel-aiAssist">
+    <div class="panel-header">
+      <button class="panel-back" onclick="closePanel('aiAssist')"><i class="icon-arrow-left" style="font-size:20px"></i></button>
+      <div class="panel-title">AI-ассистент</div>
+    </div>
+    <div class="panel-body">
+      <p class="text-sm text-2 mb-4">Выберите инструмент для работы с заказами.</p>
+      <div class="card mb-3" style="padding:16px;cursor:pointer" onclick="closePanel('aiAssist');switchTab(1)">
+        <div class="flex items-center gap-10">
+          <div class="list-icon"><i class="icon-pen-line"></i></div>
+          <div class="flex-1">
+            <div class="font-medium text-sm">AI-отклик</div>
+            <div class="text-xs text-3">Генерация сопроводительного письма</div>
+          </div>
+          <i class="icon-chevron-right" style="color:var(--text-3)"></i>
+        </div>
+      </div>
+      <div class="card" style="padding:16px;cursor:pointer" onclick="closePanel('aiAssist');switchTab(1)">
+        <div class="flex items-center gap-10">
+          <div class="list-icon"><i class="icon-lightbulb"></i></div>
+          <div class="flex-1">
+            <div class="font-medium text-sm">AI-стратегия</div>
+            <div class="text-xs text-3">Анализ конкурентов и рекомендации</div>
+          </div>
+          <i class="icon-chevron-right" style="color:var(--text-3)"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== XSS SAFETY =====
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+// ===== MOCK DATA =====
+const CATS=[
+  {id:'ai',name:'AI/ML',color:'var(--primary)'},
+  {id:'design',name:'Дизайн',color:'var(--coral)'},
+  {id:'dev',name:'Разработка',color:'var(--sky)'},
+  {id:'writing',name:'Тексты',color:'var(--warning)'},
+  {id:'marketing',name:'Маркетинг',color:'var(--lavender)'},
+  {id:'data',name:'Данные',color:'var(--mint)'},
+  {id:'devops',name:'DevOps',color:'var(--text-2)'}
+];
+
+const JOBS=[
+  {id:1,cat:'ai',title:'Разработка RAG-системы для юридических документов',budget:'150 000 — 220 000 ₽',skills:['Python','LangChain','Vector DB'],match:92,time:'2ч назад',level:'senior',type:'remote',early:true,desc:'Необходимо разработать систему RAG для поиска и анализа юридических документов. Требуется опыт с LangChain, векторными базами данных и NLP. Система должна обрабатывать до 100k документов с временем ответа менее 2 секунд.',client:'ЮрТех',clientRating:4.8},
+  {id:2,cat:'ai',title:'Fine-tuning LLM для классификации обращений',budget:'80 000 — 120 000 ₽',skills:['PyTorch','Transformers','NLP'],match:88,time:'3ч назад',level:'middle',type:'remote',early:true,desc:'Задача: дообучить языковую модель для автоматической классификации клиентских обращений по 15 категориям. Датасет: 50k размеченных примеров. Требуется accuracy > 95%.',client:'СервисДеск',clientRating:4.5},
+  {id:3,cat:'dev',title:'Разработка API-шлюза на Go',budget:'120 000 — 180 000 ₽',skills:['Go','gRPC','PostgreSQL'],match:75,time:'4ч назад',level:'senior',type:'remote',early:false,desc:'Спроектировать и реализовать API-шлюз с поддержкой rate limiting, аутентификации и маршрутизации. Нагрузка: до 10k RPS. Стек: Go, gRPC, PostgreSQL, Redis.',client:'КлаудИнфра',clientRating:4.7},
+  {id:4,cat:'design',title:'Дизайн системы для SaaS-платформы',budget:'200 000 — 300 000 ₽',skills:['Figma','Design System','UI/UX'],match:60,time:'5ч назад',level:'senior',type:'hybrid',early:false,desc:'Создать полноценную дизайн-систему для B2B SaaS-платформы: компоненты, токены, документация. Ожидается 200+ компонентов с полной спецификацией.',client:'ДиджиталЛаб',clientRating:4.9},
+  {id:5,cat:'data',title:'Построение data pipeline для аналитики',budget:'90 000 — 140 000 ₽',skills:['Airflow','Python','ClickHouse'],match:82,time:'6ч назад',level:'middle',type:'remote',early:false,desc:'Настроить ETL-пайплайны для сбора и обработки данных из 5 источников. Визуализация в Grafana. Airflow + ClickHouse + S3.',client:'АналитикПлюс',clientRating:4.3},
+  {id:6,cat:'writing',title:'Техническая документация для API',budget:'40 000 — 60 000 ₽',skills:['API Docs','Markdown','OpenAPI'],match:55,time:'7ч назад',level:'middle',type:'remote',early:false,desc:'Написать полную техническую документацию для REST API: описание эндпоинтов, примеры запросов/ответов, руководство по интеграции. OpenAPI 3.0.',client:'ТехПлатформа',clientRating:4.6},
+  {id:7,cat:'marketing',title:'Стратегия продвижения мобильного приложения',budget:'70 000 — 100 000 ₽',skills:['ASO','Analytics','Growth'],match:45,time:'8ч назад',level:'middle',type:'remote',early:false,desc:'Разработать стратегию продвижения iOS/Android приложения в категории productivity. ASO, paid acquisition, referral program. Бюджет на маркетинг: 500k/мес.',client:'МобайлСтарт',clientRating:4.1},
+  {id:8,cat:'ai',title:'Компьютерное зрение для контроля качества',budget:'180 000 — 250 000 ₽',skills:['PyTorch','OpenCV','YOLO'],match:85,time:'1ч назад',level:'senior',type:'onsite',early:true,desc:'Разработать систему компьютерного зрения для дефектоскопии на производстве. YOLO/DETR для обнаружения дефектов. Требуется mAP > 0.9. Развёртывание на edge-устройствах.',client:'ПромАвтоматика',clientRating:4.8},
+  {id:9,cat:'devops',title:'Миграция инфраструктуры в Kubernetes',budget:'130 000 — 200 000 ₽',skills:['K8s','Terraform','CI/CD'],match:65,time:'9ч назад',level:'senior',type:'remote',early:false,desc:'Мигрировать существующую инфраструктуру (15 микросервисов) в Kubernetes. Настроить CI/CD, мониторинг, автоскейлинг. AWS/EKS.',client:'КлаудСервис',clientRating:4.4},
+  {id:10,cat:'dev',title:'Разработка Telegram Mini App',budget:'60 000 — 90 000 ₽',skills:['React','TypeScript','Telegram API'],match:70,time:'10ч назад',level:'middle',type:'remote',early:false,desc:'Разработать Telegram Mini App для маркетплейса услуг. React + TypeScript. Интеграция с Telegram WebApp API, платежи через Telegram.',client:'ТГСтудия',clientRating:4.2},
+  {id:11,cat:'data',title:'ML-модель прогнозирования оттока',budget:'100 000 — 160 000 ₽',skills:['Python','scikit-learn','SQL'],match:80,time:'11ч назад',level:'middle',type:'remote',early:false,desc:'Построить модель прогнозирования оттока клиентов (churn prediction). Датасет: 200k записей, 50 признаков. Требуется ROC-AUC > 0.85.',client:'РитейлДанные',clientRating:4.5},
+  {id:12,cat:'design',title:'Редизайн мобильного приложения банка',budget:'250 000 — 400 000 ₽',skills:['Figma','Mobile UI','Research'],match:50,time:'12ч назад',level:'senior',type:'hybrid',early:false,desc:'Полный редизайн мобильного приложения банка: исследования, прототипы, UI-дизайн, тестирование. 40+ экранов. Срок: 8 недель.',client:'ФинТехБанк',clientRating:4.7},
+  {id:13,cat:'ai',title:'Разработка чат-бота с RAG',budget:'70 000 — 110 000 ₽',skills:['Python','OpenAI API','FastAPI'],match:90,time:'30 мин назад',level:'middle',type:'remote',early:true,desc:'Создать интеллектуального чат-бота для службы поддержки с использованием RAG. Интеграция с базой знаний. FastAPI + OpenAI API + ChromaDB.',client:'СаппортАИ',clientRating:4.6},
+  {id:14,cat:'dev',title:'Фронтенд для дашборда аналитики',budget:'50 000 — 80 000 ₽',skills:['React','D3.js','TypeScript'],match:68,time:'14ч назад',level:'middle',type:'remote',early:false,desc:'Разработать фронтенд дашборда для отображения бизнес-аналитики. React + D3.js, 15+ виджетов, real-time обновления через WebSocket.',client:'БизнесАналитика',clientRating:4.3},
+  {id:15,cat:'writing',title:'Копирайтинг для SaaS-продукта',budget:'30 000 — 50 000 ₽',skills:['Copywriting','SEO','SaaS'],match:40,time:'16ч назад',level:'junior',type:'remote',early:false,desc:'Написать контент для лендинга SaaS-продукта: заголовки, подзаголовки, описания фич, CTA. SEO-оптимизация. 5 лендингов.',client:'СаасМаркет',clientRating:4.0}
+];
+
+const USER={
+  name:'Александр',spec:'AI/ML разработчик',plan:'pro',
+  skills:['Python','PyTorch','LangChain','NLP','FastAPI','Transformers','Vector DB','scikit-learn','OpenCV','SQL'],
+  portfolio:[
+    {title:'RAG-система для медицинских данных',desc:'Полный пайплайн: парсинг, индексация, поиск, генерация ответов',link:'#'},
+    {title:'Модерация контента на базе ML',desc:'Классификация текстов и изображений, 99.2% accuracy',link:'#'},
+    {title:'Прогнозирование спроса',desc:'Time-series модель для ритейлера, снижение издержек на 18%',link:'#'}
+  ]
+};
+
+const RESPONSES=[
+  {id:1,jobId:1,title:'Разработка RAG-системы для юридических документов',platform:'Telegram',status:'draft',date:'Сегодня',preview:'Здравствуйте! Меня заинтересовала ваша задача по разработке RAG-системы. Имею 3 года опыта работы с LangChain и векторными базами данных...'},
+  {id:2,jobId:2,title:'Fine-tuning LLM для классификации обращений',platform:'Telegram',status:'sent',date:'Вчера',preview:'Добрый день. Готов взяться за задачу fine-tuning LLM. Работал с подобными проектами: классификация на 20+ категорий с accuracy 97%...'},
+  {id:3,jobId:8,title:'Компьютерное зрение для контроля качества',platform:'Хабр',status:'viewed',date:'2 дня назад',preview:'Приветствую! Специализируюсь на компьютерном зрении для промышленных задач. Последний проект: дефектоскопия печатных плат с mAP 0.93...'},
+  {id:4,jobId:13,title:'Разработка чат-бота с RAG',platform:'Telegram',status:'replied',date:'3 дня назад',preview:'Здравствуйте! Отличная задача, как раз работаю с RAG-архитектурами. Могу предложить решение на базе FastAPI + ChromaDB + OpenAI...'},
+  {id:5,jobId:5,title:'Построение data pipeline для аналитики',platform:'Хабр',status:'sent',date:'4 дня назад',preview:'Готов настроить ETL-пайплайны. Опыт с Airflow: 2 года, реализовывал пайплайны для обработки 10M+ записей ежедневно...'},
+  {id:6,jobId:11,title:'ML-модель прогнозирования оттока',platform:'FL.ru',status:'draft',date:'5 дней назад',preview:'Интересная задача по churn prediction. Реализовывал похожий проект для телеком-компании, достиг ROC-AUC 0.89...'}
+];
+
+const TEMPLATES=[
+  {id:1,title:'Стандартный отклик',text:'Здравствуйте! Меня заинтересовал ваш проект. Имею соответствующий опыт и готов обсудить детали. Портфолио и примеры работ отправлю по запросу.'},
+  {id:2,title:'Технический отклик',text:'Добрый день. Проанализировал требования и готов предложить техническое решение. Краткий план: 1) Анализ и проектирование 2) Разработка MVP 3) Тестирование и деплой.'},
+  {id:3,title:'Короткий отклик',text:'Здравствуйте! Готов взяться за задачу. Опыт в данной сфере — более 3 лет. Свяжитесь для обсуждения деталей.'},
+  {id:4,title:'С акцентом на результат',text:'Приветствую! Могу решить вашу задачу. На прошлом проекте добился {result}. Готов предоставить детальную оценку сроков и стоимости.'},
+  {id:5,title:'Для долгосрочных проектов',text:'Здравствуйте! Заинтересован в долгосрочном сотрудничестве. Готов начать с тестового этапа для взаимной оценки. Работаю по agile-методологии.'},
+  {id:6,title:'Для срочных задач',text:'Добрый день! Готов оперативно подключиться к проекту. Могу начать работу в течение 24 часов. Предоставлю ежедневные отчёты о прогрессе.'}
+];
+
+const FAQ_DATA=[
+  {q:'Как работает AI-генерация откликов?',a:'AI анализирует описание заказа, ваш профиль и навыки, затем создаёт персонализированное сопроводительное письмо. Вы можете отредактировать результат перед отправкой.'},
+  {q:'Что такое ранний доступ?',a:'Пользователи PRO видят новые заказы на 2 часа раньше, чем пользователи Free. Это даёт преимущество при отклике на популярные проекты.'},
+  {q:'Как изменить тариф?',a:'Перейдите в раздел «Тариф» через меню «Ещё». Вы можете перейти на PRO или вернуться к бесплатной версии в любой момент.'},
+  {q:'Сколько откликов можно отправлять?',a:'Free: 3 отклика в месяц. PRO: безлимитное количество откликов, а также AI-генерация сопроводительных писем.'},
+  {q:'Как работает AI-стратегия?',a:'AI анализирует заказ, оценивает конкуренцию, предлагает оптимальную цену, выделяет риски и рекомендует подход для максимальных шансов на выбор.'},
+  {q:'Безопасны ли мои данные?',a:'Да. Мы не передаём ваши данные третьим лицам. Все данные хранятся в зашифрованном виде. AI обрабатывает данные без сохранения контекста.'}
+];
+
+const NOTIFS=[
+  {text:'Новый заказ совпадает на 92%: RAG-система для юридических документов',time:'2ч назад',icon:'icon-bell'},
+  {text:'Клиент просмотрел ваш отклик: Компьютерное зрение',time:'1д назад',icon:'icon-eye'},
+  {text:'Клиент ответил на отклик: Чат-бот с RAG',time:'2д назад',icon:'icon-message-circle'},
+  {text:'Подписка PRO продлена до 15.04.2026',time:'5д назад',icon:'icon-credit-card'}
+];
+
+// ===== STATE =====
+let currentTab=0;
+let currentRespStatus='draft';
+let filterCat='';
+let filterLevel='';
+let filterType='';
+let savedJobs=JSON.parse(localStorage.getItem('sh_saved')||'[]');
+let isPro=true;
+let isDark=localStorage.getItem('sh_dark')==='true';
+
+// ===== INIT =====
+function init(){
+  if(isDark)document.getElementById('app').classList.add('dark');
+  updateDarkToggles();
+  renderGreeting();
+  renderHomeCats();
+  renderHomeFeed();
+  renderSearch();
+  renderFilterCats();
+  renderResponses();
+  renderProfile();
+  try{if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand()}}catch(e){}
+}
+
+// ===== GREETING =====
+function renderGreeting(){
+  const h=new Date().getHours();
+  let g='Добрый день';
+  if(h<6)g='Доброй ночи';
+  else if(h<12)g='Доброе утро';
+  else if(h>=18)g='Добрый вечер';
+  document.getElementById('greeting').textContent=g+', Александр';
+  const d=new Date();
+  const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  document.getElementById('dateLine').textContent=d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
+}
+
+// ===== CAT COLOR HELPER =====
+function catColor(id){return(CATS.find(c=>c.id===id)||{}).color||'var(--text-2)'}
+function catName(id){return(CATS.find(c=>c.id===id)||{}).name||id}
+
+// ===== JOB CARD HTML =====
+function jobCardHTML(job,showMatch){
+  const saved=savedJobs.includes(job.id);
+  const isEarlyPro=job.early&&isPro;
+  const isEarlyFree=job.early&&!isPro;
+  let cls='card mb-3';
+  if(isEarlyPro)cls+=' card-early-pro';
+  if(isEarlyFree)cls+=' card-early-free';
+  let html=`<div class="${cls}" onclick="openJobDetail(${job.id})" style="cursor:pointer">`;
+  if(isEarlyFree){
+    html+=`<div class="lock-badge"><i class="icon-lock"></i> PRO</div>`;
+  }
+  html+=`<div class="flex items-center gap-8 mb-2">
+    <span class="cat-dot" style="background:${catColor(job.cat)}"></span>
+    <span class="text-xs text-2">${esc(catName(job.cat))}</span>
+    ${isEarlyPro?'<span class="chip chip-sm" style="background:var(--warning-light);color:var(--warning)"><i class="icon-clock" style="font-size:10px"></i> Ранний доступ</span>':''}
+    <span class="text-xs text-3" style="margin-left:auto">${esc(job.time)}</span>
+  </div>
+  <div class="font-semibold text-sm mb-2" style="line-height:1.4">${esc(job.title)}</div>
+  <div class="text-sm mb-2" style="color:var(--primary);font-weight:500">${esc(job.budget)}</div>
+  <div class="flex flex-wrap gap-6 mb-3">`;
+  job.skills.forEach(s=>{html+=`<span class="chip chip-sm chip-outline">${esc(s)}</span>`});
+  html+=`</div>`;
+  if(showMatch&&isPro&&job.match){
+    html+=`<div class="flex items-center gap-8 mb-3"><span class="badge-match">${job.match}% совпадение</span></div>`;
+  }
+  html+=`<div class="flex items-center gap-8">
+    <button class="btn-icon" onclick="event.stopPropagation();toggleSave(${job.id})" title="Сохранить">
+      <i class="${saved?'icon-bookmark-check':'icon-bookmark'}" style="font-size:18px;color:${saved?'var(--primary)':'var(--text-3)'}"></i>
+    </button>
+    <button class="btn btn-primary btn-sm flex-1" onclick="event.stopPropagation();openAIFromJob(${job.id})">Откликнуться</button>
+  </div>`;
+  html+=`</div>`;
+  return html;
+}
+
+// ===== HOME =====
+function renderHomeCats(){
+  const el=document.getElementById('homeCats');
+  let h=`<button class="chip chip-active" onclick="filterHomeCat(this,'')" data-cat="">Все</button>`;
+  CATS.forEach(c=>{h+=`<button class="chip chip-outline" onclick="filterHomeCat(this,'${c.id}')" data-cat="${c.id}">${esc(c.name)}</button>`});
+  el.innerHTML=h;
+}
+function filterHomeCat(btn,cat){
+  filterCat=cat;
+  btn.parentElement.querySelectorAll('.chip').forEach(c=>{c.classList.remove('chip-active');c.classList.add('chip-outline')});
+  btn.classList.remove('chip-outline');btn.classList.add('chip-active');
+  renderHomeFeed();
+}
+function renderHomeFeed(){
+  const el=document.getElementById('homeFeed');
+  let jobs=JOBS.slice();
+  if(filterCat)jobs=jobs.filter(j=>j.cat===filterCat);
+  if(!isPro)jobs=jobs.filter(j=>!j.early);
+  el.innerHTML=jobs.map(j=>jobCardHTML(j,true)).join('')||'<div class="empty-state"><i class="icon-search"></i><p>Заказы не найдены</p></div>';
+}
+
+// ===== SEARCH =====
+function toggleFilter(){
+  const p=document.getElementById('filterPanel');
+  p.classList.toggle('open');
+}
+function renderFilterCats(){
+  const el=document.getElementById('filterCats');
+  let h=`<button class="chip chip-outline filter-cat active" data-cat="" onclick="setFilterCat(this)">Все</button>`;
+  CATS.forEach(c=>{h+=`<button class="chip chip-outline filter-cat" data-cat="${c.id}" onclick="setFilterCat(this)">${esc(c.name)}</button>`});
+  el.innerHTML=h;
+}
+function setFilterCat(btn){
+  filterCat=btn.dataset.cat;
+  btn.parentElement.querySelectorAll('.chip').forEach(c=>{c.classList.remove('chip-active');c.classList.add('chip-outline')});
+  btn.classList.remove('chip-outline');btn.classList.add('chip-active');
+  renderSearch();
+}
+function setFilterLevel(btn){
+  filterLevel=btn.dataset.level;
+  btn.parentElement.querySelectorAll('.chip').forEach(c=>{c.classList.remove('chip-active');c.classList.add('chip-outline')});
+  btn.classList.remove('chip-outline');btn.classList.add('chip-active');
+  renderSearch();
+}
+function setFilterType(btn){
+  filterType=btn.dataset.type;
+  btn.parentElement.querySelectorAll('.chip').forEach(c=>{c.classList.remove('chip-active');c.classList.add('chip-outline')});
+  btn.classList.remove('chip-outline');btn.classList.add('chip-active');
+  renderSearch();
+}
+function renderSearch(){
+  const q=(document.getElementById('searchInput')||{}).value||'';
+  const budget=(document.getElementById('filterBudget')||{}).value||'';
+  const sort=(document.getElementById('filterSort')||{}).value||'new';
+  let jobs=JOBS.slice();
+  if(q)jobs=jobs.filter(j=>j.title.toLowerCase().includes(q.toLowerCase())||j.skills.some(s=>s.toLowerCase().includes(q.toLowerCase())));
+  if(filterCat)jobs=jobs.filter(j=>j.cat===filterCat);
+  if(filterLevel)jobs=jobs.filter(j=>j.level===filterLevel);
+  if(filterType)jobs=jobs.filter(j=>j.type===filterType);
+  if(budget==='low')jobs=jobs.filter(j=>j.budget.includes('30 000')||j.budget.includes('40 000')||j.budget.includes('50 000')||j.budget.includes('60 000'));
+  if(budget==='mid')jobs=jobs.filter(j=>j.budget.includes('80 000')||j.budget.includes('90 000')||j.budget.includes('100 000')||j.budget.includes('120 000')||j.budget.includes('130 000'));
+  if(budget==='high')jobs=jobs.filter(j=>j.budget.includes('150 000')||j.budget.includes('180 000')||j.budget.includes('200 000')||j.budget.includes('250 000')||j.budget.includes('400 000'));
+  if(sort==='match')jobs.sort((a,b)=>(b.match||0)-(a.match||0));
+  else if(sort==='budget_high')jobs.sort((a,b)=>b.id-a.id);
+  else if(sort==='budget_low')jobs.sort((a,b)=>a.id-b.id);
+  document.getElementById('searchResults').innerHTML=jobs.map(j=>jobCardHTML(j,true)).join('')||'<div class="empty-state"><i class="icon-search"></i><p>Ничего не найдено</p></div>';
+}
+
+// ===== SAVE =====
+function toggleSave(id){
+  const idx=savedJobs.indexOf(id);
+  if(idx>=0){savedJobs.splice(idx,1);showToast('Удалено из сохранённых')}
+  else{savedJobs.push(id);showToast('Сохранено')}
+  localStorage.setItem('sh_saved',JSON.stringify(savedJobs));
+  renderHomeFeed();renderSearch();
+}
+
+// ===== RESPONSES =====
+function setRespStatus(btn){
+  currentRespStatus=btn.dataset.status;
+  btn.parentElement.querySelectorAll('.seg-item').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  renderResponses();
+}
+function renderResponses(){
+  const list=RESPONSES.filter(r=>r.status===currentRespStatus);
+  const el=document.getElementById('respList');
+  if(!list.length){el.innerHTML='<div class="empty-state"><i class="icon-inbox"></i><p>Нет откликов в этой категории</p></div>';return}
+  el.innerHTML=list.map(r=>{
+    const statusMap={draft:'status-draft',sent:'status-sent',viewed:'status-viewed',replied:'status-replied'};
+    const statusLabel={draft:'Черновик',sent:'Отправлен',viewed:'Просмотрен',replied:'Ответ'};
+    const statusColor={draft:'var(--warning)',sent:'var(--primary)',viewed:'var(--success)',replied:'var(--accent)'};
+    return `<div class="card response-card ${statusMap[r.status]} mb-3">
+      <div class="flex items-center justify-between mb-2">
+        <div class="font-semibold text-sm" style="line-height:1.3;flex:1;margin-right:8px">${esc(r.title)}</div>
+        <span class="text-xs" style="color:${statusColor[r.status]};font-weight:600">${esc(statusLabel[r.status])}</span>
+      </div>
+      <div class="flex items-center gap-6 mb-2">
+        <span class="chip chip-sm chip-outline">${esc(r.platform)}</span>
+        <span class="text-xs text-3">${esc(r.date)}</span>
+      </div>
+      <p class="text-sm text-2 mb-3" style="line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${esc(r.preview)}</p>
+      <div class="flex items-center gap-8">
+        ${r.status==='draft'?`<button class="btn btn-secondary btn-sm" onclick="editResponse(${r.id})"><i class="icon-pen-line" style="font-size:12px"></i> Редактировать</button>
+        <button class="btn btn-primary btn-sm" onclick="sendResponse(${r.id})"><i class="icon-send" style="font-size:12px"></i> Отправить</button>`:''}
+        ${r.status==='sent'?`<button class="btn btn-ghost btn-sm" onclick="viewResponse(${r.id})"><i class="icon-eye" style="font-size:12px"></i> Просмотр</button>`:''}
+        ${r.status==='viewed'?`<button class="btn btn-secondary btn-sm" onclick="viewResponse(${r.id})">Подробнее</button>`:''}
+        ${r.status==='replied'?`<button class="btn btn-primary btn-sm" onclick="viewResponse(${r.id})"><i class="icon-message-circle" style="font-size:12px"></i> Открыть диалог</button>`:''}
+        <button class="btn-icon" style="margin-left:auto" onclick="deleteResponse(${r.id})"><i class="icon-trash-2" style="font-size:16px;color:var(--danger)"></i></button>
+      </div>
+    </div>`}).join('');
+}
+function editResponse(id){const r=RESPONSES.find(r=>r.id===id);if(r)openAIFromJob(r.jobId,r.preview)}
+function sendResponse(id){
+  const r=RESPONSES.find(r=>r.id===id);
+  if(r){r.status='sent';renderResponses();showToast('Отклик отправлен')}
+}
+function viewResponse(id){const r=RESPONSES.find(r=>r.id===id);if(r)openJobDetail(r.jobId)}
+function deleteResponse(id){
+  const idx=RESPONSES.findIndex(r=>r.id===id);
+  if(idx>=0){RESPONSES.splice(idx,1);renderResponses();showToast('Отклик удалён')}
+}
+
+// ===== PROFILE =====
+function renderProfile(){
+  const sk=document.getElementById('profileSkills');
+  sk.innerHTML=USER.skills.map(s=>`<span class="chip">${esc(s)}</span>`).join('');
+  const pf=document.getElementById('profilePortfolio');
+  pf.innerHTML=USER.portfolio.map(p=>`<div class="card mb-2" style="padding:12px">
+    <div class="font-medium text-sm">${esc(p.title)}</div>
+    <div class="text-xs text-2 mt-2">${esc(p.desc)}</div>
+  </div>`).join('');
+}
+
+// ===== NAVIGATION =====
+function switchTab(idx){
+  if(idx===4){openMore();return}
+  currentTab=idx;
+  document.getElementById('sliderTrack').style.transform=`translateX(-${idx*100}%)`;
+  document.querySelectorAll('.nav-item').forEach((n,i)=>{
+    n.classList.toggle('active',i===idx);
+  });
+}
+
+// ===== MORE SHEET =====
+function openMore(){
+  document.getElementById('sheetOverlay').classList.add('open');
+  document.getElementById('moreSheet').classList.add('open');
+}
+function closeMore(){
+  document.getElementById('sheetOverlay').classList.remove('open');
+  document.getElementById('moreSheet').classList.remove('open');
+}
+
+// ===== OVERLAY PANELS =====
+function openPanel(name){
+  const el=document.getElementById('panel-'+name);
+  if(el)el.classList.add('open');
+  // Render specific panels
+  if(name==='skills')renderSkillsPanel();
+  if(name==='portfolio')renderPortfolioPanel();
+  if(name==='notifications')renderNotifications();
+  if(name==='templates')renderTemplates();
+  if(name==='faq')renderFAQ();
+  if(name==='support')initSupport();
+  if(name==='editProfile')renderEditProfile();
+}
+function closePanel(name){
+  const el=document.getElementById('panel-'+name);
+  if(el)el.classList.remove('open');
+}
+
+// ===== JOB DETAIL =====
+function openJobDetail(id){
+  const job=JOBS.find(j=>j.id===id);
+  if(!job)return;
+  const saved=savedJobs.includes(job.id);
+  let h=`<div>
+    <div class="flex items-center gap-8 mb-3">
+      <span class="cat-dot" style="background:${catColor(job.cat)}"></span>
+      <span class="text-sm text-2">${esc(catName(job.cat))}</span>
+      ${job.early?'<span class="chip chip-sm" style="background:var(--warning-light);color:var(--warning)">Ранний доступ</span>':''}
+    </div>
+    <h3 class="text-lg font-semibold mb-3" style="line-height:1.3">${esc(job.title)}</h3>
+    <div class="text-sm font-semibold mb-3" style="color:var(--primary)">${esc(job.budget)}</div>
+    <div class="flex flex-wrap gap-6 mb-3">${job.skills.map(s=>`<span class="chip chip-sm">${esc(s)}</span>`).join('')}</div>
+    <div class="flex items-center gap-10 mb-4 text-xs text-3">
+      <span class="flex items-center gap-4"><i class="icon-clock" style="font-size:14px"></i> ${esc(job.time)}</span>
+      <span class="flex items-center gap-4"><i class="icon-map-pin" style="font-size:14px"></i> ${esc(job.type==='remote'?'Удалённо':job.type==='hybrid'?'Гибрид':'Офис')}</span>
+      <span class="flex items-center gap-4"><i class="icon-bar-chart-2" style="font-size:14px"></i> ${esc(job.level)}</span>
+    </div>
+    <div class="divider"></div>
+    <div class="mb-4">
+      <h4 class="font-semibold text-sm mb-2">Описание</h4>
+      <p class="text-sm text-2" style="line-height:1.7;font-family:var(--font-serif)">${esc(job.desc)}</p>
+    </div>
+    <div class="card mb-4" style="background:var(--primary-light);border-color:transparent;padding:12px">
+      <div class="flex items-center gap-8 mb-2">
+        <i class="icon-building-2" style="color:var(--primary);font-size:16px"></i>
+        <span class="text-sm font-medium">${esc(job.client)}</span>
+        <span class="text-xs text-2" style="margin-left:auto"><i class="icon-star" style="font-size:12px;color:var(--warning)"></i> ${job.clientRating}</span>
+      </div>
+      <p class="text-xs text-2">Инсайт: клиент быстро отвечает, среднее время — 2ч</p>
+    </div>`;
+  if(isPro&&job.match){
+    h+=`<div class="card mb-4" style="border-color:var(--success)">
+      <div class="flex items-center gap-8 mb-2">
+        <i class="icon-sparkles" style="color:var(--primary);font-size:16px"></i>
+        <span class="text-sm font-medium">AI-оценка</span>
+        <span class="badge-match" style="margin-left:auto">${job.match}% совпадение</span>
+      </div>
+      <p class="text-xs text-2">Ваши навыки хорошо подходят для этого заказа. Рекомендуем создать отклик с акцентом на релевантный опыт.</p>
+    </div>`;
+  }
+  h+=`<div class="flex gap-8">
+    <button class="btn-icon" onclick="toggleSave(${job.id})" style="border:1px solid var(--border);border-radius:var(--radius-xs)">
+      <i class="${saved?'icon-bookmark-check':'icon-bookmark'}" style="font-size:18px;color:${saved?'var(--primary)':'var(--text-3)'}"></i>
+    </button>
+    <button class="btn btn-primary flex-1" onclick="openAIFromJob(${job.id})">Создать отклик</button>
+  </div>
+  <div class="flex gap-8 mt-3">
+    <button class="btn btn-secondary flex-1" onclick="openStrategyForJob(${job.id})"><i class="icon-lightbulb" style="font-size:14px"></i> AI-стратегия</button>
+  </div>
+  </div>`;
+  document.getElementById('jobDetailBody').innerHTML=h;
+  openPanel('jobDetail');
+}
+
+// ===== AI COVER LETTER =====
+function openAIFromJob(jobId,prefill){
+  const job=JOBS.find(j=>j.id===jobId);
+  if(!job)return;
+  const aiText=`Здравствуйте! Меня заинтересовал ваш проект "${job.title}".\n\nИмею более 3 лет опыта в области ${(CATS.find(c=>c.id===job.cat)||{}).name||''}, работаю с ${job.skills.slice(0,3).join(', ')}. На предыдущих проектах добивался высоких результатов благодаря системному подходу и вниманию к деталям.\n\nГотов обсудить техническое решение и сроки реализации. Могу начать работу в течение 2 дней.\n\nС уважением,\nАлександр`;
+  let h=`<div>
+    <div class="card mb-4" style="background:var(--primary-light);border-color:transparent;padding:12px">
+      <div class="flex items-center gap-8 mb-2">
+        <i class="icon-sparkles" style="color:var(--primary);font-size:16px"></i>
+        <span class="text-sm font-medium">AI-сгенерированный отклик</span>
+      </div>
+      <p class="text-xs text-2">Отредактируйте перед отправкой</p>
+    </div>
+    <div id="aiTypingArea" class="ai-text text-sm mb-3" style="min-height:160px;padding:14px;background:var(--bg-input);border-radius:var(--radius-sm);border:1px solid var(--border-soft)"></div>
+    <textarea class="textarea hidden" id="aiEditArea" style="min-height:200px"></textarea>
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-xs text-3" id="charCount">0 / 2000</span>
+      <button class="btn btn-ghost btn-sm" onclick="toggleEditLetter()"><i class="icon-pen-line" style="font-size:12px"></i> Редактировать</button>
+    </div>
+    <div class="flex gap-8">
+      <button class="btn btn-secondary flex-1" onclick="regenerateLetter(${jobId})"><i class="icon-refresh-cw" style="font-size:14px"></i> Заново</button>
+      <button class="btn btn-primary flex-1" onclick="sendLetter(${jobId})"><i class="icon-send" style="font-size:14px"></i> Отправить</button>
+    </div>
+  </div>`;
+  document.getElementById('aiLetterBody').innerHTML=h;
+  closePanel('jobDetail');
+  openPanel('aiLetter');
+  // Typing animation
+  typeText(aiText,'aiTypingArea',()=>{
+    document.getElementById('aiEditArea').value=aiText;
+    updateCharCount();
+  });
+}
+let typingInterval=null;
+function typeText(text,elId,cb){
+  const el=document.getElementById(elId);
+  if(!el)return;
+  if(typingInterval)clearInterval(typingInterval);
+  el.innerHTML='<span class="ai-cursor"></span>';
+  let i=0;
+  typingInterval=setInterval(()=>{
+    if(i>=text.length){clearInterval(typingInterval);typingInterval=null;el.innerHTML=esc(text).replace(/\n/g,'<br>');if(cb)cb();return}
+    const ch=text[i];
+    i++;
+    el.innerHTML=esc(text.substring(0,i)).replace(/\n/g,'<br>')+'<span class="ai-cursor"></span>';
+  },18);
+}
+function toggleEditLetter(){
+  const view=document.getElementById('aiTypingArea');
+  const edit=document.getElementById('aiEditArea');
+  if(edit.classList.contains('hidden')){
+    edit.classList.remove('hidden');view.classList.add('hidden');
+    edit.focus();
+  }else{
+    edit.classList.add('hidden');view.classList.remove('hidden');
+    view.innerHTML=esc(edit.value).replace(/\n/g,'<br>');
+  }
+}
+function updateCharCount(){
+  const ta=document.getElementById('aiEditArea');
+  const c=document.getElementById('charCount');
+  if(ta&&c)c.textContent=ta.value.length+' / 2000';
+}
+function regenerateLetter(jobId){
+  openAIFromJob(jobId);
+}
+function sendLetter(jobId){
+  showToast('Отклик отправлен');
+  closePanel('aiLetter');
+  // Add to responses
+  const job=JOBS.find(j=>j.id===jobId);
+  if(job){
+    RESPONSES.unshift({id:Date.now(),jobId:jobId,title:job.title,platform:'Telegram',status:'sent',date:'Только что',preview:document.getElementById('aiEditArea')?.value?.substring(0,120)+'...'||'Отклик отправлен'});
+    renderResponses();
+  }
+}
+
+// ===== AI STRATEGY =====
+function openStrategyForJob(jobId){
+  const job=JOBS.find(j=>j.id===jobId);
+  if(!job)return;
+  let h=`<div>
+    <div class="card mb-4" style="background:var(--primary-light);border-color:transparent;padding:12px">
+      <div class="flex items-center gap-8">
+        <i class="icon-sparkles" style="color:var(--primary);font-size:16px"></i>
+        <div>
+          <div class="text-sm font-medium">AI-стратегия</div>
+          <div class="text-xs text-2">${esc(job.title)}</div>
+        </div>
+      </div>
+    </div>
+    <div id="strategyContent">
+      <div class="skeleton" style="height:20px;margin-bottom:10px;width:60%"></div>
+      <div class="skeleton" style="height:60px;margin-bottom:16px"></div>
+      <div class="skeleton" style="height:20px;margin-bottom:10px;width:50%"></div>
+      <div class="skeleton" style="height:80px;margin-bottom:16px"></div>
+      <div class="skeleton" style="height:20px;margin-bottom:10px;width:70%"></div>
+      <div class="skeleton" style="height:50px"></div>
+    </div>
+  </div>`;
+  document.getElementById('aiStrategyBody').innerHTML=h;
+  closePanel('jobDetail');
+  openPanel('aiStrategy');
+  // Simulate AI loading
+  setTimeout(()=>{
+    const strategies=[
+      {icon:'icon-users',title:'Анализ конкуренции',text:'По похожим заказам в среднем 8-12 откликов. Основные конкуренты — middle-разработчики с опытом 2-3 года. Ваше преимущество: специализация на '+job.skills[0]+' и подтверждённый опыт.'},
+      {icon:'icon-credit-card',title:'Рекомендация по цене',text:'Средний бюджет откликов: '+(job.budget.split('—')[0]||'')+'. Рекомендуем указать ставку на 10-15% ниже верхней границы для повышения шансов.'},
+      {icon:'icon-alert-triangle',title:'Оценка рисков',text:'Клиент с рейтингом '+job.clientRating+' — надёжный. Риск: сжатые сроки. Уточните дедлайн в отклике и предложите поэтапную оплату.'},
+      {icon:'icon-compass',title:'Рекомендуемый подход',text:'Начните отклик с конкретного результата из похожего проекта. Укажите стек: '+job.skills.join(', ')+'. Предложите короткий план из 3 этапов. Это повысит доверие клиента.'}
+    ];
+    let sh='';
+    strategies.forEach(s=>{
+      sh+=`<div class="strategy-section"><h4><i class="${s.icon}"></i> ${esc(s.title)}</h4><p>${esc(s.text)}</p></div>`;
+    });
+    document.getElementById('strategyContent').innerHTML=sh;
+  },1500);
+}
+
+// ===== SKILLS PANEL =====
+function renderSkillsPanel(){
+  const el=document.getElementById('skillsList');
+  el.innerHTML=USER.skills.map((s,i)=>`<span class="chip">${esc(s)} <button onclick="removeSkill(${i})" style="margin-left:4px;cursor:pointer;background:none;border:none;color:var(--text-3)"><i class="icon-x" style="font-size:12px"></i></button></span>`).join('');
+}
+function removeSkill(idx){USER.skills.splice(idx,1);renderSkillsPanel();renderProfile()}
+function addSkillFromPanel(){
+  const inp=document.getElementById('skillAddInput');
+  const v=inp.value.trim();
+  if(v&&!USER.skills.includes(v)){USER.skills.push(v);renderSkillsPanel();renderProfile();inp.value=''}
+}
+
+// ===== PORTFOLIO PANEL =====
+function renderPortfolioPanel(){
+  const el=document.getElementById('portfolioList');
+  el.innerHTML=USER.portfolio.map((p,i)=>`<div class="card mb-3" style="padding:12px">
+    <div class="flex items-center justify-between mb-2">
+      <div class="font-medium text-sm">${esc(p.title)}</div>
+      <button class="btn-icon" onclick="removePortfolio(${i})"><i class="icon-trash-2" style="font-size:14px;color:var(--danger)"></i></button>
+    </div>
+    <div class="text-xs text-2">${esc(p.desc)}</div>
+  </div>`).join('');
+}
+function removePortfolio(idx){USER.portfolio.splice(idx,1);renderPortfolioPanel();renderProfile()}
+
+// ===== NOTIFICATIONS =====
+function renderNotifications(){
+  const el=document.getElementById('notifList');
+  el.innerHTML=NOTIFS.map(n=>`<div class="list-item">
+    <div class="list-icon"><i class="${n.icon}"></i></div>
+    <div class="list-content"><div class="list-label" style="font-size:13px;line-height:1.4">${esc(n.text)}</div><div class="list-sub">${esc(n.time)}</div></div>
+  </div>`).join('');
+}
+function openNotifications(){openPanel('notifications')}
+
+// ===== TEMPLATES =====
+function renderTemplates(){
+  const el=document.getElementById('templateList');
+  el.innerHTML=TEMPLATES.map(t=>`<div class="card mb-3" style="padding:14px">
+    <div class="font-semibold text-sm mb-2">${esc(t.title)}</div>
+    <p class="text-sm text-2 mb-3" style="line-height:1.5">${esc(t.text)}</p>
+    <button class="btn btn-secondary btn-sm" onclick="copyTemplate('${esc(t.text).replace(/'/g,"\\'")}')"><i class="icon-copy" style="font-size:12px"></i> Копировать</button>
+  </div>`).join('');
+}
+function copyTemplate(text){navigator.clipboard?.writeText(text).then(()=>showToast('Скопировано')).catch(()=>showToast('Скопировано'))}
+
+// ===== FAQ =====
+function renderFAQ(){
+  const el=document.getElementById('faqList');
+  el.innerHTML=FAQ_DATA.map((f,i)=>`<div class="accordion-item">
+    <div class="accordion-head" onclick="toggleAccordion(this)">${esc(f.q)} <i class="icon-chevron-down"></i></div>
+    <div class="accordion-body"><div class="accordion-body-inner">${esc(f.a)}</div></div>
+  </div>`).join('');
+}
+function toggleAccordion(head){
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+}
+
+// ===== SUPPORT =====
+let supportMessages=[];
+function initSupport(){
+  supportMessages=[
+    {from:'bot',text:'Здравствуйте! Чем могу помочь? Опишите ваш вопрос, и мы постараемся решить его как можно скорее.',time:'Сейчас'}
+  ];
+  renderSupportChat();
+}
+function renderSupportChat(){
+  const el=document.getElementById('chatMessages');
+  el.innerHTML=supportMessages.map(m=>`<div style="display:flex;flex-direction:column;align-items:${m.from==='user'?'flex-end':'flex-start'}">
+    <div class="chat-bubble ${m.from==='user'?'chat-out':'chat-in'}">${esc(m.text)}</div>
+    <div class="chat-time">${esc(m.time)}</div>
+  </div>`).join('');
+  el.scrollTop=el.scrollHeight;
+}
+function sendSupport(){
+  const inp=document.getElementById('supportInput');
+  const v=inp.value.trim();if(!v)return;
+  supportMessages.push({from:'user',text:v,time:'Сейчас'});
+  inp.value='';
+  renderSupportChat();
+  setTimeout(()=>{
+    supportMessages.push({from:'bot',text:'Спасибо за обращение! Ваш запрос передан в службу поддержки. Мы ответим в течение 24 часов.',time:'Сейчас'});
+    renderSupportChat();
+  },1000);
+}
+
+// ===== EDIT PROFILE =====
+function renderEditProfile(){
+  const el=document.getElementById('editSkills');
+  el.innerHTML=USER.skills.map(s=>`<span class="chip">${esc(s)}</span>`).join('');
+  const pl=document.getElementById('editPortfolioLinks');
+  pl.innerHTML=USER.portfolio.map((p,i)=>`<div class="flex items-center gap-8 mb-2">
+    <i class="icon-link" style="font-size:14px;color:var(--text-3)"></i>
+    <span class="text-sm text-2 flex-1 truncate">${esc(p.title)}</span>
+    <button class="btn-icon" onclick="removePortfolio(${i});renderEditProfile()"><i class="icon-x" style="font-size:14px;color:var(--text-3)"></i></button>
+  </div>`).join('');
+}
+function addSkill(){
+  const inp=document.getElementById('newSkillInput');
+  const v=inp.value.trim();
+  if(v&&!USER.skills.includes(v)){USER.skills.push(v);renderEditProfile();renderProfile();inp.value=''}
+}
+function addPortfolioLink(){
+  const inp=document.getElementById('newPortfolioInput');
+  const v=inp.value.trim();
+  if(v){USER.portfolio.push({title:v,desc:'Новый проект',link:v});renderEditProfile();renderProfile();inp.value=''}
+}
+function saveProfile(){
+  showToast('Профиль сохранён');
+  closePanel('editProfile');
+  renderProfile();
+}
+
+// ===== DARK MODE =====
+function toggleDarkMode(){
+  isDark=!isDark;
+  document.getElementById('app').classList.toggle('dark',isDark);
+  localStorage.setItem('sh_dark',isDark);
+  updateDarkToggles();
+}
+function updateDarkToggles(){
+  document.querySelectorAll('[id^="darkToggle"]').forEach(t=>{t.classList.toggle('on',isDark)});
+}
+
+// ===== TOAST =====
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ===== SWIPE NAVIGATION =====
+let touchStartX=0,touchStartY=0,isSwiping=false;
+document.addEventListener('touchstart',e=>{
+  touchStartX=e.touches[0].clientX;
+  touchStartY=e.touches[0].clientY;
+  isSwiping=false;
+},{passive:true});
+document.addEventListener('touchmove',e=>{
+  if(Math.abs(e.touches[0].clientX-touchStartX)>Math.abs(e.touches[0].clientY-touchStartY)&&Math.abs(e.touches[0].clientX-touchStartX)>30){
+    isSwiping=true;
+  }
+},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(!isSwiping)return;
+  const dx=e.changedTouches[0].clientX-touchStartX;
+  if(dx<-50&&currentTab<3)switchTab(currentTab+1);
+  else if(dx>50&&currentTab>0)switchTab(currentTab-1);
+},{passive:true});
+
+// ===== INIT =====
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,502 @@
+  4370→      <div style="text-align:center;padding:8px;background:var(--primary-light);border-radius:var(--radius-xs)">
+  4371→        <div style="font-size:18px;font-weight:800;color:var(--primary)">28</div>
+  4372→        <div style="font-size:10px;color:var(--text-3);font-weight:600">Заказов</div>
+  4373→      </div>
+  4374→      <div style="text-align:center;padding:8px;background:var(--warning-light);border-radius:var(--radius-xs)">
+  4375→        <div style="font-size:18px;font-weight:800;color:var(--warning)">4.9</div>
+  4376→        <div style="font-size:10px;color:var(--text-3);font-weight:600">Рейтинг</div>
+  4377→      </div>
+  4378→      <div style="text-align:center;padding:8px;background:var(--success-light);border-radius:var(--radius-xs)">
+  4379→        <div style="font-size:18px;font-weight:800;color:var(--success)">$8.4K</div>
+  4380→        <div style="font-size:10px;color:var(--text-3);font-weight:600">Заработано</div>
+  4381→      </div>
+  4382→    </div>
+  4383→
+  4384→    <!-- Menu Sections -->
+  4385→    <div class="more-section-head">Профиль</div>
+  4386→    <div class="more-menu-row" onclick="openMoreSub('edit-profile', event)">
+  4387→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+  4388→      <div class="more-menu-row-text">Редактировать профиль</div>
+  4389→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4390→    </div>
+  4391→    <div class="more-menu-row" onclick="openMoreSub('skills', event)">
+  4392→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+  4393→      <div class="more-menu-row-text">Навыки</div>
+  4394→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4395→    </div>
+  4396→    <div class="more-menu-row" onclick="openMoreSub('portfolio', event)">
+  4397→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+  4398→      <div class="more-menu-row-text">Портфолио</div>
+  4399→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4400→    </div>
+  4401→
+  4402→    <div class="more-section-head">Инструменты</div>
+  4403→    <div class="more-menu-row" onclick="openMoreSub('ai-assistant', event)">
+  4404→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+  4405→      <div class="more-menu-row-text">AI-ассистент</div>
+  4406→      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px">NEW</span>
+  4407→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4408→    </div>
+  4409→    <div class="more-menu-row" onclick="openMoreSub('notifications', event)">
+  4410→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+  4411→      <div class="more-menu-row-text">Уведомления</div>
+  4412→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4413→    </div>
+  4414→    <div class="more-menu-row" onclick="openMoreSub('templates', event)">
+  4415→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+  4416→      <div class="more-menu-row-text">Шаблоны откликов</div>
+  4417→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4418→    </div>
+  4419→
+  4420→    <div class="more-section-head">Подписка</div>
+  4421→    <div class="more-menu-row" onclick="openMoreSub('tariff', event)">
+  4422→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+  4423→      <div class="more-menu-row-text">Тариф</div>
+  4424→      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px" id="moreTariffBadge">Pro</span>
+  4425→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4426→    </div>
+  4427→    <div class="more-menu-row" onclick="openMoreSub('payments', event)">
+  4428→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+  4429→      <div class="more-menu-row-text">История платежей</div>
+  4430→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4431→    </div>
+  4432→
+  4433→    <div class="more-section-head">Настройки</div>
+  4434→    <div class="more-menu-row" id="darkModeRow" onclick="toggleDarkMode()">
+  4435→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+  4436→      <div class="more-menu-row-text">Тёмная тема</div>
+  4437→      <div class="tgl" style="margin-left:auto"><input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()"><span class="tgl-s"></span></div>
+  4438→    </div>
+  4439→    <div class="more-menu-row" onclick="openMoreSub('language', event)">
+  4440→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+  4441→      <div class="more-menu-row-text">Язык</div>
+  4442→      <span style="margin-left:auto;margin-right:4px;font-size:12px;color:var(--text-3)">Русский</span>
+  4443→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4444→    </div>
+  4445→    <div class="more-menu-row" onclick="openMoreSub('notifications', event)">
+  4446→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+  4447→      <div class="more-menu-row-text">Уведомления</div>
+  4448→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4449→    </div>
+  4450→    <div class="more-menu-row" onclick="openMoreSub('faq', event)">
+  4451→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+  4452→      <div class="more-menu-row-text">FAQ</div>
+  4453→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4454→    </div>
+  4455→    <div class="more-menu-row" onclick="openMoreSub('support', event)">
+  4456→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+  4457→      <div class="more-menu-row-text">Поддержка</div>
+  4458→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4459→    </div>
+  4460→    <div class="more-menu-row" onclick="openMoreSub('about', event)">
+  4461→      <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+  4462→      <div class="more-menu-row-text">О приложении</div>
+  4463→      <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+  4464→    </div>
+  4465→
+  4466→    <div class="more-version">SkillHunt v1.0.0</div>
+  4467→  </div>
+  4468→</div>
+  4469→
+  4470→<!-- ═══ Job Detail Sub-screen ═══ -->
+  4471→<div class="sub" id="jobDetailSub" role="dialog" aria-label="Детали заказа" aria-modal="true">
+  4472→  <div class="sub-c">
+  4473→    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+  4474→      <button class="back-btn" onclick="closeJobDetail()">
+  4475→        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+  4476→      </button>
+  4477→      <div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Детали заказа</div>
+  4478→    </div>
+  4479→    <div id="jobDetailContent"></div>
+  4480→  </div>
+  4481→</div>
+  4482→
+  4483→<!-- ═══ More Sub-screen ═══ -->
+  4484→<div class="sub" id="moreSub" role="dialog" aria-label="Подменю" aria-modal="true">
+  4485→  <div class="sub-c" id="moreSubContent"></div>
+  4486→</div>
+  4487→
+  4488→<!-- ═══ New User Onboarding Overlay ═══ -->
+  4489→<div class="onb2-overlay" id="onb2Overlay">
+  4490→  <div class="onb2-card" id="onb2Card">
+  4491→    <div class="onb2-dots" id="onb2Dots"></div>
+  4492→    <div id="onb2Content"></div>
+  4493→  </div>
+  4494→</div>
+  4495→
+  4496→<!-- ═══ Trial Welcome Overlay ═══ -->
+  4497→<div class="trial-welcome-overlay" id="trialWelcomeOverlay">
+  4498→  <div class="trial-welcome-card">
+  4499→    <div class="trial-welcome-hero">
+  4500→      <div class="trial-welcome-hero-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO</div>
+  4501→      <div class="trial-welcome-hero-title">3 дня Pro бесплатно</div>
+  4502→      <div class="trial-welcome-hero-sub">Попробуйте все возможности Pro — без ограничений</div>
+  4503→    </div>
+  4504→    <div class="trial-welcome-body">
+  4505→      <div class="trial-welcome-features">
+  4506→        <div class="trial-welcome-feat">
+  4507→          <div class="trial-welcome-feat-ico ico-ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div>
+  4508→          <div><div class="trial-welcome-feat-title">AI-анализ конкурентов</div><div class="trial-welcome-feat-desc">Знайте своих соперников — сколько их и что предлагают</div></div>
+  4509→        </div>
+  4510→        <div class="trial-welcome-feat">
+  4511→          <div class="trial-welcome-feat-ico ico-strategy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+  4512→          <div><div class="trial-welcome-feat-title">AI-стратегия проекта</div><div class="trial-welcome-feat-desc">Полный план победы: бюджет, аргументы, риски</div></div>
+  4513→        </div>
+  4514→        <div class="trial-welcome-feat">
+  4515→          <div class="trial-welcome-feat-ico ico-early"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+  4516→          <div><div class="trial-welcome-feat-title">Ранний доступ</div><div class="trial-welcome-feat-desc">Первым видите новые заказы — на 2 часа раньше</div></div>
+  4517→        </div>
+  4518→        <div class="trial-welcome-feat">
+  4519→          <div class="trial-welcome-feat-ico ico-insight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+  4520→          <div><div class="trial-welcome-feat-title">Инсайты клиентов</div><div class="trial-welcome-feat-desc">Узнайте, кто платит и как быстро</div></div>
+  4521→        </div>
+  4522→        <div class="trial-welcome-feat">
+  4523→          <div class="trial-welcome-feat-ico ico-views"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+  4524→          <div><div class="trial-welcome-feat-title">Кто смотрел профиль</div><div class="trial-welcome-feat-desc">Не упускайте возможности — узнайте, кто вас ищет</div></div>
+  4525→        </div>
+  4526→        <div class="trial-welcome-feat">
+  4527→          <div class="trial-welcome-feat-ico ico-unlim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+  4528→          <div><div class="trial-welcome-feat-title">Безлимитные отклики и сохранения</div><div class="trial-welcome-feat-desc">На Free всего 3 отклика и 3 сохранения в месяц</div></div>
+  4529→        </div>
+  4530→        <div class="trial-welcome-feat">
+  4531→          <div class="trial-welcome-feat-ico" style="background:linear-gradient(135deg,var(--warning),#E8B84A)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+  4532→          <div><div class="trial-welcome-feat-title">Разведка и стрики</div><div class="trial-welcome-feat-desc">Аналитика рынка, серия охоты, x2 награды и рейтинг</div></div>
+  4533→        </div>
+  4534→      </div>
+  4535→      <button class="trial-welcome-btn" onclick="startTrial()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>Начать Pro-триал</button>
+  4536→      <div class="trial-welcome-footer">Отмена в любой момент · Без привязки карты</div>
+  4537→    </div>
+  4538→  </div>
+  4539→</div>
+  4540→
+  4541→<!-- ═══ End-of-Trial Modal ═══ -->
+  4542→<div class="trial-end-overlay" id="trialEndOverlay">
+  4543→  <div class="trial-end-card">
+  4544→    <div class="trial-end-hero">
+  4545→      <div class="trial-end-hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+  4546→      <div class="trial-end-hero-title" id="trialEndTitle">Триал завершается</div>
+  4547→      <div class="trial-end-hero-sub" id="trialEndSub">Не теряйте momentum — сохраните Pro</div>
+  4548→    </div>
+  4549→    <div class="trial-end-body">
+  4550→      <div class="trial-end-summary">
+  4551→        <div class="trial-end-summary-title">Ваш результат за триал</div>
+  4552→        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Откликов отправлено</span><span class="trial-end-summary-val highlight" id="trialEndApps">0</span></div>
+  4553→        <div class="trial-end-summary-row"><span class="trial-end-summary-label">AI-писем создано</span><span class="trial-end-summary-val highlight" id="trialEndAI">0</span></div>
+  4554→        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Время сэкономлено</span><span class="trial-end-summary-val" id="trialEndTime">0 мин</span></div>
+  4555→        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Потенциал заработка</span><span class="trial-end-summary-val highlight" id="trialEndEarnings">$0</span></div>
+  4556→      </div>
+  4557→      <div class="trial-end-offer">
+  4558→        <div class="trial-end-offer-label">Специальное предложение</div>
+  4559→        <div class="trial-end-offer-price"><span class="old">$9.99</span><span id="trialEndPrice">$4.99</span></div>
+  4560→        <div class="trial-end-offer-period">/месяц · Отмена в любой момент</div>
+  4561→        <div class="trial-end-offer-save">Вы экономите 50%</div>
+  4562→      </div>
+  4563→      <button class="trial-end-btn" onclick="subscribePro()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Сохранить Pro за $4.99/мес</button>
+  4564→      <button class="trial-end-skip" onclick="skipTrialEnd()">Продолжить с Free</button>
+  4565→    </div>
+  4566→  </div>
+  4567→</div>
+  4568→
+  4569→<!-- ═══ AI Cover Letter Bottom Sheet ═══ -->
+  4570→<div class="ai-cover-overlay" id="aiCoverOverlay" onclick="if(event.target===this)closeAICover()">
+  4571→  <div class="ai-cover-sheet">
+  4572→    <div class="ai-cover-handle"></div>
+  4573→    <div class="ai-cover-header">
+  4574→      <div class="ai-cover-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> AI-сопроводительное <span class="ai-cover-pro-badge">PRO</span></div>
+  4575→      <button class="ai-cover-close" onclick="closeAICover()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  4576→    </div>
+  4577→    <div class="ai-cover-generating" id="aiCoverGenerating">
+  4578→      <div class="ai-cover-gen-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div>
+  4579→      <div class="ai-cover-gen-title">AI создаёт ваше предложение...</div>
+  4580→      <div class="ai-cover-gen-sub" id="aiCoverGenSub">Анализируем заказ и ваш профиль</div>
+  4581→      <div class="ai-cover-dots"><span></span><span></span><span></span></div>
+  4582→    </div>
+  4583→    <div class="ai-cover-result" id="aiCoverResult">
+  4584→      <div class="ai-cover-text" id="aiCoverText"></div>
+  4585→      <div class="ai-cover-actions">
+  4586→        <button class="ai-cover-edit" onclick="editAICover()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Изменить</button>
+  4587→        <button class="ai-cover-send" id="aiCoverSendBtn" onclick="sendAICover()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Отправить</button>
+  4588→      </div>
+  4589→      <div class="ai-cover-saved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>AI сэкономил вам ~15 минут</div>
+  4590→    </div>
+  4591→  </div>
+  4592→</div>
+  4593→
+  4594→<!-- ═══ AI Strategy Bottom Sheet ═══ -->
+  4595→<div class="ai-strategy-overlay" id="aiStrategyOverlay" onclick="if(event.target===this)closeAIStrategy()">
+  4596→  <div class="ai-strategy-sheet">
+  4597→    <div class="ai-strategy-handle"></div>
+  4598→    <div class="ai-strategy-header">
+  4599→      <div class="ai-strategy-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> AI-стратегия проекта <span class="ai-cover-pro-badge">PRO</span></div>
+  4600→      <button class="ai-strategy-close" onclick="closeAIStrategy()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  4601→    </div>
+  4602→    <div class="ai-strategy-generating" id="aiStrategyGenerating">
+  4603→      <div class="ai-strategy-gen-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+  4604→      <div class="ai-strategy-gen-title">AI разрабатывает стратегию...</div>
+  4605→      <div class="ai-strategy-gen-sub" id="aiStrategyGenSub">Анализируем конкурентов и бюджет</div>
+  4606→      <div class="ai-strategy-dots"><span></span><span></span><span></span></div>
+  4607→    </div>
+  4608→    <div class="ai-strategy-result" id="aiStrategyResult"></div>
+  4609→  </div>
+  4610→</div>
+  4611→
+  4612→<!-- ═══ Toast ═══ -->
+  4613→<div class="toast" id="toast"></div>
+  4614→
+  4615→<script>
+  4616→// ═══════════════════════════════════════════════════════════
+  4617→// SkillHunt — AI Freelance Job Search — JavaScript v2.0
+  4618→// ═══════════════════════════════════════════════════════════
+  4619→
+  4620→// ── Utility: HTML Escaping (XSS Prevention) ──
+  4621→function esc(str) {
+  4622→  if (str == null) return '';
+  4623→  return String(str)
+  4624→    .replace(/&/g, '&amp;')
+  4625→    .replace(/</g, '&lt;')
+  4626→    .replace(/>/g, '&gt;')
+  4627→    .replace(/"/g, '&quot;')
+  4628→    .replace(/'/g, '&#39;');
+  4629→}
+  4630→
+  4631→// ── Utility: Safe localStorage Wrappers ──
+  4632→function lsGet(key, fallback) {
+  4633→  try { return localStorage.getItem(key); }
+  4634→  catch(e) { return fallback !== undefined ? fallback : null; }
+  4635→}
+  4636→function lsSet(key, value) {
+  4637→  try { localStorage.setItem(key, value); return true; }
+  4638→  catch(e) { console.warn('localStorage write failed:', e); return false; }
+  4639→}
+  4640→function lsGetJSON(key, fallback) {
+  4641→  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+  4642→  catch(e) { return fallback !== undefined ? fallback : null; }
+  4643→}
+  4644→function lsSetJSON(key, value) {
+  4645→  try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+  4646→  catch(e) { console.warn('localStorage write failed:', e); return false; }
+  4647→}
+  4648→
+  4649→// ── Utility: ARIA Live Announcer ──
+  4650→function announce(message) {
+  4651→  const el = document.getElementById('ariaLive');
+  4652→  if (el) { el.textContent = ''; requestAnimationFrame(() => { el.textContent = message; }); }
+  4653→}
+  4654→
+  4655→// ── Mock Data ──
+  4656→const MOCK_JOBS = [
+  4657→  { id:1, title:'Разработка ML-модели для рекомендаций', category:'ai', budgetMin:3000, budgetMax:8000, clientName:'Дмитрий К.', clientRating:4.8, clientOrders:34, posted:'2ч назад', match:94, level:'senior', type:'remote', skills:['Python','TensorFlow','PyTorch','NLP'], description:'Необходима разработка ML-модели рекомендательной системы для e-commerce платформы. Требуется опыт с collaborative filtering, content-based рекомендациями и A/B тестированием. Проект на 2-3 месяца.' },
+  4658→  { id:2, title:'UI/UX дизайн мобильного приложения', category:'design', budgetMin:1500, budgetMax:4000, clientName:'Елена М.', clientRating:4.9, clientOrders:56, posted:'3ч назад', match:87, level:'middle', type:'remote', skills:['Figma','Prototyping','User Research','Design Systems'], description:'Ищем UX/UI дизайнера для создания дизайна мобильного приложения в сфере финтех. Нужно разработать полный дизайн-систему и прототипы для iOS и Android.' },
+  4659→  { id:3, title:'Backend разработка на Node.js', category:'dev', budgetMin:2000, budgetMax:5000, clientName:'Артём В.', clientRating:4.5, clientOrders:22, posted:'5ч назад', match:82, level:'middle', type:'remote', skills:['Node.js','PostgreSQL','Redis','Docker'], description:'Разработка высоконагруженного backend-сервиса для обработки платежей. Требуется опыт с микросервисной архитектурой, очередями сообщений и CI/CD.' },
+  4660→  { id:4, title:'Написание SEO-статей для блога', category:'writing', budgetMin:200, budgetMax:500, clientName:'Мария С.', clientRating:4.7, clientOrders:89, posted:'1ч назад', match:73, level:'junior', type:'remote', skills:['SEO','Copywriting','Content Marketing','Research'], description:'Необходимы 10 SEO-оптимизированных статей для корпоративного блога. Тематика — искусственный интеллект в бизнесе. Объём каждой статьи 2000-3000 слов.' },
+  4661→  { id:5, title:'Настройка CI/CD пайплайна', category:'devops', budgetMin:800, budgetMax:2000, clientName:'Игорь Л.', clientRating:4.6, clientOrders:15, posted:'4ч назад', match:68, level:'senior', type:'remote', skills:['Docker','Kubernetes','GitHub Actions','Terraform'], description:'Настроить полный CI/CD пайплайн для микросервисного проекта. Включая автоматическое тестирование, сборку Docker-образов и деплой в Kubernetes кластер.' },
+  4662→  { id:6, title:'Анализ данных клиентов с ML', category:'data', budgetMin:5000, budgetMax:12000, clientName:'Ольга П.', clientRating:5.0, clientOrders:41, posted:'6ч назад', match:91, level:'senior', type:'hybrid', skills:['Python','Pandas','Scikit-learn','SQL','Visualization'], description:'Провести комплексный анализ клиентской базы с использованием ML-методов. Сегментация клиентов, прогноз оттока, LTV-моделирование. Результаты в интерактивном дашборде.' },
+  4663→  { id:7, title:'Разработка чат-бота на GPT API', category:'ai', budgetMin:1000, budgetMax:3000, clientName:'Андрей Б.', clientRating:4.3, clientOrders:18, posted:'8ч назад', match:89, level:'middle', type:'remote', skills:['OpenAI API','Python','NLP','Telegram API'], description:'Разработка интеллектуального чат-бота для клиентской поддержки с использованием GPT API. Интеграция с Telegram и веб-сайтом. Обучение на базе документации компании.' },
+  4664→  { id:8, title:'SMM-стратегия для стартапа', category:'marketing', budgetMin:500, budgetMax:1500, clientName:'Наталья К.', clientRating:4.4, clientOrders:27, posted:'3ч назад', match:56, level:'middle', type:'remote', skills:['Social Media','Content Strategy','Analytics','Branding'], description:'Разработка полной SMM-стратегии для IT-стартапа. Включая контент-план, визуальную стратегию и KPI. Платформы: Telegram, Instagram, LinkedIn.' },
+  4665→  { id:9, title:'Дизайн лендинга для SaaS-продукта', category:'design', budgetMin:800, budgetMax:2500, clientName:'Сергей Д.', clientRating:4.7, clientOrders:63, posted:'7ч назад', match:78, level:'middle', type:'remote', skills:['Figma','Web Design','Animation','Conversion Optimization'], description:'Разработка дизайна лендинга для B2B SaaS-продукта. Фокус на конверсии, с анимациями и интерактивными элементами. Mobile-first подход.' },
+  4666→  { id:10, title:'React Native мобильное приложение', category:'dev', budgetMin:5000, budgetMax:15000, clientName:'Виктория Р.', clientRating:4.9, clientOrders:45, posted:'12ч назад', match:85, level:'senior', type:'remote', skills:['React Native','TypeScript','Firebase','Redux'], description:'Разработка кроссплатформенного мобильного приложения для заказа услуг. Интеграция с платежными системами, геолокацией и push-уведомлениями. Срок — 3 месяца.' },
+  4667→  { id:11, title:'Fine-tuning LLM для юридических текстов', category:'ai', budgetMin:8000, budgetMax:15000, clientName:'Алексей Т.', clientRating:4.8, clientOrders:12, posted:'1д назад', match:96, level:'lead', type:'remote', skills:['LLM','Fine-tuning','RAG','Legal Tech'], description:'Необходим fine-tuning большой языковой модели для работы с юридическими документами. Опыт с RAG, vector databases и evaluation LLM. Проект для юридической компании.' },
+  4668→  { id:12, title:'Техническая документация API', category:'writing', budgetMin:300, budgetMax:800, clientName:'Павел Н.', clientRating:4.2, clientOrders:31, posted:'9ч назад', match:62, level:'middle', type:'remote', skills:['Technical Writing','API Documentation','Markdown','Swagger'], description:'Написание полной технической документации для REST API. Включая примеры запросов, описание эндпоинтов и схемы данных. Формат — Markdown с Swagger.' },
+  4669→  { id:13, title:'Миграция инфраструктуры в облако', category:'devops', budgetMin:3000, budgetMax:7000, clientName:'Роман Ш.', clientRating:4.6, clientOrders:19, posted:'1д назад', match:71, level:'senior', type:'hybrid', skills:['AWS','Terraform','Ansible','Docker','Monitoring'], description:'Миграция существующей on-premise инфраструктуры в AWS. Включая настройку VPC, миграцию баз данных, настройку мониторинга и автоматическое масштабирование.' },
+  4670→  { id:14, title:'Анализ конкурентов рынка EdTech', category:'marketing', budgetMin:1000, budgetMax:3000, clientName:'Юлия Г.', clientRating:4.5, clientOrders:38, posted:'2д назад', match:53, level:'middle', type:'office', skills:['Market Research','Competitive Analysis','Data Analysis','Presentation'], description:'Комплексный анализ конкурентов на рынке EdTech в России и СНГ. Карта конкурентного ландшафта, SWOT-анализ, рекомендации по позиционированию.' },
+  4671→  { id:15, title:'Computer Vision для контроля качества', category:'ai', budgetMin:10000, budgetMax:15000, clientName:'Михаил Ф.', clientRating:4.9, clientOrders:8, posted:'5ч назад', match:88, level:'lead', type:'hybrid', skills:['Computer Vision','OpenCV','PyTorch','Edge AI','YOLO'], description:'Разработка системы компьютерного зрения для автоматического контроля качества на производстве. Обнаружение дефектов в реальном времени, интеграция с камерами и PLC.' }
+  4672→];
+  4673→
+  4674→// ── State ──
+  4675→let currentTab = 0;
+  4676→let savedJobs = lsGetJSON('skillhunt_saved', []);
+  4677→let feedCategory = 'all';
+  4678→let searchQuery = '';
+  4679→let filterCategory = 'all';
+  4680→let filterLevel = 'any';
+  4681→let filterType = 'all';
+  4682→let filterBudget = 'any';
+  4683→let filterSort = 'relevance';
+  4684→let isDark = lsGet('skillhunt_dark') === 'true';
+  4685→let isLoading = true;
+  4686→let searchDebounceTimer = null;
+  4687→
+  4688→// ═══════════════════════════════════════════════════════════
+  4689→// ── Subscription State System ──
+  4690→// ═══════════════════════════════════════════════════════════
+  4691→const FREE_APP_LIMIT = 3; // Free: 3 applications per month
+  4692→const FREE_SAVE_LIMIT = 3; // Free: 3 saved jobs per month
+  4693→const FREE_VISIBLE_JOBS = 6; // Free: only 6 out of 15 jobs visible
+  4694→const EARLY_ACCESS_HOURS = 2; // Jobs posted within 2 hours are early access
+  4695→const DELAYED_HOURS = 24; // Free users see "Доступно через 24ч" for recent jobs
+  4696→const TRIAL_DAYS = 3;
+  4697→
+  4698→function getSubscription() {
+  4699→  let sub = lsGetJSON('skillhunt_subscription', null);
+  4700→  if (!sub) {
+  4701→    // First-time user: default to free (trial offered on first load)
+  4702→    sub = { plan:'free', trialStartedAt:null, trialDaysTotal:TRIAL_DAYS, monthlyAppCount:0, monthlyAppResetDate:new Date().toISOString().slice(0,7), aiProposalCount:0, proViewsCount:0, trialSpecialPrice:4.99, trialOfferShown:false, savedCount:0 };
+  4703→    lsSetJSON('skillhunt_subscription', sub);
+  4704→  }
+  4705→  // Check if trial has expired
+  4706→  if (sub.plan === 'trial' && sub.trialStartedAt) {
+  4707→    const start = new Date(sub.trialStartedAt);
+  4708→    const now = new Date();
+  4709→    const daysElapsed = (now - start) / (1000 * 60 * 60 * 24);
+  4710→    if (daysElapsed >= TRIAL_DAYS) {
+  4711→      sub.plan = 'free';
+  4712→      sub.trialEndedAt = now.toISOString();
+  4713→      lsSetJSON('skillhunt_subscription', sub);
+  4714→    }
+  4715→  }
+  4716→  // Reset monthly app count if new month
+  4717→  const currentMonth = new Date().toISOString().slice(0,7);
+  4718→  if (sub.monthlyAppResetDate !== currentMonth) {
+  4719→    sub.monthlyAppCount = 0;
+  4720→    sub.monthlyAppResetDate = currentMonth;
+  4721→    lsSetJSON('skillhunt_subscription', sub);
+  4722→  }
+  4723→  return sub;
+  4724→}
+  4725→
+  4726→function isPro() {
+  4727→  const sub = getSubscription();
+  4728→  return sub.plan === 'pro' || sub.plan === 'trial';
+  4729→}
+  4730→
+  4731→function isTrialActive() {
+  4732→  const sub = getSubscription();
+  4733→  return sub.plan === 'trial';
+  4734→}
+  4735→
+  4736→function getTrialDaysLeft() {
+  4737→  const sub = getSubscription();
+  4738→  if (sub.plan !== 'trial' || !sub.trialStartedAt) return 0;
+  4739→  const start = new Date(sub.trialStartedAt);
+  4740→  const now = new Date();
+  4741→  const daysElapsed = (now - start) / (1000 * 60 * 60 * 24);
+  4742→  return Math.max(0, Math.ceil(TRIAL_DAYS - daysElapsed));
+  4743→}
+  4744→
+  4745→function getTrialHoursLeft() {
+  4746→  const sub = getSubscription();
+  4747→  if (sub.plan !== 'trial' || !sub.trialStartedAt) return 0;
+  4748→  const start = new Date(sub.trialStartedAt);
+  4749→  const end = new Date(start.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+  4750→  const now = new Date();
+  4751→  return Math.max(0, Math.round((end - now) / (1000 * 60 * 60)));
+  4752→}
+  4753→
+  4754→function canApply() {
+  4755→  const sub = getSubscription();
+  4756→  if (isPro()) return { allowed:true, remaining:'∞' };
+  4757→  const remaining = Math.max(0, FREE_APP_LIMIT - sub.monthlyAppCount);
+  4758→  return { allowed: remaining > 0, remaining: remaining };
+  4759→}
+  4760→
+  4761→function canSave() {
+  4762→  const sub = getSubscription();
+  4763→  if (isPro()) return { allowed:true, remaining:'∞' };
+  4764→  const savedCount = sub.savedCount || 0;
+  4765→  const remaining = Math.max(0, FREE_SAVE_LIMIT - savedCount);
+  4766→  return { allowed: remaining > 0, remaining: remaining };
+  4767→}
+  4768→
+  4769→function incrementSavedCount() {
+  4770→  const sub = getSubscription();
+  4771→  sub.savedCount = (sub.savedCount || 0) + 1;
+  4772→  lsSetJSON('skillhunt_subscription', sub);
+  4773→}
+  4774→
+  4775→function decrementSavedCount() {
+  4776→  const sub = getSubscription();
+  4777→  sub.savedCount = Math.max(0, (sub.savedCount || 0) - 1);
+  4778→  lsSetJSON('skillhunt_subscription', sub);
+  4779→}
+  4780→
+  4781→// Check if a job was posted within N hours (uses mock "posted" field)
+  4782→function isJobEarlyAccess(job) {
+  4783→  const recentPatterns = ['только что','1 мин','5 мин','10 мин','15 мин','30 мин','1ч','2ч'];
+  4784→  return recentPatterns.some(p => job.posted.includes(p));
+  4785→}
+  4786→
+  4787→function isJobDelayed(job) {
+  4788→  const recentPatterns = ['только что','1 мин','5 мин','10 мин','15 мин','30 мин','1ч','2ч','3ч','4ч','5ч','6ч','7ч','8ч','9ч','10ч','11ч','12ч','15ч','18ч','20ч','23ч'];
+  4789→  return recentPatterns.some(p => job.posted.includes(p));
+  4790→}
+  4791→
+  4792→function incrementAppCount() {
+  4793→  const sub = getSubscription();
+  4794→  sub.monthlyAppCount = (sub.monthlyAppCount || 0) + 1;
+  4795→  lsSetJSON('skillhunt_subscription', sub);
+  4796→}
+  4797→
+  4798→function incrementAICount() {
+  4799→  const sub = getSubscription();
+  4800→  sub.aiProposalCount = (sub.aiProposalCount || 0) + 1;
+  4801→  lsSetJSON('skillhunt_subscription', sub);
+  4802→}
+  4803→
+  4804→function startTrial() {
+  4805→  const sub = getSubscription();
+  4806→  sub.plan = 'trial';
+  4807→  sub.trialStartedAt = new Date().toISOString();
+  4808→  sub.monthlyAppCount = 0;
+  4809→  sub.aiProposalCount = 0;
+  4810→  sub.proViewsCount = 0;
+  4811→  lsSetJSON('skillhunt_subscription', sub);
+  4812→  document.getElementById('trialWelcomeOverlay').classList.remove('active');
+  4813→  showToast('Pro-триал активирован на 3 дня');
+  4814→  loadProfile();
+  4815→  renderTrialBar();
+  4816→}
+  4817→
+  4818→function subscribePro() {
+  4819→  const sub = getSubscription();
+  4820→  sub.plan = 'pro';
+  4821→  sub.trialStartedAt = null;
+  4822→  lsSetJSON('skillhunt_subscription', sub);
+  4823→  document.getElementById('trialEndOverlay').classList.remove('active');
+  4824→  showToast('Pro подписка активирована');
+  4825→  loadProfile();
+  4826→  renderTrialBar();
+  4827→}
+  4828→
+  4829→function skipTrialEnd() {
+  4830→  const sub = getSubscription();
+  4831→  sub.trialOfferShown = true;
+  4832→  lsSetJSON('skillhunt_subscription', sub);
+  4833→  document.getElementById('trialEndOverlay').classList.remove('active');
+  4834→  showToast('Вы используете Free-план');
+  4835→  loadProfile();
+  4836→  renderTrialBar();
+  4837→}
+  4838→
+  4839→function showProUpgrade() {
+  4840→  const overlay = document.getElementById('trialEndOverlay');
+  4841→  const sub = getSubscription();
+  4842→  const price = (sub.trialSpecialPrice || 4.99).toFixed(2);
+  4843→  document.getElementById('trialEndTitle').textContent = 'Разблокируйте Pro';
+  4844→  document.getElementById('trialEndSub').textContent = 'Получите безлимитные отклики, AI и приоритет';
+  4845→  document.getElementById('trialEndApps').textContent = sub.monthlyAppCount || 0;
+  4846→  document.getElementById('trialEndAI').textContent = sub.aiProposalCount || 0;
+  4847→  document.getElementById('trialEndTime').textContent = ((sub.aiProposalCount || 0) * 15) + ' мин';
+  4848→  const apps = lsGetJSON('skillhunt_applications', []);
+  4849→  const totalEarnings = apps.reduce((s, a) => {
+  4850→    const job = MOCK_JOBS.find(j => j.id === a.jobId);
+  4851→    return s + (job ? job.budgetMax : 0);
+  4852→  }, 0);
+  4853→  document.getElementById('trialEndEarnings').textContent = '$' + totalEarnings.toLocaleString();
+  4854→  document.getElementById('trialEndPrice').textContent = '$' + price;
+  4855→  overlay.querySelector('.trial-end-btn').innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Подключить Pro за $' + price + '/мес';
+  4856→  overlay.classList.add('active');
+  4857→}
+  4858→
+  4859→// ── Trial Countdown Bar ──
+  4860→function renderTrialBar() {
+  4861→  const container = document.getElementById('trialBarContainer');
+  4862→  if (!container) return;
+  4863→  const sub = getSubscription();
+  4864→  
+  4865→  if (sub.plan === 'pro') {
+  4866→    container.innerHTML = '<div class="trial-bar" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro активен <span class="trial-days">∞</span></div><div class="trial-bar-sub">Безлимит · AI-анализ · Стратегия · Ранний доступ</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+  4867→    return;
+  4868→  }
+  4869→  
+
+[showing lines 4370-4869 of 6755; use offset=4870 with limit to continue reading]
