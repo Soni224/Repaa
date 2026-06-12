@@ -1,0 +1,502 @@
+  5370→  const shimmerClass = 'card-shimmer card-shimmer-' + (job.category || 'ai');
+  5371→  const glowClass = 'card-glow-' + (job.category || 'ai');
+  5372→  const dotClass = 'cat-dot cat-dot-' + (job.category || 'ai');
+  5373→  const enterClass = isSavedView ? 'card-enter' : 'animate-in';
+  5374→
+  5375→  // Early access & delayed badges
+  5376→  const pro = isPro();
+  5377→  const earlyAccess = isJobEarlyAccess(job);
+  5378→  const delayed = !pro && isJobDelayed(job);
+  5379→  const locked = !pro && earlyAccess; // Free users can't see early access jobs at all
+  5380→
+  5381→  // Early access: card-level glow instead of text badge
+  5382→  const eaClass = (pro && earlyAccess) ? 'card-early-access' : '';
+  5383→  const delayedBadge = delayed ? '<span class="delayed-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Доступно через 24ч</span>' : '';
+  5384→
+  5385→  // Ghost counter (FOMO) — deterministic random from job.id
+  5386→  const seed = job.id * 2654435761 >>> 0;
+  5387→  const viewing = 8 + (seed % 40);
+  5388→  const applicants = (seed >> 8) % 13;
+  5389→  const trendUp = (seed >> 16) % 4 + 1;
+  5390→  const ghostHtml = pro
+  5391→    ? `<div class="ghost-counter"><span>${viewing}</span><span>${applicants} отклика</span><span class="ghost-trend">↑ +${trendUp} за час</span></div>`
+  5392→    : `<div class="ghost-counter"><span>${Math.floor(viewing/10)*10}+</span><span>несколько</span></div>`;
+  5393→
+  5394→  if (isSavedView) {
+  5395→    // Saved view: swipeable item with quick actions
+  5396→    return `
+  5397→      <div class="saved-item card-enter mb-12" id="saved-item-${job.id}" data-job-id="${job.id}">
+  5398→        <div class="saved-item-delete" onclick="event.stopPropagation();deleteSavedItem(${job.id})">
+  5399→          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+  5400→        </div>
+  5401→        <div class="saved-card ${shimmerClass} ${glowClass}" onclick="openJobDetail(${job.id})" tabindex="0" role="article" aria-label="${esc(job.title)}">
+  5402→          <div class="saved-card-actions">
+  5403→            <button class="saved-action-btn" onclick="event.stopPropagation();applyToJob(${job.id})" aria-label="Откликнуться" title="Откликнуться">
+  5404→              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  5405→            </button>
+  5406→            <button class="saved-action-btn" onclick="event.stopPropagation();toggleSave(${job.id})" aria-label="Убрать из сохранённых" title="Удалить" style="color:var(--danger)">
+  5407→              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  5408→            </button>
+  5409→          </div>
+  5410→          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+  5411→            <div style="flex:1;min-width:0">
+  5412→              <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px;font-family:var(--font-sans)">${esc(job.title)}</div>
+  5413→              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+  5414→                <span class="${dotClass}"></span><span class="tag ${catColors[job.category] || 'tag-primary'}">${catLabels[job.category] || esc(job.category)}</span>
+  5415→                <span style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">$${job.budgetMin.toLocaleString()}-${job.budgetMax.toLocaleString()}</span>
+  5416→                ${job.match > 80 ? '<span class="quick-apply-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Top</span>' : ''}
+  5417→              </div>
+  5418→            </div>
+  5419→            <span class="${matchBg}" style="font-size:12px;font-weight:800;padding:4px 10px;border-radius:var(--radius-full);color:${matchColor};white-space:nowrap;font-family:var(--font-sans)">${job.match}%</span>
+  5420→          </div>
+  5421→          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+  5422→            <div style="width:24px;height:24px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;font-family:var(--font-sans)">${esc(job.clientName.charAt(0))}</div>
+  5423→            <span style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">${esc(job.clientName)}</span>
+  5424→            <div style="display:flex;align-items:center;gap:1px">${stars}</div>
+  5425→            <span style="font-size:11px;color:var(--text-3);margin-left:auto;font-family:var(--font-sans)">${esc(job.posted)}</span>
+  5426→          </div>
+  5427→          <div style="font-size:12px;color:var(--text-2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px">${esc(job.description)}</div>
+  5428→          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+  5429→            <div style="display:flex;gap:4px;flex-wrap:wrap;flex:1;min-width:0">${skillsHtml}</div>
+  5430→          </div>
+  5431→          <div class="budget-range">
+  5432→            <div class="budget-range-fill" style="left:${budgetLeft}%;width:${Math.max(budgetWidth, 8)}%"></div>
+  5433→          </div>
+  5434→        </div>
+  5435→      </div>`;
+  5436→  }
+  5437→
+  5438→  // Feed/Search view: standard card with shimmer + glow
+  5439→  return `
+  5440→    <div class="card ${enterClass} mb-12 ${shimmerClass} ${glowClass} ${eaClass} card-lift" onclick="${locked ? 'showProUpgrade()' : 'openJobDetail('+job.id+')'}" style="cursor:pointer;position:relative" tabindex="0" role="article" aria-label="${esc(job.title)}">
+  5441→      ${locked ? '<div class="job-locked-overlay"><div class="job-locked-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="job-locked-text">Ранний доступ</div><div class="job-locked-sub">Этот заказ доступен только с Pro</div><button class="job-locked-btn" onclick="event.stopPropagation();showProUpgrade()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Разблокировать Pro</button></div>' : ''}
+  5442→      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+  5443→        <div style="flex:1;min-width:0">
+  5444→          <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px;font-family:var(--font-sans)">${esc(job.title)}</div>
+  5445→          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+  5446→            <span class="${dotClass}"></span><span class="tag ${catColors[job.category] || 'tag-primary'}">${catLabels[job.category] || esc(job.category)}</span>
+  5447→            <span style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">$${job.budgetMin.toLocaleString()}-${job.budgetMax.toLocaleString()}</span>
+  5448→            ${delayedBadge}
+  5449→          </div>
+  5450→        </div>
+  5451→        ${showSave ? `
+  5452→        <button class="btn btn-g ${isSaved ? 'save-pulse' : ''}" onclick="event.stopPropagation();toggleSave(${job.id})" style="padding:4px;flex-shrink:0" aria-label="${isSaved ? 'Убрать из сохранённых' : 'Сохранить'}" id="saveBtn${job.id}">
+  5453→          <svg width="20" height="20" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" style="color:${isSaved ? 'var(--coral)' : 'var(--text-3)'};transition:all .2s"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+  5454→        </button>` : ''}
+  5455→      </div>
+  5456→      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+  5457→        <div style="width:24px;height:24px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;font-family:var(--font-sans)">${esc(job.clientName.charAt(0))}</div>
+  5458→        <span style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">${esc(job.clientName)}</span>
+  5459→        <div style="display:flex;align-items:center;gap:1px">${stars}</div>
+  5460→        <span style="font-size:11px;color:var(--text-3);margin-left:auto;font-family:var(--font-sans)">${esc(job.posted)}</span>
+  5461→      </div>
+  5462→      <div style="font-size:12px;color:var(--text-2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px">${esc(job.description)}</div>
+  5463→      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+  5464→        <div style="display:flex;gap:4px;flex-wrap:wrap;flex:1;min-width:0">${skillsHtml}</div>
+  5465→        <span class="${matchBg}" style="font-size:11px;font-weight:700;padding:3px 8px;border-radius:var(--radius-full);color:${matchColor};white-space:nowrap;font-family:var(--font-sans)">${job.match}%</span>
+  5466→      </div>
+  5467→      ${ghostHtml}
+  5468→    </div>`;
+  5469→}
+  5470→
+  5471→// ── Star Rating Renderer (fixed unique gradient IDs) ──
+  5472→let _starRenderCount = 0;
+  5473→function renderStars(rating) {
+  5474→  _starRenderCount++;
+  5475→  const uid = 'hg' + _starRenderCount;
+  5476→  const full = Math.floor(rating);
+  5477→  const half = rating % 1 >= 0.5 ? 1 : 0;
+  5478→  const empty = 5 - full - half;
+  5479→  let html = '';
+  5480→  for (let i = 0; i < full; i++) html += '<svg width="12" height="12" viewBox="0 0 24 24" fill="#FFB800" stroke="#FFB800" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+  5481→  for (let i = 0; i < half; i++) html += '<svg width="12" height="12" viewBox="0 0 24 24" fill="#FFB800" stroke="#FFB800" stroke-width="1"><defs><linearGradient id="' + uid + '"><stop offset="50%" stop-color="#FFB800"/><stop offset="50%" stop-color="transparent"/></linearGradient></defs><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="url(#' + uid + ')"/></svg>';
+  5482→  for (let i = 0; i < empty; i++) html += '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--border)" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+  5483→  return html;
+  5484→}
+  5485→
+  5486→// ── Feed Rendering ──
+  5487→function renderFeed() {
+  5488→  const list = document.getElementById('feedJobList');
+  5489→  const empty = document.getElementById('feedEmpty');
+  5490→  let jobs = MOCK_JOBS;
+  5491→  
+  5492→  if (feedCategory !== 'all') {
+  5493→    jobs = jobs.filter(j => j.category === feedCategory);
+  5494→  }
+  5495→  
+  5496→  // Free users see only limited jobs
+  5497→  if (!isPro()) {
+  5498→    // Show only first FREE_VISIBLE_JOBS (sorted by relevance/match)
+  5499→    jobs = jobs.slice(0, FREE_VISIBLE_JOBS);
+  5500→  }
+  5501→  
+  5502→  if (jobs.length === 0) {
+  5503→    list.innerHTML = '';
+  5504→    empty.style.display = 'block';
+  5505→    announce('Заказов не найдено');
+  5506→  } else {
+  5507→    empty.style.display = 'none';
+  5508→    let cardsHtml = jobs.map(j => renderJobCard(j, true)).join('');
+  5509→    // If Free, show "see more" gate
+  5510→    if (!isPro() && MOCK_JOBS.length > FREE_VISIBLE_JOBS) {
+  5511→      cardsHtml += '<div class="pro-gate-inline" onclick="showProUpgrade()" style="margin-top:8px"><div class="pro-gate-inline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="pro-gate-inline-text"><div class="pro-gate-inline-title">Ещё ' + (MOCK_JOBS.length - FREE_VISIBLE_JOBS) + ' заказов с Pro</div><div class="pro-gate-inline-desc">Разблокируйте все заказы и получите безлимит</div></div></div>';
+  5512→    }
+  5513→    list.innerHTML = cardsHtml;
+  5514→  }
+  5515→}
+  5516→
+  5517→// ── BUG FIX: filterFeedCategory now handles null btn ──
+  5518→function filterFeedCategory(cat, btn) {
+  5519→  feedCategory = cat;
+  5520→  document.querySelectorAll('#feedCategoryTabs .tab').forEach(t => t.classList.remove('active'));
+  5521→  // If btn is provided, activate it; otherwise find the matching one
+  5522→  if (btn) {
+  5523→    btn.classList.add('active');
+  5524→  } else {
+  5525→    const matchBtn = document.querySelector('#feedCategoryTabs .tab[data-cat="' + cat + '"]');
+  5526→    if (matchBtn) matchBtn.classList.add('active');
+  5527→  }
+  5528→  renderFeed();
+  5529→  announce('Фильтр: ' + (cat === 'all' ? 'Все категории' : cat));
+  5530→}
+  5531→
+  5532→// ── Search & Filters ──
+  5533→function debouncedSearch() {
+  5534→  clearTimeout(searchDebounceTimer);
+  5535→  searchDebounceTimer = setTimeout(() => {
+  5536→    const input = document.getElementById('searchInput');
+  5537→    searchQuery = input ? input.value.trim().toLowerCase() : '';
+  5538→    renderSearchResults();
+  5539→  }, 300);
+  5540→}
+  5541→
+  5542→function toggleFilterPanel() {
+  5543→  const panel = document.getElementById('filterPanel');
+  5544→  const btn = document.getElementById('filterToggleBtn');
+  5545→  const isHidden = panel.style.display === 'none';
+  5546→  panel.style.display = isHidden ? 'block' : 'none';
+  5547→  if (btn) btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+  5548→}
+  5549→
+  5550→function setFilterCategory(cat, btn) {
+  5551→  filterCategory = cat;
+  5552→  document.querySelectorAll('#filterCategoryTabs .tab').forEach(t => t.classList.remove('active'));
+  5553→  btn.classList.add('active');
+  5554→  applyFilters();
+  5555→}
+  5556→
+  5557→function setFilterLevel(level, btn) {
+  5558→  filterLevel = level;
+  5559→  document.querySelectorAll('#filterLevelTabs .tab').forEach(t => t.classList.remove('active'));
+  5560→  btn.classList.add('active');
+  5561→  applyFilters();
+  5562→}
+  5563→
+  5564→function setFilterType(type, btn) {
+  5565→  filterType = type;
+  5566→  document.querySelectorAll('#filterTypeTabs .tab').forEach(t => t.classList.remove('active'));
+  5567→  btn.classList.add('active');
+  5568→  applyFilters();
+  5569→}
+  5570→
+  5571→function applyFilters() {
+  5572→  filterBudget = document.getElementById('filterBudget').value;
+  5573→  filterSort = document.getElementById('filterSort').value;
+  5574→  updateActiveFiltersBar();
+  5575→  renderSearchResults();
+  5576→}
+  5577→
+  5578→function resetFilters() {
+  5579→  filterCategory = 'all';
+  5580→  filterLevel = 'any';
+  5581→  filterType = 'all';
+  5582→  filterBudget = 'any';
+  5583→  filterSort = 'relevance';
+  5584→  searchQuery = '';
+  5585→  const searchInput = document.getElementById('searchInput');
+  5586→  if (searchInput) searchInput.value = '';
+  5587→  const filterBudgetEl = document.getElementById('filterBudget');
+  5588→  if (filterBudgetEl) filterBudgetEl.value = 'any';
+  5589→  const filterSortEl = document.getElementById('filterSort');
+  5590→  if (filterSortEl) filterSortEl.value = 'relevance';
+  5591→  
+  5592→  // Reset tab buttons
+  5593→  document.querySelectorAll('#filterCategoryTabs .tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+  5594→  document.querySelectorAll('#filterLevelTabs .tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+  5595→  document.querySelectorAll('#filterTypeTabs .tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+  5596→  
+  5597→  updateActiveFiltersBar();
+  5598→  renderSearchResults();
+  5599→}
+  5600→
+  5601→function updateActiveFiltersBar() {
+  5602→  const bar = document.getElementById('activeFiltersBar');
+  5603→  const countBadge = document.getElementById('activeFilterCount');
+  5604→  const chips = [];
+  5605→  let count = 0;
+  5606→  
+  5607→  if (filterCategory !== 'all') { chips.push(`<span class="chip active" onclick="resetFilterCategory()">Категория: ${esc(filterCategory)}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>`); count++; }
+  5608→  if (filterLevel !== 'any') { chips.push(`<span class="chip active" onclick="resetFilterLevel()">${esc(filterLevel)}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>`); count++; }
+  5609→  if (filterType !== 'all') { chips.push(`<span class="chip active" onclick="resetFilterType()">${esc(filterType)}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>`); count++; }
+  5610→  if (filterBudget !== 'any') { chips.push(`<span class="chip active" onclick="resetFilterBudget()">$${esc(filterBudget)}<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>`); count++; }
+  5611→  
+  5612→  bar.innerHTML = chips.join('');
+  5613→  bar.style.display = chips.length > 0 ? 'flex' : 'none';
+  5614→  
+  5615→  if (countBadge) {
+  5616→    countBadge.textContent = count;
+  5617→    countBadge.style.display = count > 0 ? 'inline' : 'none';
+  5618→  }
+  5619→}
+  5620→
+  5621→function resetFilterCategory() { filterCategory = 'all'; document.querySelectorAll('#filterCategoryTabs .tab').forEach((t, i) => t.classList.toggle('active', i === 0)); applyFilters(); }
+  5622→function resetFilterLevel() { filterLevel = 'any'; document.querySelectorAll('#filterLevelTabs .tab').forEach((t, i) => t.classList.toggle('active', i === 0)); applyFilters(); }
+  5623→function resetFilterType() { filterType = 'all'; document.querySelectorAll('#filterTypeTabs .tab').forEach((t, i) => t.classList.toggle('active', i === 0)); applyFilters(); }
+  5624→function resetFilterBudget() { filterBudget = 'any'; const el = document.getElementById('filterBudget'); if (el) el.value = 'any'; applyFilters(); }
+  5625→
+  5626→function renderSearchResults() {
+  5627→  const list = document.getElementById('searchResults');
+  5628→  const empty = document.getElementById('searchEmpty');
+  5629→  
+  5630→  let jobs = [...MOCK_JOBS];
+  5631→  
+  5632→  // Apply search
+  5633→  if (searchQuery) {
+  5634→    jobs = jobs.filter(j => 
+  5635→      j.title.toLowerCase().includes(searchQuery) || 
+  5636→      j.skills.some(s => s.toLowerCase().includes(searchQuery)) ||
+  5637→      j.description.toLowerCase().includes(searchQuery)
+  5638→    );
+  5639→  }
+  5640→  
+  5641→  // Apply category filter
+  5642→  if (filterCategory !== 'all') jobs = jobs.filter(j => j.category === filterCategory);
+  5643→  
+  5644→  // Apply level filter
+  5645→  if (filterLevel !== 'any') jobs = jobs.filter(j => j.level === filterLevel);
+  5646→  
+  5647→  // Apply type filter
+  5648→  if (filterType !== 'all') jobs = jobs.filter(j => j.type === filterType);
+  5649→  
+  5650→  // ── BUG FIX: Budget filter with overlap logic ──
+  5651→  if (filterBudget !== 'any') {
+  5652→    jobs = jobs.filter(j => {
+  5653→      switch(filterBudget) {
+  5654→        case '0-100': return j.budgetMax <= 100;
+  5655→        case '100-500': return j.budgetMin < 500 && j.budgetMax >= 100;
+  5656→        case '500-1000': return j.budgetMin < 1000 && j.budgetMax >= 500;
+  5657→        case '1000-5000': return j.budgetMin < 5000 && j.budgetMax >= 1000;
+  5658→        case '5000+': return j.budgetMin >= 5000 || j.budgetMax >= 5000;
+  5659→        default: return true;
+  5660→      }
+  5661→    });
+  5662→  }
+  5663→  
+  5664→  // Apply sort
+  5665→  switch(filterSort) {
+  5666→    case 'date': break; // already sorted by date from mock
+  5667→    case 'budget': jobs.sort((a, b) => b.budgetMax - a.budgetMax); break;
+  5668→    case 'relevance': default: jobs.sort((a, b) => b.match - a.match); break;
+  5669→  }
+  5670→  
+  5671→  if (jobs.length === 0) {
+  5672→    list.innerHTML = '';
+  5673→    empty.style.display = 'block';
+  5674→  } else {
+  5675→    empty.style.display = 'none';
+  5676→    list.innerHTML = jobs.map(j => renderJobCard(j, true)).join('');
+  5677→  }
+  5678→}
+  5679→
+  5680→// ── Save/Unsave Jobs (with heart pulse animation) ──
+  5681→function toggleSave(jobId) {
+  5682→  const idx = savedJobs.indexOf(jobId);
+  5683→  const wasNew = idx === -1;
+  5684→  if (idx > -1) {
+  5685→    savedJobs.splice(idx, 1);
+  5686→    decrementSavedCount();
+  5687→    showToast('Заказ убран из сохранённых');
+  5688→    announce('Заказ убран из сохранённых');
+  5689→  } else {
+  5690→    // Check save limit for Free users
+  5691→    if (!isPro()) {
+  5692→      const canSv = canSave();
+  5693→      if (!canSv.allowed) {
+  5694→        showProUpgrade();
+  5695→        return;
+  5696→      }
+  5697→    }
+  5698→    savedJobs.push(jobId);
+  5699→    incrementSavedCount();
+  5700→    showToast('Заказ сохранён');
+  5701→    announce('Заказ сохранён');
+  5702→    }
+  5703→  lsSetJSON('skillhunt_saved', savedJobs);
+  5704→  updateSavedCount();
+  5705→
+  5706→  // Trigger heart pulse animation on the save button
+  5707→  if (wasNew) {
+  5708→    const btn = document.getElementById('saveBtn' + jobId);
+  5709→    if (btn) { btn.classList.remove('save-pulse'); void btn.offsetWidth; btn.classList.add('save-pulse'); }
+  5710→  }
+  5711→
+  5712→  renderFeed();
+  5713→  renderSearchResults();
+  5714→  if (currentTab === 2) renderSavedJobs();
+  5715→}
+  5716→
+  5717→function updateSavedCount() {
+  5718→  const el = document.getElementById('savedCount');
+  5719→  if (el) el.textContent = `${savedJobs.length} заказ${savedJobs.length === 1 ? '' : savedJobs.length > 1 && savedJobs.length < 5 ? 'а' : 'ов'}`;
+  5720→  const savedTotalEl = document.getElementById('savedTotalStat');
+  5721→  const savedHighMatchEl = document.getElementById('savedHighMatchStat');
+  5722→  if (savedTotalEl) savedTotalEl.textContent = savedJobs.length;
+  5723→  if (savedHighMatchEl) savedHighMatchEl.textContent = MOCK_JOBS.filter(j => savedJobs.includes(j.id) && j.match > 80).length;
+  5724→}
+  5725→
+  5726→// ── Saved Jobs Module (Redesigned) ──
+  5727→let savedViewMode = 'list'; // 'list' or 'grouped'
+  5728→
+  5729→function renderSavedJobs() {
+  5730→  const list = document.getElementById('savedJobList');
+  5731→  const empty = document.getElementById('savedEmpty');
+  5732→  let jobs = MOCK_JOBS.filter(j => savedJobs.includes(j.id));
+  5733→
+  5734→  if (savedHighMatchFilter) jobs = jobs.filter(j => j.match > 80);
+  5735→
+  5736→  // Sort logic
+  5737→  if (savedSort === 'match') jobs.sort((a,b) => b.match - a.match);
+  5738→  else if (savedSort === 'budget') jobs.sort((a,b) => b.budgetMax - a.budgetMax);
+  5739→  else if (savedSort === 'category') jobs.sort((a,b) => a.category.localeCompare(b.category));
+  5740→  else jobs.sort((a,b) => b.id - a.id);
+  5741→
+  5742→  if (jobs.length === 0) {
+  5743→    list.innerHTML = '';
+  5744→    empty.style.display = 'block';
+  5745→  } else {
+  5746→    empty.style.display = 'none';
+  5747→
+  5748→    if (savedSort === 'category' || savedViewMode === 'grouped') {
+  5749→      // Group by category
+  5750→      const catLabels = { ai:'AI/ML', design:'Design', dev:'Development', writing:'Writing', marketing:'Marketing', data:'Data', devops:'DevOps' };
+  5751→      const catDotColors = { ai:'#6C7BD4', design:'#8E7FD4', dev:'#5BBF8F', writing:'#E07C6C', marketing:'#5A9FD4', data:'#6C7BD4', devops:'#D9534F' };
+  5752→      const groups = {};
+  5753→      jobs.forEach(j => {
+  5754→        const cat = j.category || 'other';
+  5755→        if (!groups[cat]) groups[cat] = [];
+  5756→        groups[cat].push(j);
+  5757→      });
+  5758→      let html = '';
+  5759→      for (const [cat, catJobs] of Object.entries(groups)) {
+  5760→        html += `<div class="saved-group-header"><span class="saved-group-dot" style="background:${catDotColors[cat] || 'var(--text-3)'}"></span>${catLabels[cat] || cat}<span style="font-size:10px;font-weight:400;color:var(--text-3);margin-left:4px">(${catJobs.length})</span></div>`;
+  5761→        html += catJobs.map(j => renderJobCard(j, true, true)).join('');
+  5762→      }
+  5763→      list.innerHTML = html;
+  5764→    } else {
+  5765→      list.innerHTML = jobs.map(j => renderJobCard(j, true, true)).join('');
+  5766→    }
+  5767→
+  5768→    // Setup swipe-to-delete on saved items
+  5769→    setupSwipeDelete();
+  5770→  }
+  5771→}
+  5772→
+  5773→function deleteSavedItem(jobId) {
+  5774→  const el = document.getElementById('saved-item-' + jobId);
+  5775→  if (el) {
+  5776→    el.classList.add('deleting');
+  5777→    setTimeout(() => {
+  5778→      const idx = savedJobs.indexOf(jobId);
+  5779→      if (idx > -1) savedJobs.splice(idx, 1);
+  5780→      lsSetJSON('skillhunt_saved', savedJobs);
+  5781→      updateSavedCount();
+  5782→      renderFeed();
+  5783→      renderSearchResults();
+  5784→      renderSavedJobs();
+  5785→      showToast('Заказ удалён из сохранённых');
+  5786→      announce('Заказ удалён');
+  5787→    }, 300);
+  5788→  } else {
+  5789→    toggleSave(jobId);
+  5790→  }
+  5791→}
+  5792→
+  5793→function toggleSavedView() {
+  5794→  savedViewMode = savedViewMode === 'list' ? 'grouped' : 'list';
+  5795→  const btn = document.getElementById('savedViewToggle');
+  5796→  if (btn) {
+  5797→    btn.innerHTML = savedViewMode === 'list'
+  5798→      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>'
+  5799→      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>';
+  5800→  }
+  5801→  renderSavedJobs();
+  5802→}
+  5803→
+  5804→function setupSwipeDelete() {
+  5805→  const items = document.querySelectorAll('.saved-item');
+  5806→  items.forEach(item => {
+  5807→    let startX = 0, currentX = 0, isDragging = false;
+  5808→    const card = item.querySelector('.saved-card');
+  5809→
+  5810→    card.addEventListener('touchstart', e => {
+  5811→      startX = e.touches[0].clientX;
+  5812→      isDragging = true;
+  5813→      item.classList.add('swiping');
+  5814→    }, { passive: true });
+  5815→
+  5816→    card.addEventListener('touchmove', e => {
+  5817→      if (!isDragging) return;
+  5818→      currentX = e.touches[0].clientX - startX;
+  5819→      if (currentX < 0) {
+  5820→        const clamped = Math.max(currentX, -80);
+  5821→        card.style.transform = 'translateX(' + clamped + 'px)';
+  5822→      }
+  5823→    }, { passive: true });
+  5824→
+  5825→    card.addEventListener('touchend', () => {
+  5826→      isDragging = false;
+  5827→      item.classList.remove('swiping');
+  5828→      if (currentX < -40) {
+  5829→        // Reveal delete
+  5830→        card.style.transform = 'translateX(-80px)';
+  5831→      } else {
+  5832→        card.style.transform = 'translateX(0)';
+  5833→      }
+  5834→      currentX = 0;
+  5835→    });
+  5836→
+  5837→    // Click outside to reset
+  5838→    document.addEventListener('click', e => {
+  5839→      if (!item.contains(e.target)) {
+  5840→        card.style.transform = 'translateX(0)';
+  5841→      }
+  5842→    });
+  5843→  });
+  5844→}
+  5845→
+  5846→// ── Competitor Analysis (Pro feature in job detail) ──
+  5847→function renderCompetitorAnalysis(job) {
+  5848→  const applicantCount = 5 + Math.floor(Math.random() * 42); // 5-47
+  5849→  const avgBudget = Math.round((job.budgetMin + job.budgetMax) / 2 * (0.7 + Math.random() * 0.3));
+  5850→  const rank = Math.max(1, Math.min(applicantCount, Math.ceil(applicantCount * 0.3)));
+  5851→  const rankPct = Math.round((1 - rank / applicantCount) * 100);
+  5852→  const rankColor = rankPct > 70 ? 'var(--success)' : rankPct > 40 ? 'var(--primary)' : 'var(--warning)';
+  5853→  return '<div class="competitor-analysis"><div class="competitor-analysis-header"><div class="competitor-analysis-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Конкурентный анализ</div></div><div class="competitor-stat"><span class="competitor-stat-label">Заявки на заказ</span><span class="competitor-stat-val highlight">' + applicantCount + '</span></div><div class="competitor-stat"><span class="competitor-stat-label">Средний бюджет</span><span class="competitor-stat-val">$' + avgBudget.toLocaleString() + '</span></div><div class="competitor-stat"><span class="competitor-stat-label">Ваш ранг</span><span class="competitor-stat-val" style="color:' + rankColor + '">#' + rank + ' из ' + applicantCount + '</span></div><div class="competitor-rank-bar"><div class="competitor-rank-fill" style="width:' + rankPct + '%;background:' + rankColor + '"></div></div><div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>Ваше преимущество: опыт с ' + esc(job.skills[0]) + ' и рейтинг выше среднего</span></div><div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>AI-отклик увеличивает шанс на +35%</span></div></div>';
+  5854→}
+  5855→
+  5856→function renderCompetitorAnalysisLocked() {
+  5857→  return '<div class="pro-wall"><div class="pro-wall-content"><div class="competitor-analysis" style="margin-bottom:0"><div class="competitor-analysis-header"><div class="competitor-analysis-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Конкурентный анализ</div></div><div class="competitor-stat"><span class="competitor-stat-label">Заявки на заказ</span><span class="competitor-stat-val">--</span></div><div class="competitor-stat"><span class="competitor-stat-label">Средний бюджет</span><span class="competitor-stat-val">--</span></div><div class="competitor-stat"><span class="competitor-stat-label">Ваш ранг</span><span class="competitor-stat-val">--</span></div></div></div><div class="pro-wall-overlay"><div class="pro-wall-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO</div><div class="pro-wall-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="pro-wall-title">Конкурентный анализ</div><div class="pro-wall-desc">Узнайте, сколько конкурентов и какой бюджет они предлагают</div><button class="pro-wall-btn" onclick="showProUpgrade()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Разблокировать Pro</button></div></div>';
+  5858→}
+  5859→
+  5860→// ── Client Insights (Pro feature in job detail) ──
+  5861→function renderClientInsights(job) {
+  5862→  const totalSpending = (job.clientOrders * (job.budgetMin + job.budgetMax) / 2 * (0.6 + Math.random() * 0.4));
+  5863→  const avgPaySpeed = Math.floor(2 + Math.random() * 5); // 2-6 days
+  5864→  const hireRate = Math.floor(40 + Math.random() * 40); // 40-80%
+  5865→  const isRepeat = job.clientOrders > 15;
+  5866→  const lastActive = ['2 мин назад','15 мин назад','1ч назад','3ч назад','вчера'][Math.floor(Math.random() * 5)];
+  5867→  return '<div class="card mb-12" style="border-color:rgba(90,159,212,.15)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Инсайты клиента</span>' + (isRepeat ? '<span class="client-insight-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Постоянный</span>' : '') + '</div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Всего потратил</span><span class="client-insight-value">$' + Math.round(totalSpending).toLocaleString() + '</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Скорость оплаты</span><span class="client-insight-value">' + avgPaySpeed + ' дн.</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Нанимает</span><span class="client-insight-value">' + hireRate + '% откликов</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>Последний вход</span><span class="client-insight-value">' + esc(lastActive) + '</span></div></div>';
+  5868→}
+  5869→
+
+[showing lines 5370-5869 of 6755; use offset=5870 with limit to continue reading]

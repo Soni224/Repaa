@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.telegram.org; img-src 'self' data: blob: https:; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
-<title>SkillHunt — AI-фриланс в одном клике</title>
+<title>SkillHunt — AI-платформа для фрилансеров</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,35 +17,35 @@
 
 /* ── CSS Variables & Theme ── */
 :root {
-  --primary: #6C7BD4;
-  --primary-hover: #5B6AC3;
-  --primary-light: #EEF0FA;
-  --primary-soft: rgba(108,123,212,.06);
-  --primary-glow: rgba(108,123,212,.15);
-  --bg: #F5F6FA;
+  --primary: #5B6ABF;
+  --primary-hover: #4D5BAE;
+  --primary-light: #ECEEF8;
+  --primary-soft: rgba(91,106,191,.05);
+  --primary-glow: rgba(91,106,191,.12);
+  --bg: #F4F5F9;
   --bg-card: #FFFFFF;
-  --bg-card-milky: #FCFCFE;
-  --bg-input: #ECEEF4;
-  --bg-glass: rgba(255,255,255,.75);
-  --text: #171B2D;
-  --text-2: #5E6882;
-  --text-3: #939DAD;
-  --border: #E2E6EE;
-  --border-soft: #ECF0F6;
-  --success: #4CAF7D;
-  --success-light: #EDFAF2;
-  --danger: #D9534F;
-  --danger-light: #FDF0EF;
-  --warning: #D4A03A;
-  --warning-light: #FBF5E6;
-  --lavender: #8E7FD4;
-  --lavender-light: #F2F0FA;
-  --mint: #5BBF8F;
-  --mint-light: #ECFAF3;
-  --coral: #E07C6C;
-  --coral-light: #FDF0ED;
-  --sky: #5A9FD4;
-  --sky-light: #ECF4FB;
+  --bg-card-milky: #FBFBFD;
+  --bg-input: #EAECF2;
+  --bg-glass: rgba(255,255,255,.78);
+  --text: #1A1D2E;
+  --text-2: #5C6478;
+  --text-3: #8E96A8;
+  --border: #DFE3EB;
+  --border-soft: #E8ECF3;
+  --success: #3D9E6E;
+  --success-light: #EBF7F1;
+  --danger: #C94844;
+  --danger-light: #FBECEB;
+  --warning: #C4922E;
+  --warning-light: #F9F2E2;
+  --lavender: #7E6FC4;
+  --lavender-light: #F0EDF8;
+  --mint: #4BAF82;
+  --mint-light: #EAF8F1;
+  --coral: #D06E5E;
+  --coral-light: #FBEEE9;
+  --sky: #4E94C4;
+  --sky-light: #E9F1F8;
   --radius: 16px;
   --radius-sm: 12px;
   --radius-xs: 8px;
@@ -63,35 +63,35 @@
 }
 
 .dark {
-  --primary: #8A9BE8;
-  --primary-hover: #9DADF0;
-  --primary-light: #1A1E38;
-  --primary-soft: rgba(138,155,232,.07);
-  --primary-glow: rgba(138,155,232,.18);
-  --bg: #0B0D14;
-  --bg-card: #13161F;
-  --bg-card-milky: #151820;
-  --bg-input: #1C1F2C;
-  --bg-glass: rgba(19,22,31,.8);
-  --text: #E4E6EE;
-  --text-2: #8891A8;
-  --text-3: #4E576A;
-  --border: #232838;
-  --border-soft: #1C1F2C;
-  --success: #4CAF7D;
-  --success-light: #0F1F17;
-  --danger: #D9534F;
-  --danger-light: #1F1212;
-  --warning: #D4A03A;
-  --warning-light: #1F1A0E;
-  --lavender: #9E8FD4;
-  --lavender-light: #1A1628;
-  --mint: #5BBF8F;
-  --mint-light: #0F1F17;
-  --coral: #D97A6C;
-  --coral-light: #1F1512;
-  --sky: #6BAAD4;
-  --sky-light: #121C28;
+  --primary: #7B8CD8;
+  --primary-hover: #8E9FDF;
+  --primary-light: #181C34;
+  --primary-soft: rgba(123,140,216,.06);
+  --primary-glow: rgba(123,140,216,.15);
+  --bg: #0A0C13;
+  --bg-card: #12151E;
+  --bg-card-milky: #14171F;
+  --bg-input: #1A1E2A;
+  --bg-glass: rgba(18,21,30,.82);
+  --text: #E2E4EC;
+  --text-2: #848DA2;
+  --text-3: #4A5266;
+  --border: #222636;
+  --border-soft: #1A1E2A;
+  --success: #3D9E6E;
+  --success-light: #0D1D15;
+  --danger: #C94844;
+  --danger-light: #1D1010;
+  --warning: #C4922E;
+  --warning-light: #1D180D;
+  --lavender: #8E7FC4;
+  --lavender-light: #181426;
+  --mint: #4BAF82;
+  --mint-light: #0D1D15;
+  --coral: #D06E5E;
+  --coral-light: #1D1310;
+  --sky: #5A9AC4;
+  --sky-light: #101A26;
   --shadow: 0 1px 2px rgba(0,0,0,.2);
   --shadow-card: 0 1px 4px rgba(0,0,0,.2);
   --shadow-prominent: 0 2px 8px rgba(0,0,0,.25);
@@ -115,13 +115,21 @@ input,textarea,select{font-family:var(--font-sans)}
 /* ── Global Smooth Motion ── */
 *,*::before,*::after{transition-timing-function:cubic-bezier(.22,1,.36,1)}
 
+
+/* ── Responses Status Indicators ── */
+.response-status{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--radius-full);font-size:10px;font-weight:600}
+.response-status.sent{color:var(--primary);background:var(--primary-light)}
+.response-status.viewed{color:var(--sky);background:var(--sky-light)}
+.response-status.replied{color:var(--success);background:var(--success-light)}
+.response-status svg{width:12px;height:12px}
+
 /* ── Shell ── */
 .shell{max-width:430px;margin:0 auto;min-height:100dvh;position:relative;background:var(--bg);overflow-x:hidden}
 
 /* ── Horizontal Slider (3 pages) ── */
 .slider{width:100%;height:100dvh;overflow:hidden;position:relative;z-index:1}
-.slider-inner{display:flex;width:300%;height:100dvh;transition:transform .5s cubic-bezier(.22,1,.36,1);will-change:transform}
-.slider-page{flex:0 0 33.333%;width:33.333%;height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;contain:layout style}
+.slider-inner{display:flex;width:400%;height:100dvh;transition:transform .5s cubic-bezier(.22,1,.36,1);will-change:transform}
+.slider-page{flex:0 0 25%;width:25%;height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;contain:layout style}
 .slider-page::-webkit-scrollbar{display:none}
 .slider-page .content{padding:18px 20px 0;padding-bottom:calc(var(--nav-h) + var(--safe-b) + 72px);opacity:0;transform:translateY(32px) scale(.97);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);will-change:transform,opacity}
 .slider-page:first-child .content{opacity:1;transform:none}
@@ -140,11 +148,6 @@ input,textarea,select{font-family:var(--font-sans)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes bounceIn{0%{transform:scale(0);opacity:0}40%{transform:scale(1.12);opacity:.9}60%{transform:scale(.96)}80%{transform:scale(1.02)}100%{transform:scale(1);opacity:1}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes glow{0%,100%{box-shadow:0 0 8px rgba(123,143,212,.2)}50%{box-shadow:0 0 20px rgba(123,143,212,.4)}}
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
-@keyframes confetti{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(-80px) rotate(360deg);opacity:0}}
 @keyframes countUp{0%{opacity:0;transform:translateY(10px)}60%{transform:translateY(-2px)}100%{opacity:1;transform:none}}
 @keyframes ripple{to{transform:scale(2.5);opacity:0}}
 @keyframes progressFill{from{width:0}to{width:var(--fill)}}
@@ -158,7 +161,6 @@ input,textarea,select{font-family:var(--font-sans)}
 @keyframes bounceToggleOff{0%{transform:translateX(20px)}40%{transform:translateX(-2px) scale(1.12)}60%{transform:translateX(1px) scale(.95)}80%{transform:translateX(-1px) scale(1.02)}100%{transform:translateX(0) scale(1)}}
 @keyframes tabSwitch{0%{opacity:.3;transform:scale(.94) translateY(4px)}50%{transform:scale(1.03) translateY(-1px)}75%{transform:scale(.99)}100%{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes ringProgress{from{stroke-dashoffset:var(--ring-total)}to{stroke-dashoffset:var(--ring-offset)}}
-@keyframes bnavBadgePulse{0%,100%{box-shadow:0 2px 8px rgba(224,108,117,.4);transform:scale(1)}50%{box-shadow:0 2px 12px rgba(224,108,117,.6);transform:scale(1.12)}}
 @keyframes subSlideUp{0%{transform:translateY(60px);opacity:0}40%{opacity:1}60%{transform:translateY(-6px)}80%{transform:translateY(2px)}100%{transform:translateY(0);opacity:1}}
 @keyframes subSlideDown{0%{transform:translateY(0);opacity:1}30%{opacity:.7}100%{transform:translateY(60px);opacity:0}}
 
@@ -185,16 +187,7 @@ input,textarea,select{font-family:var(--font-sans)}
 
 /* Toast animation handled by transition (see line ~931) */
 
-/* Sparkline mini bar chart */
-.sparkline{display:inline-flex;align-items:flex-end;gap:2px;height:24px;vertical-align:middle}
-.sparkline-bar{width:4px;border-radius:2px;background:var(--primary);opacity:.6;transition:height .5s cubic-bezier(.22,1,.36,1),opacity .35s ease}
-.sparkline-bar:last-child{opacity:1;background:var(--primary)}
-.sparkline-bar.high{background:var(--success);opacity:1}
-.sparkline-bar.low{background:var(--danger);opacity:1}
 
-/* Seller rating badge */
-.seller-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--radius-full);font-size:10px;font-weight:700;background:var(--success-light);color:var(--success)}
-.seller-badge svg{width:10px;height:10px}
 
 /* Response speed indicator */
 .speed-indicator{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--radius-full);font-size:10px;font-weight:600}
@@ -817,91 +810,7 @@ textarea.inp{min-height:80px;resize:vertical;line-height:1.5}
 .ref-milestone-dot.done{background:var(--primary);border-color:var(--primary)}
 .ref-milestone-dot.current{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
 .ref-milestone-label{font-size:9px;color:var(--text-3);text-align:center}
-/* ── Repa Score & Leaderboard ── */
-.repa-score-card{background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border-soft);box-shadow:var(--shadow);cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}
-.repa-score-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--primary);border-radius:0 2px 2px 0}
-.repa-score-card:hover{box-shadow:var(--shadow-card)}
-.repa-score-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.repa-score-header svg{width:18px;height:18px;color:#E6B800}
-.repa-score-header-title{font-size:13px;font-weight:700;color:var(--text);flex:1}
-.repa-score-header-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:var(--radius-full)}
-.repa-score-body{display:flex;align-items:center;gap:14px}
-.repa-score-ring{position:relative;width:64px;height:64px;flex-shrink:0}
-.repa-score-ring svg{transform:rotate(-90deg);width:64px;height:64px}
-.repa-score-ring-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--text)}
-.repa-score-info{flex:1}
-.repa-score-level{font-size:12px;font-weight:700;margin-bottom:2px}
-.repa-score-level.bronze{color:#CD7F32}
-.repa-score-level.silver{color:#9CA3AF}
-.repa-score-level.gold{color:#E6B800}
-.repa-score-level.diamond{color:#67E8F9}
-.repa-score-detail{font-size:11px;color:var(--text-3)}
-.repa-score-link{font-size:11px;font-weight:600;color:var(--primary);margin-top:4px;cursor:pointer}
-
-/* Leaderboard */
-.lb-filter-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
-.lb-filter-tabs::-webkit-scrollbar{display:none}
-.lb-filter-tab{padding:6px 12px;border-radius:var(--radius-full);font-size:11px;font-weight:600;border:1px solid var(--border);background:var(--bg-card);color:var(--text-2);cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);white-space:nowrap}
-.lb-filter-tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-.lb-your-card{padding:12px;background:var(--primary-soft);border-radius:var(--radius-sm);border:1.5px solid rgba(108,123,212,.15);margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.lb-your-rank{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.lb-your-info{flex:1;min-width:0}
-.lb-your-name{font-size:13px;font-weight:700;color:var(--text)}
-.lb-your-score{font-size:11px;color:var(--primary);font-weight:600}
-.lb-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-soft);transition:background .2s cubic-bezier(.22,1,.36,1)}
-.lb-row:hover{background:var(--primary-soft);border-radius:var(--radius-xs)}
-.lb-row:last-child{border-bottom:none}
-.lb-rank{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;background:var(--bg-input);color:var(--text-2)}
-.lb-rank.gold{background:#FFD700;color:#7C5800}
-.lb-rank.silver{background:#C0C0C0;color:#555}
-.lb-rank.bronze{background:#CD7F32;color:#fff}
-.lb-av{width:28px;height:28px;border-radius:50%;background:var(--bg-input);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text-2);flex-shrink:0}
-.lb-name{font-size:12px;font-weight:600;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lb-score-val{font-size:12px;font-weight:700;color:var(--primary);flex-shrink:0}
-.lb-plat-badges{display:flex;gap:3px;flex-shrink:0}
-.lb-plat-badge{font-size:7px;font-weight:700;padding:1px 4px;border-radius:3px;text-transform:uppercase}
-.lb-plat-badge.wb{background:rgba(155,45,255,.1);color:#9B2DFF}
-.lb-plat-badge.ozon{background:rgba(0,91,255,.1);color:#005BFF}
-.lb-plat-badge.ym{background:rgba(255,204,0,.1);color:#E6B800}
-.lb-share-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg-card);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);width:100%}
-.lb-share-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-soft)}
-
-/* Repa Score Detail */
-.rs-hero{text-align:center;padding:20px 0 16px}
-.rs-score-big{font-size:48px;font-weight:800;color:var(--text);line-height:1;letter-spacing:-1px}
-.rs-score-max{font-size:14px;color:var(--text-3);font-weight:500}
-.rs-level-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:var(--radius-full);font-size:12px;font-weight:700;margin-top:8px}
-.rs-level-badge.bronze{background:rgba(205,127,50,.12);color:#CD7F32}
-.rs-level-badge.silver{background:rgba(156,163,175,.12);color:#9CA3AF}
-.rs-level-badge.gold{background:rgba(230,184,0,.12);color:#E6B800}
-.rs-level-badge.diamond{background:rgba(103,232,249,.12);color:#0E7490}
-.rs-breakdown{margin-top:16px}
-.rs-breakdown-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-soft)}
-.rs-breakdown-item:last-child{border-bottom:none}
-.rs-breakdown-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.rs-breakdown-ico svg{width:14px;height:14px}
-.rs-breakdown-info{flex:1}
-.rs-breakdown-label{font-size:12px;font-weight:600;color:var(--text)}
-.rs-breakdown-bar{height:4px;background:var(--bg-input);border-radius:2px;margin-top:4px;overflow:hidden}
-.rs-breakdown-fill{height:100%;border-radius:2px;transition:width .7s cubic-bezier(.22,1,.36,1)}
-.rs-breakdown-pts{font-size:12px;font-weight:700;color:var(--text-2);flex-shrink:0}
-.rs-tips{margin-top:16px;padding:12px;background:var(--primary-soft);border-radius:var(--radius-sm);border:1px solid rgba(108,123,212,.1)}
-.rs-tips-title{font-size:12px;font-weight:700;color:var(--primary);margin-bottom:6px}
-.rs-tip{font-size:11px;color:var(--text-2);line-height:1.4;margin-bottom:4px;display:flex;align-items:flex-start;gap:6px}
-.rs-tip svg{width:12px;height:12px;color:var(--success);flex-shrink:0;margin-top:1px}
-.rs-rank-link{margin-top:14px;text-align:center}
-.rs-rank-link a{font-size:12px;font-weight:600;color:var(--primary);cursor:pointer}
-
-.ref-leaderboard{margin-top:14px}
-.ref-lb-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
-.ref-lb-item:last-child{border-bottom:none}
-.ref-lb-rank{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-.ref-lb-rank.gold{background:#FFD700;color:#1A1A2E}
-.ref-lb-rank.silver{background:#C0C0C0;color:#1A1A2E}
-.ref-lb-rank.bronze{background:#CD7F32;color:#fff}
-.ref-lb-rank.default{background:var(--bg-input);color:var(--text-3)}
-.ref-lb-name{flex:1;font-size:13px;font-weight:500;color:var(--text)}
-.ref-lb-count{font-size:13px;font-weight:700;color:var(--primary)}
+/* ── Repa Score & Leaderboard removed ── */
 
 /* ── Template Library ── */
 .tpl-category{margin-bottom:14px}
@@ -1047,35 +956,8 @@ textarea.inp{min-height:80px;resize:vertical;line-height:1.5}
 /* ── Marketing ── */
 .promo-input{display:flex;gap:8px;margin-bottom:14px}
 .promo-input .inp{flex:1}
-.achievement-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.achievement{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:var(--radius-sm);background:var(--bg-card);border:1px solid var(--border-soft);text-align:center;transition:all .25s cubic-bezier(.22,1,.36,1)}
-.achievement.earned{border-color:var(--primary);background:var(--primary-soft)}
-.achievement.locked{opacity:.5}
-.achievement-ico{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
-.achievement.earned .achievement-ico{background:var(--primary);color:#fff}
-.achievement.locked .achievement-ico{background:var(--bg-input);color:var(--text-3)}
-.achievement-name{font-size:10px;font-weight:600;color:var(--text);line-height:1.2}
-.achievement.locked .achievement-name{color:var(--text-3)}
 
-/* Streak */
-.streak{display:flex;align-items:center;gap:10px;padding:14px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-soft);margin-bottom:14px;box-shadow:0 2px 8px rgba(255,184,0,.04);transition:transform .2s,box-shadow .2s}
-.streak:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,184,0,.08)}
-.streak-fire{font-size:28px}
-.streak-info{flex:1}
-.streak-count{font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.3px}
-.streak-label{font-size:11px;color:var(--text-2);font-weight:500}
-.streak-days{display:flex;gap:3px;margin-top:6px}
-.streak-day{width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;transition:transform .25s cubic-bezier(.22,1,.36,1)}
-.streak-day.done{background:var(--primary);color:#fff}
-.streak-day.today{background:var(--primary-soft);color:var(--primary);border:1.5px solid var(--primary)}
-.streak-day.future{background:var(--bg-input);color:var(--text-3)}
 
-/* Loyalty points */
-.loyalty-card{background:linear-gradient(135deg,var(--primary),var(--lavender));border-radius:var(--radius);padding:20px;color:#fff;position:relative;overflow:hidden;margin-bottom:14px}
-.loyalty-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.1)}
-.loyalty-points{font-size:32px;font-weight:800}
-.loyalty-label{font-size:12px;opacity:.8;margin-top:2px}
-.loyalty-next{font-size:11px;opacity:.7;margin-top:8px}
 
 /* Countdown */
 .countdown{display:flex;gap:8px;justify-content:center;margin:14px 0}
@@ -2106,46 +1988,6 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 .home-action-ico svg{width:20px;height:20px}
 .home-action-label{font-size:11px;font-weight:600;color:var(--text-2);text-align:center;line-height:1.2}
 
-.home-streak{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-soft);margin-bottom:12px;box-shadow:var(--shadow)}
-.home-streak-num{font-size:20px;font-weight:800;color:var(--warning);letter-spacing:-.3px}
-.home-streak-body{flex:1;min-width:0}
-.home-streak-text{font-size:12px;font-weight:600;color:var(--text)}
-.home-streak-dots{display:flex;gap:3px;margin-top:4px}
-.home-streak-dot{width:16px;height:3px;border-radius:1.5px}
-.home-streak-dot.done{background:var(--success);box-shadow:0 0 4px rgba(107,191,138,.3)}
-.home-streak-dot.current{background:linear-gradient(90deg,var(--primary),var(--lavender));box-shadow:0 0 6px rgba(123,143,212,.35)}
-
-.home-summary{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-soft);margin-bottom:12px;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow)}
-.home-summary:hover{background:var(--primary-soft);border-color:rgba(123,143,212,.2)}
-.home-summary-text{font-size:12px;color:var(--text-2);flex:1;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.home-summary-text b{color:var(--text);font-weight:700}
-.home-summary-arrow{color:var(--text-3)}
-
-.home-activity{display:flex;align-items:center;gap:8px;padding:6px 0;margin-bottom:8px;font-size:11px;color:var(--text-2)}
-.home-activity-dot{width:6px;height:6px;border-radius:50%;background:var(--success);flex-shrink:0;box-shadow:0 0 4px rgba(107,191,138,.3)}
-.home-activity b{color:var(--text);font-weight:600}
-
-.home-goals{background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-soft);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
-.home-goals-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.home-goal{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.home-goal:last-child{margin-bottom:0}
-.home-goal-label{font-size:11px;color:var(--text-2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.home-goal-val{font-size:11px;font-weight:700;flex-shrink:0;min-width:30px;text-align:right}
-.home-goal-bar{height:3px;background:var(--bg-input);border-radius:1.5px;overflow:hidden;flex:3}
-.home-goal-fill{height:100%;border-radius:1.5px}
-
-/* Cascade animation for home elements */
-
-
-/* Dark mode for home redesign */
-.dark .home-profile{background:var(--bg-card);border-color:var(--border)}
-.dark .home-stat{background:var(--bg-card);border-color:var(--border)}
-.dark .home-action{background:var(--bg-card);border-color:var(--border)}
-.dark .home-streak{background:var(--bg-card);border-color:var(--border)}
-.dark .home-summary{background:var(--bg-card);border-color:var(--border)}
-.dark .home-goals{background:var(--bg-card);border-color:var(--border)}
-.dark .home-trial{box-shadow:0 4px 16px rgba(107,127,215,.15)}
-.dark .home-streak-num{color:var(--warning)}
 .dark .home-activity{color:var(--text-2)}
 .dark .home-activity b{color:var(--text)}
 .dark .home-goal-label{color:var(--text-2)}
@@ -2208,7 +2050,6 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 .hero-cta:active{transform:scale(.97);transition:transform .12s}
 .hero-cta svg{width:16px;height:16px;transition:transform .3s ease}
 .hero-cta:hover svg{transform:translateX(3px)}
-.hero-cta-shimmer{position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:shimmer 3s ease-in-out infinite}
 @keyframes shimmer{0%{left:-100%}40%,100%{left:150%}}
 
 /* Secondary hint */
@@ -3147,7 +2988,6 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 @keyframes numberPop{0%{transform:scale(1)}50%{transform:scale(1.15);color:var(--primary)}100%{transform:scale(1)}}
 @keyframes progressBarDance{0%,100%{opacity:1}50%{opacity:.7}}
 @keyframes ringFill{from{stroke-dashoffset:175.9}to{stroke-dashoffset:var(--ring-target)}}
-@keyframes trophySpin{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
 
 /* Stagger reveal for lists */
 .stagger-reveal>*{opacity:0;animation:cardReveal .4s ease forwards}
@@ -3181,10 +3021,8 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 .hover-lift:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(30,36,64,.1)}
 
 /* Repa Score ring animation */
-.repa-score-ring circle:last-child{animation:ringFill 1s ease forwards}
+/* repa-score-ring animation removed */
 
-/* Trophy spin on level up */
-.trophy-spin{animation:trophySpin .8s ease}
 
 /* Progress bar dance when at 100% */
 .progress-complete .prog-fill{animation:progressBarDance 1.5s ease infinite}
@@ -3437,7 +3275,6 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 .dark .an-heatmap-cell.lv3{background:rgba(108,123,212,.55)}
 .dark .an-heatmap-cell.lv4{background:rgba(108,123,212,.75)}
 
-/* ═══ Module 5: Monetization & Loyalty ═══ */
 
 /* 1. Token Burn Rate Card */
 .burn-rate-card{background:linear-gradient(135deg,var(--primary-soft),var(--lavender-light));border:1px solid rgba(123,143,212,.15);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;animation:staggerFadeIn .4s ease forwards}
@@ -3491,7 +3328,6 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 .ref-social-proof{font-size:11px;color:var(--text-3);text-align:center;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:4px}
 .ref-social-proof svg{width:12px;height:12px;color:var(--success)}
 
-/* 6. Achievement Badges */
 .badge-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:12px 0}
 .badge-item{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative}
 .badge-ring{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
@@ -3861,120 +3697,9 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
 .trial-welcome-feat-ico.ico-insight{background:linear-gradient(135deg,var(--sky),var(--primary))}
 .trial-welcome-feat-ico.ico-views{background:linear-gradient(135deg,var(--coral),var(--warning))}
 
-/* ── Habit-Forming Widgets ── */
-.habit-section{margin-bottom:12px}
-.habit-card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-soft);padding:14px;margin-bottom:10px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.habit-card-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px;font-family:var(--font-sans)}
-.habit-card-title svg{width:14px;height:14px}
+/* ── Habit-Forming Widgets removed ── */
 
-/* Streak */
-.streak-row{display:flex;align-items:center;gap:12px}
-.streak-fire{font-size:28px;line-height:1;flex-shrink:0}
-.streak-info{flex:1;min-width:0}
-.streak-num{font-size:22px;font-weight:800;color:var(--warning);letter-spacing:-.5px}
-.streak-label{font-size:11px;color:var(--text-2);font-weight:600}
-.streak-dots{display:flex;gap:3px;margin-top:6px}
-.streak-dot{width:18px;height:4px;border-radius:2px}
-.streak-dot.done{background:var(--success)}
-.streak-dot.today{background:linear-gradient(90deg,var(--primary),var(--lavender));box-shadow:0 0 6px rgba(123,143,212,.3)}
-.streak-dot.empty{background:var(--bg-input)}
-.streak-freeze{font-size:10px;color:var(--sky);font-weight:600;display:inline-flex;align-items:center;gap:3px;margin-top:4px;cursor:pointer}
-.streak-freeze:hover{text-decoration:underline}
-
-/* Hunter Score */
-.hunter-ring-wrap{display:flex;align-items:center;gap:14px}
-.hunter-ring{width:64px;height:64px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.hunter-ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
-.hunter-ring circle{fill:none;stroke-width:5}
-.hunter-ring .ring-bg{stroke:var(--bg-input)}
-.hunter-ring .ring-fill{stroke:var(--primary);stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.22,1,.36,1)}
-.hunter-score-val{font-size:18px;font-weight:800;color:var(--primary);font-family:var(--font-sans);position:relative;z-index:1}
-.hunter-info{flex:1;min-width:0}
-.hunter-level{font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)}
-.hunter-next{font-size:10px;color:var(--text-3);margin-top:2px}
-.hunter-xp-bar{height:4px;background:var(--bg-input);border-radius:2px;margin-top:6px;overflow:hidden}
-.hunter-xp-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--primary),var(--lavender));transition:width .8s cubic-bezier(.22,1,.36,1)}
-
-/* Bounties */
-.bounty-item{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.bounty-item:last-child{margin-bottom:0}
-.bounty-ico{width:28px;height:28px;border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.bounty-body{flex:1;min-width:0}
-.bounty-label{font-size:11px;font-weight:600;color:var(--text);line-height:1.2}
-.bounty-bar{height:4px;background:var(--bg-input);border-radius:2px;margin-top:4px;overflow:hidden}
-.bounty-fill{height:100%;border-radius:2px;transition:width .5s ease}
-.bounty-fill.complete{background:var(--success)}
-.bounty-reward{font-size:10px;font-weight:700;color:var(--warning);flex-shrink:0;white-space:nowrap}
-
-/* Ghost Counter */
-.ghost-counter{font-size:10px;color:var(--text-3);display:flex;align-items:center;gap:8px;margin-top:6px;font-family:var(--font-sans)}
-.ghost-counter span{display:inline-flex;align-items:center;gap:2px}
-.ghost-trend{font-size:9px;color:var(--success);font-weight:600}
-
-/* Achievements */
-.ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.ach-item{text-align:center;cursor:pointer}
-.ach-ring{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:16px;position:relative}
-.ach-ring.bronze{background:rgba(205,127,50,.1);border:2px solid #CD7F32}
-.ach-ring.silver{background:rgba(192,192,192,.1);border:2px solid #C0C0C0}
-.ach-ring.gold{background:rgba(255,215,0,.1);border:2px solid #FFD700}
-.ach-ring.locked{background:var(--bg-input);border:2px solid var(--border);filter:blur(1px);opacity:.4}
-.ach-name{font-size:9px;font-weight:600;color:var(--text-2);line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ach-hint{font-size:9px;color:var(--primary);margin-top:2px}
-
-/* Intel Feed */
-.intel-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border-soft);font-size:11px;color:var(--text-2);line-height:1.4}
-.intel-item:last-child{border-bottom:none}
-.intel-ico{font-size:14px;flex-shrink:0;margin-top:1px}
-.intel-text{flex:1;min-width:0}
-.intel-text b{color:var(--text);font-weight:600}
-.intel-time{font-size:9px;color:var(--text-3);flex-shrink:0;margin-top:2px}
-
-/* Market Pulse */
-.pulse-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-soft)}
-.pulse-row:last-child{border-bottom:none}
-.pulse-cat{font-size:11px;font-weight:600;color:var(--text);width:60px;flex-shrink:0}
-.pulse-bar{flex:1;height:6px;background:var(--bg-input);border-radius:3px;overflow:hidden}
-.pulse-fill{height:100%;border-radius:3px;transition:width .6s ease}
-.pulse-trend{font-size:10px;font-weight:700;flex-shrink:0;width:40px;text-align:right}
-.pulse-up{color:var(--success)}
-.pulse-down{color:var(--danger)}
-
-/* Leaderboard */
-.lb-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border-soft);font-size:11px}
-.lb-item:last-child{border-bottom:none}
-.lb-item.me{background:var(--primary-soft);margin:0 -14px;padding:7px 14px;border-radius:var(--radius-xs)}
-.lb-rank{font-size:12px;font-weight:800;width:22px;text-align:center;flex-shrink:0}
-.lb-rank.gold{color:#FFD700}
-.lb-rank.silver{color:#C0C0C0}
-.lb-rank.bronze{color:#CD7F32}
-.lb-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
-.lb-name{flex:1;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lb-xp{font-weight:700;color:var(--primary);flex-shrink:0}
-
-/* Skill Radar */
-.radar-wrap{text-align:center;padding:8px 0}
-.radar-canvas{max-width:200px;margin:0 auto}
-
-/* Loyalty */
-.loy-balance{font-size:24px;font-weight:800;color:#fff;letter-spacing:-.5px}
-.loy-label{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px}
-.loy-shop{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
-.loy-item{background:rgba(255,255,255,.12);border-radius:var(--radius-xs);padding:8px;text-align:center;cursor:pointer;transition:all .2s}
-.loy-item:hover{background:rgba(255,255,255,.2)}
-.loy-item-name{font-size:10px;font-weight:600;color:#fff;line-height:1.2}
-.loy-item-cost{font-size:9px;color:rgba(255,255,255,.6);margin-top:2px}
-
-/* Pro gate inline for habit widgets */
-.habit-pro-gate{text-align:center;padding:16px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-soft);margin-bottom:10px}
-.habit-pro-gate-ico{font-size:24px;margin-bottom:6px}
-.habit-pro-gate-text{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px}
-.habit-pro-gate-sub{font-size:10px;color:var(--text-3);margin-bottom:8px}
-.habit-pro-gate-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--primary);color:#fff;font-size:11px;font-weight:600;border-radius:var(--radius-full);border:none;cursor:pointer;transition:all .2s}
-
-/* Dark mode habit cards */
-.dark .habit-card{background:var(--bg-card);border-color:var(--border)}
-.dark .hunter-ring .ring-bg{stroke:var(--bg-input)}
+/* Dark mode fixes */
 
 /* Respect reduced motion */
 @media(prefers-reduced-motion:reduce){
@@ -4000,40 +3725,39 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
             <span>Загрузка...</span>
           </div>
 
-          <!-- Hero Greeting — Simplified -->
+          <!-- Hero Greeting — Calm & Professional -->
           <div class="hero-greeting animate-in" id="feedGreeting">
             <div class="hero-greeting-row">
               <div class="hero-greeting-avatar" id="userAvatar">А</div>
               <div class="hero-greeting-body">
                 <div class="hero-greeting-time" id="greetingTime">Добрый день,</div>
-                <div class="hero-greeting-name" id="userName">Александр <span class="home-greeting-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>
+                <div class="hero-greeting-name" id="userName">Александр</div>
               </div>
-              <div class="hero-online"><span class="hero-online-dot"></span>Онлайн</div>
+              <button style="width:36px;height:36px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .2s" onclick="switchTab(2)" aria-label="Сохранённые заказы">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
             </div>
           </div>
 
-          <!-- AI Hero Card — One Clear Action -->
+          <!-- AI Insight Card — Professional, calm -->
           <div class="hero-ai-card animate-in dot-pattern">
             <div class="hero-ai-match">
               <div class="hero-ai-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="14" y1="11" x2="8" y2="11"/></svg>
               </div>
               <div class="hero-ai-text">
-                <div class="hero-ai-headline"><b>3 заказа</b> совпадают на 85%+</div>
+                <div class="hero-ai-headline">Найдены заказы по вашему профилю</div>
                 <div class="hero-ai-reason">
                   <span class="hero-ai-reason-tag">GPT API</span>
                   <span class="hero-ai-reason-tag">React</span>
                   <span class="hero-ai-reason-tag">Python</span>
-                  <span style="color:var(--text-3)">— по вашим навыкам</span>
                 </div>
               </div>
             </div>
-            <button class="hero-cta" onclick="filterFeedCategory('ai');showToast('Показаны релевантные заказы')">
-              <span class="hero-cta-shimmer"></span>
+            <button class="hero-cta" onclick="filterFeedCategory('all')">
               Посмотреть заказы
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
-            <div class="hero-secondary">или <span onclick="switchTab(1)">настроить фильтры</span></div>
           </div>
 
           <!-- Minimal Metrics — Just 2 -->
@@ -4058,24 +3782,6 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
           <div id="trialBarContainer"></div>
 
 
-
-          <!-- Guided Steps — 1-2-3 Onboarding -->
-          <div class="guided-steps animate-in">
-            <div class="guided-step" onclick="guidedStep1()" style="cursor:pointer">
-              <span class="guided-step-num">1</span>
-              Откройте
-            </div>
-            <span class="guided-arrow">&#8594;</span>
-            <div class="guided-step" onclick="guidedStep2()" style="cursor:pointer">
-              <span class="guided-step-num">2</span>
-              Отфильтруйте
-            </div>
-            <span class="guided-arrow">&#8594;</span>
-            <div class="guided-step" onclick="guidedStep3()" style="cursor:pointer">
-              <span class="guided-step-num">3</span>
-              Откликнитесь
-            </div>
-          </div>
 
           <!-- Category Filter Chips -->
           <div class="tabs animate-in" id="feedCategoryTabs">
@@ -4284,6 +3990,51 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
           </div>
 
         </div>
+
+      <!-- ═══ Page 4: Отклики (Responses) ═══ -->
+      <div class="slider-page" id="page3" role="region" aria-label="Отклики">
+        <div class="content" id="responsesContent">
+
+          <!-- Responses Header -->
+          <div class="animate-in">
+            <div class="page-header">
+              <div class="page-header-ico ico-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div>
+                <div class="page-header-title gradient-text">Отклики</div>
+                <div class="page-header-sub">Статус ваших откликов</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Response Status Filter -->
+          <div class="animate-in mb-12">
+            <div class="tabs" id="responseStatusTabs" style="flex-wrap:wrap">
+              <button class="tab active" data-status="all" onclick="filterResponses('all',this)">Все</button>
+              <button class="tab" data-status="sent" onclick="filterResponses('sent',this)">Отправленные</button>
+              <button class="tab" data-status="viewed" onclick="filterResponses('viewed',this)">Просмотренные</button>
+              <button class="tab" data-status="replied" onclick="filterResponses('replied',this)">Ответили</button>
+            </div>
+          </div>
+
+          <!-- Response Summary -->
+          <div class="animate-in mb-12" id="responseSummary"></div>
+
+          <!-- Responses List -->
+          <div id="responsesList"></div>
+
+          <!-- Responses Empty -->
+          <div id="responsesEmpty" class="empty" style="display:none">
+            <div class="empty-illust">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="empty-title">Пока нет откликов</div>
+            <div class="empty-desc">Найдите подходящий заказ и отправьте отклик — он появится здесь</div>
+            <button class="btn btn-p" onclick="switchTab(1)">Найти заказы</button>
+          </div>
+
+        </div>
       </div>
 
     </div>
@@ -4307,12 +4058,12 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
         </div>
         <span>Поиск</span>
       </button>
-      <button class="bnav-i" data-tab="2" onclick="switchTab(2)" aria-label="Сохранённые">
+      <button class="bnav-i" data-tab="3" onclick="switchTab(3)" aria-label="Отклики">
         <div class="bnav-i-ico">
-          <svg class="ico-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-          <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <svg class="ico-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <svg class="ico-filled" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
-        <span>Сохранённые</span>
+        <span>Отклики</span>
       </button>
       <button class="bnav-i" data-tab="more" onclick="openMorePanel()" aria-label="Ещё">
         <div class="bnav-i-ico">
@@ -4338,30 +4089,28 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
     </div>
 
     <!-- Profile -->
-    <div class="more-profile-bar">
+    <div class="more-profile-bar" style="cursor:pointer" onclick="openMoreSub('edit-profile', event)">
       <div class="more-profile-av" id="moreAvatar">А</div>
-      <div class="more-profile-info">
+      <div class="more-profile-info" style="flex:1;min-width:0">
         <div class="more-profile-name" id="moreName">Александр</div>
-        <div class="more-profile-plan">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
-          AI Freelancer
+        <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+          <div style="flex:1;height:3px;background:var(--bg-input);border-radius:2px;overflow:hidden;max-width:100px">
+            <div id="profileCompletenessBar" style="height:100%;background:var(--success);border-radius:2px;width:65%;transition:width .5s"></div>
+          </div>
+          <span id="profileCompletenessText" style="font-size:10px;color:var(--text-3);font-weight:600">65%</span>
         </div>
       </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
 
-    <!-- Balance Card -->
+    <!-- Balance Card — Calm, professional -->
     <div class="more-balance-card">
       <div class="more-balance-top">
         <div class="more-balance-label">Баланс токенов</div>
         <div class="more-balance-link" onclick="openMoreSub('payments', event)">История</div>
       </div>
       <div class="more-balance-value">847</div>
-      <div class="more-balance-row" onclick="showToast('Потрачено сегодня: 23 токена')">
-        <div class="more-balance-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div class="more-balance-row-text">Потрачено сегодня: 23</div>
-        <div class="more-balance-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
-      </div>
-      <button class="more-balance-action" onclick="openMoreSub('buy-tokens')">Купить токены</button>
+      <button class="more-balance-action" onclick="openMoreSub('buy-tokens')">Пополнить баланс</button>
     </div>
 
     <!-- Stats Row -->
@@ -4403,7 +4152,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
     <div class="more-menu-row" onclick="openMoreSub('ai-assistant', event)">
       <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
       <div class="more-menu-row-text">AI-ассистент</div>
-      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px">NEW</span>
+      <span style="font-size:9px;font-weight:600;padding:2px 6px;border-radius:var(--radius-full);color:var(--lavender);background:var(--lavender-light);margin-left:auto;margin-right:4px">AI</span>
       <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>
     <div class="more-menu-row" onclick="openMoreSub('notifications', event)">
@@ -4420,8 +4169,8 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
     <div class="more-section-head">Подписка</div>
     <div class="more-menu-row" onclick="openMoreSub('tariff', event)">
       <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div class="more-menu-row-text">Тариф</div>
-      <span class="tag tag-primary" style="margin-left:auto;margin-right:4px" id="moreTariffBadge">Pro</span>
+      <div class="more-menu-row-text">План подписки</div>
+      <span style="font-size:11px;font-weight:600;color:var(--primary);margin-left:auto;margin-right:4px" id="moreTariffBadge">Pro</span>
       <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>
     <div class="more-menu-row" onclick="openMoreSub('payments', event)">
@@ -4552,7 +4301,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
         <div class="trial-end-summary-row"><span class="trial-end-summary-label">Откликов отправлено</span><span class="trial-end-summary-val highlight" id="trialEndApps">0</span></div>
         <div class="trial-end-summary-row"><span class="trial-end-summary-label">AI-писем создано</span><span class="trial-end-summary-val highlight" id="trialEndAI">0</span></div>
         <div class="trial-end-summary-row"><span class="trial-end-summary-label">Время сэкономлено</span><span class="trial-end-summary-val" id="trialEndTime">0 мин</span></div>
-        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Потенциал заработка</span><span class="trial-end-summary-val highlight" id="trialEndEarnings">$0</span></div>
+        <div class="trial-end-summary-row"><span class="trial-end-summary-label">Потенц. заработок заработка</span><span class="trial-end-summary-val highlight" id="trialEndEarnings">$0</span></div>
       </div>
       <div class="trial-end-offer">
         <div class="trial-end-offer-label">Специальное предложение</div>
@@ -4873,7 +4622,7 @@ function renderTrialBar() {
     const isEnding = daysLeft <= 1;
     const timeText = daysLeft > 1 ? daysLeft + ' дн.' : (hoursLeft > 0 ? hoursLeft + ' ч.' : '<1 ч.');
     const cls = isEnding ? 'trial-bar ending' : 'trial-bar';
-    const subText = isEnding ? 'Активируйте Pro со скидкой 50%!' : 'AI-анализ · Стратегия · Ранний доступ';
+    const subText = isEnding ? 'Оформите Pro для полного доступа' : 'AI-анализ · Стратегия · Ранний доступ';
     
     container.innerHTML = '<div class="' + cls + '" onclick="openMoreSub(\'tariff\')"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Pro-триал <span class="trial-days">' + timeText + '</span></div><div class="trial-bar-sub">' + subText + '</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
     return;
@@ -4909,11 +4658,11 @@ function renderProImpact() {
   }, 0);
   
   const isTrial = sub.plan === 'trial';
-  const ctaText = isTrial ? 'Сохранить Pro со скидкой' : 'Управлять подпиской';
+  const ctaText = isTrial ? 'Оформить Pro' : 'Управлять подпиской';
   const ctaAction = isTrial ? 'showProUpgrade()' : "openMoreSub('tariff')";
   const badgeText = isTrial ? 'ТРИАЛ' : 'PRO';
   
-  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Ваш Pro-результат</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенциал</div></div></div><div class="pro-impact-compare">На Free вы бы отправили <b>всего ' + FREE_APP_LIMIT + ' откликов/мес</b> и видели <b>6 из 15 заказов</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
+  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Ваша статистика Pro</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенц. заработок</div></div></div><div class="pro-impact-compare">Без Pro — <b>' + FREE_APP_LIMIT + ' откликов/мес</b> и <b>6 из 15 заказов</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
 }
 
 // ── AI Cover Letter Generator ──
@@ -5039,9 +4788,9 @@ function openAIStrategy(jobId) {
   
   const genSub = document.getElementById('aiStrategyGenSub');
   setTimeout(() => { genSub.textContent = 'Оцениваем конкуренцию...'; }, 800);
-  setTimeout(() => { genSub.textContent = 'Формируем стратегию победы...'; }, 1600);
+  setTimeout(() => { genSub.textContent = 'Формируем рекомендации...'; }, 1600);
   setTimeout(() => {
-    genSub.textContent = 'Анализируем конкурентов и бюджет';
+    genSub.textContent = 'Анализируем заказ и бюджет';
     generating.style.display = 'none';
     result.classList.add('visible');
     renderAIStrategyResult(jobId);
@@ -5077,8 +4826,8 @@ function renderAIStrategyResult(jobId) {
     <div class="ai-strategy-probability">
       <div class="ai-strategy-prob-ring">${winProb}%</div>
       <div class="ai-strategy-prob-body">
-        <div class="ai-strategy-prob-title">Вероятность победы</div>
-        <div class="ai-strategy-prob-sub">${winProb > 70 ? 'Высокий шанс! Ваш профиль хорошо подходит.' : winProb > 55 ? 'Хорошие шансы. Следуйте стратегии ниже.' : 'Средний шанс. Потребуется сильный отклик.'}</div>
+        <div class="ai-strategy-prob-title">Шанс получения заказа</div>
+        <div class="ai-strategy-prob-sub">${winProb > 70 ? 'Хорошее совпадение. Ваш профиль подходит.' : winProb > 55 ? 'Среднее совпадение. Следуйте рекомендациям ниже.' : 'Низкое совпадение. Потребуется тщательная подготовка.'}</div>
       </div>
     </div>
     <div class="ai-strategy-bid">
@@ -5098,7 +4847,7 @@ function renderAIStrategyResult(jobId) {
       ${tips.map(t => '<div class="ai-strategy-tip"><div class="ai-strategy-tip-dot"></div><span>' + esc(t) + '</span></div>').join('')}
     </div>
     <div class="ai-strategy-actions">
-      <button class="ai-strategy-apply" onclick="applyWithStrategy(${jobId})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Применить стратегию</button>
+      <button class="ai-strategy-apply" onclick="applyWithStrategy(${jobId})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Подготовить отклик</button>
     </div>
   `;
 }
@@ -5130,8 +4879,8 @@ function checkTrialEnd() {
       return s + (job ? job.budgetMax : 0);
     }, 0);
     
-    document.getElementById('trialEndTitle').textContent = 'Триал завершён';
-    document.getElementById('trialEndSub').textContent = 'Ваш 3-дневный Pro-триал закончился';
+    document.getElementById('trialEndTitle').textContent = 'Пробный период завершён';
+    document.getElementById('trialEndSub').textContent = 'Пробный доступ к Pro завершён';
     document.getElementById('trialEndApps').textContent = appCount;
     document.getElementById('trialEndAI').textContent = aiCount;
     document.getElementById('trialEndTime').textContent = timeSaved + ' мин';
@@ -5171,7 +4920,112 @@ function updateGreetingTime() {
   el.textContent = greeting;
 }
 
-// ── Gamification features removed per product strategy ──
+// ── Gamification features removed ──
+
+// ── Responses/History Screen ──
+let responseFilter = 'all';
+
+function filterResponses(status, btn) {
+  responseFilter = status;
+  document.querySelectorAll('#responseStatusTabs .tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderResponses();
+}
+
+function renderResponses() {
+  const apps = lsGetJSON('skillhunt_applications', []);
+  const container = document.getElementById('responsesList');
+  const emptyEl = document.getElementById('responsesEmpty');
+  const summaryEl = document.getElementById('responseSummary');
+  if (!container) return;
+  
+  const now = Date.now();
+  apps.forEach(app => {
+    if (!app.status) app.status = 'sent';
+    if (app.status === 'sent') {
+      const sentTime = new Date(app.date).getTime();
+      const hoursPassed = (now - sentTime) / (1000 * 60 * 60);
+      if (hoursPassed > 48) app.status = 'viewed';
+    }
+    if (app.status === 'viewed') {
+      const sentTime = new Date(app.date).getTime();
+      const hoursPassed = (now - sentTime) / (1000 * 60 * 60);
+      if (hoursPassed > 96 && Math.random() > 0.5) app.status = 'replied';
+    }
+  });
+  lsSetJSON('skillhunt_applications', apps);
+  
+  const filtered = responseFilter === 'all' ? apps : apps.filter(a => a.status === responseFilter);
+  
+  const sent = apps.filter(a => a.status === 'sent').length;
+  const viewed = apps.filter(a => a.status === 'viewed').length;
+  const replied = apps.filter(a => a.status === 'replied').length;
+  
+  if (summaryEl) {
+    summaryEl.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><div style="text-align:center;padding:10px;background:var(--primary-light);border-radius:var(--radius-xs)"><div style="font-size:18px;font-weight:700;color:var(--primary)">' + sent + '</div><div style="font-size:10px;color:var(--text-3);font-weight:600">Отправлено</div></div><div style="text-align:center;padding:10px;background:var(--sky-light);border-radius:var(--radius-xs)"><div style="font-size:18px;font-weight:700;color:var(--sky)">' + viewed + '</div><div style="font-size:10px;color:var(--text-3);font-weight:600">Просмотрено</div></div><div style="text-align:center;padding:10px;background:var(--success-light);border-radius:var(--radius-xs)"><div style="font-size:18px;font-weight:700;color:var(--success)">' + replied + '</div><div style="font-size:10px;color:var(--text-3);font-weight:600">Ответили</div></div></div>';
+  }
+  
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = 'block';
+    return;
+  }
+  
+  if (emptyEl) emptyEl.style.display = 'none';
+  filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  const statusConfig = {
+    sent: { label: 'Отправлено', color: 'var(--primary)', bg: 'var(--primary-light)', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>' },
+    viewed: { label: 'Просмотрено', color: 'var(--sky)', bg: 'var(--sky-light)', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' },
+    replied: { label: 'Ответили', color: 'var(--success)', bg: 'var(--success-light)', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' }
+  };
+  
+  container.innerHTML = filtered.map(app => {
+    const job = MOCK_JOBS.find(j => j.id === app.jobId);
+    if (!job) return '';
+    const st = statusConfig[app.status] || statusConfig.sent;
+    const dateStr = formatDate(app.date);
+    const aiBadge = app.aiGenerated ? '<span style="font-size:9px;font-weight:700;color:var(--lavender);background:var(--lavender-light);padding:2px 6px;border-radius:var(--radius-full)">AI</span>' : '';
+    return '<div class="card animate-in" style="padding:14px;margin-bottom:8px;cursor:pointer" onclick="openJobDetail(' + job.id + ')"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="display:flex;align-items:center;gap:6px"><span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--radius-full);font-size:10px;font-weight:600;color:' + st.color + ';background:' + st.bg + '">' + st.icon + ' ' + st.label + '</span>' + aiBadge + '</div><span style="font-size:10px;color:var(--text-3)">' + dateStr + '</span></div><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3">' + esc(job.title) + '</div><div style="font-size:12px;color:var(--text-2)">$' + job.budgetMin.toLocaleString() + ' — $' + job.budgetMax.toLocaleString() + '</div></div>';
+  }).join('');
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now - d;
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+  if (diffMins < 1) return 'Только что';
+  if (diffMins < 60) return diffMins + ' мин. назад';
+  if (diffHours < 24) return diffHours + ' ч. назад';
+  if (diffDays < 7) return diffDays + ' дн. назад';
+  return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+}
+
+function showApplicationsView() {
+  switchTab(3);
+}
+
+// ── Profile Completeness ──
+function updateProfileCompleteness() {
+  const profile = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
+  const skills = lsGetJSON('skillhunt_custom_skills', []);
+  const portfolio = lsGetJSON('skillhunt_portfolio', []);
+  let score = 0;
+  let total = 5;
+  if (profile.name && profile.name.length > 1) score++;
+  if (skills.length >= 3) score++;
+  if (portfolio.length >= 1) score++;
+  if (profile.bio && profile.bio.length > 10) score++;
+  if (profile.rate && profile.rate > 0) score++;
+  const percent = Math.round((score / total) * 100);
+  const bar = document.getElementById('profileCompletenessBar');
+  const text = document.getElementById('profileCompletenessText');
+  if (bar) bar.style.width = percent + '%';
+  if (text) text.textContent = percent + '%';
+}
 
 function init() {
   if (isDark) document.documentElement.classList.add('dark');
@@ -5180,6 +5034,7 @@ function init() {
   updateGreetingTime();
   loadProfile();
   loadNotifSettings();
+  updateProfileCompleteness();
   updateAppCount();
   
   // Load saved language
@@ -5204,6 +5059,7 @@ function init() {
     renderFeed();
     renderSearchResults();
     renderSavedJobs();
+    renderResponses();
   }, 1500);
   
   setupSwipe();
@@ -5273,7 +5129,7 @@ function switchTab(index) {
   currentTab = index;
   
   const inner = document.getElementById('sliderInner');
-  inner.style.transform = `translateX(-${index * 33.333}%)`;
+  inner.style.transform = `translateX(-${index * 25}%)`;
   
   // Update pages
   document.querySelectorAll('.slider-page').forEach((p, i) => {
@@ -5300,9 +5156,10 @@ function switchTab(index) {
   // Refresh content when switching tabs
   if (index === 2) renderSavedJobs();
   if (index === 1) renderSearchResults();
+  if (index === 3) renderResponses();
   
   // Announce for screen readers
-  const tabNames = ['Лента', 'Поиск', 'Сохранённые'];
+  const tabNames = ['Лента', 'Поиск', 'Сохранённые', 'Отклики'];
   if (tabNames[index]) announce('Переключено на: ' + tabNames[index]);
 }
 
@@ -5344,7 +5201,7 @@ function setupSwipe() {
     const diffX = startX - e.changedTouches[0].clientX;
     
     if (Math.abs(diffX) > 50) {
-      if (diffX > 0 && currentTab < 2) switchTab(currentTab + 1);
+      if (diffX > 0 && currentTab < 3) switchTab(currentTab + 1);
       else if (diffX < 0 && currentTab > 0) switchTab(currentTab - 1);
     }
   }, { passive: true });
@@ -5382,14 +5239,7 @@ function renderJobCard(job, showSave = true, isSavedView = false) {
   const eaClass = (pro && earlyAccess) ? 'card-early-access' : '';
   const delayedBadge = delayed ? '<span class="delayed-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Доступно через 24ч</span>' : '';
 
-  // Ghost counter (FOMO) — deterministic random from job.id
-  const seed = job.id * 2654435761 >>> 0;
-  const viewing = 8 + (seed % 40);
-  const applicants = (seed >> 8) % 13;
-  const trendUp = (seed >> 16) % 4 + 1;
-  const ghostHtml = pro
-    ? `<div class="ghost-counter"><span>${viewing}</span><span>${applicants} отклика</span><span class="ghost-trend">↑ +${trendUp} за час</span></div>`
-    : `<div class="ghost-counter"><span>${Math.floor(viewing/10)*10}+</span><span>несколько</span></div>`;
+  // Ghost counter removed — professional redesign
 
   if (isSavedView) {
     // Saved view: swipeable item with quick actions
@@ -5464,7 +5314,7 @@ function renderJobCard(job, showSave = true, isSavedView = false) {
         <div style="display:flex;gap:4px;flex-wrap:wrap;flex:1;min-width:0">${skillsHtml}</div>
         <span class="${matchBg}" style="font-size:11px;font-weight:700;padding:3px 8px;border-radius:var(--radius-full);color:${matchColor};white-space:nowrap;font-family:var(--font-sans)">${job.match}%</span>
       </div>
-      ${ghostHtml}
+      
     </div>`;
 }
 
