@@ -4057,14 +4057,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
           <!-- Trial Countdown Bar -->
           <div id="trialBarContainer"></div>
 
-          <!-- Pro Impact Card -->
-          <div id="proImpactContainer"></div>
 
-          <!-- Profile Views Widget -->
-          <div id="profileViewsContainer"></div>
-
-          <!-- Habit-Forming Widgets Container -->
-          <div id="habitWidgets"></div>
 
           <!-- Guided Steps — 1-2-3 Onboarding -->
           <div class="guided-steps animate-in">
@@ -4817,10 +4810,9 @@ function startTrial() {
   sub.proViewsCount = 0;
   lsSetJSON('skillhunt_subscription', sub);
   document.getElementById('trialWelcomeOverlay').classList.remove('active');
-  showToast('🎉 Pro-триал активирован на 3 дня!');
+  showToast('Pro-триал активирован на 3 дня');
   loadProfile();
   renderTrialBar();
-  renderProImpact();
 }
 
 function subscribePro() {
@@ -4829,10 +4821,9 @@ function subscribePro() {
   sub.trialStartedAt = null;
   lsSetJSON('skillhunt_subscription', sub);
   document.getElementById('trialEndOverlay').classList.remove('active');
-  showToast('✨ Pro подписка активирована!');
+  showToast('Pro подписка активирована');
   loadProfile();
   renderTrialBar();
-  renderProImpact();
 }
 
 function skipTrialEnd() {
@@ -4843,7 +4834,6 @@ function skipTrialEnd() {
   showToast('Вы используете Free-план');
   loadProfile();
   renderTrialBar();
-  renderProImpact();
 }
 
 function showProUpgrade() {
@@ -5025,13 +5015,9 @@ function sendAICover() {
   incrementAppCount();
   incrementAICount();
   updateAppCount();
-  bumpBounty('apply');
-  bumpBounty('ai_letter');
-  addLoyaltyPoints(isPro() ? 30 : 15);
-  showToast('✨ AI-отклик отправлен! Клиент получит уведомление.');
+  showToast('AI-отклик отправлен. Клиент получит уведомление.');
   announce('Отклик отправлен');
   closeJobDetail();
-  renderProImpact();
 }
 
 // ── AI Project Strategy Generator (Pro-only) ──
@@ -5128,29 +5114,7 @@ function applyWithStrategy(jobId) {
   openAICover(jobId);
 }
 
-// ── Profile Views Widget (Home Page) ──
-function renderProfileViews() {
-  const container = document.getElementById('profileViewsContainer');
-  if (!container) return;
-  
-  const pro = isPro();
-  
-  // Mock data for profile views
-  const mockViewers = [
-    { name: 'Дмитрий К.', initials: 'Д', color: '#6C7BD4', time: '15 мин', viewed: 'Ваш профиль' },
-    { name: 'Анна С.', initials: 'А', color: '#8E7FD4', time: '1ч', viewed: 'Портфолио' },
-    { name: 'Михаил В.', initials: 'М', color: '#5BBF8F', time: '3ч', viewed: 'Навыки' },
-    { name: 'Ольга П.', initials: 'О', color: '#E07C6C', time: '5ч', viewed: 'Отклик на AI' },
-    { name: 'Сергей Н.', initials: 'С', color: '#5A9FD4', time: 'вчера', viewed: 'Ваш профиль' }
-  ];
-  const viewCount = mockViewers.length;
-  
-  if (pro) {
-    container.innerHTML = '<div class="profile-views-widget animate-in"><div class="profile-views-header"><div class="profile-views-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Кто смотрел профиль</div><span class="profile-views-count">' + viewCount + '</span></div><div class="profile-views-list">' + mockViewers.map(v => '<div class="profile-views-item"><div class="profile-views-avatar" style="background:' + v.color + '">' + esc(v.initials) + '</div><div class="profile-views-info"><div class="profile-views-name">' + esc(v.name) + '</div><div class="profile-views-detail">' + esc(v.viewed) + '</div></div><div class="profile-views-time">' + esc(v.time) + '</div></div>').join('') + '</div></div>';
-  } else {
-    container.innerHTML = '<div class="profile-views-widget animate-in"><div class="profile-views-header"><div class="profile-views-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Кто смотрел профиль</div><span class="profile-views-count">' + viewCount + '</span></div><div class="profile-views-gate"><div class="profile-views-gate-count">' + viewCount + '</div><div class="profile-views-gate-text">клиентов просмотрели ваш профиль</div><button class="profile-views-gate-btn" onclick="showProUpgrade()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Узнать кто — с Pro</button></div></div>';
-  }
-}
+// ── Profile Views removed ──
 
 // ── Show Trial End Modal (called when trial expires) ──
 function checkTrialEnd() {
@@ -5207,329 +5171,7 @@ function updateGreetingTime() {
   el.textContent = greeting;
 }
 
-// ═══════════════════════════════════════════════════════════
-// ── Habit-Forming Features Engine ──
-// ═══════════════════════════════════════════════════════════
-
-// ── Feature 1: Daily Hunt Streak ──
-function getStreakData() {
-  return lsGetJSON('skillhunt_streak', { currentDays:0, longestDays:0, lastCheckDate:null, freezeCount:0 });
-}
-function saveStreakData(d) { lsSetJSON('skillhunt_streak', d); }
-function checkStreak() {
-  const d = getStreakData();
-  const today = new Date().toISOString().slice(0,10);
-  if (d.lastCheckDate === today) return; // already checked today
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
-  if (d.lastCheckDate === yesterday || d.lastCheckDate === null) {
-    d.currentDays++;
-  } else if (d.freezeCount > 0) {
-    d.freezeCount--;
-    // streak preserved by freeze
-  } else {
-    d.currentDays = 1; // reset
-  }
-  d.lastCheckDate = today;
-  if (d.currentDays > d.longestDays) d.longestDays = d.currentDays;
-  saveStreakData(d);
-  addLoyaltyPoints(5); // daily login points
-}
-function useStreakFreeze() {
-  if (!isPro()) { showProUpgrade(); return; }
-  const d = getStreakData();
-  if (d.freezeCount >= 3) { showToast('Максимум 3 заморозки'); return; }
-  d.freezeCount++;
-  saveStreakData(d);
-  showToast('❄️ Заморозка стрика активирована');
-  renderHabitWidgets();
-}
-function renderStreakWidget() {
-  const d = getStreakData();
-  const dots = [];
-  for (let i = 0; i < 7; i++) {
-    dots.push(i < Math.min(d.currentDays, 7) ? '<div class="streak-dot done"></div>' : (i === Math.min(d.currentDays, 7) ? '<div class="streak-dot today"></div>' : '<div class="streak-dot empty"></div>'));
-  }
-  const freezeHtml = isPro() ? `<div class="streak-freeze" onclick="useStreakFreeze()">❄️ Заморозка (${d.freezeCount}/3)</div>` : '';
-  return `<div class="habit-card"><div class="habit-card-title">🔥 Серия охоты</div><div class="streak-row"><div class="streak-fire">🔥</div><div class="streak-info"><div class="streak-num">${d.currentDays}</div><div class="streak-label">дней подряд</div><div class="streak-dots">${dots.join('')}</div>${freezeHtml}</div></div></div>`;
-}
-
-// ── Feature 2: Hunter Score ──
-function getHunterData() {
-  return lsGetJSON('skillhunt_hunter_score', { score:100, level:'Новичок', history:[] });
-}
-function calcHunterScore() {
-  const d = getHunterData();
-  const sub = getSubscription();
-  const mult = isPro() ? 1.5 : 1;
-  const streak = getStreakData();
-  const ach = lsGetJSON('skillhunt_achievements', {});
-  const achCount = Object.keys(ach).length;
-  d.score = Math.round((100 + (sub.monthlyAppCount * 15) + ((sub.aiProposalCount || 0) * 20) + (streak.currentDays * 5) + (achCount * 30) + (savedJobs.length * 3)) * mult);
-  const levels = [{name:'Легенда',min:5000},{name:'Мастер',min:2000},{name:'Эксперт',min:1000},{name:'Охотник',min:500},{name:'Новичок',min:0}];
-  for (const l of levels) { if (d.score >= l.min) { d.level = l.name; break; } }
-  lsSetJSON('skillhunt_hunter_score', d);
-  return d;
-}
-function getNextLevel(score) {
-  const levels = [{name:'Легенда',min:5000},{name:'Мастер',min:2000},{name:'Эксперт',min:1000},{name:'Охотник',min:500},{name:'Новичок',min:0}];
-  for (let i = levels.length - 1; i >= 0; i--) {
-    if (score < levels[i].min) return { next: levels[i].name, need: levels[i].min, prev: i > 0 ? levels[i-1].min : 0 };
-  }
-  return { next: 'Максимум', need: 5000, prev: 2000 };
-}
-function renderHunterScore() {
-  const d = calcHunterScore();
-  const nl = getNextLevel(d.score);
-  const pct = nl.need > nl.prev ? Math.min(((d.score - nl.prev) / (nl.need - nl.prev)) * 100, 100) : 100;
-  const circumference = 2 * Math.PI * 27;
-  const offset = circumference - (circumference * Math.min(pct, 100) / 100);
-  return `<div class="habit-card"><div class="habit-card-title">🎯 Охотник</div><div class="hunter-ring-wrap"><div class="hunter-ring"><svg viewBox="0 0 64 64"><circle class="ring-bg" cx="32" cy="32" r="27"/><circle class="ring-fill" cx="32" cy="32" r="27" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}"/></svg><div class="hunter-score-val">${d.score}</div></div><div class="hunter-info"><div class="hunter-level">${esc(d.level)}</div><div class="hunter-next">${nl.next !== 'Максимум' ? 'До '+esc(nl.next)+': '+esc(nl.need - d.score)+' XP' : 'Максимальный уровень!'}</div><div class="hunter-xp-bar"><div class="hunter-xp-fill" style="width:${pct}%"></div></div></div></div>${isPro() ? '<div style="font-size:10px;color:var(--warning);font-weight:600;margin-top:6px">⚡ x1.5 XP множитель Pro</div>' : ''}</div>`;
-}
-
-// ── Feature 3: Daily Bounties ──
-function getBounties() {
-  const today = new Date().toISOString().slice(0,10);
-  let b = lsGetJSON('skillhunt_bounties', null);
-  if (!b || b.date !== today) {
-    b = { date:today, missions:[
-      {type:'apply',label:'Отправьте 1 отклик',target:1,current:0,completed:false,reward:25,ico:'⚡'},
-      {type:'save',label:'Сохраните 2 заказа',target:2,current:0,completed:false,reward:15,ico:'💾'},
-      {type:'ai_letter',label:'Используйте AI-письмо',target:1,current:0,completed:false,reward:30,ico:'🤖'},
-      {type:'view',label:'Просмотрите 3 заказа',target:3,current:Math.min(3,Math.floor(Math.random()*2)+1),completed:false,reward:10,ico:'👁️'}
-    ]};
-    lsSetJSON('skillhunt_bounties', b);
-  }
-  return b;
-}
-function bumpBounty(type) {
-  const b = getBounties();
-  for (const m of b.missions) {
-    if (m.type === type && !m.completed) {
-      m.current = Math.min(m.current + 1, m.target);
-      if (m.current >= m.target) {
-        m.completed = true;
-        const pts = isPro() ? m.reward * 2 : m.reward;
-        addLoyaltyPoints(pts);
-        showToast('✅ Задание выполнено! +' + pts + ' очков');
-      }
-    }
-  }
-  lsSetJSON('skillhunt_bounties', b);
-}
-function renderBounties() {
-  const b = getBounties();
-  const items = b.missions.map(m => {
-    const pct = m.target > 0 ? Math.min((m.current / m.target) * 100, 100) : 0;
-    const fillClass = m.completed ? 'bounty-fill complete' : 'bounty-fill';
-    const fillStyle = m.completed ? '' : 'background:var(--primary)';
-    const reward = isPro() ? m.reward * 2 : m.reward;
-    return `<div class="bounty-item"><div class="bounty-ico" style="background:var(--primary-light)">${m.ico}</div><div class="bounty-body"><div class="bounty-label">${esc(m.label)} <span style="color:var(--text-3)">${m.current}/${m.target}</span></div><div class="bounty-bar"><div class="${fillClass}" style="${fillStyle};width:${pct}%"></div></div></div><div class="bounty-reward">+${reward}</div></div>`;
-  }).join('');
-  return `<div class="habit-card"><div class="habit-card-title">📋 Ежедневные задания</div>${items}${isPro() ? '<div style="font-size:10px;color:var(--warning);font-weight:600;margin-top:8px">⚡ x2 награда с Pro</div>' : ''}</div>`;
-}
-
-// ── Feature 5: Achievement Badges ──
-const ACHIEVEMENTS = [
-  {id:'first_apply',name:'Первый отклик',ico:'⚡',bronze:1,silver:10,gold:50,type:'apply'},
-  {id:'ai_master',name:'AI-мастер',ico:'🤖',bronze:1,silver:5,gold:25,type:'ai_letter'},
-  {id:'streak7',name:'Стрик 7 дней',ico:'🔥',bronze:7,silver:30,gold:100,type:'streak'},
-  {id:'saver',name:'Охотник за заказами',ico:'💾',bronze:5,silver:25,gold:100,type:'save'},
-  {id:'hunter500',name:'Охотник 500+',ico:'🎯',bronze:500,silver:1000,gold:2000,type:'score'},
-  {id:'loyalty1k',name:'Лояльность 1K',ico:'💎',bronze:1000,silver:5000,gold:10000,type:'loyalty'},
-  {id:'viewer',name:'Исследователь',ico:'👁️',bronze:10,silver:50,gold:200,type:'view'},
-  {id:'bounty3',name:'3 задания в день',ico:'📋',bronze:3,silver:7,gold:14,type:'bounties_daily'},
-  {id:'early10',name:'Ранний охотник',ico:'⚡',bronze:10,silver:30,gold:100,type:'early_access'},
-  {id:'pro_week',name:'Pro-неделя',ico:'👑',bronze:7,silver:30,gold:180,type:'pro_days'},
-  {id:'earn5k',name:'Заработок $5K',ico:'💰',bronze:5000,silver:15000,gold:50000,type:'earnings'},
-  {id:'social',name:'Нетворкинг',ico:'🤝',bronze:5,silver:20,gold:50,type:'connections'}
-];
-function getAchievements() { return lsGetJSON('skillhunt_achievements', {}); }
-function checkAchievements() {
-  const ach = getAchievements();
-  const sub = getSubscription();
-  const streak = getStreakData();
-  const hunter = getHunterData();
-  const loy = getLoyaltyData();
-  const counters = { apply: sub.monthlyAppCount, ai_letter: sub.aiProposalCount||0, streak: streak.currentDays, save: savedJobs.length, score: hunter.score, loyalty: loy.points, view: Math.floor(Math.random()*20)+5, bounties_daily: getBounties().missions.filter(m=>m.completed).length, early_access: Math.floor(Math.random()*15)+3, pro_days: isPro()?7:0, earnings: 5200, connections: 7 };
-  for (const a of ACHIEVEMENTS) {
-    const val = counters[a.type] || 0;
-    let tier = null;
-    if (val >= a.gold) tier = 'gold';
-    else if (val >= a.silver) tier = 'silver';
-    else if (val >= a.bronze) tier = 'bronze';
-    if (tier) ach[a.id] = { tier, progress: val };
-  }
-  lsSetJSON('skillhunt_achievements', ach);
-  return ach;
-}
-function renderAchievements() {
-  const ach = checkAchievements();
-  const items = ACHIEVEMENTS.map(a => {
-    const data = ach[a.id];
-    if (data) {
-      const nextTier = data.tier === 'bronze' ? 'серебро' : data.tier === 'silver' ? 'золото' : null;
-      const nextNeed = data.tier === 'bronze' ? a.silver : data.tier === 'silver' ? a.gold : null;
-      const hint = (isPro() && nextTier) ? `<div class="ach-hint">Ещё ${nextNeed - (data.progress||0)} до ${nextTier}</div>` : '';
-      return `<div class="ach-item"><div class="ach-ring ${data.tier}">${a.ico}</div><div class="ach-name">${esc(a.name)}</div>${hint}</div>`;
-    }
-    return `<div class="ach-item"><div class="ach-ring locked">🔒</div><div class="ach-name">${esc(a.name)}</div></div>`;
-  }).join('');
-  return `<div class="habit-card"><div class="habit-card-title">🏅 Достижения <span style="font-weight:400;color:var(--text-3)">${Object.keys(ach).length}/${ACHIEVEMENTS.length}</span></div><div class="ach-grid">${items}</div></div>`;
-}
-
-// ── Feature 6: Intelligence Feed ──
-function generateIntel() {
-  const aiJobs = MOCK_JOBS.filter(j => j.category === 'ai');
-  const items = [];
-  if (aiJobs.length > 0) items.push({ico:'⚡',text:`Новый заказ в <b>AI/ML</b> — бюджет $${aiJobs[0].budgetMin.toLocaleString()}+`,time:'2 мин'});
-  items.push({ico:'📊',text:'Конкурент снизил ставку на 15% в заказе #7',time:'12 мин'});
-  items.push({ico:'👀',text:'Клиент из заказа #3 сейчас онлайн',time:'25 мин'});
-  items.push({ico:'💰',text:'Средняя ставка в вашей нише выросла на 8%',time:'1 ч'});
-  if (aiJobs.length > 1) items.push({ico:'🔥',text:`Спрос на <b>AI/ML</b> вырос на 42% за неделю`,time:'2 ч'});
-  items.push({ico:'📈',text:'3 новых заказа с бюджетом $5K+ за последний час',time:'3 ч'});
-  const designJobs = MOCK_JOBS.filter(j => j.category === 'design');
-  if (designJobs.length > 0) items.push({ico:'🎯',text:`Новый заказ в <b>Design</b> — срочный`,time:'4 ч'});
-  return items.slice(0, isPro() ? 8 : 3);
-}
-function renderIntelFeed() {
-  const items = generateIntel();
-  const rows = items.map(i => `<div class="intel-item"><div class="intel-ico">${i.ico}</div><div class="intel-text">${i.text}</div><div class="intel-time">${esc(i.time)}</div></div>`).join('');
-  if (isPro()) {
-    return `<div class="habit-card"><div class="habit-card-title">🕵️ Разведка</div>${rows}</div>`;
-  }
-  const freeItems = items.slice(0,2).map(i => `<div class="intel-item"><div class="intel-ico">${i.ico}</div><div class="intel-text">${i.text}</div><div class="intel-time">${esc(i.time)}</div></div>`).join('');
-  return `<div class="habit-card"><div class="habit-card-title">🕵️ Разведка</div><div style="filter:blur(4px);pointer-events:none;opacity:.5">${freeItems}</div><div class="habit-pro-gate" style="margin-top:8px;padding:12px"><div class="habit-pro-gate-text">Разблокировать разведку</div><div class="habit-pro-gate-sub">Полная аналитика рынка и конкурентов</div><button class="habit-pro-gate-btn" onclick="showProUpgrade()">Разблокировать Pro</button></div></div>`;
-}
-
-// ── Feature 7: Market Pulse ──
-function getMarketPulse() {
-  const cats = [
-    {name:'AI/ML',pct:85,trend:'+42%'},
-    {name:'Design',pct:62,trend:'-12%'},
-    {name:'Dev',pct:74,trend:'+18%'},
-    {name:'DevOps',pct:55,trend:'+8%'},
-    {name:'Data',pct:68,trend:'+25%'},
-    {name:'Writing',pct:40,trend:'-5%'},
-    {name:'Marketing',pct:48,trend:'+3%'}
-  ];
-  return cats;
-}
-function renderMarketPulse() {
-  const cats = getMarketPulse();
-  const pro = isPro();
-  const show = pro ? cats : cats.slice(0,3);
-  const rows = show.map(c => {
-    const trendClass = c.trend.startsWith('+') ? 'pulse-up' : 'pulse-down';
-    const barColor = c.trend.startsWith('+') ? 'var(--success)' : 'var(--danger)';
-    return `<div class="pulse-row"><div class="pulse-cat">${esc(c.name)}</div><div class="pulse-bar"><div class="pulse-fill" style="width:${c.pct}%;background:${barColor}"></div></div><div class="pulse-trend ${trendClass}">${esc(c.trend)}</div></div>`;
-  }).join('');
-  const salaryHtml = pro ? '<div style="font-size:10px;color:var(--text-3);margin-top:8px">💰 Ср. ставка: $65/ч (AI/ML) · $45/ч (Dev) · $35/ч (Design)</div>' : '';
-  const gateHtml = !pro ? '<div style="font-size:10px;color:var(--text-3);margin-top:8px;cursor:pointer" onclick="showProUpgrade()">Полная аналитика → с Pro</div>' : '';
-  return `<div class="habit-card"><div class="habit-card-title">📊 Пульс рынка</div>${rows}${salaryHtml}${gateHtml}</div>`;
-}
-
-// ── Feature 8: Loyalty Points & Shop ──
-function getLoyaltyData() { return lsGetJSON('skillhunt_loyalty', { points:0, history:[], purchases:[] }); }
-function addLoyaltyPoints(pts) {
-  const d = getLoyaltyData();
-  d.points += pts;
-  d.history.push({ pts, date: new Date().toISOString() });
-  lsSetJSON('skillhunt_loyalty', d);
-}
-function purchaseLoyaltyItem(item) {
-  const d = getLoyaltyData();
-  const costs = { 'pro_day':500, 'extra_app':100, 'ai_boost':200, 'profile_hi':300 };
-  const cost = costs[item] || 999;
-  if (d.points < cost) { showToast('Недостаточно очков'); return; }
-  d.points -= cost;
-  d.purchases.push({ item, date: new Date().toISOString() });
-  lsSetJSON('skillhunt_loyalty', d);
-  const names = { 'pro_day':'Pro Day Pass', 'extra_app':'Доп. отклик', 'ai_boost':'AI Boost', 'profile_hi':'Подсветка профиля' };
-  showToast('✅ ' + (names[item]||item) + ' активирован!');
-  renderHabitWidgets();
-}
-function renderLoyalty() {
-  const d = getLoyaltyData();
-  return `<div class="loyalty-card"><div style="position:relative;z-index:1"><div class="loy-balance">${d.points.toLocaleString()}</div><div class="loy-label">очков лояльности</div></div><div class="loy-shop"><div class="loy-item" onclick="purchaseLoyaltyItem('pro_day')"><div class="loy-item-name">Pro Day Pass</div><div class="loy-item-cost">500 pts</div></div><div class="loy-item" onclick="purchaseLoyaltyItem('extra_app')"><div class="loy-item-name">Доп. отклик</div><div class="loy-item-cost">100 pts</div></div><div class="loy-item" onclick="purchaseLoyaltyItem('ai_boost')"><div class="loy-item-name">AI Boost</div><div class="loy-item-cost">200 pts</div></div><div class="loy-item" onclick="purchaseLoyaltyItem('profile_hi')"><div class="loy-item-name">Подсветка</div><div class="loy-item-cost">300 pts</div></div></div></div>`;
-}
-
-// ── Feature 9: Weekly Leaderboard ──
-function getLeaderboard() {
-  const week = new Date().toISOString().slice(0,10);
-  let lb = lsGetJSON('skillhunt_leaderboard', null);
-  if (!lb || lb.week !== week) {
-    const names = ['Александр','Мария','Дмитрий','Елена','Артём','Ольга','Андрей','Наталья','Сергей','Виктория','Павел','Юлия','Роман','Михаил','Анна','Иван','Екатерина','Николай','Татьяна','Денис'];
-    const colors = ['#6C7BD4','#E07C6C','#5BBF8F','#8E7FD4','#D4A03A','#5A9FD4','#D9534F','#4CAF7D'];
-    lb = { week, rank: 7, entries: names.map((n,i) => ({ name:n+' '+String.fromCharCode(1040+Math.floor(Math.random()*26))+'.', xp: 2500 - i*110 + Math.floor(Math.random()*50), color: colors[i%colors.length] })).sort((a,b)=>b.xp-a.xp) };
-    lsSetJSON('skillhunt_leaderboard', lb);
-  }
-  return lb;
-}
-function renderLeaderboard() {
-  const lb = getLeaderboard();
-  const pro = isPro();
-  const show = pro ? lb.entries.slice(0,10) : lb.entries.slice(0,3);
-  const rankClasses = ['gold','silver','bronze'];
-  const rows = show.map((e,i) => {
-    const rc = i < 3 ? rankClasses[i] : '';
-    const me = i + 1 === lb.rank;
-    return `<div class="lb-item${me?' me':''}"><div class="lb-rank ${rc}">${i+1}</div><div class="lb-av" style="background:${e.color}">${esc(e.name.charAt(0))}</div><div class="lb-name">${esc(e.name)}${me?' (Вы)':''}</div><div class="lb-xp">${e.xp} XP</div></div>`;
-  }).join('');
-  const gateHtml = !pro ? `<div style="text-align:center;padding:8px;font-size:11px;color:var(--text-3)">Вы: #${lb.rank} — <span style="color:var(--primary);cursor:pointer;font-weight:600" onclick="showProUpgrade()">разблокируйте полный рейтинг</span></div>` : '';
-  return `<div class="habit-card"><div class="habit-card-title">🏆 Рейтинг недели</div>${rows}${gateHtml}</div>`;
-}
-
-// ── Feature 10: Skill Radar ──
-function renderSkillRadar() {
-  const pro = isPro();
-  const skills = [
-    {name:'Python',demand:90,you:75},
-    {name:'React',demand:80,you:85},
-    {name:'TensorFlow',demand:85,you:40},
-    {name:'Node.js',demand:70,you:60},
-    {name:'Figma',demand:55,you:70},
-    {name:'Docker',demand:65,you:50}
-  ];
-  const show = pro ? skills : skills.slice(0,3);
-  // SVG radar chart
-  const cx=100,cy=100,r=80,n=show.length;
-  const angleStep = (2*Math.PI)/n;
-  const pts = show.map((s,i) => {
-    const angle = i*angleStep - Math.PI/2;
-    const dr = r * (s.demand/100);
-    const yr = r * (s.you/100);
-    return { dx: cx+dr*Math.cos(angle), dy: cy+dr*Math.sin(angle), yx: cx+yr*Math.cos(angle), yy: cy+yr*Math.sin(angle), name:s.name, gap:s.demand-s.you };
-  });
-  const demandPath = pts.map((p,i) => (i===0?'M':'L')+p.dx+','+p.dy).join(' ')+' Z';
-  const youPath = pts.map((p,i) => (i===0?'M':'L')+p.yx+','+p.yy).join(' ')+' Z';
-  const axes = pts.map(p => `M${cx},${cy}L${p.dx},${p.dy}`).join(' ');
-  const labels = pts.map((p,i) => {
-    const angle = i*angleStep - Math.PI/2;
-    const lx = cx + (r+18)*Math.cos(angle);
-    const ly = cy + (r+18)*Math.sin(angle);
-    return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" fill="var(--text-2)" font-size="9" font-weight="600" font-family="var(--font-sans)">${esc(p.name)}</text>`;
-  }).join('');
-  const gapHints = pro ? pts.filter(p => p.gap > 20).map(p => `<div style="font-size:10px;color:var(--text-2);margin-top:2px">⚡ ${esc(p.name)}: спрос ${p.demand}% — ваш уровень ${p.you}%</div>`).join('') : '';
-  const gateHtml = !pro ? '<div style="font-size:10px;color:var(--text-3);margin-top:6px;cursor:pointer" onclick="showProUpgrade()">Полный радар навыков → с Pro</div>' : '';
-  return `<div class="habit-card"><div class="habit-card-title">🎨 Навыки vs Рынок</div><div class="radar-wrap"><svg viewBox="0 0 200 200" width="180" height="180"><polygon points="${show.map((s,i)=>{const a=i*angleStep-Math.PI/2;return(cx+r*Math.cos(a))+','+(cy+r*Math.sin(a))}).join(' ')}" fill="none" stroke="var(--border)" stroke-width="1"/><path d="${demandPath}" fill="rgba(108,123,212,.12)" stroke="var(--primary)" stroke-width="1.5"/><path d="${youPath}" fill="rgba(76,175,125,.12)" stroke="var(--success)" stroke-width="1.5"/><path d="${axes}" stroke="var(--border-soft)" stroke-width=".5"/>${labels}</svg><div style="display:flex;justify-content:center;gap:12px;margin-top:4px"><span style="font-size:9px;color:var(--primary)">● Спрос</span><span style="font-size:9px;color:var(--success)">● Вы</span></div></div>${gapHints}${gateHtml}</div>`;
-}
-
-// ── Master Render: All Habit Widgets ──
-function renderHabitWidgets() {
-  const container = document.getElementById('habitWidgets');
-  if (!container) return;
-  let html = '';
-  html += renderStreakWidget();
-  html += renderHunterScore();
-  html += renderBounties();
-  html += renderLoyalty();
-  html += renderIntelFeed();
-  html += renderMarketPulse();
-  html += renderLeaderboard();
-  html += renderAchievements();
-  html += renderSkillRadar();
-  container.innerHTML = html;
-}
+// ── Gamification features removed per product strategy ──
 
 function init() {
   if (isDark) document.documentElement.classList.add('dark');
@@ -5570,12 +5212,8 @@ function init() {
   // ── Subscription system ──
   const sub = getSubscription();
   renderTrialBar();
-  renderProImpact();
-  renderProfileViews();
   
   // ── Habit-forming widgets ──
-  checkStreak();
-  renderHabitWidgets();
   
   // Check if trial has ended — show conversion modal
   if (sub.trialStartedAt && sub.plan === 'free' && !sub.trialOfferShown) {
@@ -5750,8 +5388,8 @@ function renderJobCard(job, showSave = true, isSavedView = false) {
   const applicants = (seed >> 8) % 13;
   const trendUp = (seed >> 16) % 4 + 1;
   const ghostHtml = pro
-    ? `<div class="ghost-counter"><span>👁️ ${viewing}</span><span>⚡ ${applicants} отклика</span><span class="ghost-trend">↑ +${trendUp} за час</span></div>`
-    : `<div class="ghost-counter"><span>👁️ ${Math.floor(viewing/10)*10}+</span><span>⚡ несколько</span></div>`;
+    ? `<div class="ghost-counter"><span>${viewing}</span><span>${applicants} отклика</span><span class="ghost-trend">↑ +${trendUp} за час</span></div>`
+    : `<div class="ghost-counter"><span>${Math.floor(viewing/10)*10}+</span><span>несколько</span></div>`;
 
   if (isSavedView) {
     // Saved view: swipeable item with quick actions
@@ -6059,11 +5697,9 @@ function toggleSave(jobId) {
     }
     savedJobs.push(jobId);
     incrementSavedCount();
-    showToast('Заказ сохранён ❤️');
+    showToast('Заказ сохранён');
     announce('Заказ сохранён');
-    bumpBounty('save');
-    addLoyaltyPoints(isPro() ? 2 : 1);
-  }
+    }
   lsSetJSON('skillhunt_saved', savedJobs);
   updateSavedCount();
 
@@ -6240,7 +5876,6 @@ function openJobDetail(jobId) {
   const job = MOCK_JOBS.find(j => j.id === jobId);
   if (!job) return;
   
-  bumpBounty('view'); // Track viewing for bounties
   
   const isSaved = savedJobs.includes(job.id);
   const matchColor = job.match > 80 ? 'var(--success)' : job.match > 60 ? 'var(--primary)' : 'var(--text-3)';
@@ -6398,9 +6033,6 @@ function applyToJob(jobId) {
   incrementAppCount();
   updateAppCount();
   renderTrialBar();
-  renderProImpact();
-  bumpBounty('apply');
-  addLoyaltyPoints(isPro() ? 20 : 10);
   showToast('Отклик отправлен! Клиент получит уведомление.');
   announce('Отклик отправлен');
   closeJobDetail();
