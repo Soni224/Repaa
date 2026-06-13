@@ -3813,9 +3813,9 @@ select.inp option,select option{background:#121827;color:var(--text)}
             <div class="hero-metric" onclick="filterFeedCategory('all')">
               <div class="hero-metric-info">
                 <div class="hero-metric-label">Потенциальный доход</div>
-                <div class="hero-metric-val">186 000 ₽</div>
+                <div class="hero-metric-val" id="heroPotentialIncome">0 ₽</div>
                 <div class="hero-metric-bar">
-                  <div class="hero-metric-bar-fill" style="width:85%;background:#8FF6D3"></div>
+                  <div class="hero-metric-bar-fill" id="heroIncomeBar" style="width:0%;background:#8FF6D3"></div>
                 </div>
                 <button class="hero-metric-btn" onclick="event.stopPropagation();filterFeedCategory('all')">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 17 18 12 13 7"/><polyline points="5 17 10 12 5 7"/></svg>
@@ -3827,11 +3827,11 @@ select.inp option,select option{background:#121827;color:var(--text)}
             <div class="hero-metric" onclick="showApplicationsView()">
               <div class="hero-metric-info">
                 <div class="hero-metric-label">Конверсия</div>
-                <div class="hero-metric-val">6 из 12</div>
+                <div class="hero-metric-val" id="heroConversion">0 из 0</div>
                 <div class="hero-metric-sub">заинтересованы</div>
                 <div class="hero-metric-chip">
                   <span class="hero-metric-chip-dot"></span>
-                  4 Новых заказа
+                  <span id="heroNewJobs">0</span> Новых заказа
                 </div>
               </div>
             </div>
@@ -4179,7 +4179,7 @@ select.inp option,select option{background:#121827;color:var(--text)}
     <div class="more-menu-row" onclick="openMoreSub('buy-tokens', event)">
       <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
       <div class="more-menu-row-text">Баланс токенов</div>
-      <span style="font-size:13px;font-weight:700;color:var(--text-2);margin-left:auto;margin-right:4px">847</span>
+      <span style="font-size:13px;font-weight:700;color:var(--text-2);margin-left:auto;margin-right:4px" id="moreBalanceValue">847</span>
       <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>
 
@@ -4241,7 +4241,7 @@ select.inp option,select option{background:#121827;color:var(--text)}
     <div class="more-menu-row" onclick="openMoreSub('tariff', event)">
       <div class="more-menu-row-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <div class="more-menu-row-text">План подписки</div>
-      <span style="font-size:11px;font-weight:600;color:var(--primary);margin-left:auto;margin-right:4px" id="moreTariffBadge">Pro</span>
+      <span style="font-size:11px;font-weight:600;color:var(--primary);margin-left:auto;margin-right:4px" id="moreTariffBadge">Free</span>
       <div class="more-menu-row-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
     </div>
     <div class="more-menu-row" onclick="openMoreSub('payments', event)">
@@ -4625,6 +4625,9 @@ function startTrial() {
   showToast('Pro-триал активирован на 3 дня');
   loadProfile();
   renderTrialBar();
+  renderFeed();
+  renderSearchResults();
+  updateHeroMetrics();
 }
 
 function subscribePro() {
@@ -4636,6 +4639,9 @@ function subscribePro() {
   showToast('Pro подписка активирована');
   loadProfile();
   renderTrialBar();
+  renderFeed();
+  renderSearchResults();
+  updateHeroMetrics();
 }
 
 function skipTrialEnd() {
@@ -4646,6 +4652,9 @@ function skipTrialEnd() {
   showToast('Вы используете Free-план');
   loadProfile();
   renderTrialBar();
+  renderFeed();
+  renderSearchResults();
+  updateHeroMetrics();
 }
 
 function showProUpgrade() {
@@ -4844,6 +4853,7 @@ function sendAICover() {
   showToast('Отклик отправлен. Клиент получит уведомление.');
   announce('Отклик отправлен');
   closeJobDetail();
+  updateHeroMetrics();
 }
 
 // ── AI Project Strategy Generator (Pro-only) ──
@@ -5155,7 +5165,7 @@ function init() {
   // Load saved balance
   const savedBalance = lsGet('skillhunt_balance');
   if (savedBalance) {
-    const moreBalanceEl = document.querySelector('.more-balance-value');
+    const moreBalanceEl = document.getElementById('moreBalanceValue');
     if (moreBalanceEl) moreBalanceEl.textContent = savedBalance;
   }
   
@@ -5171,10 +5181,11 @@ function init() {
     renderSearchResults();
     renderSavedJobs();
     renderResponses();
+    updateHeroMetrics();
   }, 1500);
   
   setupSwipe();
-  animateStatStrip();
+  updateHeroMetrics();
   
   // ── Subscription system ──
   const sub = getSubscription();
@@ -5198,40 +5209,49 @@ function init() {
   }
 }
 
-// ── Hero Metrics Count-up Animation ──
-function animateStatStrip() {
-  const items = document.querySelectorAll('.hero-metric');
-  items.forEach((item, i) => {
-    const valEl = item.querySelector('.hero-metric-val');
-    if (!valEl) return;
-    const finalText = valEl.textContent.trim();
-    const finalNum = parseFloat(finalText.replace(/[^0-9.]/g, ''));
-    if (isNaN(finalNum)) return;
-    
-    const duration = 800;
-    const delay = i * 150;
-    
-    valEl.style.opacity = '0';
-    valEl.style.transform = 'translateY(8px)';
-    
-    setTimeout(() => {
-      valEl.style.transition = 'opacity .4s ease, transform .4s cubic-bezier(.22,1,.36,1)';
-      valEl.style.opacity = '1';
-      valEl.style.transform = 'translateY(0)';
-      
-      const startTime = performance.now();
-      function tick(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = Math.round(finalNum * eased);
-        valEl.textContent = current;
-        if (progress < 1) requestAnimationFrame(tick);
-        else valEl.textContent = finalText;
-      }
-      requestAnimationFrame(tick);
-    }, delay);
-  });
+// ── Hero Metrics — Dynamic Update ──
+function updateHeroMetrics() {
+  const apps = lsGetJSON('skillhunt_applications', []);
+  const pro = isPro();
+  
+  // Calculate potential income from applications
+  const totalEarnings = apps.reduce((s, a) => {
+    const job = MOCK_JOBS.find(j => j.id === a.jobId);
+    return s + (job ? job.budgetMax : 0);
+  }, 0);
+  const totalEarningsRub = totalEarnings * 90; // Approximate USD to RUB
+  
+  // Income metric
+  const incomeEl = document.getElementById('heroPotentialIncome');
+  const incomeBar = document.getElementById('heroIncomeBar');
+  if (incomeEl) {
+    if (totalEarningsRub > 0) {
+      incomeEl.textContent = totalEarningsRub.toLocaleString('ru-RU') + ' ₽';
+    } else {
+      // Show sum of visible jobs budget as potential
+      const visibleJobs = pro ? MOCK_JOBS : MOCK_JOBS.slice(0, FREE_VISIBLE_JOBS);
+      const potential = visibleJobs.reduce((s, j) => s + j.budgetMax, 0) * 90;
+      incomeEl.textContent = potential.toLocaleString('ru-RU') + ' ₽';
+    }
+  }
+  if (incomeBar) {
+    const maxPotential = MOCK_JOBS.reduce((s, j) => s + j.budgetMax, 0) * 90;
+    const currentPotential = totalEarningsRub > 0 ? totalEarningsRub : (pro ? MOCK_JOBS : MOCK_JOBS.slice(0, FREE_VISIBLE_JOBS)).reduce((s, j) => s + j.budgetMax, 0) * 90;
+    incomeBar.style.width = Math.min(100, Math.round(currentPotential / maxPotential * 100)) + '%';
+  }
+  
+  // Conversion metric
+  const convEl = document.getElementById('heroConversion');
+  const newJobsEl = document.getElementById('heroNewJobs');
+  if (convEl) {
+    const replied = apps.filter(a => a.status === 'replied').length;
+    convEl.textContent = replied + ' из ' + apps.length;
+  }
+  if (newJobsEl) {
+    // Count jobs posted within last few hours (early access)
+    const recentJobs = MOCK_JOBS.filter(j => isJobEarlyAccess(j));
+    newJobsEl.textContent = recentJobs.length;
+  }
 }
 
 // ── Tab Switching ──
@@ -6035,6 +6055,7 @@ function applyToJob(jobId) {
   showToast('Отклик отправлен! Клиент получит уведомление.');
   announce('Отклик отправлен');
   closeJobDetail();
+  updateHeroMetrics();
 }
 
 // ── More Panel ──
@@ -6329,6 +6350,8 @@ function saveProfile() {
   };
   lsSetJSON('skillhunt_profile', profile);
   loadProfile();
+  updateProfileCompleteness();
+  updateHeroMetrics();
   showToast('Профиль сохранён');
   closeMoreSub();
 }
@@ -6341,7 +6364,7 @@ function handlePhotoClick() {
 function updateAppCount() {
   const apps = lsGetJSON('skillhunt_applications', []);
   const el = document.getElementById('heroAppCount');
-  if (el) el.textContent = apps.length || 5;
+  if (el) el.textContent = apps.length;
 }
 
 function showApplicationsView() {
@@ -6596,7 +6619,7 @@ function purchaseTokens(amount, price) {
   const balanceEl = document.getElementById('tokenBuyBalance');
   if (balanceEl) balanceEl.textContent = balance;
   // Also update the More panel balance display
-  const moreBalanceEl = document.querySelector('.more-balance-value');
+  const moreBalanceEl = document.getElementById('moreBalanceValue');
   if (moreBalanceEl) moreBalanceEl.textContent = balance;
   showToast('+' + amount + ' токенов куплено за $' + price + '! Баланс: ' + balance);
 }
