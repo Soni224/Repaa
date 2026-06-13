@@ -5398,9 +5398,21 @@ function renderJobCard(job, showSave = true, isSavedView = false) {
   }
 
   // Feed/Search view: standard card
+  // If locked (free user + early access), show compact locked row instead of full card
+  if (locked) {
+    return `
+    <div class="card ${enterClass} mb-12" onclick="showProUpgrade()" style="cursor:pointer;position:relative;display:flex;align-items:center;gap:10px;padding:10px 12px" tabindex="0" role="article" aria-label="Ранний доступ — Pro">
+      <div style="width:30px;height:30px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--lavender));display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:700;color:var(--text);line-height:1.2">Ранний доступ</div>
+        <div style="font-size:10px;color:var(--text-2);line-height:1.3;margin-top:1px">Этот заказ доступен только с Pro</div>
+      </div>
+      <button class="btn btn-p btn-sm" onclick="event.stopPropagation();showProUpgrade()" style="padding:4px 10px;font-size:10px;flex-shrink:0">Pro</button>
+    </div>`;
+  }
+
   return `
-    <div class="card ${enterClass} mb-12 ${eaClass} card-lift" onclick="${locked ? 'showProUpgrade()' : 'openJobDetail('+job.id+')'}" style="cursor:pointer;position:relative" tabindex="0" role="article" aria-label="${esc(job.title)}">
-      ${locked ? '<div class="job-locked-overlay"><div class="job-locked-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="job-locked-text">Ранний доступ</div><div class="job-locked-sub">Этот заказ доступен только с Pro</div><button class="job-locked-btn" onclick="event.stopPropagation();showProUpgrade()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Подключить Pro</button></div>' : ''}
+    <div class="card ${enterClass} mb-12 ${eaClass} card-lift" onclick="openJobDetail(${job.id})" style="cursor:pointer;position:relative" tabindex="0" role="article" aria-label="${esc(job.title)}">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px">
         <div style="flex:1;min-width:0">
           <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.25;margin-bottom:3px;font-family:var(--font-sans)">${esc(job.title)}</div>
@@ -5458,11 +5470,8 @@ function renderFeed() {
     jobs = jobs.filter(j => j.category === feedCategory);
   }
   
-  // Free users see only limited jobs
-  if (!isPro()) {
-    // Show only first FREE_VISIBLE_JOBS (sorted by relevance/match)
-    jobs = jobs.slice(0, FREE_VISIBLE_JOBS);
-  }
+  // Free users: show first FREE_VISIBLE_JOBS normally, rest as locked rows
+  // (No empty gaps — locked early-access jobs render as compact rows)
   
   if (jobs.length === 0) {
     list.innerHTML = '';
@@ -5470,11 +5479,37 @@ function renderFeed() {
     announce('Заказов не найдено');
   } else {
     empty.style.display = 'none';
-    let cardsHtml = jobs.map(j => renderJobCard(j, true)).join('');
-    // If Free, show "see more" gate
-    if (!isPro() && MOCK_JOBS.length > FREE_VISIBLE_JOBS) {
-      cardsHtml += '<div class="pro-gate-inline" onclick="showProUpgrade()" style="margin-top:8px"><div class="pro-gate-inline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="pro-gate-inline-text"><div class="pro-gate-inline-title">Ещё ' + (MOCK_JOBS.length - FREE_VISIBLE_JOBS) + ' заказов с Pro</div><div class="pro-gate-inline-desc">Полный доступ ко всем заказам и безлимит откликов</div></div></div>';
+    const pro = isPro();
+    let cardsHtml = '';
+    
+    if (pro) {
+      // Pro users see all cards normally
+      cardsHtml = jobs.map(j => renderJobCard(j, true)).join('');
+    } else {
+      // Free users: first FREE_VISIBLE_JOBS as normal cards, rest as compact locked rows
+      const visibleJobs = jobs.slice(0, FREE_VISIBLE_JOBS);
+      const lockedJobs = jobs.slice(FREE_VISIBLE_JOBS);
+      
+      cardsHtml = visibleJobs.map(j => renderJobCard(j, true)).join('');
+      
+      // Show locked jobs as compact teaser rows
+      lockedJobs.forEach((j, i) => {
+        cardsHtml += `<div class="card animate-in mb-12" onclick="showProUpgrade()" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;opacity:${0.85 - i * 0.08}" tabindex="0">
+          <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--lavender));display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:11px;font-weight:600;color:var(--text-2);line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(j.title)}</div>
+            <div style="font-size:10px;color:var(--text-3);line-height:1.2;margin-top:1px">$${j.budgetMin.toLocaleString()}–${j.budgetMax.toLocaleString()} · ${j.match}% совпадение</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>`;
+      });
+      
+      // Pro gate at the end
+      if (lockedJobs.length > 0) {
+        cardsHtml += '<div class="pro-gate-inline" onclick="showProUpgrade()" style="margin-top:4px"><div class="pro-gate-inline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="pro-gate-inline-text"><div class="pro-gate-inline-title">Ещё ' + lockedJobs.length + ' заказов с Pro</div><div class="pro-gate-inline-desc">Полный доступ ко всем заказам и безлимит откликов</div></div></div>';
+      }
     }
+    
     list.innerHTML = cardsHtml;
   }
 }
