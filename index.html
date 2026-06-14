@@ -1471,79 +1471,7 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 /* ── Keyboard shortcuts ── */
 .kbd{padding:2px 6px;font-size:10px;font-weight:600;border-radius:4px;background:var(--bg-input);color:var(--text-3);border:1px solid var(--border);font-family:inherit}
 
-/* ── Auth Gate ── */
-.auth-gate{position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;align-items:center;background-image:radial-gradient(ellipse at 50% 20%,var(--primary-soft) 0%,transparent 60%)}
-.auth-gate.hidden{display:none!important}
-.auth-step{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;padding:24px 20px;text-align:center;width:100%;max-width:430px}
-.auth-step.active{display:flex;animation:fadeInUp .4s ease}
-.auth-repa{margin-bottom:20px}
-.auth-repa svg{width:100px;height:100px;filter:drop-shadow(0 4px 12px rgba(139,154,232,.2))}
-.auth-title{font-size:28px;font-weight:800;color:var(--text);margin-bottom:8px;line-height:1.15}
-.auth-subtitle{font-size:15px;color:var(--text-2);margin-bottom:28px;line-height:1.5}
-.auth-form{width:100%;max-width:320px;text-align:left}
-.auth-form .inp-group{margin-bottom:14px}
-.auth-trial-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:linear-gradient(135deg,var(--primary),var(--lavender));color:#fff;border-radius:var(--radius-full);font-size:14px;font-weight:800;margin-bottom:20px;box-shadow:0 6px 20px rgba(139,154,232,.4);letter-spacing:.3px}
-.auth-trial-badge i{font-size:16px}
-/* ── Auth Progress Bar ── */
-.auth-progress{width:100%;max-width:340px;margin-bottom:20px;text-align:left}
-.auth-progress-bar-track{width:100%;height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px}
-.auth-progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--lavender));border-radius:3px;transition:width .5s cubic-bezier(.22,1,.36,1);width:33.3%}
-.auth-progress-bar-fill[data-step="1"]{width:33.3%}
-.auth-progress-bar-fill[data-step="2"]{width:66.6%}
-.auth-progress-bar-fill[data-step="3"]{width:100%}
-.auth-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.auth-progress-label{font-size:13px;font-weight:700;color:var(--text)}
-.auth-progress-step-num{font-size:12px;color:var(--text-3);font-weight:500}
-.auth-progress-steps{display:flex;justify-content:space-between;margin-top:6px}
-.auth-progress-step-name{font-size:11px;color:var(--text-3);transition:color .3s,font-weight .3s;flex:1;text-align:center}
-.auth-progress-step-name.active{color:var(--primary);font-weight:700}
-.auth-progress-step-name.done{color:var(--success)}
-
-/* ── Trust Badges ── */
-.auth-trust-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;justify-content:center}
-.auth-trust-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:var(--success-light);border-radius:var(--radius-xs);font-size:11px;font-weight:600;color:var(--success)}
-.auth-trust-badge svg{flex-shrink:0}
-
-/* ── Social Proof Counter ── */
-.auth-social-proof{margin-top:18px;font-size:12px;color:var(--text-3);line-height:1.5}
-.auth-social-proof-count{font-weight:800;color:var(--primary);display:inline-block;min-width:30px}
-@keyframes socialPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-.auth-social-proof-count.pulse{animation:socialPulse .6s ease}
-
-/* ── Confetti ── */
-.confetti-container{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
-.confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;top:-10px;animation:confettiFall 2.5s ease-out forwards}
-.confetti-piece.circle{border-radius:50%}
-
-/* ── What Happens Next Checklist ── */
-.auth-checklist{width:100%;max-width:320px;margin-top:16px;text-align:left}
-.auth-checklist-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:12px;color:var(--text-2);line-height:1.4}
-.auth-checklist-item svg{flex-shrink:0;margin-top:1px}
-
-/* ── API Key Validation ── */
-.auth-key-wrap{position:relative}
-.auth-key-wrap .inp{padding-right:36px}
-.auth-key-status{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center}
-.auth-key-wrap.valid .inp{border-color:var(--success);box-shadow:0 0 0 3px rgba(76,175,125,.12)}
-.auth-key-wrap.warn .inp{border-color:var(--warning);box-shadow:0 0 0 3px rgba(212,160,58,.12)}
-.auth-key-wrap.invalid .inp{border-color:var(--danger);box-shadow:0 0 0 3px rgba(217,83,79,.12)}
-.auth-key-hint{font-size:11px;margin-top:4px;min-height:16px;transition:color .2s}
-.auth-key-hint.invalid{color:var(--danger)}
-.auth-key-hint.warn{color:var(--warning)}
-.auth-key-hint.valid{color:var(--success)}
-
-.auth-benefits{display:flex;flex-direction:column;gap:12px;width:100%;max-width:340px;margin-bottom:28px;text-align:left}
-.auth-benefit{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border-soft);font-size:13px;color:var(--text-2);animation:fadeIn .3s ease;transition:transform .2s,box-shadow .2s}
-.auth-benefit i{color:var(--primary);font-size:18px;flex-shrink:0}
-.auth-benefit strong{color:var(--text);font-weight:600}
-.auth-marketplace-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:320px;margin-bottom:20px}
-.auth-mp-card{padding:20px 16px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg-card);cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1);text-align:center}
-.auth-mp-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-card)}
-.auth-mp-card.selected{border-color:var(--primary);background:var(--primary-light);box-shadow:var(--shadow-prominent)}
-.auth-mp-logo{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;margin:0 auto 10px}
-.auth-mp-name{font-size:14px;font-weight:700;color:var(--text)}
-.auth-mp-status{font-size:11px;color:var(--text-3);margin-top:4px}
-.auth-key-form{width:100%;max-width:320px;text-align:left;margin-bottom:16px}
+/* ── Auth Gate & Registration removed — registration via Telegram bot ── */
 
 /* ── Trial Banner ── */
 .trial-banner{background:linear-gradient(135deg,#5C6FB0 0%,#7B8FD4 25%,#9B8FD4 50%,#B8A8E8 75%,#8B9ED8 100%);border-radius:var(--radius);padding:20px;color:#fff;position:relative;overflow:hidden;margin-bottom:16px;cursor:pointer;transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s;border:1px solid rgba(255,255,255,.18);box-shadow:0 4px 20px rgba(107,127,215,.25),0 0 30px rgba(107,127,215,.1)}
@@ -3835,188 +3763,7 @@ select.inp option,select option{background:#121827;color:var(--text)}
   100% { width: 100%; }
 }
 
-/* ── Auth Screen (Registration / Login) ── */
-.auth-overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  background: var(--bg);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 24px 20px;
-  transition: opacity .4s ease, visibility .4s ease;
-  overflow-y: auto;
-}
-.auth-overlay.hidden {
-  opacity: 0; visibility: hidden; pointer-events: none;
-}
-
-/* Скрываем основное приложение при показе auth экранов */
-body.auth-pending .shell {
-  visibility: hidden;
-}
-
-.auth-container {
-  width: 100%; max-width: 380px;
-  display: flex; flex-direction: column;
-  align-items: center;
-}
-
-.auth-logo {
-  width: 64px; height: 64px; border-radius: 18px;
-  background: linear-gradient(135deg, var(--primary), #8B5CF6);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 40px rgba(77,107,255,.25);
-  margin-bottom: 20px;
-}
-.auth-logo svg { width: 32px; height: 32px; }
-
-.auth-title {
-  font-size: 24px; font-weight: 700; color: var(--text);
-  font-family: var(--font-sans); text-align: center;
-  margin-bottom: 4px; letter-spacing: -.3px;
-}
-
-.auth-subtitle {
-  font-size: 14px; color: var(--text-3);
-  font-family: var(--font-sans); text-align: center;
-  margin-bottom: 28px; line-height: 1.4;
-}
-
-.auth-form {
-  width: 100%;
-}
-
-.auth-field {
-  margin-bottom: 16px;
-}
-
-.auth-field label {
-  display: block; font-size: 13px; font-weight: 500;
-  color: var(--text-2); margin-bottom: 6px;
-  font-family: var(--font-sans);
-}
-
-.auth-field input, .auth-field select {
-  width: 100%; padding: 12px 16px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: var(--radius-xs);
-  color: var(--text); font-size: 15px;
-  font-family: var(--font-sans);
-  outline: none;
-  transition: border-color .2s ease, box-shadow .2s ease;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-}
-.auth-field input::placeholder {
-  color: var(--text-3);
-}
-.auth-field input:focus, .auth-field select:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(77,107,255,.15);
-}
-.auth-field select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7589' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 36px;
-}
-.auth-field select option {
-  background: var(--bg-card-solid); color: var(--text);
-}
-
-.auth-error {
-  font-size: 12px; color: var(--danger);
-  margin-top: 4px; display: none;
-  font-family: var(--font-sans);
-}
-.auth-error.visible { display: block; }
-
-.auth-btn {
-  width: 100%; padding: 14px; border: none;
-  border-radius: var(--radius-xs);
-  background: linear-gradient(135deg, var(--primary), #7C3AED);
-  color: #fff; font-size: 16px; font-weight: 600;
-  font-family: var(--font-sans);
-  cursor: pointer; margin-top: 8px;
-  transition: transform .15s ease, box-shadow .15s ease;
-  box-shadow: 0 4px 20px rgba(77,107,255,.3);
-}
-.auth-btn:active {
-  transform: scale(.97);
-}
-.auth-btn:disabled {
-  opacity: .5; cursor: not-allowed;
-}
-
-.auth-link {
-  margin-top: 20px; text-align: center;
-  font-size: 14px; color: var(--text-2);
-  font-family: var(--font-sans);
-}
-.auth-link a {
-  color: var(--primary); text-decoration: none;
-  font-weight: 500;
-}
-.auth-link a:active {
-  opacity: .7;
-}
-
-.auth-forgot {
-  text-align: right; margin-top: -10px; margin-bottom: 12px;
-}
-.auth-forgot a {
-  font-size: 12px; color: var(--primary);
-  text-decoration: none; font-family: var(--font-sans);
-}
-
-.auth-warning {
-  display: flex; align-items: flex-start; gap: 10px;
-  background: rgba(231,196,139,.08);
-  border: 1px solid rgba(231,196,139,.15);
-  border-radius: var(--radius-xs);
-  padding: 12px 14px; margin-bottom: 20px;
-}
-.auth-warning-icon {
-  flex-shrink: 0; width: 20px; height: 20px;
-  color: var(--warning);
-}
-.auth-warning-text {
-  font-size: 12px; color: var(--warning);
-  line-height: 1.4; font-family: var(--font-sans);
-}
-
-.auth-divider {
-  display: flex; align-items: center; gap: 12px;
-  margin: 20px 0; width: 100%;
-}
-.auth-divider::before, .auth-divider::after {
-  content: ''; flex: 1; height: 1px;
-  background: var(--border);
-}
-.auth-divider span {
-  font-size: 12px; color: var(--text-3);
-  font-family: var(--font-sans);
-}
-
-.auth-terms {
-  margin-top: 16px; text-align: center;
-  font-size: 11px; color: var(--text-3);
-  line-height: 1.5; font-family: var(--font-sans);
-}
-.auth-terms a {
-  color: var(--text-3); text-decoration: underline;
-}
-
-.auth-password-wrap {
-  position: relative;
-}
-.auth-password-toggle {
-  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  width: 24px; height: 24px; cursor: pointer;
-  color: var(--text-3);
-  background: none; border: none; padding: 0;
-}
+/* ── Auth Screen removed — users register via Telegram bot ── */
 
 </style>
 </head>
@@ -4034,68 +3781,7 @@ body.auth-pending .shell {
   <div class="splash-bar"><div class="splash-bar-fill"></div></div>
 </div>
 
-<!-- ═══ Registration Screen ═══ -->
-<div class="auth-overlay hidden" id="registerOverlay">
-  <div class="auth-container">
-    <div class="auth-logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
-    </div>
-    <div class="auth-title">Создать аккаунт</div>
-    <div class="auth-subtitle">Зарегистрируйтесь, чтобы находить заказы и зарабатывать</div>
-    <form class="auth-form" id="registerForm" onsubmit="handleRegister(); return false;">
-      <div class="auth-field">
-        <label>Имя</label>
-        <input type="text" id="regFirstName" placeholder="Ваше имя" autocomplete="given-name">
-        <div class="auth-error" id="regFirstNameError">Укажите имя</div>
-      </div>
-      <div class="auth-field">
-        <label>Email</label>
-        <input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email">
-        <div class="auth-error" id="regEmailError">Укажите корректный email</div>
-      </div>
-      <div class="auth-field">
-        <label>Специализация</label>
-        <select id="regSpecialty">
-          <option value="">Выберите специализацию</option>
-          <option value="ai">AI / Machine Learning</option>
-          <option value="dev">Backend / Frontend</option>
-          <option value="design">UI/UX Дизайн</option>
-          <option value="data">Анализ данных</option>
-          <option value="devops">DevOps</option>
-          <option value="writing">Копирайтинг</option>
-          <option value="marketing">Маркетинг</option>
-          <option value="mobile">Мобильная разработка</option>
-        </select>
-        <div class="auth-error" id="regSpecialtyError">Выберите специализацию</div>
-      </div>
-      <div class="auth-field">
-        <label>Опыт работы</label>
-        <select id="regExperience">
-          <option value="">Выберите опыт</option>
-          <option value="0-1">Меньше 1 года</option>
-          <option value="1-3">1-3 года</option>
-          <option value="3-5">3-5 лет</option>
-          <option value="5+">5+ лет</option>
-        </select>
-        <div class="auth-error" id="regExperienceError">Укажите опыт работы</div>
-      </div>
-      <div class="auth-field">
-        <label>Пароль</label>
-        <div class="auth-password-wrap">
-          <input type="password" id="regPassword" placeholder="Минимум 6 символов" autocomplete="new-password">
-          <button class="auth-password-toggle" onclick="toggleRegPassword()" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-        <div class="auth-error" id="regPasswordError">Пароль минимум 6 символов</div>
-      </div>
-      <button type="submit" class="auth-btn" id="registerBtn">Зарегистрироваться</button>
-    </form>
-    <div class="auth-terms">
-      Нажимая кнопку, вы соглашаетесь с <a href="#">Условиями использования</a> и <a href="#">Политикой конфиденциальности</a>
-    </div>
-  </div>
-</div>
+<!-- ═══ Registration Screen removed — users register via Telegram bot ─══ -->
 
 <div class="shell" id="shell">
   <div class="slider" id="slider">
@@ -5597,65 +5283,8 @@ function updateProfileCompleteness() {
 // ── Demo data removed — all data comes from API ──
 
 
-// ── Auth System ──
-// Путь пользователя:
-// 1. Splash (1.5с) → 2. /api/auth/check → 3. Если не зарегистрирован → Регистрация → 4. Приложение
-// Данные профиля берём ТОЛЬКО с сервера бота, НЕ из Telegram SDK
-
-let AUTH_STATE = {
-  registered: false,
-  profile: null, // Данные профиля с сервера
-};
-
-function toggleRegPassword() {
-  const inp = document.getElementById('regPassword');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-}
-
-function showAuthError(id, msg) {
-  const el = document.getElementById(id);
-  if (el) { el.textContent = msg; el.classList.add('visible'); }
-}
-function hideAuthError(id) {
-  const el = document.getElementById(id);
-  if (el) el.classList.remove('visible');
-}
-function hideAllAuthErrors() {
-  document.querySelectorAll('.auth-error').forEach(el => el.classList.remove('visible'));
-}
-
-async function checkAuthStatus() {
-  try {
-    const uid = API_USER_ID;
-    if (!uid) {
-      AUTH_STATE.registered = false;
-      AUTH_STATE.profile = null;
-      return;
-    }
-    // Таймаут 4с
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 4000);
-    const resp = await fetch(apiUrl('/api/auth/check'), { signal: controller.signal });
-    clearTimeout(timeout);
-
-    if (resp.ok) {
-      const data = await resp.json();
-      AUTH_STATE.registered = data.registered;
-      AUTH_STATE.profile = data.profile || null;
-
-      // Если профиль пришёл с сервера — применяем его
-      if (data.profile) {
-        applyServerProfile(data.profile);
-      }
-    } else if (resp.status >= 500) {
-      // Серверная ошибка — не заставляем перерегистрироваться
-      AUTH_STATE.registered = lsGet('skillhunt_registered') === 'true';
-    }
-  } catch(e) {
-    console.warn('Auth check failed:', e);
-    AUTH_STATE.registered = lsGet('skillhunt_registered') === 'true';
-  }
-}
+// ── Registration removed — users register via Telegram bot (/start) ──
+// Пользователь уже зарегистрирован через бота, init_data валидируется сервером.
 
 function applyServerProfile(profile) {
   // Применяем данные профиля от бота к UI
@@ -5673,95 +5302,10 @@ function applyServerProfile(profile) {
   lsSetJSON('skillhunt_profile', profile);
 }
 
-function showRegisterScreen() {
-  const splash = document.getElementById('splashOverlay');
-  const reg = document.getElementById('registerOverlay');
-  if (splash) splash.classList.add('hidden');
-  if (reg) reg.classList.remove('hidden');
-  document.body.classList.add('auth-pending');
-
-  // Pre-fill имя из серверного профиля (если есть)
-  if (AUTH_STATE.profile && AUTH_STATE.profile.first_name) {
-    const nameEl = document.getElementById('regFirstName');
-    if (nameEl && !nameEl.value) nameEl.value = AUTH_STATE.profile.first_name;
-  }
-}
-
-function hideAuthScreens() {
-  const reg = document.getElementById('registerOverlay');
-  if (reg) reg.classList.add('hidden');
-  document.body.classList.remove('auth-pending');
-  hideAllAuthErrors();
-}
-
-async function handleRegister() {
-  hideAllAuthErrors();
-  const btn = document.getElementById('registerBtn');
-  btn.disabled = true;
-  btn.textContent = 'Регистрация...';
-
-  const firstName = document.getElementById('regFirstName').value.trim();
-  const email = document.getElementById('regEmail').value.trim();
-  const specialty = document.getElementById('regSpecialty').value;
-  const experience = document.getElementById('regExperience').value;
-  const password = document.getElementById('regPassword').value;
-
-  let hasError = false;
-  if (!firstName) { showAuthError('regFirstNameError', 'Укажите имя'); hasError = true; }
-  if (!email || !email.includes('@')) { showAuthError('regEmailError', 'Укажите корректный email'); hasError = true; }
-  if (!specialty) { showAuthError('regSpecialtyError', 'Выберите специализацию'); hasError = true; }
-  if (!experience) { showAuthError('regExperienceError', 'Укажите опыт работы'); hasError = true; }
-  if (!password || password.length < 6) { showAuthError('regPasswordError', 'Пароль минимум 6 символов'); hasError = true; }
-
-  if (hasError) {
-    btn.disabled = false;
-    btn.textContent = 'Зарегистрироваться';
-    return;
-  }
-
-  try {
-    const body = {
-      user_id: API_USER_ID,
-      first_name: firstName,
-      email: email,
-      specialty: specialty,
-      experience: experience,
-      password: password,
-      username: '',
-      last_name: '',
-    };
-
-    const resp = await fetch(apiUrl('/api/auth/register'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-
-    const data = await resp.json();
-
-    if (resp.ok && data.success) {
-      AUTH_STATE.registered = true;
-      lsSet('skillhunt_registered', 'true');
-      hideAuthScreens();
-      await initAppAfterAuth();
-      showToast('Добро пожаловать в SkillHunt! 🎉');
-    } else {
-      showToast(data.error || 'Ошибка регистрации');
-      btn.disabled = false;
-      btn.textContent = 'Зарегистрироваться';
-    }
-  } catch(e) {
-    console.error('Registration error:', e);
-    showToast('Ошибка сети: ' + (e.message || 'Попробуйте позже'));
-    btn.disabled = false;
-    btn.textContent = 'Зарегистрироваться';
-  }
-}
-
-// ── App Initialization After Auth ──
-let _authInitDone = false;
-async function initAppAfterAuth() {
-  if (_authInitDone) return;
+// ── App Initialization ──
+let _appInitDone = false;
+async function initApp() {
+  if (_appInitDone) return;
 
   if (isDark) document.documentElement.classList.add('dark');
   updateNavPill();
@@ -5798,6 +5342,9 @@ async function initAppAfterAuth() {
     }));
     lsSetJSON('skillhunt_applications', localApps);
   }
+
+  // Применяем профиль с сервера если есть
+  if (profile) applyServerProfile(profile);
 
   loadProfile();
   loadNotifSettings();
@@ -5839,35 +5386,17 @@ async function initAppAfterAuth() {
     }, 1500);
   }
 
-  lsSet('skillhunt_registered', 'true');
-  _authInitDone = true;
+  _appInitDone = true;
 }
 
 // ── Init — Entry Point ──
 async function init() {
   const splash = document.getElementById('splashOverlay');
 
-  // Проверяем статус регистрации (с таймаутом)
-  let authChecked = false;
-  const authPromise = checkAuthStatus().then(() => { authChecked = true; }).catch(() => { authChecked = true; });
-
-  // После splash (1.5с) решаем что показать
+  // После splash (1.5с) → сразу в приложение
   setTimeout(async () => {
-    // Ждём проверку авторизации ещё максимум 2с
-    if (!authChecked) {
-      await Promise.race([authPromise, new Promise(r => setTimeout(r, 2000))]);
-    }
-
     if (splash) splash.classList.add('hidden');
-
-    if (!AUTH_STATE.registered) {
-      // Не зарегистрирован → показываем форму регистрации
-      showRegisterScreen();
-      return;
-    }
-
-    // Зарегистрирован → сразу в приложение
-    await initAppAfterAuth();
+    await initApp();
   }, 1500);
 }
 
