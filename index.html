@@ -1104,13 +1104,22 @@ textarea.inp{min-height:80px;resize:vertical;line-height:1.5}
 .more-close-btn:active{transform:scale(.88)}
 .more-close-btn svg{width:14px;height:14px}
 
-/* Profile bar (white, below header) */
-.more-profile-bar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#0F1320;border-top:1px solid rgba(255,255,255,.05)}
-.more-profile-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5364FF,#6B7BFF);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;flex-shrink:0}
-.more-profile-info{flex:1;min-width:0}
-.more-profile-name{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Profile bar — Premium redesign */
+.more-profile-bar{display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(145deg,#0E1425 0%,#111B33 60%,#0D1220 100%);border-top:1px solid rgba(94,121,255,.1);position:relative;overflow:hidden}
+.more-profile-bar::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(94,121,255,.08),transparent 70%);pointer-events:none}
+.more-profile-av{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#5364FF 0%,#8E7FC4 50%,#6B7BFF 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:800;flex-shrink:0;position:relative;box-shadow:0 4px 14px rgba(83,100,255,.3);transition:transform .2s}
+.more-profile-av:active{transform:scale(.93)}
+.more-profile-av::after{content:'';position:absolute;bottom:-1px;right:-1px;width:13px;height:13px;border-radius:50%;background:linear-gradient(135deg,#8FF6D3,#B8FFE0);border:2px solid #111B33;box-shadow:0 0 6px rgba(143,246,211,.4)}
+.more-profile-av::before{content:'';position:absolute;inset:-2px;border-radius:17px;background:linear-gradient(135deg,rgba(94,121,255,.35),rgba(142,127,196,.25),rgba(94,121,255,.35));z-index:-1;opacity:.5}
+.more-profile-info{flex:1;min-width:0;position:relative;z-index:1}
+.more-profile-name{font-size:16px;font-weight:800;color:#FFFFFF;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--font-serif)}
 .more-profile-plan{font-size:11px;color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:3px;margin-top:2px}
 .more-profile-plan svg{width:10px;height:10px}
+.more-profile-meta{display:flex;align-items:center;gap:8px;margin-top:5px}
+.more-profile-meta-item{display:flex;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--text-3)}
+.more-profile-meta-item.primary{color:var(--primary)}
+.more-profile-meta-item.success{color:var(--success)}
+.more-profile-meta-sep{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.1)}
 
 /* Balance card */
 .more-balance-card{background:rgba(255,255,255,.04);border-radius:12px;padding:16px;margin:10px 12px;box-shadow:none;border:1px solid var(--border)}
@@ -1249,7 +1258,7 @@ textarea.inp{min-height:80px;resize:vertical;line-height:1.5}
 /* ── Dark Mode for More Module (Kwork-style) ── */
 .dark .more-panel{background:#18181c}
 .dark .more-header{background:var(--bg-card)}
-.dark .more-profile-bar{background:var(--bg-card);border-top-color:var(--border)}
+.dark .more-profile-bar{background:linear-gradient(145deg,#0E1425 0%,#111B33 60%,#0D1220 100%);border-top-color:rgba(94,121,255,.1)}
 .dark .more-balance-card{background:var(--bg-card);box-shadow:0 1px 6px rgba(0,0,0,.3)}
 .dark .more-balance-row{border-top-color:var(--border)}
 .dark .more-balance-row:hover{background:rgba(255,255,255,.03)}
@@ -1268,7 +1277,7 @@ textarea.inp{min-height:80px;resize:vertical;line-height:1.5}
 .dark .more-handle{background:var(--border)}
 .dark .more-balance-action{box-shadow:0 2px 10px rgba(139,154,232,.25)}
 .dark .more-section-head{color:var(--primary)}
-.dark .more-profile-bar{border-top-color:#2a2a30}
+.dark .more-profile-bar{border-top-color:rgba(94,121,255,.1)}
 .dark .more-menu-row-ico{color:var(--text-2)}
 .dark .more-bottom-row-ico{color:var(--text-2)}
 .dark .more-plat-status{color:var(--text-3)}
@@ -1808,7 +1817,7 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 .card-glow:hover{box-shadow:var(--shadow-card),inset 0 0 0 1px var(--primary-soft)}
 
 /* ── Responsive improvements ── */
-@media(max-width:360px){.dash-strip{gap:4px}.dash-metric{min-width:85px;padding:6px 8px}.dash-metric-val{font-size:13px}.plat-compare{grid-template-columns:1fr}.quick-info-bar{gap:4px}.qi-btn{padding:4px 6px;font-size:9px}.sgrid{grid-template-columns:1fr 1fr}.qact{grid-template-columns:1fr 1fr 1fr;gap:3px}.qact-btn{padding:8px 3px}.qact-l{font-size:9px}.glass-profile{padding:10px}.bnav-i{min-width:0}.trial-banner{padding:10px}.trial-banner-timer{gap:3px}.trial-timer-val{font-size:13px}.hero-greeting-name{font-size:15px}.hero-ai-headline{font-size:15px}.hero-metric-val{font-size:16px}.hero-metric{padding:8px 8px}.hero-cta{padding:9px 14px;font-size:12px}.guided-steps{gap:3px;padding:6px 8px}.guided-step{font-size:9px}.guided-step-num{width:14px;height:14px;font-size:7px}}
+@media(max-width:360px){.dash-strip{gap:4px}.dash-metric{min-width:85px;padding:6px 8px}.dash-metric-val{font-size:13px}.plat-compare{grid-template-columns:1fr}.quick-info-bar{gap:4px}.qi-btn{padding:4px 6px;font-size:9px}.sgrid{grid-template-columns:1fr 1fr}.qact{grid-template-columns:1fr 1fr 1fr;gap:3px}.qact-btn{padding:8px 3px}.qact-l{font-size:9px}.glass-profile{padding:10px}.bnav-i{min-width:0}.trial-banner{padding:10px}.trial-banner-timer{gap:3px}.trial-timer-val{font-size:13px}.hero-greeting-name{font-size:17px}.hero-greeting-avatar{width:44px;height:44px;font-size:18px;border-radius:14px}.hero-greeting-avatar::after{width:12px;height:12px}.hero-greeting-avatar::before{border-radius:17px}.hero-stat-val{font-size:13px}.hero-ai-headline{font-size:15px}.hero-metric-val{font-size:16px}.hero-metric{padding:8px 8px}.hero-cta{padding:9px 14px;font-size:12px}.guided-steps{gap:3px;padding:6px 8px}.guided-step{font-size:9px}.guided-step-num{width:14px;height:14px;font-size:7px}}
 
 /* ── Quick Info Bar (compact toggle buttons) ── */
 .quick-info-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
@@ -2024,19 +2033,33 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 .home-greeting-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:var(--radius-full);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;background:var(--success-light);color:var(--success);margin-left:6px;vertical-align:middle}
 .home-greeting-badge svg{width:9px;height:9px}
 
-/* ── Hero Section — Simplified First Screen ── */
-.hero-greeting{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg-card-solid);box-shadow:var(--shadow-card);margin-bottom:8px;position:relative;overflow:hidden}
-.hero-greeting-row{display:flex;align-items:center;gap:10px}
-.hero-greeting-avatar{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#5364FF 0%,#6B7BFF 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;font-family:var(--font-serif);flex-shrink:0;position:relative;box-shadow:0 2px 8px rgba(83,100,255,.3)}
-.hero-greeting-avatar::after{content:'';position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;border-radius:50%;background:#B8FFE0;border:2px solid rgba(255,255,255,.9);box-shadow:0 0 6px rgba(184,255,224,.5)}
-.hero-greeting-body{flex:1;min-width:0}
-.hero-greeting-time{font-size:11px;font-weight:500;color:#D9DDE8;line-height:1.2}
-.hero-greeting-name{font-size:18px;font-weight:700;color:#FFFFFF;letter-spacing:-.3px;line-height:1.2;font-family:var(--font-serif)}
-.hero-greeting-badges{display:flex;align-items:center;gap:6px;margin-top:2px}
-.hero-pro-badge{display:inline-flex;align-items:center;gap:3px;height:18px;padding:0 7px;border-radius:9px;background:rgba(255,255,255,.06);font-size:10px;font-weight:600;color:#FFFFFF;font-family:var(--font-sans)}
-.hero-pro-badge svg{width:9px;height:9px;color:#9CF5D7}
-.hero-online{font-size:10px;color:#FFFFFF;font-weight:500;display:flex;align-items:center;gap:4px;flex-shrink:0}
-.hero-online-dot{width:7px;height:7px;border-radius:50%;background:#B7FFE2;box-shadow:0 0 6px rgba(183,255,226,.6);animation:pulse-dot 2s ease-in-out infinite}
+/* ── Hero Section — Premium Profile Banner ── */
+.hero-greeting{padding:18px 16px 16px;border-radius:var(--radius-md);border:1px solid rgba(94,121,255,.12);background:linear-gradient(145deg,#0E1425 0%,#111B33 40%,#0D1220 100%);box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 0 1px rgba(94,121,255,.06),inset 0 1px 0 rgba(255,255,255,.04);margin-bottom:10px;position:relative;overflow:hidden}
+.hero-greeting::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(94,121,255,.1) 0%,rgba(142,127,196,.06) 50%,transparent 70%);pointer-events:none}
+.hero-greeting::after{content:'';position:absolute;bottom:-30px;left:-20px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(143,246,211,.05) 0%,transparent 70%);pointer-events:none}
+.hero-greeting-row{display:flex;align-items:flex-start;gap:14px;position:relative;z-index:1}
+.hero-greeting-avatar{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#5364FF 0%,#8E7FC4 50%,#6B7BFF 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:21px;font-weight:800;font-family:var(--font-serif);flex-shrink:0;position:relative;box-shadow:0 4px 16px rgba(83,100,255,.35),inset 0 1px 0 rgba(255,255,255,.15);transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
+.hero-greeting-avatar:active{transform:scale(.94)}
+.hero-greeting-avatar::after{content:'';position:absolute;bottom:-2px;right:-2px;width:15px;height:15px;border-radius:50%;background:linear-gradient(135deg,#8FF6D3,#B8FFE0);border:2.5px solid #111B33;box-shadow:0 0 8px rgba(143,246,211,.5);animation:pulse-dot 2s ease-in-out infinite}
+.hero-greeting-avatar::before{content:'';position:absolute;inset:-3px;border-radius:19px;background:linear-gradient(135deg,rgba(94,121,255,.4),rgba(142,127,196,.3),rgba(94,121,255,.4));z-index:-1;opacity:.6;animation:ringPulse 3s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{opacity:.4}50%{opacity:.7}}
+.hero-greeting-body{flex:1;min-width:0;padding-top:2px}
+.hero-greeting-time{font-size:12px;font-weight:500;color:#A0A8BE;line-height:1.2;letter-spacing:.2px}
+.hero-greeting-name{font-size:20px;font-weight:800;color:#FFFFFF;letter-spacing:-.4px;line-height:1.2;margin-top:1px;font-family:var(--font-serif)}
+.hero-greeting-badges{display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap}
+.hero-pro-badge{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 9px 0 7px;border-radius:11px;background:linear-gradient(135deg,rgba(94,121,255,.15),rgba(142,127,196,.15));border:1px solid rgba(94,121,255,.2);font-size:10px;font-weight:700;color:#B8C9FF;letter-spacing:.3px;text-transform:uppercase;font-family:var(--font-sans);transition:all .2s}
+.hero-pro-badge:hover{background:linear-gradient(135deg,rgba(94,121,255,.25),rgba(142,127,196,.25));border-color:rgba(94,121,255,.35)}
+.hero-pro-badge svg{width:10px;height:10px;color:#9CF5D7}
+.hero-online{font-size:10px;color:#8B95AD;font-weight:500;display:flex;align-items:center;gap:5px;flex-shrink:0}
+.hero-online-dot{width:8px;height:8px;border-radius:50%;background:#8FF6D3;box-shadow:0 0 8px rgba(143,246,211,.5),0 0 3px rgba(143,246,211,.8);animation:pulse-dot 2s ease-in-out infinite}
+.hero-greeting-stats{display:flex;align-items:center;gap:0;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);position:relative;z-index:1}
+.hero-stat-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 4px}
+.hero-stat-item+.hero-stat-item{border-left:1px solid rgba(255,255,255,.06)}
+.hero-stat-val{font-size:15px;font-weight:800;color:var(--text);font-family:var(--font-sans);letter-spacing:-.3px}
+.hero-stat-label{font-size:9px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px}
+.hero-stat-val.primary{color:var(--primary)}
+.hero-stat-val.success{color:var(--success)}
+.hero-stat-val.gold{color:var(--gold)}
 @keyframes pulse-dot{0%,100%{box-shadow:0 0 4px rgba(76,175,125,.4)}50%{box-shadow:0 0 10px rgba(76,175,125,.7)}}
 
 /* AI Hero Card */
@@ -2168,8 +2191,10 @@ button:focus-visible,a:focus-visible,.bnav-i:focus-visible,.tab:focus-visible,.s
 .home-trust-sep{opacity:.4;margin:0 1px}
 
 /* Dark mode overrides — minimal since base is already dark */
-.dark .hero-greeting{border-color:rgba(255,255,255,.1)}
-.dark .hero-greeting-avatar::after{border-color:#121827}
+.dark .hero-greeting{border-color:rgba(94,121,255,.15)}
+.dark .hero-greeting-avatar::after{border-color:#111B33}
+.dark .hero-greeting-avatar::before{background:linear-gradient(135deg,rgba(94,121,255,.5),rgba(142,127,196,.4),rgba(94,121,255,.5))}
+.dark .hero-greeting-stats{border-top-color:rgba(255,255,255,.08)}
 .dark .hero-ai-card{border-color:rgba(255,255,255,.1);box-shadow:0 10px 40px rgba(0,0,0,.5)}
 .dark .hero-ai-card:hover{border-color:rgba(94,121,255,.3)}
 .dark .hero-cta{box-shadow:0 10px 30px rgba(59,130,246,.3)}
@@ -3776,17 +3801,31 @@ select.inp option,select option{background:#121827;color:var(--text)}
             <span>Загрузка...</span>
           </div>
 
-          <!-- ═══ Profile Block — Premium Dark ═══ -->
+          <!-- ═══ Profile Block — Premium Dark Banner ═══ -->
           <div class="hero-greeting animate-in" id="feedGreeting">
             <div class="hero-greeting-row">
               <div class="hero-greeting-avatar" id="userAvatar">А</div>
               <div class="hero-greeting-body">
                 <div class="hero-greeting-time" id="greetingTime">Доброе утро,</div>
                 <div class="hero-greeting-name" id="userName"></div>
-                <div class="hero-greeting-badges">
-                  <span class="hero-pro-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO</span>
+                <div class="hero-greeting-badges" id="heroBadges">
+                  <span class="hero-pro-badge" id="heroProBadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO</span>
                   <span class="hero-online"><span class="hero-online-dot"></span>online</span>
                 </div>
+              </div>
+            </div>
+            <div class="hero-greeting-stats">
+              <div class="hero-stat-item">
+                <span class="hero-stat-val primary" id="heroStatTokens">0</span>
+                <span class="hero-stat-label">Токены</span>
+              </div>
+              <div class="hero-stat-item">
+                <span class="hero-stat-val success" id="heroStatApps">0</span>
+                <span class="hero-stat-label">Отклики</span>
+              </div>
+              <div class="hero-stat-item">
+                <span class="hero-stat-val gold" id="heroStatRating">4.9</span>
+                <span class="hero-stat-label">Рейтинг</span>
               </div>
             </div>
           </div>
@@ -4162,21 +4201,26 @@ select.inp option,select option{background:#121827;color:var(--text)}
       </button>
     </div>
 
-    <!-- Profile -->
+    <!-- Profile — Premium -->
     <div class="more-profile-bar" style="cursor:pointer" onclick="openMoreSub('edit-profile', event)">
       <div class="more-profile-av" id="moreAvatar">?</div>
       <div class="more-profile-info" style="flex:1;min-width:0">
         <div class="more-profile-name" id="moreName"></div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
-          <span style="font-size:10px;color:var(--success);font-weight:600;font-family:var(--font-sans)">● online</span>
-          <span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">·</span>
-          <div style="flex:1;height:3px;background:var(--bg-input);border-radius:2px;overflow:hidden;max-width:80px">
-            <div id="profileCompletenessBar" style="height:100%;background:var(--success);border-radius:2px;width:0%;transition:width .5s"></div>
+        <div class="more-profile-meta">
+          <span class="more-profile-meta-item success" style="display:flex;align-items:center;gap:3px"><span class="hero-online-dot" style="width:6px;height:6px"></span>online</span>
+          <span class="more-profile-meta-sep"></span>
+          <span class="more-profile-meta-item primary" id="moreMetaTokens">0 токенов</span>
+          <span class="more-profile-meta-sep"></span>
+          <span class="more-profile-meta-item" id="moreMetaPlan">Free</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:5px">
+          <div style="flex:1;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;max-width:100px">
+            <div id="profileCompletenessBar" style="height:100%;background:linear-gradient(90deg,var(--primary),var(--success));border-radius:2px;width:0%;transition:width .5s"></div>
           </div>
-          <span id="profileCompletenessText" style="font-size:10px;color:var(--text-3);font-weight:600">0%</span>
+          <span id="profileCompletenessText" style="font-size:9px;color:var(--text-3);font-weight:700;letter-spacing:.3px">0%</span>
         </div>
       </div>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" style="flex-shrink:0;opacity:.4"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
 
     <!-- Balance as menu row -->
@@ -4372,7 +4416,7 @@ select.inp option,select option{background:#121827;color:var(--text)}
       </div>
       <div class="trial-end-offer">
         <div class="trial-end-offer-label">Подписка Pro</div>
-        <div class="trial-end-offer-price"><span class="old">$9.99</span><span id="trialEndPrice">$4.99</span></div>
+        <div class="trial-end-offer-price"><span class="old">$9.99</span><span id="trialEndPrice">${getTrialSpecialPrice()}</span></div>
         <div class="trial-end-offer-period">/месяц · Отмена в любой момент</div>
         <div class="trial-end-offer-save">Скорость и преимущество в работе с заказами</div>
       </div>
@@ -4468,10 +4512,39 @@ function announce(message) {
   if (el) { el.textContent = ''; requestAnimationFrame(() => { el.textContent = message; }); }
 }
 
+// ── Category config helper ──
+function getCatLabels() {
+  if (APP_CONFIG && APP_CONFIG.categories) {
+    const labels = {};
+    for (const [k, v] of Object.entries(APP_CONFIG.categories)) { labels[k] = v.label; }
+    return labels;
+  }
+  return { ai:'AI/ML', design:'Design', dev:'Development', data:'Data', devops:'DevOps', writing:'Writing', marketing:'Marketing' };
+}
+function getCatColors() {
+  if (APP_CONFIG && APP_CONFIG.categories) {
+    const colors = {};
+    for (const [k, v] of Object.entries(APP_CONFIG.categories)) { colors[k] = v.color; }
+    return colors;
+  }
+  return { ai:'tag-primary', design:'tag-lavender', dev:'tag-mint', data:'tag-amber', devops:'tag-coral', writing:'tag-sky', marketing:'tag-rose' };
+}
+function getCatDotColors() {
+  if (APP_CONFIG && APP_CONFIG.categories) {
+    const dots = {};
+    for (const [k, v] of Object.entries(APP_CONFIG.categories)) { dots[k] = v.dot; }
+    return dots;
+  }
+  return { ai:'#6C7BD4', design:'#8E7FD4', dev:'#5BBF8F', data:'#E5A54B', devops:'#E57373', writing:'#64B5F6', marketing:'#F06292' };
+}
+
 // ── Dynamic Data (loaded from API) ──
 let MOCK_JOBS = []; // Populated from /api/jobs
-let EXCHANGE_RATE = 92.5; // Default, updated from /api/exchange-rate
+let EXCHANGE_RATE = 92; // Updated from /api/exchange-rate, default 92 if API unavailable
 let SERVER_STATS = null; // Populated from /api/stats
+let APP_CONFIG = null; // Populated from /api/config
+let SERVER_NOTIFICATIONS = []; // Populated from /api/notifications
+let SERVER_PAYMENTS = []; // Populated from /api/payments
 
 // ── API Layer ──
 const API_BASE = (function() {
@@ -4538,6 +4611,12 @@ async function fetchSavedJobs() { const data = await apiFetch('/api/saved'); ret
 async function fetchSkills() { const data = await apiFetch('/api/skills'); return data ? data.skills : []; }
 async function fetchPortfolio() { const data = await apiFetch('/api/portfolio'); return data ? data.portfolio : []; }
 async function fetchTemplates() { const data = await apiFetch('/api/templates'); return data ? data.templates : []; }
+async function fetchConfig() { const data = await apiFetch('/api/config'); if (data) { APP_CONFIG = data; } return data; }
+async function fetchNotifications() { const data = await apiFetch('/api/notifications'); if (data) { SERVER_NOTIFICATIONS = data.notifications || []; } return SERVER_NOTIFICATIONS; }
+async function fetchPayments() { const data = await apiFetch('/api/payments'); if (data) { SERVER_PAYMENTS = data.payments || []; } return SERVER_PAYMENTS; }
+async function fetchJobCompetitors(jobId) { return await apiFetch('/api/jobs/' + jobId + '/competitors'); }
+async function fetchJobClientInsights(jobId) { return await apiFetch('/api/jobs/' + jobId + '/client-insights'); }
+async function fetchJobStrategy(jobId) { return await apiFetch('/api/jobs/' + jobId + '/strategy'); }
 
 // ── State ──
 let currentTab = 0;
@@ -4556,11 +4635,22 @@ let searchDebounceTimer = null;
 // ═══════════════════════════════════════════════════════════
 // ── Subscription State System ──
 // ═══════════════════════════════════════════════════════════
-const FREE_APP_LIMIT = 3; // Free: 3 applications per month
-const FREE_SAVE_LIMIT = 3; // Free: 3 saved jobs per month
-const FREE_VISIBLE_JOBS = 6; // Free: only 6 out of 15 jobs visible
-const EARLY_ACCESS_HOURS = 2; // Jobs posted within 2 hours are early access
-const DELAYED_HOURS = 24; // Free users see "Доступно через 24ч" for recent jobs
+// Plan limits are now loaded from /api/config → APP_CONFIG.planLimits
+function getFreeAppLimit() { return (APP_CONFIG && APP_CONFIG.planLimits && APP_CONFIG.planLimits.free) ? APP_CONFIG.planLimits.free.appLimit : 3; }
+function getFreeSaveLimit() { return (APP_CONFIG && APP_CONFIG.planLimits && APP_CONFIG.planLimits.free) ? APP_CONFIG.planLimits.free.saveLimit : 3; }
+function getFreeVisibleJobs() { return (APP_CONFIG && APP_CONFIG.planLimits && APP_CONFIG.planLimits.free) ? APP_CONFIG.planLimits.free.visibleJobs : 6; }
+function getEarlyAccessHours() { return (APP_CONFIG && APP_CONFIG.planLimits && APP_CONFIG.planLimits.pro) ? APP_CONFIG.planLimits.pro.earlyAccessHours : 2; }
+function getDelayedHours() { return (APP_CONFIG && APP_CONFIG.planLimits && APP_CONFIG.planLimits.free) ? APP_CONFIG.planLimits.free.delayedHours : 24; }
+function getTrialDays() { return (APP_CONFIG && APP_CONFIG.planLimits && APP_CONFIG.planLimits.trial) ? APP_CONFIG.planLimits.trial.days : 3; }
+function getTrialSpecialPrice() { return (APP_CONFIG && APP_CONFIG.planPrices) ? APP_CONFIG.planPrices.trialSpecialPrice : 4.99; }
+function getProFullPrice() { return (APP_CONFIG && APP_CONFIG.planPrices && APP_CONFIG.planPrices.pro) ? APP_CONFIG.planPrices.pro.fullPrice : 9.99; }
+function getMaxJobBudget() { return (APP_CONFIG && APP_CONFIG.maxJobBudget) ? APP_CONFIG.maxJobBudget : 15000; }
+// Legacy constant names for compatibility
+const FREE_APP_LIMIT = 3;
+const FREE_SAVE_LIMIT = 3;
+const FREE_VISIBLE_JOBS = 6;
+const EARLY_ACCESS_HOURS = 2;
+const DELAYED_HOURS = 24;
 const TRIAL_DAYS = 3;
 
 // Cached subscription data from API
@@ -4591,7 +4681,7 @@ function getSubscription() {
   if (_cachedSubscription) return _cachedSubscription;
   const cached = lsGetJSON('skillhunt_subscription', null);
   if (cached) return cached;
-  return { plan:'free', trialStartedAt:null, trialDaysTotal:TRIAL_DAYS, monthlyAppCount:0, monthlyAppResetDate:new Date().toISOString().slice(0,7), aiProposalCount:0, proViewsCount:0, trialSpecialPrice:4.99, trialOfferShown:false, savedCount:0 };
+  return { plan:'free', trialStartedAt:null, trialDaysTotal:getTrialDays(), monthlyAppCount:0, monthlyAppResetDate:new Date().toISOString().slice(0,7), aiProposalCount:0, proViewsCount:0, trialSpecialPrice:getTrialSpecialPrice(), trialOfferShown:false, savedCount:0 };
 }
 
 function isPro() {
@@ -4625,7 +4715,8 @@ function getTrialHoursLeft() {
 function canApply() {
   const sub = getSubscription();
   if (isPro()) return { allowed:true, remaining:'∞' };
-  const remaining = Math.max(0, FREE_APP_LIMIT - sub.monthlyAppCount);
+  const limit = sub.monthlyAppLimit || getFreeAppLimit();
+  const remaining = Math.max(0, limit - sub.monthlyAppCount);
   return { allowed: remaining > 0, remaining: remaining };
 }
 
@@ -4633,7 +4724,8 @@ function canSave() {
   const sub = getSubscription();
   if (isPro()) return { allowed:true, remaining:'∞' };
   const savedCount = sub.savedCount || 0;
-  const remaining = Math.max(0, FREE_SAVE_LIMIT - savedCount);
+  const limit = sub.savedLimit || getFreeSaveLimit();
+  const remaining = Math.max(0, limit - savedCount);
   return { allowed: remaining > 0, remaining: remaining };
 }
 
@@ -4706,7 +4798,7 @@ async function skipTrialEnd() {
 function showProUpgrade() {
   const overlay = document.getElementById('trialEndOverlay');
   const sub = getSubscription();
-  const price = (sub.trialSpecialPrice || 4.99).toFixed(2);
+  const price = (sub.trialSpecialPrice || getTrialSpecialPrice()).toFixed(2);
   document.getElementById('trialEndTitle').textContent = 'Подключите Pro';
   document.getElementById('trialEndSub').textContent = 'Расширенные инструменты для работы с заказами';
   document.getElementById('trialEndApps').textContent = sub.monthlyAppCount || 0;
@@ -4749,7 +4841,7 @@ function renderTrialBar() {
   // Free: show upgrade prompt
   const canApp = canApply();
   if (!canApp.allowed) {
-    container.innerHTML = '<div class="trial-bar ending" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Лимит откликов <span class="trial-days">0/' + FREE_APP_LIMIT + '</span></div><div class="trial-bar-sub">Безлимитные отклики доступны с Pro</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
+    container.innerHTML = '<div class="trial-bar ending" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Лимит откликов <span class="trial-days">0/' + getFreeAppLimit() + '</span></div><div class="trial-bar-sub">Безлимитные отклики доступны с Pro</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
   } else {
     container.innerHTML = '<div class="trial-bar" onclick="showProUpgrade()"><div class="trial-bar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="trial-bar-body"><div class="trial-bar-title">Попробуйте Pro <span class="trial-days">3 дня бесплатно</span></div><div class="trial-bar-sub">AI-анализ · Безлимит откликов · Ранний доступ</div></div><span class="trial-bar-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span></div>';
   }
@@ -4780,7 +4872,7 @@ function renderProImpact() {
   const ctaAction = isTrial ? 'showProUpgrade()' : "openMoreSub('tariff')";
   const badgeText = isTrial ? 'ТРИАЛ' : 'PRO';
   
-  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Статистика Pro</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенц. заработок</div></div></div><div class="pro-impact-compare">Без Pro — <b>' + FREE_APP_LIMIT + ' откликов/мес</b> и <b>6 из 15 заказов</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
+  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Статистика Pro</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенц. заработок</div></div></div><div class="pro-impact-compare">Без Pro — <b>' + getFreeAppLimit() + ' откликов/мес</b> и <b>' + getFreeVisibleJobs() + ' из ' + MOCK_JOBS.length + ' заказов</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
 }
 
 // ── AI Cover Letter Generator ──
@@ -4881,6 +4973,8 @@ function copyAICover() {
 
 function sendAICover() {
   const jobId = parseInt(document.getElementById('aiCoverSendBtn').dataset.jobId);
+  const textEl = document.getElementById('aiCoverText');
+  const coverText = textEl ? textEl.textContent : '';
   closeAICover();
   
   const job = MOCK_JOBS.find(j => j.id === jobId);
@@ -4891,11 +4985,13 @@ function sendAICover() {
     closeJobDetail();
     return;
   }
-  apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'sent', aiGenerated: true });
+  apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'sent', aiGenerated: true, coverLetter: coverText });
   lsSetJSON('skillhunt_applications', apps);
   incrementAppCount();
   incrementAICount();
   updateAppCount();
+  // Send to API
+  apiPost('/api/applications', { job_id: jobId, cover_letter: coverText, ai_generated: true }).catch(() => {});
   showToast('Отклик отправлен. Клиент получит уведомление.');
   announce('Отклик отправлен');
   closeJobDetail();
@@ -4930,21 +5026,21 @@ function openAIStrategy(jobId) {
   }, 2400);
 }
 
-function renderAIStrategyResult(jobId) {
+async function renderAIStrategyResult(jobId) {
   const job = MOCK_JOBS.find(j => j.id === jobId);
   if (!job) return;
   
-  const winProb = 55 + Math.floor(Math.random() * 30); // 55-85
-  const bidMin = Math.round(job.budgetMin * 0.8 + job.budgetMax * 0.2);
-  const bidMax = Math.round(job.budgetMin * 0.3 + job.budgetMax * 0.7);
-  
-  const argumentsData = [
-    'Опыт в ' + job.skills[0] + ' — ключевой навык для этого проекта',
+  const strategyData = await fetchJobStrategy(job.id);
+  const winProb = strategyData ? (strategyData.winProbability || 0) : 0;
+  const bidMin = strategyData ? (strategyData.recommendedBidMin || 0) : 0;
+  const bidMax = strategyData ? (strategyData.recommendedBidMax || 0) : 0;
+  const strategyArgs = (strategyData && strategyData.arguments && strategyData.arguments.length > 0) ? strategyData.arguments : [
+    'Опыт в ' + (job.skills[0] || 'вашей специализации') + ' — ключевой навык для этого проекта',
     'Рейтинг ' + job.clientRating + '+ у клиента — ценит качество, готов платить',
     'Сжатые сроки — предложите MVP за 2 недели для быстрого старта'
   ];
-  const risks = [
-    'Высокая конкуренция — ' + (5 + Math.floor(Math.random() * 15)) + ' откликов за первый час',
+  const strategyRisks = (strategyData && strategyData.risks && strategyData.risks.length > 0) ? strategyData.risks : [
+    'Высокая конкуренция — отклики поступают быстро',
     'Бюджет может быть фиксированным — торг затруднён',
     'Клиент впервые в платформе — может не знать процесс'
   ];
@@ -4981,11 +5077,11 @@ function renderAIStrategyResult(jobId) {
     </div>
     <div class="ai-strategy-section">
       <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ключевые аргументы</div>
-      ${argumentsData.map(a => '<div class="ai-strategy-arg"><div class="ai-strategy-arg-dot"></div><span>' + esc(a) + '</span></div>').join('')}
+      ${strategyArgs.map(a => '<div class="ai-strategy-arg"><div class="ai-strategy-arg-dot"></div><span>' + esc(a) + '</span></div>').join('')}
     </div>
     <div class="ai-strategy-section">
       <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Факторы риска</div>
-      ${risks.map(r => '<div class="ai-strategy-risk"><div class="ai-strategy-risk-dot"></div><span>' + esc(r) + '</span></div>').join('')}
+      ${strategyRisks.map(r => '<div class="ai-strategy-risk"><div class="ai-strategy-risk-dot"></div><span>' + esc(r) + '</span></div>').join('')}
     </div>
     <div class="ai-strategy-section">
       <div class="ai-strategy-section-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Советы по подаче</div>
@@ -5031,7 +5127,7 @@ function checkTrialEnd() {
     document.getElementById('trialEndTime').textContent = timeSaved + ' мин';
     document.getElementById('trialEndEarnings').textContent = '$' + totalEarnings.toLocaleString();
     
-    const price = (sub.trialSpecialPrice || 4.99).toFixed(2);
+    const price = (sub.trialSpecialPrice || getTrialSpecialPrice()).toFixed(2);
     document.getElementById('trialEndPrice').textContent = '$' + price;
     document.getElementById('trialEndOverlay').querySelector('.trial-end-btn').innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Подключить Pro за $' + price + '/мес';
     
@@ -5192,15 +5288,18 @@ async function init() {
   updateGreetingTime();
   
   // ── Load all data from API in parallel ──
-  const [jobs, rate, profile, subscription, balance, applications, saved, stats] = await Promise.all([
+  await fetchConfig();
+  const [jobs, rate, profile, subscription, balance, applications, saved, stats, notifications, payments] = await Promise.all([
     fetchJobs().catch(() => []),
-    fetchExchangeRate().catch(() => 92.5),
+    fetchExchangeRate().catch(() => 0),
     fetchProfile().catch(() => null),
     getSubscriptionAsync().catch(() => null),
     fetchBalance().catch(() => 0),
     fetchApplications().catch(() => []),
     fetchSavedJobs().catch(() => []),
     fetchStats().catch(() => null),
+    fetchNotifications().catch(() => []),
+    fetchPayments().catch(() => []),
   ]);
   
   // Apply loaded data
@@ -5234,16 +5333,14 @@ async function init() {
   document.getElementById('feedSkeleton').style.display = 'block';
   document.getElementById('feedJobList').style.display = 'none';
   
-  setTimeout(() => {
-    isLoading = false;
-    document.getElementById('feedSkeleton').style.display = 'none';
-    document.getElementById('feedJobList').style.display = 'block';
-    renderFeed();
-    renderSearchResults();
-    renderSavedJobs();
-    renderResponses();
-    updateHeroMetrics();
-  }, 1500);
+  isLoading = false;
+  document.getElementById('feedSkeleton').style.display = 'none';
+  document.getElementById('feedJobList').style.display = 'block';
+  renderFeed();
+  renderSearchResults();
+  renderSavedJobs();
+  renderResponses();
+  updateHeroMetrics();
   
   setupSwipe();
   updateHeroMetrics();
@@ -5304,7 +5401,7 @@ function updateHeroMetrics() {
     if (totalEarningsRub > 0) {
       incomeEl.textContent = totalEarningsRub.toLocaleString('ru-RU') + ' ₽';
     } else if (MOCK_JOBS.length > 0) {
-      const visibleJobs = pro ? MOCK_JOBS : MOCK_JOBS.slice(0, FREE_VISIBLE_JOBS);
+      const visibleJobs = pro ? MOCK_JOBS : MOCK_JOBS.slice(0, getFreeVisibleJobs());
       const potential = Math.round(visibleJobs.reduce((s, j) => s + j.budgetMax, 0) * EXCHANGE_RATE);
       incomeEl.textContent = potential.toLocaleString('ru-RU') + ' ₽';
     } else {
@@ -5313,7 +5410,7 @@ function updateHeroMetrics() {
   }
   if (incomeBar && MOCK_JOBS.length > 0) {
     const maxPotential = Math.round(MOCK_JOBS.reduce((s, j) => s + j.budgetMax, 0) * EXCHANGE_RATE);
-    const currentPotential = totalEarningsRub > 0 ? totalEarningsRub : Math.round((pro ? MOCK_JOBS : MOCK_JOBS.slice(0, FREE_VISIBLE_JOBS)).reduce((s, j) => s + j.budgetMax, 0) * EXCHANGE_RATE);
+    const currentPotential = totalEarningsRub > 0 ? totalEarningsRub : Math.round((pro ? MOCK_JOBS : MOCK_JOBS.slice(0, getFreeVisibleJobs())).reduce((s, j) => s + j.budgetMax, 0) * EXCHANGE_RATE);
     incomeBar.style.width = Math.min(100, Math.round(currentPotential / maxPotential * 100)) + '%';
   }
   
@@ -5418,16 +5515,16 @@ function renderJobCard(job, showSave = true, isSavedView = false) {
   const isSaved = savedJobs.includes(job.id);
   const matchColor = job.match > 80 ? 'var(--success)' : job.match > 60 ? 'var(--primary)' : 'var(--text-3)';
   const matchBg = job.match > 80 ? 'match-badge-high' : job.match > 60 ? 'match-badge-mid' : 'match-badge-low';
-  const catLabels = { ai:'AI/ML', design:'Design', dev:'Development', writing:'Writing', marketing:'Marketing', data:'Data', devops:'DevOps' };
-  const catColors = { ai:'tag-primary', design:'tag-lavender', dev:'tag-mint', writing:'tag-accent', marketing:'tag-mint', data:'tag-primary', devops:'tag-danger' };
-  const catDotColors = { ai:'#6C7BD4', design:'#8E7FD4', dev:'#5BBF8F', writing:'#E07C6C', marketing:'#5A9FD4', data:'#6C7BD4', devops:'#D9534F' };
+  const catLabels = getCatLabels();
+  const catColors = getCatColors();
+  const catDotColors = getCatDotColors();
   const levelLabels = { junior:'Junior', middle:'Middle', senior:'Senior', lead:'Lead' };
 
   const stars = renderStars(job.clientRating);
   const skillsHtml = job.skills.slice(0, 3).map(s => `<span class="chip">${esc(s)}</span>`).join('') + (job.skills.length > 3 ? `<span class="chip">+${job.skills.length - 3}</span>` : '');
 
   // Budget range calculation (max budget in data is 15000)
-  const maxBudget = 15000;
+  const maxBudget = getMaxJobBudget();
   const budgetLeft = Math.round((job.budgetMin / maxBudget) * 100);
   const budgetWidth = Math.round(((job.budgetMax - job.budgetMin) / maxBudget) * 100);
 
@@ -5582,8 +5679,8 @@ function renderFeed() {
       cardsHtml = jobs.map(j => renderJobCard(j, true)).join('');
     } else {
       // Free users: first FREE_VISIBLE_JOBS as normal cards, rest as compact locked rows
-      const visibleJobs = jobs.slice(0, FREE_VISIBLE_JOBS);
-      const lockedJobs = jobs.slice(FREE_VISIBLE_JOBS);
+      const visibleJobs = jobs.slice(0, getFreeVisibleJobs());
+      const lockedJobs = jobs.slice(getFreeVisibleJobs());
       
       cardsHtml = visibleJobs.map(j => renderJobCard(j, true)).join('');
       
@@ -5843,8 +5940,8 @@ function renderSavedJobs() {
 
     if (savedSort === 'category' || savedViewMode === 'grouped') {
       // Group by category
-      const catLabels = { ai:'AI/ML', design:'Design', dev:'Development', writing:'Writing', marketing:'Marketing', data:'Data', devops:'DevOps' };
-      const catDotColors = { ai:'#6C7BD4', design:'#8E7FD4', dev:'#5BBF8F', writing:'#E07C6C', marketing:'#5A9FD4', data:'#6C7BD4', devops:'#D9534F' };
+      const catLabels = getCatLabels();
+      const catDotColors = getCatDotColors();
       const groups = {};
       jobs.forEach(j => {
         const cat = j.category || 'other';
@@ -5940,13 +6037,16 @@ function setupSwipeDelete() {
 }
 
 // ── Competitor Analysis (Pro feature in job detail) ──
-function renderCompetitorAnalysis(job) {
-  const applicantCount = 5 + Math.floor(Math.random() * 42); // 5-47
-  const avgBudget = Math.round((job.budgetMin + job.budgetMax) / 2 * (0.7 + Math.random() * 0.3));
-  const rank = Math.max(1, Math.min(applicantCount, Math.ceil(applicantCount * 0.3)));
-  const rankPct = Math.round((1 - rank / applicantCount) * 100);
+async function renderCompetitorAnalysis(job) {
+  const competitorData = await fetchJobCompetitors(job.id);
+  const applicantCount = competitorData ? (competitorData.applicantCount || 0) : 0;
+  const avgBudget = competitorData ? (competitorData.avgBudget || Math.round((job.budgetMin + job.budgetMax) / 2)) : Math.round((job.budgetMin + job.budgetMax) / 2);
+  const rank = competitorData ? (competitorData.userRank || 0) : 0;
+  const rankPct = applicantCount > 0 ? Math.round((1 - rank / applicantCount) * 100) : 0;
   const rankColor = rankPct > 70 ? 'var(--success)' : rankPct > 40 ? 'var(--primary)' : 'var(--warning)';
-  return '<div class="competitor-analysis"><div class="competitor-analysis-header"><div class="competitor-analysis-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Конкурентный анализ</div></div><div class="competitor-stat"><span class="competitor-stat-label">Заявки на заказ</span><span class="competitor-stat-val highlight">' + applicantCount + '</span></div><div class="competitor-stat"><span class="competitor-stat-label">Средний бюджет</span><span class="competitor-stat-val">$' + avgBudget.toLocaleString() + '</span></div><div class="competitor-stat"><span class="competitor-stat-label">Ваш ранг</span><span class="competitor-stat-val" style="color:' + rankColor + '">#' + rank + ' из ' + applicantCount + '</span></div><div class="competitor-rank-bar"><div class="competitor-rank-fill" style="width:' + rankPct + '%;background:' + rankColor + '"></div></div><div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>Ваше преимущество: опыт с ' + esc(job.skills[0]) + ' и рейтинг выше среднего</span></div><div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>AI-отклик повышает качество отклика</span></div></div>';
+  const advantages = (competitorData && competitorData.advantages && competitorData.advantages.length > 0) ? competitorData.advantages : ['Опыт с ' + esc(job.skills[0] || 'ключевыми технологиями')];
+  const tips = (competitorData && competitorData.tips && competitorData.tips.length > 0) ? competitorData.tips : ['AI-отклик повышает качество отклика'];
+  return '<div class="competitor-analysis"><div class="competitor-analysis-header"><div class="competitor-analysis-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Конкурентный анализ</div></div><div class="competitor-stat"><span class="competitor-stat-label">Заявки на заказ</span><span class="competitor-stat-val highlight">' + applicantCount + '</span></div><div class="competitor-stat"><span class="competitor-stat-label">Средний бюджет</span><span class="competitor-stat-val">$' + avgBudget.toLocaleString() + '</span></div>' + (applicantCount > 0 ? '<div class="competitor-stat"><span class="competitor-stat-label">Ваш ранг</span><span class="competitor-stat-val" style="color:' + rankColor + '">#' + rank + ' из ' + applicantCount + '</span></div><div class="competitor-rank-bar"><div class="competitor-rank-fill" style="width:' + rankPct + '%;background:' + rankColor + '"></div></div>' : '') + advantages.map(a => '<div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>' + esc(a) + '</span></div>').join('') + tips.map(t => '<div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>' + esc(t) + '</span></div>').join('') + '</div>';
 }
 
 function renderCompetitorAnalysisLocked() {
@@ -5954,13 +6054,14 @@ function renderCompetitorAnalysisLocked() {
 }
 
 // ── Client Insights (Pro feature in job detail) ──
-function renderClientInsights(job) {
-  const totalSpending = (job.clientOrders * (job.budgetMin + job.budgetMax) / 2 * (0.6 + Math.random() * 0.4));
-  const avgPaySpeed = Math.floor(2 + Math.random() * 5); // 2-6 days
-  const hireRate = Math.floor(40 + Math.random() * 40); // 40-80%
-  const isRepeat = job.clientOrders > 15;
-  const lastActive = '—'; // Determined by API
-  return '<div class="card mb-12" style="border-color:rgba(90,159,212,.15)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Инсайты клиента</span>' + (isRepeat ? '<span class="client-insight-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Постоянный</span>' : '') + '</div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Всего потратил</span><span class="client-insight-value">$' + Math.round(totalSpending).toLocaleString() + '</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Скорость оплаты</span><span class="client-insight-value">' + avgPaySpeed + ' дн.</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Нанимает</span><span class="client-insight-value">' + hireRate + '% откликов</span></div><div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>Последний вход</span><span class="client-insight-value">' + esc(lastActive) + '</span></div></div>';
+async function renderClientInsights(job) {
+  const clientData = await fetchJobClientInsights(job.id);
+  const totalSpending = clientData ? (clientData.totalSpending || 0) : 0;
+  const avgPaySpeed = clientData ? (clientData.avgPaySpeedDays || 0) : 0;
+  const hireRate = clientData ? (clientData.hireRatePercent || 0) : 0;
+  const isRepeat = clientData ? (clientData.isRepeatClient || false) : false;
+  const lastActive = clientData ? (clientData.lastActiveAt || '—') : '—';
+  return '<div class="card mb-12" style="border-color:rgba(90,159,212,.15)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Инсайты клиента</span>' + (isRepeat ? '<span class="client-insight-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Постоянный</span>' : '') + '</div>' + (totalSpending > 0 ? '<div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Всего потратил</span><span class="client-insight-value">$' + Math.round(totalSpending).toLocaleString() + '</span></div>' : '') + (avgPaySpeed > 0 ? '<div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Скорость оплаты</span><span class="client-insight-value">' + avgPaySpeed + ' дн.</span></div>' : '') + (hireRate > 0 ? '<div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Нанимает</span><span class="client-insight-value">' + hireRate + '% откликов</span></div>' : '') + '<div class="client-insight-row"><span class="client-insight-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>Последний вход</span><span class="client-insight-value">' + esc(String(lastActive)) + '</span></div></div>';
 }
 
 function renderClientInsightsLocked() {
@@ -5976,7 +6077,7 @@ function openJobDetail(jobId) {
   const isSaved = savedJobs.includes(job.id);
   const matchColor = job.match > 80 ? 'var(--success)' : job.match > 60 ? 'var(--primary)' : 'var(--text-3)';
   const matchBg = job.match > 80 ? 'var(--success-light)' : job.match > 60 ? 'var(--primary-light)' : 'var(--bg-input)';
-  const catLabels = { ai:'AI/ML', design:'Design', dev:'Development', writing:'Writing', marketing:'Marketing', data:'Data', devops:'DevOps' };
+  const catLabels = getCatLabels();
   const levelLabels = { junior:'Junior', middle:'Middle', senior:'Senior', lead:'Lead' };
   const typeLabels = { remote:'Удалённо', hybrid:'Гибрид', office:'Офис' };
   
@@ -6066,9 +6167,9 @@ function openJobDetail(jobId) {
       ${job.match <= 60 ? '<div style="margin-top:8px;font-size:11px;color:var(--warning);font-weight:600;font-family:var(--font-sans);display:flex;align-items:center;gap:4px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Низкая вероятность успеха</div>' : ''}
     </div>
 
-    ${isPro() ? renderCompetitorAnalysis(job) : renderCompetitorAnalysisLocked()}
+    ${isPro() ? '<div id="competitorAnalysisPlaceholder"></div>' : renderCompetitorAnalysisLocked()}
 
-    ${isPro() ? renderClientInsights(job) : renderClientInsightsLocked()}
+    ${isPro() ? '<div id="clientInsightsPlaceholder"></div>' : renderClientInsightsLocked()}
 
     <!-- Action Buttons — очевидные, внизу -->
     <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-soft)">
@@ -6080,13 +6181,25 @@ function openJobDetail(jobId) {
         ${isSaved ? 'Убрать из сохранённых' : 'Сохранить'}
       </button>
     </div>
-    ${!isPro() ? '<div class="app-counter" style="margin-top:8px"><span>Откликов: ' + canApply().remaining + '/' + FREE_APP_LIMIT + ' · Сохранений: ' + canSave().remaining + '/' + FREE_SAVE_LIMIT + '</span><div class="app-counter-bar"><div class="app-counter-fill ' + (canApply().remaining <= 1 ? 'danger' : canApply().remaining <= 2 ? 'warn' : '') + '" style="width:' + (canApply().remaining / FREE_APP_LIMIT * 100) + '%"></div></div><span class="app-counter-pro" onclick="showProUpgrade()"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>' : ''}
+    ${!isPro() ? '<div class="app-counter" style="margin-top:8px"><span>Откликов: ' + canApply().remaining + '/' + getFreeAppLimit() + ' · Сохранений: ' + canSave().remaining + '/' + getFreeSaveLimit() + '</span><div class="app-counter-bar"><div class="app-counter-fill ' + (canApply().remaining <= 1 ? 'danger' : canApply().remaining <= 2 ? 'warn' : '') + '" style="width:' + (canApply().remaining / getFreeAppLimit() * 100) + '%"></div></div><span class="app-counter-pro" onclick="showProUpgrade()"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Pro</span></div>' : ''}
   `;
   
   const sub = document.getElementById('jobDetailSub');
   sub.classList.add('active');
   sub.classList.remove('closing');
   document.getElementById('bnav').classList.add('nav-hidden');
+  
+  // Load async Pro data (competitor analysis, client insights) after render
+  if (isPro()) {
+    renderCompetitorAnalysis(job).then(html => {
+      const el = document.getElementById('competitorAnalysisPlaceholder');
+      if (el) el.innerHTML = html;
+    });
+    renderClientInsights(job).then(html => {
+      const el = document.getElementById('clientInsightsPlaceholder');
+      if (el) el.innerHTML = html;
+    });
+  }
   
   // Focus management for accessibility
   const backBtn = sub.querySelector('.back-btn');
@@ -6122,11 +6235,29 @@ function applyToJob(jobId) {
     showProUpgrade();
     return;
   }
+  // Optimistic local update
   apps.push({ jobId: jobId, jobTitle: job.title, date: new Date().toISOString(), status: 'sent', aiGenerated: false });
   lsSetJSON('skillhunt_applications', apps);
   incrementAppCount();
   updateAppCount();
   renderTrialBar();
+  // Send to API — revert on failure
+  apiPost('/api/applications', { job_id: jobId, cover_letter: '', ai_generated: false }).then(result => {
+    if (result && result.error === 'limit_reached') {
+      // Revert local state
+      const currentApps = lsGetJSON('skillhunt_applications', []);
+      const idx = currentApps.findIndex(a => a.jobId === jobId);
+      if (idx > -1) { currentApps.splice(idx, 1); lsSetJSON('skillhunt_applications', currentApps); }
+      const sub = getSubscription();
+      sub.monthlyAppCount = Math.max(0, (sub.monthlyAppCount || 1) - 1);
+      lsSetJSON('skillhunt_subscription', sub);
+      updateAppCount();
+      showToast('Лимит откликов исчерпан. Оформите Pro!');
+      showProUpgrade();
+    }
+  }).catch(() => {
+    // API failed but local state is already optimistic — acceptable
+  });
   showToast('Отклик отправлен! Клиент получит уведомление.');
   announce('Отклик отправлен');
   closeJobDetail();
@@ -6169,6 +6300,61 @@ function sortSaved(type, btn) {
   renderSavedJobs();
 }
 
+
+// ── Render notifications from SERVER_NOTIFICATIONS ──
+function renderNotificationsList() {
+  const container = document.getElementById('notifListContainer');
+  if (!container) return;
+  const defaultNotifs = [
+    { title: 'Новый заказ: Fine-tuning LLM', desc: 'Совпадение 96% · 1ч назад', color: 'var(--primary)' },
+    { title: 'Елена М. просмотрела ваш отклик', desc: 'UI/UX дизайн · 3ч назад', color: 'var(--success)' },
+    { title: 'Заказ "CI/CD пайплайн" истекает через 2ч', desc: 'Срочный · 5ч назад', color: 'var(--warning)' }
+  ];
+  const notifs = (SERVER_NOTIFICATIONS && SERVER_NOTIFICATIONS.length > 0) ? SERVER_NOTIFICATIONS : defaultNotifs;
+  if (notifs.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:24px;font-size:12px;color:var(--text-3)">Нет уведомлений</div>';
+    return;
+  }
+  container.innerHTML = notifs.map(n => {
+    const title = esc(n.title || n.text || '');
+    const desc = esc(n.desc || n.body || '');
+    const color = n.color || (n.type === 'success' ? 'var(--success)' : n.type === 'warning' ? 'var(--warning)' : 'var(--primary)');
+    return '<div class="card" style="padding:12px"><div style="display:flex;align-items:flex-start;gap:10px"><div style="width:8px;height:8px;border-radius:50%;background:' + color + ';margin-top:6px;flex-shrink:0"></div><div><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">' + title + '</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">' + desc + '</div></div></div></div>';
+  }).join('');
+  // Mark all as read
+  if (SERVER_NOTIFICATIONS.length > 0) apiPost('/api/notifications/read', {}).catch(() => {});
+}
+
+
+// ── Render payments from SERVER_PAYMENTS ──
+function renderPaymentsList() {
+  const container = document.getElementById('paymentsListContainer');
+  if (!container) return;
+  const defaultPayments = [
+    { title: 'Pro подписка', date: '15.06.2025', amount: '-$9.99', desc: 'Ежемесячная подписка Pro', status: 'Списано', isIncome: false },
+    { title: 'Оплата за заказ ML-модель', date: '10.06.2025', amount: '+$5,200', desc: 'Получена оплата за выполнение заказа', status: 'Завершено', isIncome: true },
+    { title: 'Оплата за заказ Чат-бот', date: '01.06.2025', amount: '+$2,800', desc: 'Получена оплата за выполнение заказа', status: 'Завершено', isIncome: true }
+  ];
+  const payments = (SERVER_PAYMENTS && SERVER_PAYMENTS.length > 0) ? SERVER_PAYMENTS : defaultPayments;
+  if (payments.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:24px;font-size:12px;color:var(--text-3)">Нет платежей</div>';
+    return;
+  }
+  container.innerHTML = payments.map(p => {
+    const title = esc(p.title || p.description || '');
+    const date = esc(p.date || p.createdAt || '');
+    const amount = p.amount || (p.isIncome ? '+$0' : '-$0');
+    const isIncome = p.isIncome !== undefined ? p.isIncome : (String(amount).startsWith('+'));
+    const amountColor = isIncome ? 'var(--success)' : 'var(--danger)';
+    const iconBg = isIncome ? 'var(--primary-light)' : 'var(--success-light)';
+    const iconColor = isIncome ? 'var(--primary)' : 'var(--success)';
+    const iconSvg = isIncome
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="' + iconColor + '" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="' + iconColor + '" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+    return '<div class="card" style="padding:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:' + iconBg + ';display:flex;align-items:center;justify-content:center;flex-shrink:0">' + iconSvg + '</div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">' + title + '</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">' + date + '</div></div><div style="font-size:13px;font-weight:700;color:' + amountColor + ';font-family:var(--font-sans)">' + amount + '</div></div></div>';
+  }).join('');
+}
+
 function openMoreSub(type, event) {
   if (event) event.stopPropagation();
   const content = document.getElementById('moreSubContent');
@@ -6177,7 +6363,7 @@ function openMoreSub(type, event) {
   switch(type) {
     case 'edit-profile':
       { const p = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Редактировать профиль</div></div><div class="card mb-12" style="text-align:center;padding:24px"><div style="width:72px;height:72px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 12px;font-family:var(--font-sans)">${esc((p.name||'А').charAt(0))}</div><div style="font-size:11px;color:var(--primary);font-weight:600;cursor:pointer" onclick="handlePhotoClick()">Изменить фото</div></div><div class="inp-group"><label class="inp-label">Имя</label><input class="inp" value="${esc(p.name||'')}" /></div><div class="inp-group"><label class="inp-label">Специализация</label><input class="inp" value="${esc(p.spec||'AI/ML Developer')}" /></div><div class="inp-group"><label class="inp-label">О себе</label><textarea class="inp" rows="3">${esc(p.about||'')}</textarea></div><div class="inp-group"><label class="inp-label">Часовой пояс</label><select class="inp"><option ${p.timezone==='UTC+3 (Москва)'?'selected':''}>UTC+3 (Москва)</option><option ${p.timezone==='UTC+5 (Екатеринбург)'?'selected':''}>UTC+5 (Екатеринбург)</option><option ${p.timezone==='UTC+7 (Новосибирск)'?'selected':''}>UTC+7 (Новосибирск)</option></select></div><div class="inp-group"><label class="inp-label">Ставка ($/час)</label><input class="inp" type="number" value="${p.rate||45}" /></div><button class="btn btn-p btn-full" onclick="saveProfile()">Сохранить</button>`; }
+      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Редактировать профиль</div></div><div class="card mb-12" style="text-align:center;padding:24px"><div style="width:72px;height:72px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 12px;font-family:var(--font-sans)">${esc((p.name||'А').charAt(0))}</div><div style="font-size:11px;color:var(--primary);font-weight:600;cursor:pointer" onclick="handlePhotoClick()">Изменить фото</div></div><div class="inp-group"><label class="inp-label">Имя</label><input class="inp" value="${esc(p.name||'')}" /></div><div class="inp-group"><label class="inp-label">Специализация</label><input class="inp" value="${esc(p.spec||'')}" /></div><div class="inp-group"><label class="inp-label">О себе</label><textarea class="inp" rows="3">${esc(p.about||'')}</textarea></div><div class="inp-group"><label class="inp-label">Часовой пояс</label><select class="inp"><option ${p.timezone==='UTC+3 (Москва)'?'selected':''}>UTC+3 (Москва)</option><option ${p.timezone==='UTC+5 (Екатеринбург)'?'selected':''}>UTC+5 (Екатеринбург)</option><option ${p.timezone==='UTC+7 (Новосибирск)'?'selected':''}>UTC+7 (Новосибирск)</option></select></div><div class="inp-group"><label class="inp-label">Ставка ($/час)</label><input class="inp" type="number" value="${p.rate||45}" /></div><button class="btn btn-p btn-full" onclick="saveProfile()">Сохранить</button>`; }
       break;
     case 'skills':
       { const cs = lsGetJSON('skillhunt_custom_skills', []);
@@ -6197,7 +6383,7 @@ function openMoreSub(type, event) {
       const tagMap = { primary:'tag-primary', lavender:'tag-lavender', mint:'tag-mint', coral:'tag-danger', sky:'tag-primary' };
       let itemsHtml = allItems.map((item, idx) => {
         const c = item.color || ['primary','lavender','mint','coral','sky'][idx % 5];
-        const isCustom = item.id !== 'd1' && item.id !== 'd2' && item.id !== 'd3';
+        const isCustom = !item.isBuiltin;
         const deleteBtn = isCustom ? '<button onclick="deletePortfolioItem(\'' + item.id + '\')" style="position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:var(--danger-light);color:var(--danger);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;font-size:12px;font-weight:700;font-family:var(--font-sans);transition:all .2s" onmouseover="this.style.background=\'var(--danger)\';this.style.color=\'#fff\'" onmouseout="this.style.background=\'var(--danger-light)\';this.style.color=\'var(--danger)\'">X</button>' : '';
         return '<div class="card mb-12 animate-in" style="position:relative">' + deleteBtn + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:40px;height:40px;border-radius:var(--radius-xs);background:' + (bgMap[c]||'var(--primary-light)') + ';display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="' + (colorMap[c]||'var(--primary)') + '" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">' + item.name + '</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">' + item.skills + '</div></div></div><div style="font-size:12px;color:var(--text-2);line-height:1.5">' + item.desc + '</div></div>';
       }).join('');
@@ -6207,12 +6393,22 @@ function openMoreSub(type, event) {
       html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">AI-ассистент</div></div><div class="card mb-12" style="text-align:center;padding:24px;border-color:rgba(94,106,210,.15)"><div style="width:56px;height:56px;border-radius:16px;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;font-family:var(--font-sans)">Ваш AI-помощник</div><div style="font-size:12px;color:var(--text-3);margin-bottom:16px">Поможет найти заказы, составить отклик и улучшить профиль</div></div><div class="sec-h"><div class="sec-t">Быстрые команды</div></div><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"><div class="card" style="padding:14px;cursor:pointer" onclick="aiAction('find-jobs')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Подобрать заказы</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">AI найдёт лучшие совпадения</div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div><div class="card" style="padding:14px;cursor:pointer" onclick="aiAction('write-reply')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Написать отклик</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">Персональное сопроводительное</div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div><div class="card" style="padding:14px;cursor:pointer" onclick="aiAction('improve-profile')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--warning-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Улучшить профиль</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">Рекомендации по профилю</div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div><div class="card" style="padding:14px;cursor:pointer" onclick="aiAction('market-analysis')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--coral-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Анализ рынка</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">Тренды и средние ставки</div></div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div></div>`;
       break;
     case 'notifications':
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Уведомления</div></div><div class="sec-h"><div class="sec-t">Настройки</div></div><div class="card mb-12"><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Новые заказы</div><div class="tgl-d">Уведомлять о заказах с совпадением >70%</div></div><div class="tgl"><input type="checkbox" checked onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Ответы на отклики</div><div class="tgl-d">Когда клиент отвечает на ваш отклик</div></div><div class="tgl"><input type="checkbox" checked onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Сообщения</div><div class="tgl-d">Новые сообщения от клиентов</div></div><div class="tgl"><input type="checkbox" checked onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Обновления платформы</div><div class="tgl-d">Новости и обновления SkillHunt</div></div><div class="tgl"><input type="checkbox" onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Маркетинг</div><div class="tgl-d">Акции и специальные предложения</div></div><div class="tgl"><input type="checkbox" onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div></div><div class="sec-h"><div class="sec-t">Последние</div></div><div style="display:flex;flex-direction:column;gap:8px"><div class="card" style="padding:12px"><div style="display:flex;align-items:flex-start;gap:10px"><div style="width:8px;height:8px;border-radius:50%;background:var(--primary);margin-top:6px;flex-shrink:0"></div><div><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Новый заказ: Fine-tuning LLM</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">Совпадение 96% · 1ч назад</div></div></div></div><div class="card" style="padding:12px"><div style="display:flex;align-items:flex-start;gap:10px"><div style="width:8px;height:8px;border-radius:50%;background:var(--success);margin-top:6px;flex-shrink:0"></div><div><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Елена М. просмотрела ваш отклик</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">UI/UX дизайн · 3ч назад</div></div></div></div><div class="card" style="padding:12px"><div style="display:flex;align-items:flex-start;gap:10px"><div style="width:8px;height:8px;border-radius:50%;background:var(--warning);margin-top:6px;flex-shrink:0"></div><div><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Заказ "CI/CD пайплайн" истекает через 2ч</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">Срочный · 5ч назад</div></div></div></div></div>`;
+      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Уведомления</div></div><div class="sec-h"><div class="sec-t">Настройки</div></div><div class="card mb-12"><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Новые заказы</div><div class="tgl-d">Уведомлять о заказах с совпадением >70%</div></div><div class="tgl"><input type="checkbox" checked onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Ответы на отклики</div><div class="tgl-d">Когда клиент отвечает на ваш отклик</div></div><div class="tgl"><input type="checkbox" checked onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Сообщения</div><div class="tgl-d">Новые сообщения от клиентов</div></div><div class="tgl"><input type="checkbox" checked onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Обновления платформы</div><div class="tgl-d">Новости и обновления SkillHunt</div></div><div class="tgl"><input type="checkbox" onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div><div class="tgl-row"><div class="tgl-info"><div class="tgl-t">Маркетинг</div><div class="tgl-d">Акции и специальные предложения</div></div><div class="tgl"><input type="checkbox" onchange="saveNotifSettings()"><span class="tgl-s"></span></div></div></div><div class="sec-h"><div class="sec-t">Последние</div></div><div style="display:flex;flex-direction:column;gap:8px" id="notifListContainer"></div>`;
       break;
     case 'templates':
       { const savedTpls = getTemplates();
       let savedTplsHtml = savedTpls.map(t => '<div class="card mb-12" style="cursor:pointer" onclick="copyTemplate(' + t.id + ')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">' + t.title + '</div></div><span class="tag tag-lavender">Мой</span></div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">' + t.text + '</div></div>').join('');
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Шаблоны откликов</div><div style="margin-left:auto"><button class="btn btn-sm btn-p" onclick="showCreateTemplateForm()">+ Создать</button></div></div><div class="card mb-12" style="cursor:pointer" onclick="copyBuiltinTemplate('Здравствуйте! Я AI/ML разработчик с опытом более 5 лет. Специализируюсь на разработке ML-моделей, NLP и рекомендательных системах...')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">AI/ML специалист</div></div><span class="tag tag-primary">По умолчанию</span></div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">Здравствуйте! Я AI/ML разработчик с опытом более 5 лет. Специализируюсь на разработке ML-моделей, NLP и рекомендательных системах...</div></div><div class="card mb-12" style="cursor:pointer" onclick="copyBuiltinTemplate('Привет! Я full-stack разработчик с фокусом на React/Node.js. Имею опыт создания высоконагруженных систем...')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--lavender-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--lavender)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Full-stack разработчик</div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">Использован 12 раз</span></div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">Привет! Я full-stack разработчик с фокусом на React/Node.js. Имею опыт создания высоконагруженных систем...</div></div><div class="card mb-12" style="cursor:pointer" onclick="copyBuiltinTemplate('Готов взяться за проект! Соответствую всем требованиям, есть релевантный опыт. Подробности в профиле.')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--mint-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Короткий отклик</div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">Использован 8 раз</span></div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">Готов взяться за проект! Соответствую всем требованиям, есть релевантный опыт. Подробности в профиле.</div></div>${savedTplsHtml}`; }
+      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Шаблоны откликов</div><div style="margin-left:auto"><button class="btn btn-sm btn-p" onclick="showCreateTemplateForm()">+ Создать</button></div></div>' + (function() {
+        const builtins = (APP_CONFIG && APP_CONFIG.builtinTemplates && APP_CONFIG.builtinTemplates.length > 0) ? APP_CONFIG.builtinTemplates : [
+          { title: "AI/ML специалист", text: "Здравствуйте! Я AI/ML разработчик с опытом более 5 лет. Специализируюсь на разработке ML-моделей, NLP и рекомендательных системах...", tag: "По умолчанию", color: "primary" },
+          { title: "Full-stack разработчик", text: "Привет! Я full-stack разработчик с фокусом на React/Node.js. Имею опыт создания высоконагруженных систем...", usage: "Использован 12 раз", color: "lavender" },
+          { title: "Короткий отклик", text: "Готов взяться за проект! Соответствую всем требованиям, есть релевантный опыт. Подробности в профиле.", usage: "Использован 8 раз", color: "mint" }
+        ];
+        return builtins.map(t => {
+          const tagHtml = t.tag ? '<span class="tag tag-' + t.color + '">' + t.tag + '</span>' : (t.usage ? '<span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">' + esc(t.usage) + '</span>' : '');
+          return '<div class="card mb-12" style="cursor:pointer" onclick="copyBuiltinTemplate(\'' + esc(t.text).replace(/'/g, "\\'") + '\')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--' + t.color + '-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--' + t.color + ')" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">' + esc(t.title) + '</div></div>' + tagHtml + '</div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">' + esc(t.text) + '</div></div>';
+        }).join('');
+      })() + '${savedTplsHtml}`; }
       break;
     case 'tariff':
       { const sub = getSubscription();
@@ -6222,14 +6418,14 @@ function openMoreSub(type, event) {
       const planBadge = isProUser ? 'АКТИВЕН' : 'БАЗОВЫЙ';
       const planBadgeColor = isProUser ? 'var(--primary)' : 'var(--text-3)';
       const expiryText = isTrial ? 'Осталось ' + getTrialDaysLeft() + ' дн.' : (sub.plan === 'pro' ? 'Действует до следующего месяца' : '');
-      const specialPrice = (sub.trialSpecialPrice || 4.99).toFixed(2);
+      const specialPrice = (sub.trialSpecialPrice || getTrialSpecialPrice()).toFixed(2);
       const checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
       const dashSvg = '<span style="color:var(--text-3)">--</span>';
       const proBg = 'background:var(--primary-soft)';
-      html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Тариф</div></div><div class="card mb-12" style="border-color:' + (isProUser ? 'rgba(94,106,210,.2)' : 'var(--border)') + ';position:relative;overflow:hidden"><div style="position:absolute;top:0;right:0;padding:4px 12px;background:' + planBadgeColor + ';color:#fff;font-size:10px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">' + planBadge + '</div><div style="font-size:22px;font-weight:800;color:' + (isProUser ? 'var(--primary)' : 'var(--text)') + ';margin-bottom:4px;font-family:var(--font-sans)">' + planName + '</div>' + (expiryText ? '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">' + expiryText + '</div>' : '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">Бесплатный план</div>') + '<div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Отклики: ' + (isProUser ? 'Безлимит' : '3/мес') + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Сохранения: ' + (isProUser ? 'Безлимит' : '3/мес') + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Видимые заказы: ' + (isProUser ? 'Все 15' : '6 из 15') + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-анализ конкурентов</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-стратегия проекта</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ранний доступ к заказам</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Инсайты клиентов</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Персонализация</div></div></div>' + (!isProUser ? '<div class="card mb-12" style="background:linear-gradient(135deg,rgba(94,106,210,.06),rgba(155,143,212,.03));border-color:rgba(94,106,210,.15);text-align:center;padding:20px"><div style="font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Подписка Pro</div><div style="font-size:28px;font-weight:800;color:var(--text);line-height:1"><span style="font-size:14px;color:var(--text-3);text-decoration:line-through;font-weight:600;margin-right:6px">$9.99</span>$' + specialPrice + '</div><div style="font-size:12px;color:var(--text-2);margin-top:4px">/месяц · Отмена в любой момент</div><div style="font-size:11px;font-weight:700;color:var(--primary);margin-top:6px">Скорость и преимущество</div><button class="btn btn-p btn-full" style="margin-top:14px" onclick="subscribePro();closeMoreSub()">Подключить Pro</button></div>' : '') + '<div class="sec-h"><div class="sec-t">Сравнение тарифов</div></div><div class="card mb-12" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:11px;font-family:var(--font-sans)"><thead><tr style="background:var(--bg-input)"><th style="padding:10px;text-align:left;font-weight:600;color:var(--text-2)"></th><th style="padding:10px;font-weight:600;color:var(--text-2)">Free</th><th style="padding:10px;font-weight:700;color:var(--primary);background:var(--primary-soft)">Pro</th></tr></thead><tbody><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Отклики</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">3/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Сохранения</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">3/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Видимые заказы</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">6 из 15</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Все 15</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-письма</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-анализ конкурентов</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-стратегия проекта</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Ранний доступ</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Инсайты клиентов</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Персонализация</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Цена</td><td style="padding:8px 10px;text-align:center;color:var(--text-2);font-weight:700">Бесплатно</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:700;' + proBg + '">$9.99/мес</td></tr></tbody></table></div>' + (isProUser ? '<button class="btn btn-o btn-full" style="margin-top:12px" onclick="showToast(\'Управление подпиской будет доступно скоро\')">Управлять подпиской</button>' : ''); }
+      html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Тариф</div></div><div class="card mb-12" style="border-color:' + (isProUser ? 'rgba(94,106,210,.2)' : 'var(--border)') + ';position:relative;overflow:hidden"><div style="position:absolute;top:0;right:0;padding:4px 12px;background:' + planBadgeColor + ';color:#fff;font-size:10px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">' + planBadge + '</div><div style="font-size:22px;font-weight:800;color:' + (isProUser ? 'var(--primary)' : 'var(--text)') + ';margin-bottom:4px;font-family:var(--font-sans)">' + planName + '</div>' + (expiryText ? '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">' + expiryText + '</div>' : '<div style="font-size:12px;color:var(--text-3);margin-bottom:14px;font-family:var(--font-sans)">Бесплатный план</div>') + '<div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Отклики: ' + (isProUser ? 'Безлимит' : getFreeAppLimit() + '/мес') + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Сохранения: ' + (isProUser ? 'Безлимит' : getFreeSaveLimit() + '/мес') + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Видимые заказы: ' + (isProUser ? 'Все ' + MOCK_JOBS.length : getFreeVisibleJobs() + ' из ' + MOCK_JOBS.length) + '</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-анализ конкурентов</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI-стратегия проекта</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ранний доступ к заказам</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Инсайты клиентов</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="' + (isProUser ? 'var(--success)' : 'var(--text-3)') + '" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Персонализация</div></div></div>' + (!isProUser ? '<div class="card mb-12" style="background:linear-gradient(135deg,rgba(94,106,210,.06),rgba(155,143,212,.03));border-color:rgba(94,106,210,.15);text-align:center;padding:20px"><div style="font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Подписка Pro</div><div style="font-size:28px;font-weight:800;color:var(--text);line-height:1"><span style="font-size:14px;color:var(--text-3);text-decoration:line-through;font-weight:600;margin-right:6px">$' + getProFullPrice() + '</span>$' + specialPrice + '</div><div style="font-size:12px;color:var(--text-2);margin-top:4px">/месяц · Отмена в любой момент</div><div style="font-size:11px;font-weight:700;color:var(--primary);margin-top:6px">Скорость и преимущество</div><button class="btn btn-p btn-full" style="margin-top:14px" onclick="subscribePro();closeMoreSub()">Подключить Pro</button></div>' : '') + '<div class="sec-h"><div class="sec-t">Сравнение тарифов</div></div><div class="card mb-12" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:11px;font-family:var(--font-sans)"><thead><tr style="background:var(--bg-input)"><th style="padding:10px;text-align:left;font-weight:600;color:var(--text-2)"></th><th style="padding:10px;font-weight:600;color:var(--text-2)">Free</th><th style="padding:10px;font-weight:700;color:var(--primary);background:var(--primary-soft)">Pro</th></tr></thead><tbody><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Отклики</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">' + getFreeAppLimit() + '/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Сохранения</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">' + getFreeSaveLimit() + '/мес</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Безлимит</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Видимые заказы</td><td style="padding:8px 10px;text-align:center;color:var(--text-2)">' + getFreeVisibleJobs() + ' из ' + MOCK_JOBS.length + '</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">Все ' + MOCK_JOBS.length + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-письма</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-анализ конкурентов</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">AI-стратегия проекта</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Ранний доступ</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Инсайты клиентов</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Персонализация</td><td style="padding:8px 10px;text-align:center;color:var(--text-3)">--</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:600;' + proBg + '">' + checkSvg + '</td></tr><tr style="border-top:1px solid var(--border-soft)"><td style="padding:8px 10px;font-weight:500;color:var(--text)">Цена</td><td style="padding:8px 10px;text-align:center;color:var(--text-2);font-weight:700">Бесплатно</td><td style="padding:8px 10px;text-align:center;color:var(--primary);font-weight:700;' + proBg + '">$' + getProFullPrice() + '/мес</td></tr></tbody></table></div>' + (isProUser ? '<button class="btn btn-o btn-full" style="margin-top:12px" onclick="showToast(\'Управление подпиской будет доступно скоро\')">Управлять подпиской</button>' : ''); }
       break;
     case 'payments':
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">История платежей</div></div><div style="display:flex;flex-direction:column;gap:8px"><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Pro подписка','15.06.2025','-$9.99','Ежемесячная подписка Pro','Списано')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Pro подписка</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">15.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--danger);font-family:var(--font-sans)">-$9.99</div></div></div><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Оплата за заказ ML-модель','10.06.2025','+$5,200','Получена оплата за выполнение заказа \"ML-модель для рекомендаций\"','Завершено')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Оплата за заказ "ML-модель"</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">10.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--success);font-family:var(--font-sans)">+$5,200</div></div></div><div class="card" style="padding:12px;cursor:pointer" onclick="showPaymentDetail('Оплата за заказ Чат-бот','01.06.2025','+$2,800','Получена оплата за выполнение заказа \"Чат-бот на GPT\"','Завершено')"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Оплата за заказ "Чат-бот"</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">01.06.2025</div></div><div style="font-size:13px;font-weight:700;color:var(--success);font-family:var(--font-sans)">+$2,800</div></div></div></div>`;
+      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">История платежей</div></div><div style="display:flex;flex-direction:column;gap:8px" id="paymentsListContainer"></div>`;
       break;
     case 'language':
       { const savedLang = lsGet('skillhunt_language', 'ru');
@@ -6237,7 +6433,15 @@ function openMoreSub(type, event) {
       html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Язык</div></div><div style="display:flex;flex-direction:column;gap:4px"><div class="card" style="padding:14px;cursor:pointer;${isRu ? 'border-color:var(--primary);background:var(--primary-soft)' : ''}" onclick="setLanguage('ru')"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:20px">\u{1F1F7}\u{1F1FA}</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Русский</div></div>${isRu ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' : ''}</div></div><div class="card" style="padding:14px;cursor:pointer;${!isRu ? 'border-color:var(--primary);background:var(--primary-soft)' : ''}" onclick="setLanguage('en')"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:20px">\u{1F1EC}\u{1F1E7}</span><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-sans)">English</div></div>${!isRu ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' : ''}</div></div></div>`; }
       break;
     case 'faq':
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">FAQ</div></div><div style="display:flex;flex-direction:column;gap:8px"><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Как работает AI-подбор заказов?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Анализируем ваши навыки, историю откликов и предпочтения. AI находит заказы с максимальным совпадением и ранжирует их для вас.</div></details><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Сколько стоит Pro?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Pro стоит $9.99/мес. Включает безлимитные отклики, AI-ассистент и 500 токенов ежемесячно.</div></details><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Как вывести заработок?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Вывод доступен через банковскую карту, PayPal или криптовалюту. Минимальная сумма вывода — $50.</div></details><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Зачем нужны токены?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Токены используются для работы AI-ассистента: генерация откликов, анализ профиля и подбор заказов.</div></details><details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">Как повысить рейтинг совпадения?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">Заполните профиль полностью, добавьте навыки и портфолио. Чем подробнее профиль, тем точнее AI-подбор.</div></details></div>`;
+      { const faqItems = (APP_CONFIG && APP_CONFIG.faq && APP_CONFIG.faq.length > 0) ? APP_CONFIG.faq : [
+        { q: 'Как работает AI-подбор заказов?', a: 'Анализируем ваши навыки, историю откликов и предпочтения. AI находит заказы с максимальным совпадением и ранжирует их для вас.' },
+        { q: 'Сколько стоит Pro?', a: 'Pro стоит $' + getProFullPrice() + '/мес. Включает безлимитные отклики, AI-ассистент и 500 токенов ежемесячно.' },
+        { q: 'Как вывести заработок?', a: 'Вывод доступен через банковскую карту, PayPal или криптовалюту. Минимальная сумма вывода — $50.' },
+        { q: 'Зачем нужны токены?', a: 'Токены используются для работы AI-ассистента: генерация откликов, анализ профиля и подбор заказов.' },
+        { q: 'Как повысить рейтинг совпадения?', a: 'Заполните профиль полностью, добавьте навыки и портфолио. Чем подробнее профиль, тем точнее AI-подбор.' }
+      ];
+      const faqHtml = faqItems.map(f => '<details class="card" style="padding:0"><summary style="padding:14px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;font-family:var(--font-sans);list-style:none;display:flex;align-items:center;justify-content:space-between">' + esc(f.q || f.question) + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary><div style="padding:0 14px 14px;font-size:12px;color:var(--text-2);line-height:1.5">' + esc(f.a || f.answer) + '</div></details>').join('');
+      html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">FAQ</div></div><div style="display:flex;flex-direction:column;gap:8px">' + faqHtml + '</div>'; }
       break;
     case 'support':
       html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Поддержка</div></div><div class="card mb-12" style="text-align:center;padding:24px"><div style="width:56px;height:56px;border-radius:50%;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;font-family:var(--font-sans)">Как можем помочь?</div><div style="font-size:12px;color:var(--text-3)">Мы отвечаем в течение 2 часов</div></div><div class="inp-group"><label class="inp-label">Тема</label><select class="inp"><option>Проблема с заказом</option><option>Оплата</option><option>Профиль</option><option>Баг в приложении</option><option>Другое</option></select></div><div class="inp-group"><label class="inp-label">Описание</label><textarea class="inp" rows="4" placeholder="Опишите вашу проблему..."></textarea></div><button class="btn btn-p btn-full" onclick="submitSupport()">Отправить</button>`;
@@ -6253,14 +6457,26 @@ function openMoreSub(type, event) {
       break;
     case 'buy-tokens':
       { const currentBalance = parseInt(lsGet('skillhunt_balance', '0'));
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Купить токены</div></div><div class="card mb-12" style="text-align:center;padding:20px;border-color:rgba(94,106,210,.15)"><div style="font-size:12px;color:var(--text-3);margin-bottom:4px;font-family:var(--font-sans)">Текущий баланс</div><div style="font-size:28px;font-weight:800;color:var(--primary);font-family:var(--font-sans)" id="tokenBuyBalance">${currentBalance}</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">токенов</div></div><div style="display:flex;flex-direction:column;gap:10px"><div class="card" style="padding:16px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor=''"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans)">100 токенов</div><div style="font-size:18px;font-weight:800;color:var(--primary);font-family:var(--font-sans)">$5</div></div><div style="font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-sans)">0.05 $ за токен</div><button class="btn btn-p btn-full btn-sm" onclick="purchaseTokens(100,5)">Купить</button></div><div class="card" style="padding:16px;cursor:pointer;border-color:rgba(94,106,210,.2);position:relative;transition:all .2s" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='rgba(94,106,210,.2)'"><div style="position:absolute;top:0;right:0;padding:3px 10px;background:var(--primary);color:#fff;font-size:9px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">ПОПУЛЯРНЫЙ</div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans)">500 токенов</div><div style="font-size:18px;font-weight:800;color:var(--primary);font-family:var(--font-sans)">$20</div></div><div style="font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-sans)">0.04 $ за токен — выгоднее на 20%</div><button class="btn btn-p btn-full btn-sm" onclick="purchaseTokens(500,20)">Купить</button></div><div class="card" style="padding:16px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor=''"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans)">2000 токенов</div><div style="font-size:18px;font-weight:800;color:var(--primary);font-family:var(--font-sans)">$60</div></div><div style="font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-sans)">0.03 $ за токен — выгоднее на 40%</div><button class="btn btn-p btn-full btn-sm" onclick="purchaseTokens(2000,60)">Купить</button></div></div>`; }
+      const tokenPacks = (APP_CONFIG && APP_CONFIG.tokenPacks && APP_CONFIG.tokenPacks.length > 0) ? APP_CONFIG.tokenPacks : [
+        { amount: 100, price: 5, label: '100 токенов', perToken: '0.05', discount: '' },
+        { amount: 500, price: 20, label: '500 токенов', perToken: '0.04', discount: 'выгоднее на 20%', popular: true },
+        { amount: 2000, price: 60, label: '2000 токенов', perToken: '0.03', discount: 'выгоднее на 40%' }
+      ];
+      let packsHtml = tokenPacks.map(p => {
+        const popularTag = p.popular ? '<div style="position:absolute;top:0;right:0;padding:3px 10px;background:var(--primary);color:#fff;font-size:9px;font-weight:700;border-radius:0 0 0 8px;font-family:var(--font-sans)">ПОПУЛЯРНЫЙ</div>' : '';
+        const borderStyle = p.popular ? "border-color:rgba(94,106,210,.2);position:relative" : '';
+        const discountText = p.discount ? ' — ' + p.discount : '';
+        return '<div class="card" style="padding:16px;cursor:pointer;transition:all .2s;' + borderStyle + '" onmouseover="this.style.borderColor=\'var(--primary)\'" onmouseout="this.style.borderColor=\'\'">' + popularTag + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-sans)">' + esc(p.label || (p.amount + ' токенов')) + '</div><div style="font-size:18px;font-weight:800;color:var(--primary);font-family:var(--font-sans)">$' + p.price + '</div></div><div style="font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-sans)">$' + p.perToken + ' за токен' + discountText + '</div><button class="btn btn-p btn-full btn-sm" onclick="purchaseTokens(' + p.amount + ',' + p.price + ')">Купить</button></div>';
+      }).join('');
+      html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Купить токены</div></div><div class="card mb-12" style="text-align:center;padding:20px;border-color:rgba(94,106,210,.15)"><div style="font-size:12px;color:var(--text-3);margin-bottom:4px;font-family:var(--font-sans)">Текущий баланс</div><div style="font-size:28px;font-weight:800;color:var(--primary);font-family:var(--font-sans)" id="tokenBuyBalance">' + currentBalance + '</div><div style="font-size:11px;color:var(--text-3);font-family:var(--font-sans)">токенов</div></div><div style="display:flex;flex-direction:column;gap:10px">' + packsHtml + '</div>'; }
       break;
   }
   
   content.innerHTML = html;
   
   // Apply saved notification settings if opening notifications page
-  if (type === 'notifications') applyNotifSettings();
+  if (type === 'notifications') { applyNotifSettings(); renderNotificationsList(); }
+  if (type === 'payments') renderPaymentsList();
   
   // Close more panel first
   closeMorePanelDirect();
@@ -6394,7 +6610,7 @@ function loadProfile() {
   } else if (sub.plan === 'trial') {
     badgeHtml = ' <span class="home-greeting-badge" style="background:linear-gradient(135deg,rgba(94,106,210,.12),rgba(155,143,212,.12));color:var(--primary)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Pro <small style="font-size:7px;opacity:.7">' + getTrialDaysLeft() + 'д</small></span>';
   }
-  if (userNameEl) userNameEl.innerHTML = esc(profile.name || '') + badgeHtml;
+  if (userNameEl) userNameEl.innerHTML = esc(profile.name || '');
   // Update tariff badge in More panel
   const tariffBadge = document.getElementById('moreTariffBadge');
   if (tariffBadge) {
@@ -6418,6 +6634,48 @@ function loadProfile() {
   if (moreAvatar) moreAvatar.textContent = (profile.name || '').charAt(0).toUpperCase();
   const moreName = document.getElementById('moreName');
   if (moreName) moreName.textContent = profile.name || '';
+
+  // Update hero stats strip
+  updateHeroProfileStats();
+
+  // Update more panel meta
+  const moreTokensEl = document.getElementById('moreMetaTokens');
+  if (moreTokensEl) moreTokensEl.textContent = (sub.tokens || 0) + ' токенов';
+  const morePlanEl = document.getElementById('moreMetaPlan');
+  if (morePlanEl) {
+    if (sub.plan === 'pro') morePlanEl.textContent = 'PRO';
+    else if (sub.plan === 'trial') morePlanEl.textContent = 'PRO ' + getTrialDaysLeft() + 'д';
+    else morePlanEl.textContent = 'Free';
+  }
+}
+
+// ── Hero Profile Stats ──
+function updateHeroProfileStats() {
+  const sub = getSubscription();
+  // Tokens
+  const tokensEl = document.getElementById('heroStatTokens');
+  if (tokensEl) tokensEl.textContent = sub.tokens || 0;
+  // Applications count
+  const apps = lsGetJSON('skillhunt_applications', []);
+  const appsEl = document.getElementById('heroStatApps');
+  if (appsEl) appsEl.textContent = apps.length || 0;
+  // Rating (placeholder — future dynamic)
+  const ratingEl = document.getElementById('heroStatRating');
+  if (ratingEl) ratingEl.textContent = '4.9';
+
+  // Update PRO badge visibility
+  const proBadge = document.getElementById('heroProBadge');
+  if (proBadge) {
+    if (sub.plan === 'pro') {
+      proBadge.style.display = 'inline-flex';
+      proBadge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO';
+    } else if (sub.plan === 'trial') {
+      proBadge.style.display = 'inline-flex';
+      proBadge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PRO ' + getTrialDaysLeft() + 'д';
+    } else {
+      proBadge.style.display = 'none';
+    }
+  }
 }
 
 async function saveProfile() {
@@ -6694,16 +6952,16 @@ async function deletePortfolioItem(id) {
 }
 
 // 3b. Token Purchase Function
-function purchaseTokens(amount, price) {
-  let balance = parseInt(lsGet('skillhunt_balance', '0'));
-  balance += amount;
-  lsSet('skillhunt_balance', String(balance));
+async function purchaseTokens(amount, price) {
+  // Call API to add balance
+  const result = await apiPost('/api/balance', { amount: amount }).catch(() => null);
+  const newBalance = result ? result.balance : (parseInt(lsGet('skillhunt_balance', '0')) + amount);
+  lsSet('skillhunt_balance', String(newBalance));
   const balanceEl = document.getElementById('tokenBuyBalance');
-  if (balanceEl) balanceEl.textContent = balance;
-  // Also update the More panel balance display
+  if (balanceEl) balanceEl.textContent = newBalance;
   const moreBalanceEl = document.getElementById('moreBalanceValue');
-  if (moreBalanceEl) moreBalanceEl.textContent = balance;
-  showToast('+' + amount + ' токенов куплено за $' + price + '! Баланс: ' + balance);
+  if (moreBalanceEl) moreBalanceEl.textContent = newBalance;
+  showToast('+' + amount + ' токенов куплено за $' + price + '! Баланс: ' + newBalance);
 }
 
 // 3c. Language Switching
