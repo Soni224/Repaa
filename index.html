@@ -4091,54 +4091,8 @@ body.auth-pending .shell {
       </div>
       <button type="submit" class="auth-btn" id="registerBtn">Зарегистрироваться</button>
     </form>
-    <div class="auth-link">
-      Уже есть аккаунт? <a href="#" onclick="showLoginFromRegister(); return false;">Войти</a>
-    </div>
     <div class="auth-terms">
       Нажимая кнопку, вы соглашаетесь с <a href="#">Условиями использования</a> и <a href="#">Политикой конфиденциальности</a>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ Login Screen ═══ -->
-<div class="auth-overlay hidden" id="loginOverlay">
-  <div class="auth-container">
-    <div class="auth-logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
-    </div>
-    <div class="auth-title">Вход в SkillHunt</div>
-    <div class="auth-subtitle">Подтвердите свою личность для безопасности аккаунта</div>
-    <div class="auth-warning">
-      <svg class="auth-warning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <div class="auth-warning-text">Мы заметили необычную активность. Для защиты вашего аккаунта требуется подтверждение личности.</div>
-    </div>
-    <form class="auth-form" id="loginForm" onsubmit="handleLogin(); return false;">
-      <div class="auth-field">
-        <label>Email</label>
-        <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
-        <div class="auth-error" id="loginEmailError">Укажите email</div>
-      </div>
-      <div class="auth-field">
-        <label>Пароль</label>
-        <div class="auth-password-wrap">
-          <input type="password" id="loginPassword" placeholder="Ваш пароль" autocomplete="current-password">
-          <button class="auth-password-toggle" onclick="toggleLoginPassword()" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-        <div class="auth-error" id="loginPasswordError">Укажите пароль</div>
-      </div>
-      <div class="auth-forgot">
-        <a href="#" onclick="showToast('Обратитесь в поддержку через Telegram'); return false;">Забыли пароль?</a>
-      </div>
-      <button type="submit" class="auth-btn" id="loginBtn">Войти</button>
-    </form>
-    <div class="auth-divider"><span>или</span></div>
-    <div class="auth-link">
-      Нет аккаунта? <a href="#" onclick="showRegisterFromLogin(); return false;">Зарегистрироваться</a>
-    </div>
-    <div class="auth-terms">
-      <a href="#">Условия</a> &middot; <a href="#">Конфиденциальность</a> &middot; <a href="#">Поддержка</a>
     </div>
   </div>
 </div>
@@ -4913,10 +4867,12 @@ const API_BASE = (function() {
 })();
 
 const API_USER_ID = (function() {
+  // Единственный источник user_id — серверные данные (бот inject)
   const serverDataEl = document.getElementById('__SH_SERVER_DATA__');
   if (serverDataEl) {
     try { const data = JSON.parse(serverDataEl.textContent); if (data.USER_ID) return data.USER_ID; } catch(e) {}
   }
+  // Fallback: Telegram SDK (только для передачи на сервер — сервер валидирует)
   if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
     const user = window.Telegram.WebApp.initDataUnsafe.user;
     if (user) return user.id;
@@ -4925,13 +4881,8 @@ const API_USER_ID = (function() {
 })();
 
 const TG_USER = (function() {
-  const serverDataEl = document.getElementById('__SH_SERVER_DATA__');
-  if (serverDataEl) {
-    try { const data = JSON.parse(serverDataEl.textContent); if (data.TG_USER) return data.TG_USER; } catch(e) {}
-  }
-  if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
-    return window.Telegram.WebApp.initDataUnsafe.user || null;
-  }
+  // НЕ используем данные Telegram SDK напрямую для отображения
+  // Данные профиля приходят ТОЛЬКО с сервера бота через /api/auth/check
   return null;
 })();
 
@@ -5641,18 +5592,17 @@ function updateProfileCompleteness() {
 
 
 // ── Auth System ──
+// Путь пользователя:
+// 1. Splash (1.5с) → 2. /api/auth/check → 3. Если не зарегистрирован → Регистрация → 4. Приложение
+// Данные профиля берём ТОЛЬКО с сервера бота, НЕ из Telegram SDK
+
 let AUTH_STATE = {
   registered: false,
-  suspicious: false,
-  authMethod: null,
+  profile: null, // Данные профиля с сервера
 };
 
 function toggleRegPassword() {
   const inp = document.getElementById('regPassword');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-}
-function toggleLoginPassword() {
-  const inp = document.getElementById('loginPassword');
   inp.type = inp.type === 'password' ? 'text' : 'password';
 }
 
@@ -5670,73 +5620,70 @@ function hideAllAuthErrors() {
 
 async function checkAuthStatus() {
   try {
-    const uid = API_USER_ID || (TG_USER && TG_USER.id);
+    const uid = API_USER_ID;
     if (!uid) {
-      // No Telegram user — show registration
       AUTH_STATE.registered = false;
-      AUTH_STATE.suspicious = false;
+      AUTH_STATE.profile = null;
       return;
     }
-    // Timeout 3s — если API не ответил, идём дальше
+    // Таймаут 4с
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 3000);
+    const timeout = setTimeout(() => controller.abort(), 4000);
     const resp = await fetch(apiUrl('/api/auth/check'), { signal: controller.signal });
     clearTimeout(timeout);
+
     if (resp.ok) {
       const data = await resp.json();
       AUTH_STATE.registered = data.registered;
-      AUTH_STATE.suspicious = data.suspicious;
-      AUTH_STATE.authMethod = data.auth_method;
+      AUTH_STATE.profile = data.profile || null;
+
+      // Если профиль пришёл с сервера — применяем его
+      if (data.profile) {
+        applyServerProfile(data.profile);
+      }
     } else if (resp.status >= 500) {
       // Серверная ошибка — не заставляем перерегистрироваться
-      // Считаем что пользователь зарегистрирован (лучшая пользовательский опыт)
-      AUTH_STATE.registered = true;
+      AUTH_STATE.registered = lsGet('skillhunt_registered') === 'true';
     }
   } catch(e) {
     console.warn('Auth check failed:', e);
-    // Ошибка сети — не заставляем перерегистрироваться
     AUTH_STATE.registered = lsGet('skillhunt_registered') === 'true';
   }
+}
+
+function applyServerProfile(profile) {
+  // Применяем данные профиля от бота к UI
+  if (!profile) return;
+
+  const nameEl = document.getElementById('userName');
+  if (nameEl) nameEl.textContent = profile.first_name || '';
+
+  const avatarEl = document.getElementById('userAvatar');
+  if (avatarEl && profile.first_name) {
+    avatarEl.textContent = profile.first_name.charAt(0).toUpperCase();
+  }
+
+  // Сохраняем в localStorage для offline
+  lsSetJSON('skillhunt_profile', profile);
 }
 
 function showRegisterScreen() {
   const splash = document.getElementById('splashOverlay');
   const reg = document.getElementById('registerOverlay');
-  const login = document.getElementById('loginOverlay');
   if (splash) splash.classList.add('hidden');
-  if (login) login.classList.add('hidden');
   if (reg) reg.classList.remove('hidden');
   document.body.classList.add('auth-pending');
 
-  // Pre-fill from Telegram
-  if (TG_USER) {
+  // Pre-fill имя из серверного профиля (если есть)
+  if (AUTH_STATE.profile && AUTH_STATE.profile.first_name) {
     const nameEl = document.getElementById('regFirstName');
-    if (nameEl && !nameEl.value && TG_USER.first_name) nameEl.value = TG_USER.first_name;
+    if (nameEl && !nameEl.value) nameEl.value = AUTH_STATE.profile.first_name;
   }
-}
-
-function showLoginScreen() {
-  const splash = document.getElementById('splashOverlay');
-  const reg = document.getElementById('registerOverlay');
-  const login = document.getElementById('loginOverlay');
-  if (splash) splash.classList.add('hidden');
-  if (reg) reg.classList.add('hidden');
-  if (login) login.classList.remove('hidden');
-  document.body.classList.add('auth-pending');
-}
-
-function showLoginFromRegister() {
-  showLoginScreen();
-}
-function showRegisterFromLogin() {
-  showRegisterScreen();
 }
 
 function hideAuthScreens() {
   const reg = document.getElementById('registerOverlay');
-  const login = document.getElementById('loginOverlay');
   if (reg) reg.classList.add('hidden');
-  if (login) login.classList.add('hidden');
   document.body.classList.remove('auth-pending');
   hideAllAuthErrors();
 }
@@ -5768,14 +5715,14 @@ async function handleRegister() {
 
   try {
     const body = {
-      user_id: API_USER_ID || (TG_USER && TG_USER.id),
+      user_id: API_USER_ID,
       first_name: firstName,
       email: email,
       specialty: specialty,
       experience: experience,
       password: password,
-      username: TG_USER ? TG_USER.username : '',
-      last_name: TG_USER ? (TG_USER.last_name || '') : '',
+      username: '',
+      last_name: '',
     };
 
     const resp = await fetch(apiUrl('/api/auth/register'), {
@@ -5788,9 +5735,8 @@ async function handleRegister() {
 
     if (resp.ok && data.success) {
       AUTH_STATE.registered = true;
-      AUTH_STATE.authMethod = 'register';
+      lsSet('skillhunt_registered', 'true');
       hideAuthScreens();
-      // Continue to app
       await initAppAfterAuth();
       showToast('Добро пожаловать в SkillHunt! 🎉');
     } else {
@@ -5806,66 +5752,11 @@ async function handleRegister() {
   }
 }
 
-async function handleLogin() {
-  hideAllAuthErrors();
-  const btn = document.getElementById('loginBtn');
-  btn.disabled = true;
-  btn.textContent = 'Вход...';
-
-  const email = document.getElementById('loginEmail').value.trim();
-  const password = document.getElementById('loginPassword').value;
-
-  let hasError = false;
-  if (!email || !email.includes('@')) { showAuthError('loginEmailError', 'Укажите email'); hasError = true; }
-  if (!password) { showAuthError('loginPasswordError', 'Укажите пароль'); hasError = true; }
-
-  if (hasError) {
-    btn.disabled = false;
-    btn.textContent = 'Войти';
-    return;
-  }
-
-  try {
-    const body = {
-      user_id: API_USER_ID || (TG_USER && TG_USER.id),
-      email: email,
-      password: password,
-    };
-
-    const resp = await fetch(apiUrl('/api/auth/login'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-
-    const data = await resp.json();
-
-    if (resp.ok && data.success) {
-      AUTH_STATE.registered = true;
-      AUTH_STATE.authMethod = 'login';
-      hideAuthScreens();
-      await initAppAfterAuth();
-      showToast('С возвращением! 👋');
-    } else {
-      showToast(data.error || 'Ошибка входа');
-      btn.disabled = false;
-      btn.textContent = 'Войти';
-    }
-  } catch(e) {
-    console.error('Login error:', e);
-    showToast('Ошибка сети. Попробуйте позже.');
-    btn.disabled = false;
-    btn.textContent = 'Войти';
-  }
-}
-
-// Function that runs the rest of init after auth is done
+// ── App Initialization After Auth ──
 let _authInitDone = false;
 async function initAppAfterAuth() {
   if (_authInitDone) return;
-  // Флаг ставим в конце, чтобы при ошибке можно было повторить
 
-  // Continue with the original init flow
   if (isDark) document.documentElement.classList.add('dark');
   updateNavPill();
   updateGreetingTime();
@@ -5942,22 +5833,21 @@ async function initAppAfterAuth() {
     }, 1500);
   }
 
-  // Сохраняем статус регистрации для offline fallback
   lsSet('skillhunt_registered', 'true');
   _authInitDone = true;
 }
 
+// ── Init — Entry Point ──
 async function init() {
-  // ── Show splash screen ──
   const splash = document.getElementById('splashOverlay');
 
-  // ── Check auth status with timeout fallback ──
+  // Проверяем статус регистрации (с таймаутом)
   let authChecked = false;
   const authPromise = checkAuthStatus().then(() => { authChecked = true; }).catch(() => { authChecked = true; });
 
-  // ── After 1.5s, decide what to show ──
+  // После splash (1.5с) решаем что показать
   setTimeout(async () => {
-    // Если проверка ещё не завершилась — ждём ещё максимум 2с
+    // Ждём проверку авторизации ещё максимум 2с
     if (!authChecked) {
       await Promise.race([authPromise, new Promise(r => setTimeout(r, 2000))]);
     }
@@ -5965,16 +5855,12 @@ async function init() {
     if (splash) splash.classList.add('hidden');
 
     if (!AUTH_STATE.registered) {
-      // Not registered — show registration or login
-      if (AUTH_STATE.suspicious) {
-        showLoginScreen();
-      } else {
-        showRegisterScreen();
-      }
-      return; // Stop — wait for auth completion
+      // Не зарегистрирован → показываем форму регистрации
+      showRegisterScreen();
+      return;
     }
 
-    // Already registered — go straight to app
+    // Зарегистрирован → сразу в приложение
     await initAppAfterAuth();
   }, 1500);
 }
