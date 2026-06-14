@@ -3781,11 +3781,362 @@ select.inp option,select option{background:#121827;color:var(--text)}
 /* ── API Loading State ── */
 .api-loading{opacity:.6;pointer-events:none}
 .api-empty{text-align:center;padding:32px 16px;color:var(--text-3);font-size:13px}
+
+/* ═══════════════════════════════════════════════════════════════
+   AUTH SCREENS — Splash, Registration, Login
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Splash Screen ── */
+.splash-overlay {
+  position: fixed; inset: 0; z-index: 10000;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: opacity .4s ease, visibility .4s ease;
+}
+.splash-overlay.hidden {
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
+.splash-logo {
+  width: 72px; height: 72px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--primary), #8B5CF6);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 60px rgba(77,107,255,.3);
+  animation: splashPulse 1.5s ease-in-out infinite;
+}
+.splash-logo svg { width: 36px; height: 36px; }
+@keyframes splashPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(77,107,255,.3); }
+  50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(77,107,255,.5); }
+}
+.splash-title {
+  margin-top: 20px; font-size: 22px; font-weight: 700;
+  color: var(--text); font-family: var(--font-sans);
+  letter-spacing: -.3px;
+}
+.splash-subtitle {
+  margin-top: 6px; font-size: 13px; color: var(--text-3);
+  font-family: var(--font-sans);
+}
+.splash-bar {
+  margin-top: 28px; width: 120px; height: 3px;
+  border-radius: 3px; background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+.splash-bar-fill {
+  height: 100%; width: 0%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--success));
+  animation: splashLoad 1.3s ease-out forwards;
+}
+@keyframes splashLoad {
+  0% { width: 0%; }
+  60% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* ── Auth Screen (Registration / Login) ── */
+.auth-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px 20px;
+  transition: opacity .4s ease, visibility .4s ease;
+  overflow-y: auto;
+}
+.auth-overlay.hidden {
+  opacity: 0; visibility: hidden; pointer-events: none;
+}
+
+.auth-container {
+  width: 100%; max-width: 380px;
+  display: flex; flex-direction: column;
+  align-items: center;
+}
+
+.auth-logo {
+  width: 64px; height: 64px; border-radius: 18px;
+  background: linear-gradient(135deg, var(--primary), #8B5CF6);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 40px rgba(77,107,255,.25);
+  margin-bottom: 20px;
+}
+.auth-logo svg { width: 32px; height: 32px; }
+
+.auth-title {
+  font-size: 24px; font-weight: 700; color: var(--text);
+  font-family: var(--font-sans); text-align: center;
+  margin-bottom: 4px; letter-spacing: -.3px;
+}
+
+.auth-subtitle {
+  font-size: 14px; color: var(--text-3);
+  font-family: var(--font-sans); text-align: center;
+  margin-bottom: 28px; line-height: 1.4;
+}
+
+.auth-form {
+  width: 100%;
+}
+
+.auth-field {
+  margin-bottom: 16px;
+}
+
+.auth-field label {
+  display: block; font-size: 13px; font-weight: 500;
+  color: var(--text-2); margin-bottom: 6px;
+  font-family: var(--font-sans);
+}
+
+.auth-field input, .auth-field select {
+  width: 100%; padding: 12px 16px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius-xs);
+  color: var(--text); font-size: 15px;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+}
+.auth-field input::placeholder {
+  color: var(--text-3);
+}
+.auth-field input:focus, .auth-field select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(77,107,255,.15);
+}
+.auth-field select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7589' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+.auth-field select option {
+  background: var(--bg-card-solid); color: var(--text);
+}
+
+.auth-error {
+  font-size: 12px; color: var(--danger);
+  margin-top: 4px; display: none;
+  font-family: var(--font-sans);
+}
+.auth-error.visible { display: block; }
+
+.auth-btn {
+  width: 100%; padding: 14px; border: none;
+  border-radius: var(--radius-xs);
+  background: linear-gradient(135deg, var(--primary), #7C3AED);
+  color: #fff; font-size: 16px; font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer; margin-top: 8px;
+  transition: transform .15s ease, box-shadow .15s ease;
+  box-shadow: 0 4px 20px rgba(77,107,255,.3);
+}
+.auth-btn:active {
+  transform: scale(.97);
+}
+.auth-btn:disabled {
+  opacity: .5; cursor: not-allowed;
+}
+
+.auth-link {
+  margin-top: 20px; text-align: center;
+  font-size: 14px; color: var(--text-2);
+  font-family: var(--font-sans);
+}
+.auth-link a {
+  color: var(--primary); text-decoration: none;
+  font-weight: 500;
+}
+.auth-link a:active {
+  opacity: .7;
+}
+
+.auth-forgot {
+  text-align: right; margin-top: -10px; margin-bottom: 12px;
+}
+.auth-forgot a {
+  font-size: 12px; color: var(--primary);
+  text-decoration: none; font-family: var(--font-sans);
+}
+
+.auth-warning {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: rgba(231,196,139,.08);
+  border: 1px solid rgba(231,196,139,.15);
+  border-radius: var(--radius-xs);
+  padding: 12px 14px; margin-bottom: 20px;
+}
+.auth-warning-icon {
+  flex-shrink: 0; width: 20px; height: 20px;
+  color: var(--warning);
+}
+.auth-warning-text {
+  font-size: 12px; color: var(--warning);
+  line-height: 1.4; font-family: var(--font-sans);
+}
+
+.auth-divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 20px 0; width: 100%;
+}
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--border);
+}
+.auth-divider span {
+  font-size: 12px; color: var(--text-3);
+  font-family: var(--font-sans);
+}
+
+.auth-terms {
+  margin-top: 16px; text-align: center;
+  font-size: 11px; color: var(--text-3);
+  line-height: 1.5; font-family: var(--font-sans);
+}
+.auth-terms a {
+  color: var(--text-3); text-decoration: underline;
+}
+
+.auth-password-wrap {
+  position: relative;
+}
+.auth-password-toggle {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 24px; cursor: pointer;
+  color: var(--text-3);
+  background: none; border: none; padding: 0;
+}
+
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Перейти к контенту</a>
 <div class="aria-live" id="ariaLive" aria-live="polite"></div>
+
+<!-- ═══ Splash Screen ═══ -->
+<div class="splash-overlay" id="splashOverlay">
+  <div class="splash-logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+  </div>
+  <div class="splash-title">SkillHunt</div>
+  <div class="splash-subtitle">AI-платформа для фрилансеров</div>
+  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+</div>
+
+<!-- ═══ Registration Screen ═══ -->
+<div class="auth-overlay hidden" id="registerOverlay">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+    </div>
+    <div class="auth-title">Создать аккаунт</div>
+    <div class="auth-subtitle">Зарегистрируйтесь, чтобы находить заказы и зарабатывать</div>
+    <div class="auth-form" id="registerForm">
+      <div class="auth-field">
+        <label>Имя</label>
+        <input type="text" id="regFirstName" placeholder="Ваше имя" autocomplete="given-name">
+        <div class="auth-error" id="regFirstNameError">Укажите имя</div>
+      </div>
+      <div class="auth-field">
+        <label>Email</label>
+        <input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email">
+        <div class="auth-error" id="regEmailError">Укажите корректный email</div>
+      </div>
+      <div class="auth-field">
+        <label>Специализация</label>
+        <select id="regSpecialty">
+          <option value="">Выберите специализацию</option>
+          <option value="ai">AI / Machine Learning</option>
+          <option value="dev">Backend / Frontend</option>
+          <option value="design">UI/UX Дизайн</option>
+          <option value="data">Анализ данных</option>
+          <option value="devops">DevOps</option>
+          <option value="writing">Копирайтинг</option>
+          <option value="marketing">Маркетинг</option>
+          <option value="mobile">Мобильная разработка</option>
+        </select>
+        <div class="auth-error" id="regSpecialtyError">Выберите специализацию</div>
+      </div>
+      <div class="auth-field">
+        <label>Опыт работы</label>
+        <select id="regExperience">
+          <option value="">Выберите опыт</option>
+          <option value="0-1">Меньше 1 года</option>
+          <option value="1-3">1-3 года</option>
+          <option value="3-5">3-5 лет</option>
+          <option value="5+">5+ лет</option>
+        </select>
+        <div class="auth-error" id="regExperienceError">Укажите опыт работы</div>
+      </div>
+      <div class="auth-field">
+        <label>Пароль</label>
+        <div class="auth-password-wrap">
+          <input type="password" id="regPassword" placeholder="Минимум 6 символов" autocomplete="new-password">
+          <button class="auth-password-toggle" onclick="toggleRegPassword()" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="auth-error" id="regPasswordError">Пароль минимум 6 символов</div>
+      </div>
+      <button class="auth-btn" id="registerBtn" onclick="handleRegister()">Зарегистрироваться</button>
+    </div>
+    <div class="auth-link">
+      Уже есть аккаунт? <a href="#" onclick="showLoginFromRegister(); return false;">Войти</a>
+    </div>
+    <div class="auth-terms">
+      Нажимая кнопку, вы соглашаетесь с <a href="#">Условиями использования</a> и <a href="#">Политикой конфиденциальности</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Login Screen ═══ -->
+<div class="auth-overlay hidden" id="loginOverlay">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+    </div>
+    <div class="auth-title">Вход в SkillHunt</div>
+    <div class="auth-subtitle">Подтвердите свою личность для безопасности аккаунта</div>
+    <div class="auth-warning">
+      <svg class="auth-warning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div class="auth-warning-text">Мы заметили необычную активность. Для защиты вашего аккаунта требуется подтверждение личности.</div>
+    </div>
+    <div class="auth-form" id="loginForm">
+      <div class="auth-field">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+        <div class="auth-error" id="loginEmailError">Укажите email</div>
+      </div>
+      <div class="auth-field">
+        <label>Пароль</label>
+        <div class="auth-password-wrap">
+          <input type="password" id="loginPassword" placeholder="Ваш пароль" autocomplete="current-password">
+          <button class="auth-password-toggle" onclick="toggleLoginPassword()" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="auth-error" id="loginPasswordError">Укажите пароль</div>
+      </div>
+      <div class="auth-forgot">
+        <a href="#" onclick="showToast('Обратитесь в поддержку через Telegram'); return false;">Забыли пароль?</a>
+      </div>
+      <button class="auth-btn" id="loginBtn" onclick="handleLogin()">Войти</button>
+    </div>
+    <div class="auth-divider"><span>или</span></div>
+    <div class="auth-link">
+      Нет аккаунта? <a href="#" onclick="showRegisterFromLogin(); return false;">Зарегистрироваться</a>
+    </div>
+    <div class="auth-terms">
+      <a href="#">Условия</a> &middot; <a href="#">Конфиденциальность</a> &middot; <a href="#">Поддержка</a>
+    </div>
+  </div>
+</div>
 
 <div class="shell" id="shell">
   <div class="slider" id="slider">
@@ -5283,12 +5634,223 @@ function updateProfileCompleteness() {
 
 // ── Demo data removed — all data comes from API ──
 
-async function init() {
+
+// ── Auth System ──
+let AUTH_STATE = {
+  registered: false,
+  suspicious: false,
+  authMethod: null,
+};
+
+function toggleRegPassword() {
+  const inp = document.getElementById('regPassword');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+function toggleLoginPassword() {
+  const inp = document.getElementById('loginPassword');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function showAuthError(id, msg) {
+  const el = document.getElementById(id);
+  if (el) { el.textContent = msg; el.classList.add('visible'); }
+}
+function hideAuthError(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('visible');
+}
+function hideAllAuthErrors() {
+  document.querySelectorAll('.auth-error').forEach(el => el.classList.remove('visible'));
+}
+
+async function checkAuthStatus() {
+  try {
+    const uid = API_USER_ID || (TG_USER && TG_USER.id);
+    if (!uid) {
+      // No Telegram user — show registration
+      AUTH_STATE.registered = false;
+      AUTH_STATE.suspicious = false;
+      return;
+    }
+    const resp = await fetch(apiUrl('/api/auth/check'));
+    if (resp.ok) {
+      const data = await resp.json();
+      AUTH_STATE.registered = data.registered;
+      AUTH_STATE.suspicious = data.suspicious;
+      AUTH_STATE.authMethod = data.auth_method;
+    }
+  } catch(e) {
+    console.warn('Auth check failed:', e);
+  }
+}
+
+function showRegisterScreen() {
+  const splash = document.getElementById('splashOverlay');
+  const reg = document.getElementById('registerOverlay');
+  const login = document.getElementById('loginOverlay');
+  if (splash) splash.classList.add('hidden');
+  if (login) login.classList.add('hidden');
+  if (reg) reg.classList.remove('hidden');
+
+  // Pre-fill from Telegram
+  if (TG_USER) {
+    const nameEl = document.getElementById('regFirstName');
+    if (nameEl && !nameEl.value && TG_USER.first_name) nameEl.value = TG_USER.first_name;
+  }
+}
+
+function showLoginScreen() {
+  const splash = document.getElementById('splashOverlay');
+  const reg = document.getElementById('registerOverlay');
+  const login = document.getElementById('loginOverlay');
+  if (splash) splash.classList.add('hidden');
+  if (reg) reg.classList.add('hidden');
+  if (login) login.classList.remove('hidden');
+}
+
+function showLoginFromRegister() {
+  showLoginScreen();
+}
+function showRegisterFromLogin() {
+  showRegisterScreen();
+}
+
+function hideAuthScreens() {
+  const reg = document.getElementById('registerOverlay');
+  const login = document.getElementById('loginOverlay');
+  if (reg) reg.classList.add('hidden');
+  if (login) login.classList.add('hidden');
+}
+
+async function handleRegister() {
+  hideAllAuthErrors();
+  const btn = document.getElementById('registerBtn');
+  btn.disabled = true;
+  btn.textContent = 'Регистрация...';
+
+  const firstName = document.getElementById('regFirstName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const specialty = document.getElementById('regSpecialty').value;
+  const experience = document.getElementById('regExperience').value;
+  const password = document.getElementById('regPassword').value;
+
+  let hasError = false;
+  if (!firstName) { showAuthError('regFirstNameError', 'Укажите имя'); hasError = true; }
+  if (!email || !email.includes('@')) { showAuthError('regEmailError', 'Укажите корректный email'); hasError = true; }
+  if (!specialty) { showAuthError('regSpecialtyError', 'Выберите специализацию'); hasError = true; }
+  if (!experience) { showAuthError('regExperienceError', 'Укажите опыт работы'); hasError = true; }
+  if (!password || password.length < 6) { showAuthError('regPasswordError', 'Пароль минимум 6 символов'); hasError = true; }
+
+  if (hasError) {
+    btn.disabled = false;
+    btn.textContent = 'Зарегистрироваться';
+    return;
+  }
+
+  try {
+    const body = {
+      user_id: API_USER_ID || (TG_USER && TG_USER.id),
+      first_name: firstName,
+      email: email,
+      specialty: specialty,
+      experience: experience,
+      password: password,
+      username: TG_USER ? TG_USER.username : '',
+      last_name: TG_USER ? (TG_USER.last_name || '') : '',
+    };
+
+    const resp = await fetch(apiUrl('/api/auth/register'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    const data = await resp.json();
+
+    if (resp.ok && data.success) {
+      AUTH_STATE.registered = true;
+      AUTH_STATE.authMethod = 'register';
+      hideAuthScreens();
+      // Continue to app
+      await initAppAfterAuth();
+      showToast('Добро пожаловать в SkillHunt! 🎉');
+    } else {
+      showToast(data.error || 'Ошибка регистрации');
+      btn.disabled = false;
+      btn.textContent = 'Зарегистрироваться';
+    }
+  } catch(e) {
+    console.error('Registration error:', e);
+    showToast('Ошибка сети. Попробуйте позже.');
+    btn.disabled = false;
+    btn.textContent = 'Зарегистрироваться';
+  }
+}
+
+async function handleLogin() {
+  hideAllAuthErrors();
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  btn.textContent = 'Вход...';
+
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+
+  let hasError = false;
+  if (!email || !email.includes('@')) { showAuthError('loginEmailError', 'Укажите email'); hasError = true; }
+  if (!password) { showAuthError('loginPasswordError', 'Укажите пароль'); hasError = true; }
+
+  if (hasError) {
+    btn.disabled = false;
+    btn.textContent = 'Войти';
+    return;
+  }
+
+  try {
+    const body = {
+      user_id: API_USER_ID || (TG_USER && TG_USER.id),
+      email: email,
+      password: password,
+    };
+
+    const resp = await fetch(apiUrl('/api/auth/login'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    const data = await resp.json();
+
+    if (resp.ok && data.success) {
+      AUTH_STATE.registered = true;
+      AUTH_STATE.authMethod = 'login';
+      hideAuthScreens();
+      await initAppAfterAuth();
+      showToast('С возвращением! 👋');
+    } else {
+      showToast(data.error || 'Ошибка входа');
+      btn.disabled = false;
+      btn.textContent = 'Войти';
+    }
+  } catch(e) {
+    console.error('Login error:', e);
+    showToast('Ошибка сети. Попробуйте позже.');
+    btn.disabled = false;
+    btn.textContent = 'Войти';
+  }
+}
+
+// Function that runs the rest of init after auth is done
+let _authInitDone = false;
+async function initAppAfterAuth() {
+  if (_authInitDone) return;
+  _authInitDone = true;
+
+  // Continue with the original init flow
   if (isDark) document.documentElement.classList.add('dark');
   updateNavPill();
   updateGreetingTime();
-  
-  // ── Load all data from API in parallel ──
+
   await fetchConfig();
   const [jobs, rate, profile, subscription, balance, applications, saved, stats, notifications, payments] = await Promise.all([
     fetchJobs().catch(() => []),
@@ -5302,18 +5864,17 @@ async function init() {
     fetchNotifications().catch(() => []),
     fetchPayments().catch(() => []),
   ]);
-  
-  // Apply loaded data
+
   if (balance !== null && balance !== undefined) {
     const moreBalanceEl = document.getElementById('moreBalanceValue');
     if (moreBalanceEl) moreBalanceEl.textContent = balance;
   }
-  
+
   if (saved && saved.length > 0) {
     savedJobs = saved.map(s => s.jobId);
     lsSetJSON('skillhunt_saved', savedJobs);
   }
-  
+
   if (applications && applications.length > 0) {
     const localApps = applications.map(a => ({
       jobId: a.jobId, jobTitle: a.jobTitle || '', date: a.date,
@@ -5321,19 +5882,19 @@ async function init() {
     }));
     lsSetJSON('skillhunt_applications', localApps);
   }
-  
+
   loadProfile();
   loadNotifSettings();
   updateProfileCompleteness();
   updateAppCount();
   updateSavedCount();
-  
+
   const savedLang = lsGet('skillhunt_language', 'ru');
   if (savedLang === 'en') applyLanguage('en');
-  
+
   document.getElementById('feedSkeleton').style.display = 'block';
   document.getElementById('feedJobList').style.display = 'none';
-  
+
   isLoading = false;
   document.getElementById('feedSkeleton').style.display = 'none';
   document.getElementById('feedJobList').style.display = 'block';
@@ -5342,25 +5903,51 @@ async function init() {
   renderSavedJobs();
   renderResponses();
   updateHeroMetrics();
-  
+
   setupSwipe();
   updateHeroMetrics();
-  
-  // ── Subscription system ──
+
   const sub = getSubscription();
   renderTrialBar();
-  
-  // ── Habit-forming widgets ──
-  
-  // Check if trial has ended — show conversion modal
+
   if (sub.trialStartedAt && sub.plan === 'free' && !sub.trialOfferShown) {
     setTimeout(() => checkTrialEnd(), 2000);
   }
-  
-  // Check onboarding
+
   if (!lsGet('skillhunt_onboarded')) {
     setTimeout(() => showOnboarding(), 800);
   } else if (sub.plan === 'free' && !sub.trialStartedAt) {
+    setTimeout(() => {
+      // Show trial welcome
+    }, 1500);
+  }
+}
+
+async function init() {
+  // ── Show splash screen ──
+  const splash = document.getElementById('splashOverlay');
+
+  // ── Check auth status while splash is showing ──
+  await checkAuthStatus();
+
+  // ── After 1.5s, decide what to show ──
+  setTimeout(async () => {
+    if (splash) splash.classList.add('hidden');
+
+    if (!AUTH_STATE.registered) {
+      // Not registered — show registration or login
+      if (AUTH_STATE.suspicious) {
+        showLoginScreen();
+      } else {
+        showRegisterScreen();
+      }
+      return; // Stop — wait for auth completion
+    }
+
+    // Already registered — go straight to app
+    await initAppAfterAuth();
+  }, 1500);
+}
     // Show trial welcome for new users who completed onboarding but haven't started trial
     setTimeout(() => {
       document.getElementById('trialWelcomeOverlay').classList.add('active');
