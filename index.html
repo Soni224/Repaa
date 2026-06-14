@@ -5927,8 +5927,8 @@ async function init() {
   // ── Show splash screen ──
   const splash = document.getElementById('splashOverlay');
 
-  // ── Check auth status while splash is showing ──
-  await checkAuthStatus();
+  // ── Check auth status in background (don't block!) ──
+  checkAuthStatus().catch(() => {});
 
   // ── After 1.5s, decide what to show ──
   setTimeout(async () => {
