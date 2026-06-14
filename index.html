@@ -3849,6 +3849,11 @@ select.inp option,select option{background:#121827;color:var(--text)}
   opacity: 0; visibility: hidden; pointer-events: none;
 }
 
+/* Скрываем основное приложение при показе auth экранов */
+body.auth-pending .shell {
+  visibility: hidden;
+}
+
 .auth-container {
   width: 100%; max-width: 380px;
   display: flex; flex-direction: column;
@@ -4037,7 +4042,7 @@ select.inp option,select option{background:#121827;color:var(--text)}
     </div>
     <div class="auth-title">Создать аккаунт</div>
     <div class="auth-subtitle">Зарегистрируйтесь, чтобы находить заказы и зарабатывать</div>
-    <div class="auth-form" id="registerForm">
+    <form class="auth-form" id="registerForm" onsubmit="handleRegister(); return false;">
       <div class="auth-field">
         <label>Имя</label>
         <input type="text" id="regFirstName" placeholder="Ваше имя" autocomplete="given-name">
@@ -4084,8 +4089,8 @@ select.inp option,select option{background:#121827;color:var(--text)}
         </div>
         <div class="auth-error" id="regPasswordError">Пароль минимум 6 символов</div>
       </div>
-      <button class="auth-btn" id="registerBtn" onclick="handleRegister()">Зарегистрироваться</button>
-    </div>
+      <button type="submit" class="auth-btn" id="registerBtn">Зарегистрироваться</button>
+    </form>
     <div class="auth-link">
       Уже есть аккаунт? <a href="#" onclick="showLoginFromRegister(); return false;">Войти</a>
     </div>
@@ -4107,7 +4112,7 @@ select.inp option,select option{background:#121827;color:var(--text)}
       <svg class="auth-warning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       <div class="auth-warning-text">Мы заметили необычную активность. Для защиты вашего аккаунта требуется подтверждение личности.</div>
     </div>
-    <div class="auth-form" id="loginForm">
+    <form class="auth-form" id="loginForm" onsubmit="handleLogin(); return false;">
       <div class="auth-field">
         <label>Email</label>
         <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
@@ -4126,8 +4131,8 @@ select.inp option,select option{background:#121827;color:var(--text)}
       <div class="auth-forgot">
         <a href="#" onclick="showToast('Обратитесь в поддержку через Telegram'); return false;">Забыли пароль?</a>
       </div>
-      <button class="auth-btn" id="loginBtn" onclick="handleLogin()">Войти</button>
-    </div>
+      <button type="submit" class="auth-btn" id="loginBtn">Войти</button>
+    </form>
     <div class="auth-divider"><span>или</span></div>
     <div class="auth-link">
       Нет аккаунта? <a href="#" onclick="showRegisterFromLogin(); return false;">Зарегистрироваться</a>
@@ -5672,15 +5677,25 @@ async function checkAuthStatus() {
       AUTH_STATE.suspicious = false;
       return;
     }
-    const resp = await fetch(apiUrl('/api/auth/check'));
+    // Timeout 3s — если API не ответил, идём дальше
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000);
+    const resp = await fetch(apiUrl('/api/auth/check'), { signal: controller.signal });
+    clearTimeout(timeout);
     if (resp.ok) {
       const data = await resp.json();
       AUTH_STATE.registered = data.registered;
       AUTH_STATE.suspicious = data.suspicious;
       AUTH_STATE.authMethod = data.auth_method;
+    } else if (resp.status >= 500) {
+      // Серверная ошибка — не заставляем перерегистрироваться
+      // Считаем что пользователь зарегистрирован (лучшая пользовательский опыт)
+      AUTH_STATE.registered = true;
     }
   } catch(e) {
     console.warn('Auth check failed:', e);
+    // Ошибка сети — не заставляем перерегистрироваться
+    AUTH_STATE.registered = lsGet('skillhunt_registered') === 'true';
   }
 }
 
@@ -5691,6 +5706,7 @@ function showRegisterScreen() {
   if (splash) splash.classList.add('hidden');
   if (login) login.classList.add('hidden');
   if (reg) reg.classList.remove('hidden');
+  document.body.classList.add('auth-pending');
 
   // Pre-fill from Telegram
   if (TG_USER) {
@@ -5706,6 +5722,7 @@ function showLoginScreen() {
   if (splash) splash.classList.add('hidden');
   if (reg) reg.classList.add('hidden');
   if (login) login.classList.remove('hidden');
+  document.body.classList.add('auth-pending');
 }
 
 function showLoginFromRegister() {
@@ -5720,6 +5737,8 @@ function hideAuthScreens() {
   const login = document.getElementById('loginOverlay');
   if (reg) reg.classList.add('hidden');
   if (login) login.classList.add('hidden');
+  document.body.classList.remove('auth-pending');
+  hideAllAuthErrors();
 }
 
 async function handleRegister() {
@@ -5844,7 +5863,7 @@ async function handleLogin() {
 let _authInitDone = false;
 async function initAppAfterAuth() {
   if (_authInitDone) return;
-  _authInitDone = true;
+  // Флаг ставим в конце, чтобы при ошибке можно было повторить
 
   // Continue with the original init flow
   if (isDark) document.documentElement.classList.add('dark');
@@ -5918,20 +5937,31 @@ async function initAppAfterAuth() {
     setTimeout(() => showOnboarding(), 800);
   } else if (sub.plan === 'free' && !sub.trialStartedAt) {
     setTimeout(() => {
-      // Show trial welcome
+      const overlay = document.getElementById('trialWelcomeOverlay');
+      if (overlay) overlay.classList.add('active');
     }, 1500);
   }
+
+  // Сохраняем статус регистрации для offline fallback
+  lsSet('skillhunt_registered', 'true');
+  _authInitDone = true;
 }
 
 async function init() {
   // ── Show splash screen ──
   const splash = document.getElementById('splashOverlay');
 
-  // ── Check auth status in background (don't block!) ──
-  checkAuthStatus().catch(() => {});
+  // ── Check auth status with timeout fallback ──
+  let authChecked = false;
+  const authPromise = checkAuthStatus().then(() => { authChecked = true; }).catch(() => { authChecked = true; });
 
   // ── After 1.5s, decide what to show ──
   setTimeout(async () => {
+    // Если проверка ещё не завершилась — ждём ещё максимум 2с
+    if (!authChecked) {
+      await Promise.race([authPromise, new Promise(r => setTimeout(r, 2000))]);
+    }
+
     if (splash) splash.classList.add('hidden');
 
     if (!AUTH_STATE.registered) {
@@ -5947,12 +5977,6 @@ async function init() {
     // Already registered — go straight to app
     await initAppAfterAuth();
   }, 1500);
-}
-    // Show trial welcome for new users who completed onboarding but haven't started trial
-    setTimeout(() => {
-      document.getElementById('trialWelcomeOverlay').classList.add('active');
-    }, 1200);
-  }
 }
 
 // ── Hero Metrics — Dynamic Update ──
