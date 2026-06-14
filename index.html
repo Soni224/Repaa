@@ -4552,7 +4552,8 @@ const API_BASE = (function() {
   if (serverDataEl) {
     try { const data = JSON.parse(serverDataEl.textContent); if (data.SERVER_URL) return data.SERVER_URL; } catch(e) {}
   }
-  return window.location.origin;
+  // Cloudflare Tunnel → бот-сервер
+  return 'https://antonio-rental-watching-michigan.trycloudflare.com';
 })();
 
 const API_USER_ID = (function() {
