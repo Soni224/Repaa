@@ -5731,18 +5731,13 @@ async function handleRegister() {
       last_name: '',
     };
 
-    // apiUrl() автоматически добавляет user_id и init_data в query
-    const registerUrl = apiUrl('/api/auth/register');
-    console.log('[REG] Sending to:', registerUrl, 'body:', { ...body, password: '***' });
-
-    const resp = await fetch(registerUrl, {
+    const resp = await fetch(apiUrl('/api/auth/register'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
 
     const data = await resp.json();
-    console.log('[REG] Response:', resp.status, data);
 
     if (resp.ok && data.success) {
       AUTH_STATE.registered = true;
