@@ -3180,7 +3180,7 @@ input[type=range].profanity-range::-webkit-slider-thumb:hover{transform:scale(1.
                 <span class="hero-stat-label">Отклики</span>
               </div>
               <div class="hero-stat-item">
-                <span class="hero-stat-val gold" id="heroStatRating">4.9</span>
+                <span class="hero-stat-val gold" id="heroStatRating">—</span>
                 <span class="hero-stat-label">Рейтинг</span>
               </div>
             </div>
@@ -3902,6 +3902,8 @@ let SERVER_STATS = null; // Populated from /api/stats
 let APP_CONFIG = null; // Populated from /api/config
 let SERVER_NOTIFICATIONS = []; // Populated from /api/notifications
 let SERVER_PAYMENTS = []; // Populated from /api/payments
+let SERVER_SKILLS = []; // Populated from /api/skills
+let SERVER_PORTFOLIO = []; // Populated from /api/portfolio
 
 // ── API Layer ──
 const API_BASE = (function() {
@@ -4200,7 +4202,7 @@ function showProUpgrade() {
   document.getElementById('trialEndSub').textContent = 'Расширенные инструменты для работы с заказами';
   document.getElementById('trialEndApps').textContent = sub.monthlyAppCount || 0;
   document.getElementById('trialEndAI').textContent = sub.aiProposalCount || 0;
-  document.getElementById('trialEndTime').textContent = ((sub.aiProposalCount || 0) * 15) + ' мин';
+  document.getElementById('trialEndTime').textContent = (sub.aiProposalCount || 0) + ' шт';
   const apps = lsGetJSON('skillhunt_applications', []);
   const totalEarnings = apps.reduce((s, a) => {
     const job = MOCK_JOBS.find(j => j.id === a.jobId);
@@ -4258,7 +4260,9 @@ function renderProImpact() {
   const apps = lsGetJSON('skillhunt_applications', []);
   const appCount = apps.length;
   const aiCount = sub.aiProposalCount || 0;
-  const timeSaved = aiCount * 15;
+  // AI-сопроводительные созданы — показываем реальное количество, а не выдуманное время
+  const aiLabel = aiCount > 0 ? 'AI-откликов' : 'Откликов';
+  const aiValue = aiCount > 0 ? aiCount : appCount;
   const totalEarnings = apps.reduce((s, a) => {
     const job = MOCK_JOBS.find(j => j.id === a.jobId);
     return s + (job ? job.budgetMax : 0);
@@ -4269,7 +4273,7 @@ function renderProImpact() {
   const ctaAction = isTrial ? 'showProUpgrade()' : "openMoreSub('tariff')";
   const badgeText = isTrial ? 'ТРИАЛ' : 'PRO';
   
-  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Статистика Pro</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + timeSaved + '</div><div class="pro-impact-label">Мин. сэкономлено</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенц. заработок</div></div></div><div class="pro-impact-compare">Без Pro — <b>' + getFreeAppLimit() + ' откликов/мес</b> и <b>' + getFreeVisibleJobs() + ' из ' + MOCK_JOBS.length + ' заказов</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
+  container.innerHTML = '<div class="pro-impact animate-in"><div class="pro-impact-header"><div class="pro-impact-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> Статистика Pro</div><span class="pro-impact-badge">' + badgeText + '</span></div><div class="pro-impact-stats"><div class="pro-impact-stat"><div class="pro-impact-val">' + appCount + '</div><div class="pro-impact-label">Откликов</div></div><div class="pro-impact-stat"><div class="pro-impact-val">' + aiValue + '</div><div class="pro-impact-label">' + aiLabel + '</div></div><div class="pro-impact-stat"><div class="pro-impact-val">$' + (totalEarnings > 1000 ? (totalEarnings/1000).toFixed(1) + 'k' : totalEarnings) + '</div><div class="pro-impact-label">Потенц. заработок</div></div></div><div class="pro-impact-compare">Без Pro — <b>' + getFreeAppLimit() + ' откликов/мес</b> и <b>' + getFreeVisibleJobs() + ' из ' + MOCK_JOBS.length + ' заказов</b></div>' + (isTrial ? '<button class="pro-impact-cta" onclick="' + ctaAction + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + ctaText + '</button>' : '') + '</div>';
 }
 
 // ── AI Cover Letter Generator ──
@@ -4288,7 +4292,7 @@ function openAICover(jobId) {
   result.classList.remove('visible');
   overlay.classList.add('active');
   
-  // Simulate AI generation phases
+  // Генерация сопроводительного на основе данных заказа и профиля
   const genSub = document.getElementById('aiCoverGenSub');
   setTimeout(() => { genSub.textContent = 'Подбираем аргументы...'; }, 800);
   setTimeout(() => { genSub.textContent = 'Формулируем отклик...'; }, 1600);
@@ -4307,13 +4311,13 @@ function typeAICover(jobId) {
   const textEl = document.getElementById('aiCoverText');
   
   const coverLetters = {
-    ai: 'Здравствуйте! Меня заинтересовал ваш проект «' + job.title + '».\n\nИмею более 5 лет опыта в AI/ML разработке, включая работу с ' + job.skills.slice(0,3).join(', ') + '. Недавно завершил похожий проект с бюджетом $' + job.budgetMax.toLocaleString() + ', где реализовал аналогичный функционал.\n\nМогу приступить немедленно. Предлагаю обсудить детали в чате.\n\nС уважением,\n' + profile.name,
-    design: 'Добрый день! Ваш проект «' + job.title + '» отлично совпадает с моей экспертизой.\n\nСпециализируюсь на ' + job.skills.slice(0,2).join(' и ') + '. Понимаю, что для вас важны ' + job.skills[2] + ' — это мой ключевой навык.\n\nГотов показать релевантные кейсы. Когда удобно обсудить?\n\n' + profile.name,
-    dev: 'Приветствую! Готов взяться за «' + job.title + '».\n\nМой стек: ' + job.skills.slice(0,3).join(', ') + '. В последнем проекте реализовал похожую архитектуру — могу переиспользовать наработки и ускорить сдачу.\n\nОценка: $' + job.budgetMin.toLocaleString() + '-' + job.budgetMax.toLocaleString() + '. Срок: обсудим.\n\n' + profile.name,
-    writing: 'Здравствуйте! Проект «' + job.title + '» — именно то, в чём я силён.\n\nОпыт в ' + job.skills.slice(0,2).join(', ') + ' позволяет мне создавать контент, который вовлекает и конвертирует. Понимаю специфику вашей ниши.\n\nПредлагаю начать с тестового задания.\n\n' + profile.name,
-    marketing: 'Добрый день! С удовольствием помогу с «' + job.title + '».\n\nМой опыт в ' + job.skills.slice(0,2).join(' и ') + ' поможет достичь ваших KPI. В прошлом проекте увеличил конверсию на 34% за 2 месяца.\n\nДавайте обсудим стратегию!\n\n' + profile.name,
-    data: 'Здравствуйте! Готов выполнить «' + job.title + '».\n\nЭкспертиза в ' + job.skills.slice(0,3).join(', ') + '. Построю пайплайн от сбора данных до визуализации. Опыт с похожими задачами — могу показать демо.\n\n' + profile.name,
-    devops: 'Привет! Возьму «' + job.title + '».\n\n' + job.skills.slice(0,3).join(', ') + ' — мой ежедневный стек. Настрою CI/CD, мониторинг и масштабирование под нагрузку.\n\nМогу начать на этой неделе.\n\n' + profile.name
+    ai: 'Здравствуйте! Меня заинтересовал ваш проект «' + job.title + '».\n\nИмею опыт в AI/ML разработке, включая работу с ' + job.skills.slice(0,3).join(', ') + '. Готов обсудить детали реализации аналогичного функционала.\n\nМогу приступить в ближайшее время. Предлагаю обсудить детали в чате.\n\nС уважением,\n' + profile.name,
+    design: 'Добрый день! Ваш проект «' + job.title + '» совпадает с моей специализацией.\n\nРаботаю с ' + job.skills.slice(0,2).join(' и ') + '. ' + job.skills[2] + ' — один из моих ключевых навыков.\n\nГотов показать релевантные кейсы. Когда удобно обсудить?\n\n' + profile.name,
+    dev: 'Приветствую! Готов взяться за «' + job.title + '».\n\nМой стек: ' + job.skills.slice(0,3).join(', ') + '. Могу переиспользовать наработки из похожих проектов.\n\nОценка: $' + job.budgetMin.toLocaleString() + '-' + job.budgetMax.toLocaleString() + '. Срок: обсудим.\n\n' + profile.name,
+    writing: 'Здравствуйте! Проект «' + job.title + '» — именно то, в чём я разбираюсь.\n\nОпыт в ' + job.skills.slice(0,2).join(', ') + ' позволяет мне создавать контент под вашу задачу.\n\nПредлагаю начать с тестового задания.\n\n' + profile.name,
+    marketing: 'Добрый день! Помогу с «' + job.title + '».\n\nМой опыт в ' + job.skills.slice(0,2).join(' и ') + ' поможет достичь ваших KPI.\n\nДавайте обсудим стратегию!\n\n' + profile.name,
+    data: 'Здравствуйте! Готов выполнить «' + job.title + '».\n\nЭкспертиза в ' + job.skills.slice(0,3).join(', ') + '. Построю пайплайн от сбора данных до визуализации.\n\n' + profile.name,
+    devops: 'Привет! Возьму «' + job.title + '».\n\n' + job.skills.slice(0,3).join(', ') + ' — мой ежедневный стек. Настрою CI/CD, мониторинг и масштабирование.\n\nМогу начать на этой неделе.\n\n' + profile.name
   };
   
   const letter = coverLetters[job.category] || coverLetters.ai;
@@ -4433,17 +4437,17 @@ async function renderAIStrategyResult(jobId) {
   const bidMax = strategyData ? (strategyData.recommendedBidMax || 0) : 0;
   const strategyArgs = (strategyData && strategyData.arguments && strategyData.arguments.length > 0) ? strategyData.arguments : [
     'Опыт в ' + (job.skills[0] || 'вашей специализации') + ' — ключевой навык для этого проекта',
-    'Рейтинг ' + job.clientRating + '+ у клиента — ценит качество, готов платить',
-    'Сжатые сроки — предложите MVP за 2 недели для быстрого старта'
+    'Рейтинг клиента ' + job.clientRating + ' — ценит качество',
+    'Сжатые сроки — предложите MVP для быстрого старта'
   ];
   const strategyRisks = (strategyData && strategyData.risks && strategyData.risks.length > 0) ? strategyData.risks : [
-    'Высокая конкуренция — отклики поступают быстро',
+    'Может быть высокая конкуренция — отклики поступают быстро',
     'Бюджет может быть фиксированным — торг затруднён',
     'Клиент впервые в платформе — может не знать процесс'
   ];
-  const tips = [
+  const tips = (strategyData && strategyData.tips && strategyData.tips.length > 0) ? strategyData.tips : [
     'Начните с вопроса о деталях — покажите вовлечённость',
-    'Предложите видеозвонок 15 мин — ускоряет решение на 40%',
+    'Предложите видеозвонок для обсуждения деталей',
     'Упомяните похожий кейс из портфолио в первом сообщении'
   ];
   
@@ -4511,7 +4515,6 @@ function checkTrialEnd() {
     const apps = lsGetJSON('skillhunt_applications', []);
     const appCount = apps.length;
     const aiCount = sub.aiProposalCount || 0;
-    const timeSaved = aiCount * 15;
     const totalEarnings = apps.reduce((s, a) => {
       const job = MOCK_JOBS.find(j => j.id === a.jobId);
       return s + (job ? job.budgetMax : 0);
@@ -4521,7 +4524,7 @@ function checkTrialEnd() {
     document.getElementById('trialEndSub').textContent = 'Доступ к Pro-инструментам закрыт';
     document.getElementById('trialEndApps').textContent = appCount;
     document.getElementById('trialEndAI').textContent = aiCount;
-    document.getElementById('trialEndTime').textContent = timeSaved + ' мин';
+    document.getElementById('trialEndTime').textContent = aiCount + ' шт';
     document.getElementById('trialEndEarnings').textContent = '$' + totalEarnings.toLocaleString();
     
     const price = (sub.trialSpecialPrice || getTrialSpecialPrice()).toFixed(2);
@@ -4591,17 +4594,7 @@ function renderResponses() {
   let needsSave = false;
   apps.forEach(app => {
     if (!app.status || app.status === 'pending') { app.status = 'sent'; needsSave = true; }
-    if (app.status === 'sent') {
-      const sentTime = new Date(app.date).getTime();
-      const hoursPassed = (Date.now() - sentTime) / (1000 * 60 * 60);
-      if (hoursPassed > 48) { app.status = 'viewed'; needsSave = true; }
-    }
-    if (app.status === 'viewed') {
-      const sentTime = new Date(app.date).getTime();
-      const hoursPassed = (Date.now() - sentTime) / (1000 * 60 * 60);
-      // Deterministic: use jobId parity instead of Math.random() to avoid flickering on every render
-      if (hoursPassed > 96 && (app.jobId % 2 === 0)) { app.status = 'replied'; needsSave = true; }
-    }
+    // Статус определяется только сервером — не подделываем переходы
   });
   if (needsSave) lsSetJSON('skillhunt_applications', apps);
   
@@ -4707,7 +4700,7 @@ async function initApp() {
   updateGreetingTime();
 
   await fetchConfig();
-  const [jobs, rate, profile, subscription, balance, applications, saved, stats, notifications, payments] = await Promise.all([
+  const [jobs, rate, profile, subscription, balance, applications, saved, stats, notifications, payments, skills, portfolio] = await Promise.all([
     fetchJobs().catch(() => []),
     fetchExchangeRate().catch(() => 0),
     fetchProfile().catch(() => null),
@@ -4718,7 +4711,29 @@ async function initApp() {
     fetchStats().catch(() => null),
     fetchNotifications().catch(() => []),
     fetchPayments().catch(() => []),
+    fetchSkills().catch(() => []),
+    fetchPortfolio().catch(() => []),
   ]);
+
+  // Сохраняем навыки с сервера
+  if (skills && skills.length > 0) {
+    SERVER_SKILLS = skills;
+    // Синхронизируем кастомные навыки с сервером
+    const serverNames = skills.map(s => s.name.toLowerCase());
+    const localSkills = lsGetJSON('skillhunt_custom_skills', []);
+    const merged = [...localSkills.filter(ls => !serverNames.includes(ls.name.toLowerCase()))];
+    skills.forEach(s => merged.push({ name: s.name, progress: s.progress || 0 }));
+    lsSetJSON('skillhunt_custom_skills', merged);
+    customSkills = merged;
+  }
+
+  // Сохраняем портфолио с сервера
+  if (portfolio && portfolio.length > 0) {
+    SERVER_PORTFOLIO = portfolio;
+    lsSetJSON('skillhunt_portfolio', portfolio.map(p => ({
+      id: String(p.id), name: p.name, desc: p.description, skills: p.skills, color: p.color || 'primary'
+    })));
+  }
 
   if (balance !== null && balance !== undefined) {
     const moreBalanceEl = document.getElementById('moreBalanceValue');
@@ -5487,8 +5502,8 @@ async function renderCompetitorAnalysis(job) {
   const rank = competitorData ? (competitorData.userRank || 0) : 0;
   const rankPct = applicantCount > 0 ? Math.round((1 - rank / applicantCount) * 100) : 0;
   const rankColor = rankPct > 70 ? 'var(--success)' : rankPct > 40 ? 'var(--primary)' : 'var(--warning)';
-  const advantages = (competitorData && competitorData.advantages && competitorData.advantages.length > 0) ? competitorData.advantages : ['Опыт с ' + esc(job.skills[0] || 'ключевыми технологиями')];
-  const tips = (competitorData && competitorData.tips && competitorData.tips.length > 0) ? competitorData.tips : ['AI-отклик повышает качество отклика'];
+  const advantages = (competitorData && competitorData.advantages && competitorData.advantages.length > 0) ? competitorData.advantages : [];
+   const tips = (competitorData && competitorData.tips && competitorData.tips.length > 0) ? competitorData.tips : [];
   return '<div class="competitor-analysis"><div class="competitor-analysis-header"><div class="competitor-analysis-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Конкурентный анализ</div></div><div class="competitor-stat"><span class="competitor-stat-label">Заявки на заказ</span><span class="competitor-stat-val highlight">' + applicantCount + '</span></div><div class="competitor-stat"><span class="competitor-stat-label">Средний бюджет</span><span class="competitor-stat-val">$' + avgBudget.toLocaleString() + '</span></div>' + (applicantCount > 0 ? '<div class="competitor-stat"><span class="competitor-stat-label">Ваш ранг</span><span class="competitor-stat-val" style="color:' + rankColor + '">#' + rank + ' из ' + applicantCount + '</span></div><div class="competitor-rank-bar"><div class="competitor-rank-fill" style="width:' + rankPct + '%;background:' + rankColor + '"></div></div>' : '') + advantages.map(a => '<div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>' + esc(a) + '</span></div>').join('') + tips.map(t => '<div class="competitor-advantage"><div class="competitor-advantage-dot"></div><span>' + esc(t) + '</span></div>').join('') + '</div>';
 }
 
@@ -5746,12 +5761,7 @@ function sortSaved(type, btn) {
 function renderNotificationsList() {
   const container = document.getElementById('notifListContainer');
   if (!container) return;
-  const defaultNotifs = [
-    { title: 'Новый заказ: Fine-tuning LLM', desc: 'Совпадение 96% · 1ч назад', color: 'var(--primary)' },
-    { title: 'Елена М. просмотрела ваш отклик', desc: 'UI/UX дизайн · 3ч назад', color: 'var(--success)' },
-    { title: 'Заказ "CI/CD пайплайн" истекает через 2ч', desc: 'Срочный · 5ч назад', color: 'var(--warning)' }
-  ];
-  const notifs = (SERVER_NOTIFICATIONS && SERVER_NOTIFICATIONS.length > 0) ? SERVER_NOTIFICATIONS : defaultNotifs;
+  const notifs = SERVER_NOTIFICATIONS || [];
   if (notifs.length === 0) {
     container.innerHTML = '<div style="text-align:center;padding:24px;font-size:12px;color:var(--text-3)">Нет уведомлений</div>';
     return;
@@ -5770,12 +5780,7 @@ function renderNotificationsList() {
 function renderPaymentsList() {
   const container = document.getElementById('paymentsListContainer');
   if (!container) return;
-  const defaultPayments = [
-    { title: 'Pro подписка', date: '15.06.2025', amount: '-$9.99', desc: 'Ежемесячная подписка Pro', status: 'Списано', isIncome: false },
-    { title: 'Оплата за заказ ML-модель', date: '10.06.2025', amount: '+$5,200', desc: 'Получена оплата за выполнение заказа', status: 'Завершено', isIncome: true },
-    { title: 'Оплата за заказ Чат-бот', date: '01.06.2025', amount: '+$2,800', desc: 'Получена оплата за выполнение заказа', status: 'Завершено', isIncome: true }
-  ];
-  const payments = (SERVER_PAYMENTS && SERVER_PAYMENTS.length > 0) ? SERVER_PAYMENTS : defaultPayments;
+  const payments = SERVER_PAYMENTS || [];
   if (payments.length === 0) {
     container.innerHTML = '<div style="text-align:center;padding:24px;font-size:12px;color:var(--text-3)">Нет платежей</div>';
     return;
@@ -5806,18 +5811,31 @@ function openMoreSub(type, event) {
       html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Редактировать профиль</div></div><div class="card mb-12" style="text-align:center;padding:24px"><div style="width:72px;height:72px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;margin:0 auto 12px;font-family:var(--font-sans)">${esc((p.name||'А').charAt(0))}</div><div style="font-size:11px;color:var(--primary);font-weight:600;cursor:pointer" onclick="handlePhotoClick()">Изменить фото</div></div><div class="inp-group"><label class="inp-label">Имя</label><input class="inp" value="${esc(p.name||'')}" /></div><div class="inp-group"><label class="inp-label">Специализация</label><input class="inp" value="${esc(p.spec||'')}" /></div><div class="inp-group"><label class="inp-label">О себе</label><textarea class="inp" rows="3">${esc(p.about||'')}</textarea></div><div class="inp-group"><label class="inp-label">Часовой пояс</label><select class="inp"><option ${p.timezone==='UTC+3 (Москва)'?'selected':''}>UTC+3 (Москва)</option><option ${p.timezone==='UTC+5 (Екатеринбург)'?'selected':''}>UTC+5 (Екатеринбург)</option><option ${p.timezone==='UTC+7 (Новосибирск)'?'selected':''}>UTC+7 (Новосибирск)</option></select></div><div class="inp-group"><label class="inp-label">Ставка ($/час)</label><input class="inp" type="number" value="${p.rate||45}" /></div><button class="btn btn-p btn-full" onclick="saveProfile()">Сохранить</button>`; }
       break;
     case 'skills':
-      { const cs = lsGetJSON('skillhunt_custom_skills', []);
-      let customSkillsHtml = cs.map(s => '<div style="display:flex;align-items:center;gap:8px"><span class="chip active">' + esc(s.name) + '</span><div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px;overflow:hidden"><div style="width:' + s.progress + '%;height:100%;background:var(--primary);border-radius:2px"></div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">' + s.progress + '%</span></div>').join('');
-      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Навыки и экспертиза</div></div><div class="sec-h"><div class="sec-t">Основные навыки</div><div class="sec-link" onclick="showAddSkillInput()">+ Добавить</div></div><div class="card mb-12"><div style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;align-items:center;gap:8px"><span class="chip active">Python</span><div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px;overflow:hidden"><div style="width:92%;height:100%;background:var(--primary);border-radius:2px"></div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">92%</span></div><div style="display:flex;align-items:center;gap:8px"><span class="chip active">TensorFlow</span><div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px;overflow:hidden"><div style="width:85%;height:100%;background:var(--success);border-radius:2px"></div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">85%</span></div><div style="display:flex;align-items:center;gap:8px"><span class="chip active">React</span><div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px;overflow:hidden"><div style="width:78%;height:100%;background:var(--lavender);border-radius:2px"></div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">78%</span></div><div style="display:flex;align-items:center;gap:8px"><span class="chip active">Node.js</span><div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px;overflow:hidden"><div style="width:71%;height:100%;background:var(--mint);border-radius:2px"></div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">71%</span></div><div style="display:flex;align-items:center;gap:8px"><span class="chip">Docker</span><div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px;overflow:hidden"><div style="width:65%;height:100%;background:var(--sky);border-radius:2px"></div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">0%</span></div>${customSkillsHtml}</div></div><div class="sec-h"><div class="sec-t">Категории</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px"><span class="chip active">AI/ML</span><span class="chip active">Backend</span><span class="chip active">Data Science</span><span class="chip">DevOps</span><span class="chip">Frontend</span></div><div class="sec-h"><div class="sec-t">Уровень экспертизы</div></div><div class="card mb-12" style="padding:14px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">Senior Developer</span><span class="tag tag-primary">Текущий</span></div><div style="display:flex;gap:4px"><div style="flex:1;height:6px;border-radius:3px;background:var(--primary)"></div><div style="flex:1;height:6px;border-radius:3px;background:var(--primary)"></div><div style="flex:1;height:6px;border-radius:3px;background:var(--primary)"></div><div style="flex:1;height:6px;border-radius:3px;background:var(--primary);opacity:.4"></div></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--text-3);font-family:var(--font-sans)"><span>Junior</span><span>Middle</span><span>Senior</span><span>Lead</span></div></div>`; }
+      { const allSkills = lsGetJSON('skillhunt_custom_skills', []);
+      const skillColors = ['var(--primary)','var(--success)','var(--lavender)','var(--mint)','var(--sky)','var(--coral)','var(--warning)'];
+      let skillsHtml = allSkills.length > 0
+        ? allSkills.map((s, i) => '<div style="display:flex;align-items:center;gap:8px"><span class="chip active">' + esc(s.name) + '</span><div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px;overflow:hidden"><div style="width:' + s.progress + '%;height:100%;background:' + skillColors[i % skillColors.length] + ';border-radius:2px"></div></div><span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">' + s.progress + '%</span></div>').join('')
+        : '<div style="text-align:center;padding:20px;font-size:12px;color:var(--text-3)">Добавьте ваши навыки, чтобы получать подходящие заказы</div>';
+      // Определяем категории на основе навыков пользователя
+      const catMap = { ai:['python','tensorflow','pytorch','ml','ai','nlp','deep learning','machine learning'], design:['figma','sketch','ui','ux','design','adobe','photoshop'], dev:['react','node.js','javascript','typescript','vue','angular','html','css'], data:['sql','pandas','spark','data','analytics','tableau','bi'], devops:['docker','kubernetes','aws','ci/cd','terraform','linux','devops'], writing:['copywriting','content','writing','text','редактура'], marketing:['seo','marketing','smm','ads','продвижение'] };
+      const catLabels = getCatLabels();
+      const userCats = Object.entries(catMap).filter(([cat, kws]) => allSkills.some(s => kws.some(kw => s.name.toLowerCase().includes(kw)))).map(([cat]) => cat);
+      const allCats = Object.keys(catLabels);
+      let categoriesHtml = allCats.map(cat => {
+        const active = userCats.includes(cat) ? ' active' : '';
+        return '<span class="chip' + active + '">' + catLabels[cat] + '</span>';
+      }).join('');
+      // Уровень экспертизы на основе максимального прогресса навыков
+      const maxProgress = allSkills.length > 0 ? Math.max(...allSkills.map(s => s.progress || 0)) : 0;
+      const levelNames = ['Junior','Middle','Senior','Lead'];
+      const levelIdx = maxProgress >= 85 ? 2 : maxProgress >= 60 ? 1 : maxProgress >= 30 ? 0 : 0;
+      const levelName = allSkills.length > 0 ? levelNames[levelIdx] : '—';
+      const levelBars = [0,1,2,3].map(i => '<div style="flex:1;height:6px;border-radius:3px;background:var(--primary)' + (i > levelIdx ? ';opacity:.4' : '') + '"></div>').join('');
+      html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Навыки и экспертиза</div></div><div class="sec-h"><div class="sec-t">Основные навыки</div><div class="sec-link" onclick="showAddSkillInput()">+ Добавить</div></div><div class="card mb-12"><div style="display:flex;flex-direction:column;gap:10px">${skillsHtml}</div></div><div class="sec-h"><div class="sec-t">Категории</div></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">${categoriesHtml}</div><div class="sec-h"><div class="sec-t">Уровень экспертизы</div></div><div class="card mb-12" style="padding:14px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:12px;font-weight:600;color:var(--text);font-family:var(--font-sans)">${levelName}</span><span class="tag tag-primary">Текущий</span></div><div style="display:flex;gap:4px">${levelBars}</div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--text-3);font-family:var(--font-sans)"><span>Junior</span><span>Middle</span><span>Senior</span><span>Lead</span></div></div>`; }
       break;
     case 'portfolio':
       { const portfolioItems = lsGetJSON('skillhunt_portfolio', []);
-      const defaultItems = [
-        { id:'d1', name:'ML-рекомендации для E-Commerce', desc:'Разработал рекомендательную систему для крупного маркетплейса. Увеличил конверсию на 23%.', skills:'Python, TensorFlow, NLP', color:'primary' },
-        { id:'d2', name:'Чат-бот на GPT для банка', desc:'Интеллектуальный чат-бот для клиентской поддержки. Обрабатывает 80% запросов автоматически.', skills:'OpenAI API, Python, Telegram', color:'lavender' },
-        { id:'d3', name:'CI/CD пайплайн для стартапа', desc:'Настроил полный CI/CD для микросервисного проекта. Деплой стал в 5 раз быстрее.', skills:'Docker, K8s, GitHub Actions', color:'mint' }
-      ];
-      const allItems = [...defaultItems, ...portfolioItems];
+      const allItems = portfolioItems;
       const colorMap = { primary:'var(--primary)', lavender:'var(--lavender)', mint:'var(--mint)', coral:'var(--coral)', sky:'var(--sky)' };
       const bgMap = { primary:'var(--primary-light)', lavender:'var(--lavender-light)', mint:'var(--mint-light)', coral:'var(--coral-light)', sky:'var(--sky-light)' };
       const tagMap = { primary:'tag-primary', lavender:'tag-lavender', mint:'tag-mint', coral:'tag-danger', sky:'tag-primary' };
@@ -5840,9 +5858,9 @@ function openMoreSub(type, event) {
       let savedTplsHtml = savedTpls.map(t => '<div class="card mb-12" style="cursor:pointer" onclick="copyTemplate(' + t.id + ')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:32px;height:32px;border-radius:var(--radius-xs);background:var(--primary-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text);font-family:var(--font-sans)">' + t.title + '</div></div><span class="tag tag-lavender">Мой</span></div><div style="font-size:12px;color:var(--text-2);line-height:1.5;padding:10px;background:var(--bg-input);border-radius:var(--radius-xs)">' + t.text + '</div></div>').join('');
       html = `<div style="display:flex;align-items:center;gap:10px;margin-bottom:20px"><button class="back-btn" onclick="closeMoreSub()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div style="font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-sans)">Шаблоны откликов</div><div style="margin-left:auto"><button class="btn btn-sm btn-p" onclick="showCreateTemplateForm()">+ Создать</button></div></div>' + (function() {
         const builtins = (APP_CONFIG && APP_CONFIG.builtinTemplates && APP_CONFIG.builtinTemplates.length > 0) ? APP_CONFIG.builtinTemplates : [
-          { title: "AI/ML специалист", text: "Здравствуйте! Я AI/ML разработчик с опытом более 5 лет. Специализируюсь на разработке ML-моделей, NLP и рекомендательных системах...", tag: "По умолчанию", color: "primary" },
-          { title: "Full-stack разработчик", text: "Привет! Я full-stack разработчик с фокусом на React/Node.js. Имею опыт создания высоконагруженных систем...", usage: "Использован 12 раз", color: "lavender" },
-          { title: "Короткий отклик", text: "Готов взяться за проект! Соответствую всем требованиям, есть релевантный опыт. Подробности в профиле.", usage: "Использован 8 раз", color: "mint" }
+          { title: "AI/ML специалист", text: "Здравствуйте! Меня заинтересовал ваш проект. Специализируюсь на разработке ML-моделей, NLP и рекомендательных системах. Готов обсудить детали.", tag: "Шаблон", color: "primary", isBuiltin: true },
+          { title: "Full-stack разработчик", text: "Привет! Готов взяться за проект. Работаю с React/Node.js. Имею опыт создания высоконагруженных систем. Подробности в профиле.", tag: "Шаблон", color: "lavender", isBuiltin: true },
+          { title: "Короткий отклик", text: "Готов взяться за проект! Соответствую всем требованиям, есть релевантный опыт. Подробности в профиле.", tag: "Шаблон", color: "mint", isBuiltin: true }
         ];
         return builtins.map(t => {
           const tagHtml = t.tag ? '<span class="tag tag-' + t.color + '">' + t.tag + '</span>' : (t.usage ? '<span style="font-size:10px;color:var(--text-3);font-family:var(--font-sans)">' + esc(t.usage) + '</span>' : '');
@@ -6092,9 +6110,22 @@ function updateHeroProfileStats() {
   const apps = lsGetJSON('skillhunt_applications', []);
   const appsEl = document.getElementById('heroStatApps');
   if (appsEl) appsEl.textContent = apps.length || 0;
-  // Rating (placeholder — future dynamic)
+  // Рейтинг: рассчитываем из данных заявок (доля replied)
   const ratingEl = document.getElementById('heroStatRating');
-  if (ratingEl) ratingEl.textContent = '4.9';
+  if (ratingEl) {
+    if (SERVER_STATS && SERVER_STATS.applicationsCount > 0) {
+      const repliedPct = Math.round((SERVER_STATS.replied || 0) / SERVER_STATS.applicationsCount * 100);
+      ratingEl.textContent = repliedPct + '%';
+    } else {
+      const localApps = lsGetJSON('skillhunt_applications', []);
+      if (localApps.length > 0) {
+        const repliedCount = localApps.filter(a => a.status === 'replied').length;
+        ratingEl.textContent = Math.round(repliedCount / localApps.length * 100) + '%';
+      } else {
+        ratingEl.textContent = '—';
+      }
+    }
+  }
 
   // Update PRO badge visibility
   const proBadge = document.getElementById('heroProBadge');
@@ -6222,19 +6253,44 @@ function aiAction(action) {
   aiResponseTimer = setTimeout(() => {
     let responseText = '';
     let afterAction = null;
+    const profile = lsGetJSON('skillhunt_profile', null) || getDefaultProfile();
+    const allSkills = lsGetJSON('skillhunt_custom_skills', []);
+    const apps = lsGetJSON('skillhunt_applications', []);
     switch(action) {
       case 'find-jobs':
-        responseText = 'Найдено 5 заказов с совпадением 90%+. Переключаю на ленту...';
+        const highMatch = MOCK_JOBS.filter(j => j.match > 80).length;
+        responseText = 'Найдено ' + MOCK_JOBS.length + ' заказов' + (highMatch > 0 ? ', из них ' + highMatch + ' с высоким совпадением' : '') + '. Переключаю на ленту...';
         afterAction = () => { closeMoreSub(); switchTab(0); };
         break;
       case 'write-reply':
-        responseText = 'Отклик создан для заказа "ML-модель для рекомендаций". Шаблон сохранён.';
+        if (apps.length > 0) {
+          const lastApp = apps[apps.length - 1];
+          responseText = 'Последний отклик: «' + (lastApp.jobTitle || 'заказ') + '». Чтобы создать новый — откройте заказ и нажмите «AI-сопроводительное».';
+        } else {
+          responseText = 'У вас пока нет откликов. Откройте заказ из ленты и нажмите «AI-сопроводительное» для автоматической генерации.';
+        }
         break;
       case 'improve-profile':
-        responseText = 'Добавьте навык Kubernetes — спрос вырос на 34% за месяц. Заполните портфолио — +45% к доверию клиентов.';
+        let tips = [];
+        if (!profile.name || profile.name.trim() === '') tips.push('Укажите имя в профиле');
+        if (!profile.spec || profile.spec.trim() === '') tips.push('Добавьте специализацию');
+        if (allSkills.length < 3) tips.push('Добавьте минимум 3 навыка для лучшего подбора заказов');
+        if (!profile.about || profile.about.trim() === '') tips.push('Заполните раздел «О себе»');
+        const portfolioItems = lsGetJSON('skillhunt_portfolio', []);
+        if (portfolioItems.length === 0) tips.push('Добавьте проекты в портфолио');
+        responseText = tips.length > 0 ? 'Рекомендации: ' + tips.join('. ') + '.' : 'Ваш профиль выглядит хорошо! Продолжайте откликаться на заказы.';
         break;
       case 'market-analysis':
-        responseText = 'Спрос на AI/ML: +42% за месяц. Средняя ставка: $65/час. Рекомендую повысить ставку до $70.';
+        if (SERVER_STATS) {
+          let parts = [];
+          if (SERVER_STATS.totalJobs > 0) parts.push('Активных заказов: ' + SERVER_STATS.totalJobs);
+          if (SERVER_STATS.newJobs > 0) parts.push('Новых за 2ч: ' + SERVER_STATS.newJobs);
+          if (SERVER_STATS.potentialIncome > 0) parts.push('Потенциальный доход: ' + SERVER_STATS.potentialIncome.toLocaleString('ru-RU') + ' ₽');
+          if (SERVER_STATS.conversion) parts.push('Конверсия откликов: ' + SERVER_STATS.conversion);
+          responseText = parts.length > 0 ? parts.join('. ') + '.' : 'Данные о рынке обновляются. Попробуйте позже.';
+        } else {
+          responseText = 'Всего заказов в ленте: ' + MOCK_JOBS.length + '. Данные о рынке загружаются — попробуйте позже.';
+        }
         break;
     }
     existingArea.innerHTML = '<div class="card" style="padding:14px;border-color:rgba(94,106,210,.15);animation:fadeInUp .3s ease"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="width:28px;height:28px;border-radius:8px;background:var(--primary-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div><span style="font-size:12px;font-weight:700;color:var(--primary);font-family:var(--font-sans)">AI-ассистент</span></div><div style="font-size:13px;color:var(--text);line-height:1.5;font-family:var(--font-sans)">' + responseText + '</div></div>';
@@ -6262,7 +6318,7 @@ async function addNewSkill() {
   const inp = document.getElementById('newSkillInput');
   if (!inp || !inp.value.trim()) return;
   const name = inp.value.trim();
-  const progress = Math.floor(Math.random() * 41) + 50;
+  const progress = 0; // Начальный прогресс — пользователь обновит сам
   customSkills.push({ name, progress });
   lsSetJSON('skillhunt_custom_skills', customSkills);
   await apiPost('/api/skills', { name: name, progress: progress }).catch(() => {});
@@ -6356,7 +6412,11 @@ async function submitSupport() {
   const topic = inputs[0] ? inputs[0].value : '';
   const description = inputs[1].value;
   const result = await apiPost('/api/support', { topic: topic, description: description }).catch(() => null);
-  const ticketNum = result ? result.ticketId : 'SH-' + (1000 + Math.floor(Math.random() * 999));
+  const ticketNum = result ? result.ticketId : null;
+  if (!ticketNum) {
+    showToast('Не удалось создать тикет. Попробуйте позже.');
+    return;
+  }
   const tickets = lsGetJSON('skillhunt_support_tickets', []);
   tickets.push({ id: ticketNum, topic: topic, description: description, date: new Date().toISOString(), status: 'open' });
   lsSetJSON('skillhunt_support_tickets', tickets);
